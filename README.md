@@ -1,1 +1,1 @@
-This the second year group project of group IS24
+This is the second year group project of group IS24
