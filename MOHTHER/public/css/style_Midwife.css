@@ -1,0 +1,335 @@
+/**body{
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+    background-color: #dac7f0;
+    font-family: sans-serif;
+}
+
+header{
+    position: fixed;
+    background: #8946A6;
+    padding: 20px;
+    width: 100%;
+    height: 20px;
+}
+
+.left_area img{
+    position: absolute;
+    left: 190px;
+    top: 0;
+    width: 60px;
+    height: 60px;
+    margin-right: 20%;
+}
+
+.right_area{
+    float: right;
+    margin-top: 0%;
+}
+
+.right_area a{
+    font-weight: 400px;
+    text-align: left;
+    margin-right: 30px;
+    text-decoration: none;
+    color: #F0E3FF;
+    cursor: pointer;
+    
+}
+
+
+
+/*****************************************SideBar***************************************************************/
+
+/**.sidebar{
+    background: #F0E3FF;
+    margin-top: 40px;
+    padding-top: 10px;
+    position: fixed;
+    left: 0;
+    width: 19.8%;
+    height: 100%;
+    transition: 0.5s;
+    transition-property: left;
+}
+
+.sidebar .profile_image{
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.sidebar h4{
+    color: #3E206D;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.sidebar a{
+    color: #3E206D;
+    display: block;
+    width: 100%;
+    line-height: 60px;
+    text-decoration: none;
+    padding-left: 40px;
+    box-sizing: border-box;
+    transition: 0.5s;
+    transition-property:all;
+}
+
+.sidebar a:hover{
+    background: #8946A6;
+}
+
+.sidebar i{
+    padding-right: 10px;
+}
+
+label #sidebar_btn{
+    z-index: 1;
+    color: #F0E3FF;
+    position: fixed;
+    cursor: pointer;
+    left: 40px;
+    font-size: 20px;
+    margin: 5px 0;
+    transition: 0.5s;
+    transition-property: color;
+}
+
+label #sidebar_btn:hover{
+    color: #3E206D; 
+}
+
+#check:checked ~ .sidebar{
+    left: -190px;
+}
+
+#check:checked ~ .sidebar a span{
+    display: none;
+}
+
+#check:checked ~ .sidebar a{
+    font-size: 20px;
+    margin-left: 170px;
+    width: 80px;
+}
+
+
+
+
+
+/******************************************form***************************************************************/
+/* Add padding to containers 
+.container {
+    padding: 16px;
+    margin-left: 50%;
+    margin-right: 400px;
+    position: absolute;
+    top: 70%;
+    margin-top: 30%;
+   
+    transform: translate(-30%, -70%);
+  }*/
+  
+  /* Full-width input fields */
+  input[type=text], input[type=password] , input[type=number], input[type=double] , input[type=select], input[type=int]{
+    width: 100%;
+    padding: 15px;
+    margin: 30px 0 22px 0;
+   
+    display: inline-block;
+    border: #3E206D;
+    background: #ffffff;
+  }
+  
+  input[type=text], input[type=password],input[type=number], input[type=double], input[type=int] {
+    background-color:#cca4de;
+    outline: #3E206D;
+  }
+  
+  /* Overwrite default styles of hr */
+  hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+  }
+  .Registration{
+   margin-left: 20%;
+   padding-top: 50px;
+   font-family: sans-serif;
+   font-size: medium;
+  
+   
+  }
+
+  .myButton {
+	box-shadow: 0px 0px 10px 2px #9f5ccf;
+	background:linear-gradient(to bottom, #ad31bb 5%, #64696f 100%);
+	background-color:#602c6a;
+	border-radius:24px;
+	border:1px solid #682476;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:19px;
+	padding:8px 46px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #9e3aa7;
+    margin-left: 50%;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #4b2e59 5%, #8d51b5 100%);
+	background-color:#9c349e;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+.opt{
+    width: 500px;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+/******dispalying invalid feedback***********************************************************/
+.invalid-feedback{
+    color: rgb(137, 6, 6);
+    font-size: small;
+    font-family: sans-serif;
+}
+/********sessions_success message*************************************************************/
+.successmsg{
+    color: #79103a;
+    margin-left: 40%;
+    margin-top: 10%;
+    font-size: larger;
+    font-family: cursive;
+    font-weight: 600;
+    
+}
+
+/********************************Risky Non risky page************************************************************/
+
+.calbmi{
+    color: #3E206D;
+    font-size: medium;
+}
+
+#risky {
+    background-color: #cfc ;
+    padding: 10px ;
+    border: 1px solid green ;
+  }
+
+/******************************************expectant mother records***************************************************************/
+.expectantRecords{
+    background-color: #dac7f0;
+    padding-right: 30%;
+    margin-left: 30%;
+    margin-right: 10%;
+    font-family: sans-serif;
+
+
+}
+.addExpectant{
+    float: right;
+    background-color: #8946A6;
+    border: none;
+    color: #F0E3FF;
+    width: 10vw;
+    height: 3vw;
+    font-size: 1vw;
+    font-weight: bolder;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+.Registration_sms{
+    margin-left: 20%;
+    margin-right: 200px;
+    padding-top: 50px;
+    
+    font-family: sans-serif;
+    font-size: medium;
+   
+}
+
+
+/*table in the info page*/
+table {
+    border-collapse: collapse;
+    width: 100%;
+    color: #3E206D;
+}
+  
+tr {
+    border-bottom: 1px solid #3E206D;
+}
+  
+th, td {
+    padding: 15px;
+}
+  
+th {
+    text-align: left;
+}
+
+.line {
+	border-top: 3px solid #3E206D;
+}
+
+/*two tables*/
+
+* {
+    box-sizing: border-box;
+  }
+
+.row {
+    margin-left:-5px;
+    margin-right:-5px;
+}
+    
+.column {
+    float: left;
+    width: 50%;
+    padding: 20px;
+}
+
+.column table{
+    background-color: #F0E3FF;
+}
+  
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+  
+.t1 {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    
+}
+  
+.t1 th, td {
+    text-align: left;
+    padding: 15px;
+}
+.updateDeliveredbutton{
+    float: right;
+    background-color: #8946A6;
+    border: none;
+    color: #F0E3FF;
+    width: 6vw;
+    height: 2vw;
+    font-size: 0.7vw;
+    font-weight: bolder;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    padding-top: 5%;
+}
+  
