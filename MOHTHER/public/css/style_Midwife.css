@@ -134,19 +134,29 @@ label #sidebar_btn:hover{
   }*/
   
   /* Full-width input fields */
-  input[type=text], input[type=password] , input[type=number], input[type=double] , input[type=select], input[type=int]{
+  input[type=text], input[type=password] , input[type=number], input[type=double] , input[type=select],input[type=int]{
     width: 100%;
-    padding: 15px;
-    margin: 30px 0 22px 0;
+    padding: 4%;
+    margin: 0 0 22px 0;
+    border-width: 2px;
+  /* not working*/  border: #79103a;
+  /* not working*/   border-width: 10px;
+ /* not working*/   border-style: solid;
    
     display: inline-block;
     border: #3E206D;
     background: #ffffff;
+    border-width: 10px;
+    color: #602c6a;
   }
   
-  input[type=text], input[type=password],input[type=number], input[type=double], input[type=int] {
-    background-color:#cca4de;
+  input[type=text], input[type=password],input[type=number], input[type=double], input[type=int], select {
+    background-color:#f0e0f7;
     outline: #3E206D;
+    border-width: 2px;
+    color: #602c6a;
+    
+   
   }
   
   /* Overwrite default styles of hr */
@@ -155,10 +165,11 @@ label #sidebar_btn:hover{
     margin-bottom: 25px;
   }
   .Registration{
-   margin-left: 20%;
+   margin-left: 2%;
    padding-top: 50px;
    font-family: sans-serif;
    font-size: medium;
+   
   
    
   }

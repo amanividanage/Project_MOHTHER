@@ -23,4 +23,5 @@ class ExpectantRecord {
         $results =  $this->db->resultSet();
         return $results;
     }
+    
 }

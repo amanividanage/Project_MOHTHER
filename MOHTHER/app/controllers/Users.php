@@ -316,7 +316,7 @@ public function expectant(){
                 //register user
                 if($this->userModel->register($data)){
                     //displaying the message using sessions- sessions_helpersA.php
-                  // flash('register_success', 'You have successfully completed the 2nd phase of registration of clinic attendee with the NIC number ' .'   ' . $data['nic'] . ' ' . 'with the expected date of delivery on ' .'   ' . $data['expectedDateofDelivery']);
+                //   flash('register_success', 'You have successfully completed the 2nd phase of registration of clinic attendee with the NIC number ' .'   ' . $data['nic'] . ' ' . 'with the expected date of delivery on ' .'   ' . $data['expectedDateofDelivery']);
                    
                    redirect('expectantRecords/index');
                 }else{

@@ -1,5 +1,5 @@
 <?php
-  session_start();
+ // session_start();
 
   // Flash message helper
   // EXAMPLE - flash('register_success', 'You are now registered');

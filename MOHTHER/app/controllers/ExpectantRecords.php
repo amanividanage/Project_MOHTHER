@@ -102,5 +102,33 @@
          
         }
       }
+
+      public function add(){
+
+      
+        $data = [
+          'reportNo' =>'',
+          'reportNo_err'=>'',
+          'date'=>'',
+          'date_err'=>'',
+          'weight'=>'',
+          'weight_err'=>'',
+          'vaccination'=>'',
+          'vitaminC'=>'',
+          'ironorForlate'=>'',
+          'antimarialDrugs'=>'',
+          'calcium'=>'',
+          'triposha'=>'',
+          
+          
+
+
+                
+          ];
+         
+      
+        $this->view('expectantRecords/add', $data);
+
+      }
         
 }

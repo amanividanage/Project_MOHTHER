@@ -1,5 +1,10 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
-
+<html>
+   <head>
+   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style_Midwife.css">
+   </head>
+   </head>
+</html>
 
 
 <!--?php include('dbcon.php'); //database connection function ?-->
