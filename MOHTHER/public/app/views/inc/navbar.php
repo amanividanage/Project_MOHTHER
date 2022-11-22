@@ -11,7 +11,9 @@
     
     
     <ul>
-        <?php if(isset($_SESSION['admin_id'])) : ?>
+        <?php if((isset($_SESSION['admin_id'])) || (isset($_SESSION['clinicattendee_id']))) : ?>
+            
+    <!--if((isset($_SESSION['admin_id'])) || (isset($_SESSION['clinicattendee_id'])))-->
             <li>
                 <a class="active" href="<?php echo URLROOT; ?>/admins/logout">LOGOUT</a>
             </li>
@@ -29,7 +31,7 @@
                 <a href="<?php echo URLROOT; ?>/pages/about">ABOUT US</a> 
             </li>
             <li>
-                <a href="<?php echo URLROOT; ?>/users/register">REGISTER</a>
+                <a href="<?php echo URLROOT; ?>/clinicattendees/register">REGISTER</a>
             </li>
             <li class="dropdown-login">
                 <a href="">LOGIN</a>
@@ -37,7 +39,7 @@
                     <a href="<?php echo URLROOT; ?>/admins/login">Admin</a>
                     <a href="<?php echo URLROOT; ?>/midwifes/login">Midwife</a>
                     <a href="<?php echo URLROOT; ?>/doctors/login">Doctor</a>
-                    <a href="<?php echo URLROOT; ?>/users/login">User</a>
+                    <a href="<?php echo URLROOT; ?>/clinicattendees/login">User</a>
                 </div>
             </li>
         <?php endif; ?>

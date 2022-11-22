@@ -40,7 +40,7 @@
                                 <option value="<?php echo $clinic->id; ?>"><?php echo $clinic->clinic_name; ?></option>
                             <?php endforeach; ?>
                         </select>
-                        <span><?php echo $data['clinic_err']; ?></span>
+                        <span class="form-err"><?php echo $data['clinic_err']; ?></span>
                     </div>
                     <div>
                         <label for="phm">PHM Area: <sup>*</sup></label>
@@ -51,7 +51,7 @@
                             <option value="East">East</option>
                             <option value="West">West</option>
                         </select>
-                        <span><?php echo $data['phm_err']; ?></span>
+                        <span class="form-err"><?php echo $data['phm_err']; ?></span>
                     </div>
                     <input type="submit" value="Submit">
                 </form>

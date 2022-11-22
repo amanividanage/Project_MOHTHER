@@ -11,7 +11,7 @@
                     <div>
                         <label for="clinic_name">Name: <sup>*</sup></label>
                         <input type="text" id="clinic_name" name="clinic_name" placeholder="Enter your name... ">
-                        <span><?php echo $data['clinic_name_err']; ?></span>
+                        <span class="form-err"><?php echo $data['clinic_name_err']; ?></span>
                     </div>
                     <div>
                         <label for="gnd">Grama Niladhari Division: <sup>*</sup></label>
@@ -22,7 +22,7 @@
                             <option value="GND-3">GND-3</option>
                             <option value="GND-4">GND-4</option>
                         </select>
-                        <span><?php echo $data['gnd_err']; ?></span>
+                        <span class="form-err"><?php echo $data['gnd_err']; ?></span>
                     </div> 
                     <div>
                         <label for="phm">PHM Area: <sup>*</sup></label>
@@ -33,12 +33,12 @@
                             <option value="PHM-3">PHM-3</option>
                             <option value="PHM-4">PHM-4</option>
                         </select>
-                        <span><?php echo $data['phm_err']; ?></span>
+                        <span class="form-err"><?php echo $data['phm_err']; ?></span>
                     </div>
                     <div>
                         <label for="location">Location: <sup>*</sup></label>
                         <input type="text" name="location" placeholder="Enter your location.. ">
-                        <span><?php echo $data['location_err']; ?></span>
+                        <span class="form-err"><?php echo $data['location_err']; ?></span>
                     </div>
                     <input type="submit" value="Submit">
                 </form>

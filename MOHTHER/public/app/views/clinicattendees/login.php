@@ -6,13 +6,13 @@
             
             
             <div class="container_new">
-                <h2>Log In</h2>
+                <h2>User Log In</h2>
                 <p>Please enter your credencials to log in</p>
-                <form action="<?php echo URLROOT; ?>/admins/login" method="post">
+                <form action="<?php echo URLROOT; ?>/clinicattendees/login" method="post">
                     <div>
-                        <label for="identity">ID No: <sup>*</sup></label>
-                        <input type="text" name="identity" placeholder="Enter your ID no">
-                        <span class="form-err"><?php echo $data['identity_err']; ?></span>
+                        <label for="nic">ID No: <sup>*</sup></label>
+                        <input type="text" name="nic" placeholder="Enter your ID no">
+                        <span class="form-err"><?php echo $data['nic_err']; ?></span>
                     </div>
                     <div>
                         <label for="password">Password: <sup>*</sup></label>
@@ -20,8 +20,14 @@
                         <span class="form-err"><?php echo $data['password_err']; ?></span>  
                     </div>
                     <div>
-                        <input type="submit" value="Login">
+                        <div>
+                            <input type="submit" value="Login">
+                        </div>
+                        <div>
+                            <a href="<?php echo URLROOT; ?>/clinicattendees/register">No Account? Register</a>
+                        </div>
                     </div>
+                    
                 </form>
             </div>
     
