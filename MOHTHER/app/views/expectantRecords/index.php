@@ -1,4 +1,11 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
+<html>
+   <head>
+   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style_Midwife.css">
+   </head>
+   </head>
+</html>
+
 <?php
 
 
@@ -75,7 +82,7 @@ if( $hr >= 20 && $hr <23){
                         <th><?php echo $expectantRecords->mcontactno; ?></th> 
                         <th><?php echo $expectantRecords->registrationDate; ?></th>     
                         <th><?php echo $expectantRecords->expectedDateofDelivery; ?></th>              
-                        <th><a href="<?php echo URLROOT; ?>/users/register" class= "updateDeliveredbutton" > Update</a></th>
+                        
                         <th><a href="<?php echo URLROOT; ?>/users/register" class= "updateDeliveredbutton" > Delivered</a></th>
                     </tr>
                 <?php endforeach; ?>

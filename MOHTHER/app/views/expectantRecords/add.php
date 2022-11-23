@@ -4,9 +4,6 @@
    <head>
    <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style_Midwife.css">
    </head>
-</html>
-
-<!--?php include('dbcon.php'); //database connection function ?-->
 
 <body>
 
@@ -119,6 +116,7 @@
      </select></label>
     </td></tr>
 
+    <tr><td> <input type="submit" name="Submit" class="myButton"></input></td></tr>
 
    
     

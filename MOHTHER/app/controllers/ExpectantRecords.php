@@ -104,8 +104,47 @@
       }
 
       public function add(){
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+            //Sanitize POST array
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $data = [
+              'reportNo' => trim($_POST['reportNo']),
+              'reportNo_err'=>'',
+              'date'=> trim($_POST['date']),
+              'date_err'=>'',
+              'weight'=> trim($_POST['weight']),
+              'weight_err'=>'',
+              'vaccination'=> trim($_POST['vaccination']),
+              'vitaminC'=> trim($_POST['vitaminC']),
+              'ironorForlate'=> trim($_POST['ironorForlate']),
+              'antimarialDrugs'=> trim($_POST['antimarialDrugs']),
+              'calcium'=> trim($_POST['calcium']),
+              'triposha'=> trim($_POST['triposha']),
+              
+                    
+              ];
+           //validate data
+             if(empty($data['reportNo'])){
+              $data['reportNo_err'] = 'Please enter the report Number';
+             }
+             if(empty($data['date'])){
+              $data['date_err'] = 'Please enter the date';
+            }
+             
+             if(empty($data['weight'])){
+              $data['weight_err'] = 'Please enter the weight';
+             }
 
-      
+            //make sure that there are no errors
+             if(empty($data['reportNo_err']) && empty($data['reportNo_err']) && empty($data['reportNo_err'])){
+
+              
+             }else{
+              //load the view with errors
+              $this->view('posts/add',$data);
+            }
+
+            } else{
         $data = [
           'reportNo' =>'',
           'reportNo_err'=>'',
@@ -118,11 +157,9 @@
           'ironorForlate'=>'',
           'antimarialDrugs'=>'',
           'calcium'=>'',
-          'triposha'=>'',
+          'triposha'=>''
           
           
-
-
                 
           ];
          
@@ -130,5 +167,7 @@
         $this->view('expectantRecords/add', $data);
 
       }
-        
-}
+    }
+  }
+  
+  
