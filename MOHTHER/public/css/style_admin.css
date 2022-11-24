@@ -28,7 +28,7 @@ nav{
 
 nav ul{
     float: right;
-    margin-right: 20px;
+    margin-right: 60px;
     margin-top: 0px;
 }
 
@@ -50,6 +50,35 @@ a.active,a:hover{
     background: #ba66de;
     transition: .5s;
 }
+
+/*nav bar-login-dropdown*/
+
+.dropdown-login {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content-login {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content-login a {
+    color: rgb(78, 10, 97);
+    padding: 4px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content-login a:hover {background-color: #ba66de}
+  
+  .dropdown-login:hover .dropdown-content-login {
+    display: block;
+  }
 
 /*.check_nav{
     font-size: 25px;
@@ -211,11 +240,13 @@ label #sidebar_btn:hover{
 
 /*index page-topic*/
 .content_h1{
+    padding: 15px 0;
     color: #3E206D;
 }
 
 /*form-topic*/
 .content_h2{
+    padding: 10px 0;
     color: #8946A6
 }
 
@@ -226,7 +257,7 @@ label #sidebar_btn:hover{
 
 /*Form - CSS - start*/
 
-input[type=text], select, input[type=email] {
+input[type=text], select, input[type=email], input[type=password] {
     width: 100%;
     background-color: #8946A6;
     color: #F0E3FF;
@@ -326,7 +357,7 @@ input[type=submit]:hover {
 }
   
 .container {
-    padding: 2px 16px;
+    padding: 20px 16px;
     text-align: center;
 }
 
@@ -364,6 +395,8 @@ th {
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
 
 .row {
@@ -400,10 +433,26 @@ th {
     padding: 15px;
 }
   
+/*Content - HOME*/
 
+.b{
+    position: relative;
+    float: left;
+    margin-top: 60px;
+}
 
+.home_content{
+    background-image: url('../img/1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
 
-
-
-
-
+.home-h1{
+    position: absolute;
+    margin-top: 200px;
+    margin-left: 50%;
+    font-size: 75px;
+    font-family: Georgia, serif;
+    color: #8946A6;
+}

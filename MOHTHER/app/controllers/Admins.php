@@ -192,6 +192,7 @@
             $_SESSION['admin_identity'] = $admin->identity;
             $_SESSION['admin_name'] = $admin->name;
             redirect('clinics');
+            //redirect('clinics/info/<?php echo $clinic->id; ?-->');
         }
 
         public function logout(){
