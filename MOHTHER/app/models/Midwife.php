@@ -35,21 +35,6 @@
             }
         }
 
-        //Login user
-        public function login($identity, $password){
-            $this->db->query('SELECT * FROM midwifes WHERE identity = :identity');
-            $this->db->bindparam(':identity', $identity);
-
-            $row = $this->db->single();
-
-            $hashed_password = $row->password;
-            if(password_verify($password, $hashed_password)){
-                return $row;
-            } else {
-                return false;
-            }
-        }
-
         //Find midwife by ID number
         public function findMidwifeByIdentity($identity){
             $this->db->query('SELECT * FROM midwifes WHERE identity = :identity');

@@ -1,22 +1,22 @@
-html{
+html {
     scroll-behavior: smooth;
 }
 
-body{
+body {
     margin: 0;
     padding: 0;
     font-family: "Roboto", sans-serif;
 }
 
-nav{
+nav {
     position: fixed;
     background: #8946A6;
     width: 100%;
     height: 60px;
-    z-index:999;
+    z-index: 999;
 }
 
-.left_area img{
+.left_area img {
     position: absolute;
     left: 190px;
     top: 0;
@@ -26,19 +26,19 @@ nav{
 }
 
 
-nav ul{
+nav ul {
     float: right;
     margin-right: 60px;
     margin-top: 0px;
 }
 
-nav ul li{
+nav ul li {
     display: inline-block;
     line-height: 60px;
     margin: 0 5px;
 }
 
-nav ul li a{
+nav ul li a {
     color: #F0E3FF;
     font-size: 17px;
     padding: 7px 13px;
@@ -46,7 +46,8 @@ nav ul li a{
     text-decoration: none;
 }
 
-a.active,a:hover{
+a.active,
+a:hover {
     background: #ba66de;
     transition: .5s;
 }
@@ -56,29 +57,31 @@ a.active,a:hover{
 .dropdown-login {
     position: relative;
     display: inline-block;
-  }
-  
-  .dropdown-content-login {
+}
+
+.dropdown-content-login {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
-  }
-  
-  .dropdown-content-login a {
+}
+
+.dropdown-content-login a {
     color: rgb(78, 10, 97);
     padding: 4px 16px;
     text-decoration: none;
     display: block;
-  }
-  
-  .dropdown-content-login a:hover {background-color: #ba66de}
-  
-  .dropdown-login:hover .dropdown-content-login {
+}
+
+.dropdown-content-login a:hover {
+    background-color: #ba66de
+}
+
+.dropdown-login:hover .dropdown-content-login {
     display: block;
-  }
+}
 
 /*.check_nav{
     font-size: 25px;
@@ -137,7 +140,7 @@ a.active,a:hover{
 
 /*Side bar*/
 
-.sidebar{
+.sidebar {
     background: #F0E3FF;
     margin-top: 60px;
     padding-top: 30px;
@@ -149,19 +152,19 @@ a.active,a:hover{
     transition-property: left;
 }
 
-.sidebar .profile_image{
+.sidebar .profile_image {
     width: 100px;
     height: 100px;
     margin-bottom: 10px;
 }
 
-.sidebar h4{
+.sidebar h4 {
     color: #3E206D;
     margin-top: 0;
     margin-bottom: 20px;
 }
 
-.sidebar a{
+.sidebar a {
     color: #3E206D;
     display: block;
     width: 100%;
@@ -173,15 +176,15 @@ a.active,a:hover{
     transition-property: background;
 }
 
-.sidebar a:hover{
+.sidebar a:hover {
     background: #8946A6;
 }
 
-.sidebar i{
+.sidebar i {
     padding-right: 10px;
 }
 
-label #sidebar_btn{
+label #sidebar_btn {
     z-index: 1;
     color: #F0E3FF;
     position: fixed;
@@ -193,26 +196,26 @@ label #sidebar_btn{
     transition-property: color;
 }
 
-label #sidebar_btn:hover{
-    color: #3E206D; 
+label #sidebar_btn:hover {
+    color: #3E206D;
 }
 
-#check:checked ~ .sidebar{
+#check:checked~.sidebar {
     left: -190px;
 }
 
-#check:checked ~ .sidebar a span{
+#check:checked~.sidebar a span {
     display: none;
 }
 
-#check:checked ~ .sidebar a{
+#check:checked~.sidebar a {
     font-size: 20px;
     margin-left: 170px;
     width: 80px;
 }
 
 /*content*/
-.content{
+.content {
     margin-left: 300px;
     position: relative;
     float: left;
@@ -222,30 +225,30 @@ label #sidebar_btn:hover{
     transition: 0.5s;
 }
 
-#check:checked ~ .content{
+#check:checked~.content {
     margin-left: 60px;
 }
 
-#check{
+#check {
     display: none;
 }
 
-#check:checked ~ .content{
+#check:checked~.content {
     margin-left: 60px;
 }
 
-#check{
+#check {
     display: none;
 }
 
 /*index page-topic*/
-.content_h1{
+.content_h1 {
     padding: 15px 0;
     color: #3E206D;
 }
 
 /*form-topic*/
-.content_h2{
+.content_h2 {
     padding: 10px 0;
     color: #8946A6
 }
@@ -257,7 +260,10 @@ label #sidebar_btn:hover{
 
 /*Form - CSS - start*/
 
-input[type=text], select, input[type=email], input[type=password] {
+input[type=text],
+select,
+input[type=email],
+input[type=password] {
     width: 100%;
     background-color: #8946A6;
     color: #F0E3FF;
@@ -270,7 +276,7 @@ input[type=text], select, input[type=email], input[type=password] {
     resize: vertical;
 }
 
-input::placeholder{
+input::placeholder {
     color: #F0E3FF;
 }
 
@@ -297,19 +303,19 @@ input[type=submit]:hover {
     padding: 20px;
 }
 
-.form_font{
+.form_font {
     color: #3E206D;
     font-weight: bold;
 }
 
-.form-err{
+.form-err {
     font-size: smaller;
     color: red;
 }
 
 /*Add button*/
 
-.add{
+.add {
     float: right;
     background-color: #8946A6;
     border: none;
@@ -323,7 +329,7 @@ input[type=submit]:hover {
     cursor: pointer;
 }
 
-.add2{
+.add2 {
     float: right;
     background-color: #8946A6;
     border: none;
@@ -342,7 +348,7 @@ input[type=submit]:hover {
 
 
 .card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
     margin-left: auto;
     margin-right: auto;
@@ -351,20 +357,20 @@ input[type=submit]:hover {
     background: #8946A6;
     cursor: pointer;
 }
-  
+
 .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
-  
+
 .container {
     padding: 20px 16px;
     text-align: center;
 }
 
-h4 a{
+h4 a {
     text-decoration: none;
     color: #F0E3FF;
-    
+
 }
 
 
@@ -374,21 +380,22 @@ table {
     width: 100%;
     color: #3E206D;
 }
-  
+
 tr {
     border-bottom: 1px solid #3E206D;
 }
-  
-th, td {
+
+th,
+td {
     padding: 15px;
 }
-  
+
 th {
     text-align: left;
 }
 
 .line {
-	border-top: 3px solid #3E206D;
+    border-top: 3px solid #3E206D;
 }
 
 /*two tables*/
@@ -397,62 +404,157 @@ th {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-  }
+}
 
 .row {
-    margin-left:-5px;
-    margin-right:-5px;
+    margin-left: -5px;
+    margin-right: -5px;
 }
-    
+
 .column {
     float: left;
     width: 50%;
     padding: 20px;
 }
 
-.column table{
+.column table {
     background-color: #F0E3FF;
 }
-  
+
 
 .row::after {
     content: "";
     clear: both;
     display: table;
 }
-  
+
 .t1 {
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
-    
+
 }
-  
-.t1 th, td {
+
+.t1 th,
+td {
     text-align: left;
     padding: 15px;
 }
-  
+
 /*Content - HOME*/
 
-.b{
+.b {
     position: relative;
     float: left;
     margin-top: 60px;
 }
 
-.home_content{
+.home_content {
     background-image: url('../img/1.png');
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
 }
 
-.home-h1{
+.home-h1 {
     position: absolute;
     margin-top: 200px;
     margin-left: 50%;
     font-size: 75px;
     font-family: Georgia, serif;
     color: #8946A6;
+}
+
+
+
+/*dashboard clinic attendee*/
+
+.dashboard_CA {
+
+    padding: 5%;
+    /* border: 3px solid rgb(133, 40, 141); */
+    background-color: #d5cada;
+    margin: 4%;
+    float: left;
+    align-items: center;
+    width: 40%;
+    color: #30165a;
+    height: 300px;
+
+
+
+}
+
+.dashboard_CA h4 {
+    font-size: larger;
+}
+
+
+
+.reserve_btn {
+    background-color: #3c1d58;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 80%;
+    margin: 0% 12%;
+    cursor: pointer;
+    float: right;
+    width: 35%;
+    height: 45%;
+
+}
+
+.row table {
+    width: 90%;
+    height: 10%;
+    font-size: 70%;
+    align-items: center;
+}
+
+
+
+/* child vaccination */
+
+
+.child_vTable {
+    width: 90%;
+    height: 10%;
+    font-size: 100%;
+    align-items: center;
+}
+
+
+/* .home_CA {} */
+
+.home_CA {
+
+    padding: 6%;
+    /* border: 3px solid rgb(133, 40, 141); */
+    background-color: #d5cada;
+    margin-left: 30%;
+    margin-top: 10%;
+    align-items: center;
+    width: 40%;
+    color: #30165a;
+    height: 300px;
+
+}
+
+.zoom_btn {
+    background-color: #3c1d58;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 80%;
+    margin: 10% 12%;
+    cursor: pointer;
+    float: right;
+    width: 90%;
+    height: 45%;
+
 }

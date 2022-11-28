@@ -56,7 +56,7 @@
             <div class="dashboard_CA">
                 <h4>Children</h4> <br>
 
-                <table>
+                <!-- <table>
                     <thead>
                         <tr>
                             <th>Register number</th>
@@ -76,10 +76,10 @@
 
 
                     </tbody>
-                </table>
+                </table> -->
 
                 <br>
-                <h4>Children</h4> <br>
+
                 <div class="">
                     Charts
                     <a href="<?php echo URLROOT; ?>/clinicattendees/vaccination"><button class="reserve_btn"><b>Take
@@ -121,15 +121,12 @@
                 <thead>
                     <tr>
                         <th>Date</th>
-                        <th>BMI</th>
-                        <th>Blood Pressure</th>
                         <th>Weight Gain</th>
-                        <th>Sugar/Albumin</th>
+                        <th>Skin color</th>
+                        <th>Eye sight</th>
+                        <th>Temperature</th>
+                        <th>Nature of the umbilicus</th>
                         <th>Medications</th>
-                        <th>Calcium</th>
-                        <th>Antimarial Drugs</th>
-                        <th>Triposha</th>
-                        <th>Iron/Forlate</th>
 
                     </tr>
                 </thead>

@@ -11,7 +11,7 @@
     
     
     <ul>
-        <?php if((isset($_SESSION['admin_id'])) || (isset($_SESSION['clinicattendee_id'])) || (isset($_SESSION['midwife_id']))) : ?>
+        <?php if((isset($_SESSION['admin_id'])) || (isset($_SESSION['clinicattendee_id']))) : ?>
             
     <!--if((isset($_SESSION['admin_id'])) || (isset($_SESSION['clinicattendee_id'])))-->
             <li>

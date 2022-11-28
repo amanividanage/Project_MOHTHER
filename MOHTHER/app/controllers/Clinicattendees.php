@@ -27,7 +27,28 @@
             $this->view('clinicattendees/profile', $data);
         }
 
+         public function vaccination(){
+        //     $profile =  $this->clinicattendeeModel->getVaccination();
+
+             $data = [
+                 //'vaccination' => vaccination
+            ];
+
+             $this->view('clinicattendees/vaccination', $data);
+         }
+
+         public function home(){
+            //     $profile =  $this->clinicattendeeModel->getVaccination();
+    
+                 $data = [
+                     //'vaccination' => vaccination
+                ];
+    
+                 $this->view('clinicattendees/home', $data);
+             }
+
         
+         
 
         public function register(){
             // Check for POST
