@@ -6,6 +6,7 @@
        // }
        $this->expectantRecordModel = $this->model('ExpectantRecord');
        
+       
      
     }
 
@@ -108,6 +109,8 @@
             //Sanitize POST array
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             $data = [
+              'nic' => trim($_POST['nic']),
+              'nic_err'=>'',
               'reportNo' => trim($_POST['reportNo']),
               'reportNo_err'=>'',
               'date'=> trim($_POST['date']),
@@ -136,16 +139,27 @@
              }
 
             //make sure that there are no errors
-             if(empty($data['reportNo_err']) && empty($data['reportNo_err']) && empty($data['reportNo_err'])){
+             if(empty($data['reportNo_err']) && empty($data['reportNo_err']) && empty($data['reportNo_err']))
+             {
+               //validated
+                //die('Successfull');
 
-              
-             }else{
-              //load the view with errors
-              $this->view('posts/add',$data);
-            }
-
-            } else{
+                //add expectant mother's records
+                if($this->expectantRecordModel->add($data)){
+                 
+                 redirect('pages/about');
+              }else{
+                  die('Something went wrong');
+              }
+          } else{
+              //load view with errors
+              $this->view('expectantRecords/add', $data);
+          }
+          
+           } else{
         $data = [
+          'nic' =>'',
+          'nic_err' =>'',
           'reportNo' =>'',
           'reportNo_err'=>'',
           'date'=>'',
@@ -166,8 +180,10 @@
       
         $this->view('expectantRecords/add', $data);
 
+        }
       }
-    }
-  }
+    
+  
+}
   
   

@@ -60,7 +60,8 @@ olaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
             </table>
         </div>
     </div>
-
+    
+    <th><a href="clinics/info/<?php echo $clinic->id; ?>"><?php echo $expectantRecords->nic; ?></a> </th>
 
 
     <?php require APPROOT . '/views/inc/footer.php'; ?>

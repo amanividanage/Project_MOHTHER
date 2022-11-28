@@ -168,7 +168,7 @@ label #sidebar_btn:hover{
    margin-left: 2%;
    padding-top: 50px;
    font-family: sans-serif;
-   font-size: medium;
+   font-size: 1.2vw;
    
   
    
@@ -343,4 +343,17 @@ th {
     cursor: pointer;
     padding-top: 5%;
 }
+
+.greeting{
+    font-size: 30px;
+    color: #602c6a;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+a:link {
+    text-decoration: none;
+    
+  }
+  .newregdetails{
+    font-size: 1.2vw;
+  }
   

@@ -8,11 +8,18 @@
 <body>
 
     <div class= "">
-        <form action="<?php echo URLROOT; ?>/users/register" method= "POST">
+        <form action="<?php echo URLROOT; ?>/expectantRecords/add" method= "POST">
    
     <table align="center" cellpadding = "10">
         
  <tr><td><b> Monthly Records <hr> </td></tr>
+ <tr>
+    <td>
+    <label for="nic">NIC </label>
+    </td>
+    <td><input type="text" name="nic" maxlength="20" class= " <?php echo (!empty($data['nic_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['nic']; ?>">
+    <span class="invalid-feedback"><?php echo $data['nic_err']; ?></span></td>
+    </tr>
 
 
  <tr>
@@ -29,7 +36,7 @@
     <td>
     <label for="date">Date </label>
     </td>
-    <td><input type="Date" name="date" class= "form <?php echo (!empty($data['date_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['date']; ?>">
+    <td><input type="Date" name="date" class= " <?php echo (!empty($data['date_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['date']; ?>">
     <span class="invalid-feedback"><?php echo $data['date_err']; ?></span></td>
     </tr>
 
@@ -37,7 +44,7 @@
     <td>
     <label for="weight">Weight </label>
     </td>
-    <td><input type="double" name="weight" maxlength="5" class= "form <?php echo (!empty($data['weight_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['weight']; ?>">
+    <td><input type="double" name="weight" maxlength="5" class= "<?php echo (!empty($data['weight_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['weight']; ?>">
     <span class="invalid-feedback"><?php echo $data['weight_err']; ?></span></td>
     </tr>
 

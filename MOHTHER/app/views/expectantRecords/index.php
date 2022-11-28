@@ -5,31 +5,38 @@
    </head>
    </head>
 </html>
+<div class= "greeting" >
+
+
+<b>
+<?php
+$hr = date("G");
+if( $hr >= 01 && $hr <13){
+    echo "Good Morning"   ;
+}else{
+    echo "Good Evening";
+}
+?>
+</b>
+</div>
 
 <?php
 
 
-echo "Today's date is :";
+echo "Today is : ";
 $today = date("d/m/Y");
 echo $today;
 ?>
 <br>
 
-<?php
-$hr = date("G");
-if( $hr >= 20 && $hr <23){
-    echo "You are getting closer to the end of the day"   ;
-}else{
-    echo "Good evening";
-}
-?>
+
 
 <div>
         <div>
             <h2 class="content_h1">New Registrants</h2>
             <hr class="line">
         </div>
-        <div>
+        <div class= "newregdetails">
             <table class= "">
                 <tr>
                     <th>Details</th>
@@ -42,12 +49,12 @@ if( $hr >= 20 && $hr <23){
                 </tr>
                 <?php foreach($data['expectantRecords'] as $expectantRecords):?>
                     <tr>
-                        <th><?php echo $expectantRecords->nic; ?></th>
-                        <th><?php echo $expectantRecords->mfirstName; ?></th>
-                                   
-                        <th><a href="<?php echo URLROOT; ?>/users/register" class= "updateDeliveredbutton" > Add</a></th>
+                        <th><?php echo $expectantRecords->nic; ?></th> 
+                        <th><?php echo $expectantRecords->mfirstName; ?></th>          
+                        <th><a href="<?php echo URLROOT; ?>/pages/about" class= "updateDeliveredbutton" > Add</a></th>
                         <th><a href="<?php echo URLROOT; ?>/users/register" class= "updateDeliveredbutton" > Ignore</a></th>
                     </tr>
+                
                 <?php endforeach; ?>
             </table>
         </div>
@@ -59,7 +66,7 @@ if( $hr >= 20 && $hr <23){
             <h2 class="content_h1">Expectant Mothers</h2>
             <hr class="line">
         </div>
-        <div>
+        <div class= "newregdetails">
             <table>
                 <tr>
                     <th>Details</th>
@@ -76,7 +83,7 @@ if( $hr >= 20 && $hr <23){
                 </tr>
                 <?php foreach($data['expectantRecords'] as $expectantRecords):?>
                     <tr>
-                        <th><?php echo $expectantRecords->nic; ?></th>
+                    <th><a href="pages/about/<?php echo $expectantRecords->nic; ?>"><?php echo $expectantRecords->nic; ?></a> </th>
                         <th><?php echo $expectantRecords->mfirstName; ?></th>
                         <th><?php echo $expectantRecords->memail; ?></th>
                         <th><?php echo $expectantRecords->mcontactno; ?></th> 
