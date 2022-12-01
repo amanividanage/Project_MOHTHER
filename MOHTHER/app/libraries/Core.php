@@ -15,7 +15,7 @@
       $url = $this->getUrl();
 
       // Look in controllers for first value
-      if(isset($url)){
+      if($url){
         if(file_exists('../app/controllers/' . ucwords($url[0]). '.php')){
           // If exists, set as controller
           $this->currentController = ucwords($url[0]);

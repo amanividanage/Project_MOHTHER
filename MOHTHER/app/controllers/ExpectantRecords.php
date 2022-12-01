@@ -5,6 +5,7 @@
             //redirect('users/register');
        // }
        $this->expectantRecordModel = $this->model('ExpectantRecord');
+       $this->clinicattendeeModel = $this->model('Clinicattendee');
        
        
      
@@ -15,16 +16,41 @@
 
       //get records
       $expectantRecords =  $this->expectantRecordModel-> getExpectantRecords(); 
+      $newexpectantRecords =  $this->expectantRecordModel-> getNewExpectantRecords(); 
+
         $data = [
-          'expectantRecords' => $expectantRecords
-                
+          'expectantRecords' => $expectantRecords ,
+          'newexpectantRecords'=> $newexpectantRecords
           ];
          
       
         $this->view('expectantRecords/index', $data);
       }
+      public function info($nic){
+        $info =  $this->expectantRecordModel->displayExpectantRecords($nic);
+       $report=  $this->expectantRecordModel->showExpectantMonthlyRecords($nic);
+       $expectantRecords =  $this->expectantRecordModel-> getExpectantRecords(); 
 
+        $data = [
+            'info' => $info,
+            'report'=> $report
+        ];
 
+        $this->view('expectantRecords/info', $data);
+    }
+
+    public function expectant(){
+     
+     $singlereport=  $this->expectantRecordModel->displayExpectantReports($nic);
+
+      $data = [
+          
+          'singlereport'=> $singlereport
+      ];
+
+      $this->view('expectantRecords/expectant', $data);
+  }
+   
       public function email(){
 
         //get records

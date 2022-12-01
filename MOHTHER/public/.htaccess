@@ -1,7 +1,7 @@
 <IFModule mod_rewrite.c>
     Options -Multiviews
     RewriteEngine On
-    RewriteBase /MOHTHER_2102/MOHTHER/public
+    RewriteBase /MOH1128/MOHTHER/public
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]

@@ -8,11 +8,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <title><?php echo SITENAME; ?></title>
 </head>
-    <body>
-        <?php require APPROOT . '/views/inc/navbar.php' ; ?>
-        <?php require APPROOT . '/views/inc/sidebar.php' ; ?>
-        
-            <div class="content">
-                <h1 class="content_h1"><?php echo $data['title']; ?></h1>
+<body>
+    <?php require APPROOT . '/views/inc/navbar.php' ; ?>
+    <?php require APPROOT . '/views/inc/sidebar.php' ; ?>
+        <div class="content">
+            <div>
+                <div>
+                    <h2 class="content_h1">Statistics</h2>
+                    <br>
+                </div>
+                
+            
+                
             </div>
+
+    
 <?php require APPROOT . '/views/inc/footer.php'; ?>

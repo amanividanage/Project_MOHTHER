@@ -14,6 +14,14 @@
             return $results;
         }
 
+        public function searchDoctors($search){
+            $this->db->query("SELECT * FROM doctors WHERE CONCAT(name,identity) LIKE '%$search%' ");
+
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
+
         //Add admin
         public function addDoctor($data){
             $this->db->query('INSERT INTO doctors (name, identity, phone, email, password, clinic) VALUES (:name, :identity, :phone, :email, :password, :clinic)');

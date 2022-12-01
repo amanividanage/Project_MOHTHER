@@ -1,10 +1,18 @@
-<?php require APPROOT . '/views/inc/header.php'; ?>
-<html>
-   <head>
-   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style_Midwife.css">
-   </head>
-   </head>
-</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style_midwife.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <title><?php echo SITENAME; ?></title>
+</head>
+<body>
+    <?php require APPROOT . '/views/inc/navbar.php' ; ?>
+    <?php require APPROOT . '/views/inc/sidebar_midwife.php' ; ?>
+<div class="expectant">
 <div class= "greeting" >
 
 
@@ -18,7 +26,7 @@ if( $hr >= 01 && $hr <13){
 }
 ?>
 </b>
-</div>
+<br>
 
 <?php
 
@@ -29,7 +37,7 @@ echo $today;
 ?>
 <br>
 
-
+</div>
 
 <div>
         <div>
@@ -47,12 +55,12 @@ echo $today;
                     <th>Name</th>
                    
                 </tr>
-                <?php foreach($data['expectantRecords'] as $expectantRecords):?>
+                <?php foreach($data['newexpectantRecords'] as $newexpectantRecords):?>
                     <tr>
-                        <th><?php echo $expectantRecords->nic; ?></th> 
-                        <th><?php echo $expectantRecords->mfirstName; ?></th>          
-                        <th><a href="<?php echo URLROOT; ?>/pages/about" class= "updateDeliveredbutton" > Add</a></th>
-                        <th><a href="<?php echo URLROOT; ?>/users/register" class= "updateDeliveredbutton" > Ignore</a></th>
+                        <th><?php echo $newexpectantRecords->nic; ?></th> 
+                        <th><?php echo $newexpectantRecords->mname; ?></th>          
+                        <th><a href="<?php echo URLROOT; ?>/users/register" class= "updateDeliveredbutton" > Add</a></th>
+                        <th><a href="<?php echo URLROOT; ?>/pages/about" class= "updateDeliveredbutton" > Ignore</a></th>
                     </tr>
                 
                 <?php endforeach; ?>
@@ -61,8 +69,9 @@ echo $today;
     </div>
 
 
-<div>
+
         <div>
+           
             <h2 class="content_h1">Expectant Mothers</h2>
             <hr class="line">
         </div>
@@ -83,8 +92,8 @@ echo $today;
                 </tr>
                 <?php foreach($data['expectantRecords'] as $expectantRecords):?>
                     <tr>
-                    <th><a href="pages/about/<?php echo $expectantRecords->nic; ?>"><?php echo $expectantRecords->nic; ?></a> </th>
-                        <th><?php echo $expectantRecords->mfirstName; ?></th>
+                    <th><a href="expectantRecords/info/<?php echo $expectantRecords->nic; ?>"><?php echo $expectantRecords->nic; ?></a> </th>
+                        <th><?php echo $expectantRecords->mname; ?></th>
                         <th><?php echo $expectantRecords->memail; ?></th>
                         <th><?php echo $expectantRecords->mcontactno; ?></th> 
                         <th><?php echo $expectantRecords->registrationDate; ?></th>     
@@ -96,7 +105,7 @@ echo $today;
             </table>
         </div>
     </div>
-
+    </div>
     
 
 
@@ -105,5 +114,6 @@ echo $today;
 
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
+<!--<th><a href="clinics/info/<!?php echo $clinic->id; ?>"><!?php echo $expectantRecords->nic; ?></a> </th>
 
 

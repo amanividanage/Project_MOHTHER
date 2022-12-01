@@ -3,13 +3,13 @@
     define('DB_HOST', 'localhost');
     define('DB_USER', 'root');
     define('DB_PASS', '');
-    define('DB_NAME', 'm2');
+    define('DB_NAME', 'm22');
 
 
     //App Root
     define('APPROOT', dirname(dirname(__FILE__)));
     //URL Root
-    define('URLROOT', 'http://localhost/MOHTHER_2102/MOHTHER');
+    define('URLROOT', 'http://localhost/MOH1128/MOHTHER');
     //Site Name
     define('SITENAME', 'MOHTHER');
     //App Version

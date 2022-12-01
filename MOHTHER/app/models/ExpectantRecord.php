@@ -14,7 +14,7 @@ class ExpectantRecord {
     }*/
 
       public function getExpectantRecords(){
-        $this->db->query('SELECT registration.nic, mfirstName, memail, mcontactno,registrationDate,expectedDateofDelivery
+        $this->db->query('SELECT registration.nic, mname, memail, mcontactno,registrationDate,expectedDateofDelivery
                          FROM expectant
                          INNER JOIN registration
                          ON registration.nic = expectant.nic
@@ -23,6 +23,54 @@ class ExpectantRecord {
         $results =  $this->db->resultSet();
         return $results;
     }
+
+    public function getNewExpectantRecords(){
+        $this->db->query('SELECT nic, mname
+                         FROM registration
+                
+                         
+                         ');
+        $results =  $this->db->resultSet();
+        return $results;
+    }
+
+    public function displayExpectantRecords($nic){
+        $this->db->query("SELECT  mname , mage, address, moccupation, mcontactno
+                         FROM registration
+                         WHERE nic= :nic"
+                         
+                         );
+                         $this->db->bindParam(':nic', $nic); 
+        $results =  $this->db->single();
+        return $results;
+    }
+
+    public function showExpectantMonthlyRecords($nic){
+        $this->db->query('SELECT reportNo,date, weight, triposha
+                         FROM detailrecords_Expectant
+                         WHERE nic= :nic'
+              
+                         
+                         );
+                         $this->db->bindParam(':nic', $nic); 
+        $results =  $this->db->resultSet();
+        return $results;
+    }
+
+    public function displayExpectantReports($nic){
+        $this->db->query('SELECT reportNo,date, weight, triposha
+                        FROM detailrecords_Expectant
+                        WHERE nic= :nic '
+
+        
+                      );
+                         $this->db->bindParam(':nic', $nic); 
+        $results =  $this->db->single();
+        return $results;
+    }
+
+   
+
 
     public function filterExpectantRecords(){
         $this->db->query ("SELECT * 
@@ -57,4 +105,6 @@ class ExpectantRecord {
 
     
 }
+
+
 }

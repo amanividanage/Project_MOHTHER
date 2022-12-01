@@ -15,9 +15,9 @@
             
             
             <div class="container_new">
-                <h2>Admin Log In</h2>
+                <h2>Midwife Log In</h2>
                 <p>Please enter your credencials to log in</p>
-                <form action="<?php echo URLROOT; ?>/admins/login" method="post">
+                <form action="<?php echo URLROOT; ?>/midwifes/login" method="post">
                     <div>
                         <label for="identity">ID No: <sup>*</sup></label>
                         <input type="text" name="identity" placeholder="Enter your ID no">
