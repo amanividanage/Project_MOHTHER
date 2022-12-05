@@ -263,6 +263,21 @@ label #sidebar_btn:hover{
     cursor: pointer;
 }
 
+.curve_btn{
+    background-color: #8946A6;
+    border-radius: 20px;
+    padding: 14px 28px;
+    border: none;
+    color: #F0E3FF;
+    width: 10vw;
+    height: 3vw;
+    font-size: 1vw;
+    font-weight: bolder;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 /*Search botton*/
 
 .search_add-main{
@@ -316,3 +331,124 @@ input::placeholder{
 	border-top: 3px solid #3E206D;
 }
 
+
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: #F0E3FF;
+    font-size: larger;
+    color: #3E206D;
+    margin-top: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    height: 20%;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #8946A6;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #3E206D;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+
+
+
+/*Form - CSS - start*/
+
+input[type=text], select, input[type=email], input[type=password] {
+    width: 100%;
+    background-color: #8946A6;
+    color: #F0E3FF;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 18px;
+    resize: vertical;
+}
+
+input::placeholder{
+    color: #F0E3FF;
+}
+
+input[type=submit] {
+    background-color: #8946A6;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.container_new {
+    margin-top: 70px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    border-radius: 5px;
+    background-color: #F0E3FF;
+    padding: 20px;
+}
+
+.form_font{
+    color: #3E206D;
+    font-weight: bold;
+}
+
+.form-err{
+    font-size: smaller;
+    color: red;
+}
+
+/*table*/
+table {
+    border-collapse: collapse;
+    width: 100%;
+    color: #3E206D;
+}
+  
+tr {
+    border-bottom: 1px solid #3E206D;
+}
+  
+th, td {
+    padding: 15px;
+}
+  
+th {
+    text-align: left;
+}

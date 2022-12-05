@@ -6,14 +6,31 @@
         }
 
         public function index(){
-            //Get clinics 
-            $midwifes = $this->midwifeModel->getMidwifes();
+            //Check if its a search
+            $find = false;
+            if(isset($_GET['search'])){
+                $search = addslashes($_GET['search']);
+                $find = true;
 
-            $data = [
-                'midwifes' => $midwifes
-            ];
+                if($find){
+                    $midwifes = $this->midwifeModel->searchMidwifes($search);
+    
+                    $data = [
+                        'midwifes' => $midwifes
+                    ];
+    
+                    $this->view('midwifes/index', $data);
+                } 
+            } else {
+                //Get midwives 
+                $midwifes = $this->midwifeModel->getMidwifes();
 
-            $this->view('midwifes/index', $data);
+                $data = [
+                    'midwifes' => $midwifes
+                ];
+
+                $this->view('midwifes/index', $data);
+            }
         }
 
 
@@ -132,6 +149,79 @@
                 //Load view
                 $this->view('midwifes/add', $data);
             }
+        }
+
+        public function login(){
+            // Check for POST
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                //Process form
+                // Sanitize POST data
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+                $data = [
+                    'identity' => trim($_POST['identity']),
+                    'password' => trim($_POST['password']),
+                    'identity_err' => '',
+                    'password_err' => ''
+                ];
+
+                //Validate data
+                if(empty($data['identity'])){
+                    $data['identity_err'] = 'Please enter an identity number';
+                }
+
+                if(empty($data['password'])){
+                    $data['password_err'] = 'Please enter an identity number';
+                }
+
+
+                //Check for clinicattendee id
+                if($this->midwifeModel->findMidwifeByIdentity($data['identity'])){
+                    //Clinic attendee found 
+                    if(empty($data['identity_err']) && empty($data['password_err'])){
+                    //Validated
+                    //Check and set logged in Clinic attendee
+                    $loggedInUser = $this->midwifeModel->login($data['identity'], $data['password']);
+
+                    if($loggedInUser){
+                        //Create session
+                        $this->createMidwifeSession($loggedInUser);
+                    } else{
+                        $data['password_err'] = 'Password Incorrect';
+
+                        $this->view('midwifes/login', $data);
+                    }
+
+                } else {
+                    //load view with errors
+                    $this->view('midwifes/login', $data);
+                }
+                } else {
+                    //Clinic Attendee not found
+                    $data['identity_err'] = 'No Clinic Attendee found';
+                }
+ 
+
+            } else {
+                //Init data
+                $data = [
+                    'identity' => '',
+                    'password' => '',
+                    'identity_err' => '',
+                    'password_err' => ''
+                ];
+
+                //Load view
+                $this->view('midwifes/login', $data);
+            }
+        }
+
+        public function createMidwifeSession($midwife){
+            $_SESSION['midwife_id'] = $midwife->midwife_id;
+            $_SESSION['midwife_identity'] = $midwife->identity;
+            $_SESSION['midwife_name'] = $midwife->name;
+            redirect('expectantRecords');
+            //redirect('clinicattendees/'.$clinicattendee->id.'');
         }
 
         

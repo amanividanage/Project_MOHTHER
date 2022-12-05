@@ -14,6 +14,23 @@
             return $results;
         }
 
+        public function searchAdmins($search){
+            $this->db->query("SELECT * FROM admins WHERE CONCAT(name,identity) LIKE '%$search%' ");
+
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
+
+        //get profile
+        /*public function getProfile(){
+            $this->db->query("SELECT * FROM admins WHERE admin_id = ".$_SESSION['admin_id']);
+    
+            $row = $this->db->single();
+    
+            return $row;
+        }*/
+
         //Add admin
         public function addAdmin($data){
             $this->db->query('INSERT INTO admins (name, identity, phone, email, password) VALUES (:name, :identity, :phone, :email, :password)');

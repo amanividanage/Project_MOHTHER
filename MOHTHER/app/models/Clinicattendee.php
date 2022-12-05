@@ -14,14 +14,6 @@ class Clinicattendee{
         return $row;
     }
 
-    // public function getExpectantmotherVaccination(){
-    //     $this->db->query("SELECT * FROM registration WHERE id = ".$_SESSION['clinicattendee_id']);
-
-    //     $row = $this->db->single();
-
-    //     return $row;
-    // }
-
     
 
     //register user
