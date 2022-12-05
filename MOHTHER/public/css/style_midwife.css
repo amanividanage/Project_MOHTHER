@@ -460,10 +460,12 @@ tr {
   
 th, td {
     padding: 15px;
+  
 }
   
 th {
     text-align: left;
+   
 }
 
 .line {
@@ -508,6 +510,7 @@ th {
 .t1 th, td {
     text-align: left;
     padding: 15px;
+  
 }
 .updateDeliveredbutton{
     float: right;

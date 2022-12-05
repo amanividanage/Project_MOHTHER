@@ -20,33 +20,36 @@
                             <th></th>
                         </tr>
                         <tr>
-                            <td>Name : </td>
+                            <th>Name : </th>
                             <td><?php echo $data['info']->mname; ?></td>
                         </tr>
                         <tr>
-                            <td>Age :</td>
+                            <th>Age :</th>
                             <td><?php echo $data['info']->mage; ?></td>
                         </tr>
                         <tr>
-                            <td>Address :</td>
+                            <th>Address :</th>
                             <td><?php echo $data['info']->address; ?></td>
                         </tr>
                         <tr>
-                            <td>Occupation:</td>
+                            <th>Occupation:</th>
                             <td><?php echo $data['info']->moccupation; ?></td>
                         </tr>
                         <tr>
-                            <td>Tel.No :</td>
+                            <th>Tel.No :</th>
                             <td><?php echo $data['info']->mcontactno; ?></td>
                         </tr>
-                       
-                       
+                       <tr>
+                        <th><a href="<?php echo URLROOT; ?>/expectantRecords/add/<?php echo $data['info']->nic; ?>" class= "updateDeliveredbutton" > Add Child</a></th>
+                        </tr>
                     </table>
                 </div>
 </div>
                 <div class="infobutton">
+             
                  <th><a href="<?php echo URLROOT; ?>/expectantRecords/add/<?php echo $data['info']->nic; ?>" class= "updateDeliveredbutton" > Add Report</a></th>
-                
+                 
+
                 </div>
                 
         <div class="dailyrecords">
@@ -68,10 +71,10 @@
                 <?php foreach($data['report'] as $report):?>
                     <tr>
                     <th><a href="<?php echo URLROOT; ?>/expectantRecords/expectant/<?php echo $data['info']->nic; ?>/<?php echo $report->reportNo; ?>"><?php echo $report->reportNo; ?></a> </th>
-                        <th><?php echo $report->date; ?></th>
-                        <th><?php echo $report->weight; ?></th> 
-                        <th><?php echo $report->triposha; ?></th>
-                        <th><a href="<?php echo URLROOT; ?>/expectantRecords/expectant" class= "updateDeliveredbutton" > Add</a></th>
+                        <td><?php echo $report->date; ?></td>
+                        <td><?php echo $report->weight; ?></td> 
+                        <td><?php echo $report->triposha; ?></td>
+                        
      
                                     
                     </tr>

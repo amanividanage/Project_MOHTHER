@@ -57,10 +57,10 @@ echo $today;
                 </tr>
                 <?php foreach($data['newexpectantRecords'] as $newexpectantRecords):?>
                     <tr>
-                        <th><?php echo $newexpectantRecords->nic; ?></th> 
-                        <th><?php echo $newexpectantRecords->mname; ?></th>          
-                        <th><a href="<?php echo URLROOT; ?>/users/register" class= "updateDeliveredbutton" > Add</a></th>
-                        <th><a href="<?php echo URLROOT; ?>/pages/about" class= "updateDeliveredbutton" > Ignore</a></th>
+                        <td><?php echo $newexpectantRecords->nic; ?></td> 
+                        <td><?php echo $newexpectantRecords->mname; ?></td>          
+                        <td><a href="<?php echo URLROOT; ?>/users/register" class= "updateDeliveredbutton" > Add</a></td>
+                        <td><a href="<?php echo URLROOT; ?>/pages/about" class= "updateDeliveredbutton" > Ignore</a></td>
                     </tr>
                 
                 <?php endforeach; ?>
@@ -93,13 +93,13 @@ echo $today;
                 <?php foreach($data['expectantRecords'] as $expectantRecords):?>
                     <tr>
                     <th><a href="expectantRecords/info/<?php echo $expectantRecords->nic; ?>"><?php echo $expectantRecords->nic; ?></a> </th>
-                        <th><?php echo $expectantRecords->mname; ?></th>
-                        <th><?php echo $expectantRecords->memail; ?></th>
-                        <th><?php echo $expectantRecords->mcontactno; ?></th> 
-                        <th><?php echo $expectantRecords->registrationDate; ?></th>     
-                        <th><?php echo $expectantRecords->expectedDateofDelivery; ?></th>              
+                        <td><?php echo $expectantRecords->mname; ?></td>
+                        <td><?php echo $expectantRecords->memail; ?></td>
+                        <td><?php echo $expectantRecords->mcontactno; ?></td> 
+                        <td><?php echo $expectantRecords->registrationDate; ?></td>     
+                        <td><?php echo $expectantRecords->expectedDateofDelivery; ?></td>              
                         
-                        <th><a href="<?php echo URLROOT; ?>/users/register" class= "updateDeliveredbutton" > Delivered</a></th>
+                        <td><a href="<?php echo URLROOT; ?>/users/register" class= "updateDeliveredbutton" > Delivered</a></td>
                     </tr>
                 <?php endforeach; ?>
             </table>
