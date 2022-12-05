@@ -1,10 +1,18 @@
-<?php require APPROOT . '/views/inc/header.php'; ?>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style_clinicattendee.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <title><?php echo SITENAME; ?></title>
+</head>
 <body>
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
     <?php require APPROOT . '/views/inc/sidebar_clinicattendee.php' ; ?>
-    <div class="content">
-
+        <div class="content">
+            
 
         <h1 class="content_h1">Welcome, <?php if(isset($_SESSION['clinicattendee_id'])){
             echo explode(" ", $_SESSION['clinicattendee_name'])[0];
@@ -13,151 +21,5 @@
             }
         ?>
         </h1>
-
-
-
-
-        <h2>Overview</h2>
-
-        <div class="row">
-
-            <div class="dashboard_CA">
-                <h4>Next Clinic Date</h4> <br>
-                <div class="">
-                    Monthly Clinic
-
-                    <br><br>
-                    Date: 2022/05/03
-
-                    <br>
-                    <div>
-                        <a href="<?php echo URLROOT; ?>/clinicattendees/vaccination"><button
-                                class="reserve_btn">Reserve</button></a>
-                    </div>
-                </div>
-
-                <br> <br>
-
-                <div class="">
-                    Vaccination
-
-                    <br><br>
-                    Date: 2022/05/03
-
-                    <br>
-                    <div>
-                        <a href="<?php echo URLROOT; ?>/clinicattendees/vaccination"><button
-                                class="reserve_btn">Reserve</button></a>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="dashboard_CA">
-                <h4>Children</h4> <br>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Register number</th>
-                            <th>Name</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>2022/DE/075</td>
-                            <td>Joe Teddy</td>
-
-                        </tr>
-
-
-
-
-
-                    </tbody>
-                </table>
-
-                <br>
-                <h4>Children</h4> <br>
-                <div class="">
-                    Charts
-                    <a href="<?php echo URLROOT; ?>/clinicattendees/vaccination"><button class="reserve_btn"><b>Take
-                                a
-                                look</b></button></a>
-
-
-                    <br><br>
-                    Vaccination
-
-                    <a href="<?php echo URLROOT; ?>/children/vaccination"><button class="reserve_btn"><b>Take
-                                a
-                                look</b></button></a>
-
-                </div>
-
-
-
-
-            </div>
-
-        </div>
-
-
-
-
-        <div class="">
-
-            <div class="welcomebox">
-
-            </div>
-            <br> <br>
-
-
-
-            <h3>Monthly Reports </h3>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>BMI</th>
-                        <th>Blood Pressure</th>
-                        <th>Weight Gain</th>
-                        <th>Sugar/Albumin</th>
-                        <th>Medications</th>
-                        <th>Calcium</th>
-                        <th>Antimarial Drugs</th>
-                        <th>Triposha</th>
-                        <th>Iron/Forlate</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
-
-
-
-
-
-
-                </tbody>
-            </table>
-
-
-
-        </div>
-
-
-
-
-        <?php require APPROOT . '/views/inc/footer.php'; ?>
+    
+<?php require APPROOT . '/views/inc/footer.php'; ?>

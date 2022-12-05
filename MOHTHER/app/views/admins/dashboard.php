@@ -14,20 +14,13 @@
         <div class="content">
             <div>
                 <div>
-                    <h1 class="content_h1">Clinics</h1>
-                </div>
-                <div>
-                    <a href="<?php echo URLROOT; ?>/clinics/add"><button class="add">Add Clinic</button></a>
-                </div>
-            </div>
-            <?php foreach($data['clinics'] as $clinic) : ?>
-                <div class="big">
-                    <div class="card">
-                        <div class="container">
-                            <h4><a href="<?php echo URLROOT; ?>/clinics/info/<?php echo $clinic->id; ?>"><b><?php echo $clinic->clinic_name; ?></b></a></h4>
-                        </div>
-                    </div>
+                    <h2 class="content_h1">Admin dashboard</h2>
+                    <br>
                 </div>
                 
-            <?php endforeach; ?>
+            
+                
+            </div>
+
+    
 <?php require APPROOT . '/views/inc/footer.php'; ?>

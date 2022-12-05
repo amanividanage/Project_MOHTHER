@@ -7,14 +7,32 @@
         }
 
         public function index(){
-            //Get clinics 
-            $doctors = $this->doctorModel->getDoctors();
+            //Check if its a search
+            $find = false;
+            if(isset($_GET['search'])){
+                $search = addslashes($_GET['search']);
+                $find = true;
 
-            $data = [
-                'doctors' => $doctors
-            ];
+                if($find){
+                    $doctors = $this->doctorModel->searchDoctors($search);
+    
+                    $data = [
+                        'doctors' => $doctors
+                    ];
+                    
+                    $this->view('doctors/index', $data);
+                } 
+            } else {
+                //Get doctors
+                $doctors = $this->doctorModel->getDoctors();
 
-            $this->view('doctors/index', $data);
+                $data = [
+                    'doctors' => $doctors
+                ];
+
+                $this->view('doctors/index', $data);
+            }
+            
         }
 
 
