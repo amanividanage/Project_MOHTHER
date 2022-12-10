@@ -1,5 +1,9 @@
 <?php
-   session_start();
+
+    if(!isset($_SESSION)){
+        session_start();
+    }
+   
    
     function isLoggedIn(){
         if(isset($_SESSION['admin_id'])){

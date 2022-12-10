@@ -33,12 +33,14 @@
                     'email' => trim($_POST['email']),
                     'password' => trim($_POST['password']),
                     'clinic' => trim($_POST['clinic']),
+                    'phm' => trim($_POST['phm']),
                     'name_err' => '',
                     'identity_err' => '',
                     'phone_err' => '',
                     'email_err' => '',
                     'password_err' => '',
-                    'clinic_err' => ''
+                    'clinic_err' => '',
+                    'phm_err' => ''
                 ];
 
                 //validate data
@@ -82,6 +84,10 @@
                     $data['clinic_err'] = 'Please select a clinic';
                 }
 
+                if(empty($data['phm'])){
+                    $data['phm_err'] = 'Please select the PHM Area';
+                }
+
                 
                 //Make sure no errors
                 if(empty($data['name_err']) && empty($data['identity_err']) && empty($data['phone_err']) && empty($data['email_err']) && empty($data['password_err'])){
@@ -112,13 +118,15 @@
                     'email' => '',
                     'password' => '',
                     'clinic' => '',
+                    'phm' => '',
                     'name_err' => '',
                     'identity_err' => '',
                     'phone_err' => '',
                     'email_err' => '',
                     'password_err' => '',
                     'clinics' => $clinics,
-                    'clinic_err' => ''
+                    'clinic_err' => '',
+                    'phm_err' => ''
                 ];
 
                 //Load view

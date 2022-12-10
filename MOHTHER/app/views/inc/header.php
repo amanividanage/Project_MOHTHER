@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <title><?php echo SITENAME; ?></title>
 </head>
-<body>
-    <?php require APPROOT . '/views/inc/navbar.php' ; ?>
-    <?php require APPROOT . '/views/inc/sidebar.php' ; ?>
-    <div class="content">
+
+    
+
+     
+    
     

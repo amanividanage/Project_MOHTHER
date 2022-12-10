@@ -16,7 +16,7 @@
 
         //Add admin
         public function addMidwife($data){
-            $this->db->query('INSERT INTO midwifes (name, identity, phone, email, password, clinic) VALUES (:name, :identity, :phone, :email, :password, :clinic)');
+            $this->db->query('INSERT INTO midwifes (name, identity, phone, email, password, clinic, phm) VALUES (:name, :identity, :phone, :email, :password, :clinic, :phm)');
 
             //Bind values
             $this->db->bindParam(':name', $data['name']);
@@ -25,6 +25,7 @@
             $this->db->bindParam(':email', $data['email']);
             $this->db->bindParam(':password', $data['password']);
             $this->db->bindParam(':clinic', $data['clinic']);
+            $this->db->bindParam(':phm', $data['phm']);
 
             //Execute
             if($this->db->execute()){
