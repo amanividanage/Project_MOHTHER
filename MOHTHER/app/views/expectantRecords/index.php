@@ -5,14 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style_midwife.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <title><?php echo SITENAME; ?></title>
 </head>
 <body>
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
     <?php require APPROOT . '/views/inc/sidebar_midwife.php' ; ?>
-        <div class="content">
-            <h2 class="content_h1">Doctors</h2>
+<div class="expectant">
+<div class= "greeting" >
 
 
 <b>
@@ -91,7 +92,7 @@ echo $today;
                 </tr>
                 <?php foreach($data['expectantRecords'] as $expectantRecords):?>
                     <tr>
-                    <th><a href="expectantRecords/info/<?php echo $expectantRecords->nic; ?>"><?php echo $expectantRecords->nic; ?></a> </th>
+                    <th><a href="<?php echo URLROOT; ?>/expectantRecords/info/<?php echo $expectantRecords->nic; ?>"><?php echo $expectantRecords->nic; ?></a> </th>
                         <td><?php echo $expectantRecords->mname; ?></td>
                         <td><?php echo $expectantRecords->memail; ?></td>
                         <td><?php echo $expectantRecords->mcontactno; ?></td> 
@@ -106,4 +107,13 @@ echo $today;
     </div>
     </div>
     
+
+
+
+
+
+
 <?php require APPROOT . '/views/inc/footer.php'; ?>
+<!--<th><a href="clinics/info/<!?php echo $clinic->id; ?>"><!?php echo $expectantRecords->nic; ?></a> </th>
+
+

@@ -182,10 +182,18 @@
     <td><input type="Date" name="expectedDateofDelivery"  class= "form <?php echo (!empty($data['expectedDateofDelivery_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['expectedDateofDelivery']; ?>">
     <span class="invalid-feedback"><?php echo $data['expectedDateofDelivery_err']; ?></span></td>
     </tr>
+
+    <tr>
+    <td>
+    <label for="password">Password </label>
+    </td>
+    <td><input type="text" name="password"  class= "form <?php echo (!empty($data['password_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['password']; ?>">
+    <span class="invalid-feedback"><?php echo $data['password_err']; ?></span></td>
+    </tr>
     
-    <tr><td> <input type="submit" name="Submit" class="myButton"></input></td></tr>
+    <!--<tr><td> <input type="submit" name="Submit" class="myButton"></input></td></tr-->
 
-
+    <tr><td> <input type="submit"  name="Submit" class="myButton"></input> </td></tr>
 
  
 </form>

@@ -5,11 +5,11 @@
         <div class="sidebar_menu">
             <center>
                 <img src="<?php echo URLROOT;?>/img/3.png" class="profile_image" alt="">
-                <h4><?php echo $_SESSION['midwife_name']; ?></h4>
+                <h4>Joe Teddy</h4>
             </center>
     
             <li class="item">
-                <a href="#" class="menu-btn">
+                <a href="<?php echo URLROOT; ?>/expectantRecords/index" class="menu-btn">
                     <i class="fa fa-th"></i><span>Dashboard</span>
                 </a>
             </li>
@@ -26,12 +26,12 @@
                 </a>
                 <div class="sub-menu">
                     <a href=""><i class="fa fa-female"></i><span>Expectant Mother</span></a>
-                    <a href="<?php echo URLROOT; ?>/childrens/parentlist"><i class="fa fa-user-circle-o"></i><span>Parent/Guardian</span></a>
+                    <a href=""><i class="fa fa-user-circle-o"></i><span>Parent/Guardian</span></a>
                 </div>
             </li>
 
             <li class="item">
-                <a href="<?php echo URLROOT; ?>/childrens" class="menu-btn">
+                <a href="<?php echo URLROOT; ?>/children" class="menu-btn">
                     <i class="fa fa-child"></i><span>Children</span>
                 </a>
             </li>

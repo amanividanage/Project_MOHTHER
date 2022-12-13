@@ -15,8 +15,8 @@
 
 
     <div class= "dailyrecords">
-        <form action="<?php echo URLROOT; ?>/expectantRecords/add" method= "POST">
-   
+        <form action="<?php echo URLROOT; ?>/expectantRecords/add/<?php echo  $data['info']->nic; ?>" method= "POST">
+   <!--?php echo $data['info']->nic; ?-->
     <table align="center" cellpadding = "10">
         
  <tr><td><b> Monthly Records <hr>
