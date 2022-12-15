@@ -153,6 +153,7 @@ a.active,a:hover{
     width: 100px;
     height: 100px;
     margin-bottom: 10px;
+    border-radius: 100%;
 }
 
 .sidebar h4{
@@ -338,10 +339,43 @@ input[type=submit]:hover {
     cursor: pointer;
 }
 
+/*clinic-index page-heading*/
+
+.report{
+    display: flex;
+    justify-content: space-between;
+}
+
+.report button{
+    float: right;
+}
+
 
 /*clinic boxes*/
 
+div.gallery {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 180px;
+  }
+  
+  div.gallery:hover {
+    border: 1px solid #8946A6;
+  }
+  
+  div.gallery img {
+    width: 100%;
+    height: 60px;
+  }
 
+  
+  div.desc {
+    padding: 15px;
+    text-align: center;
+  }
+
+/*
 .card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;

@@ -2,7 +2,7 @@
 <?php if(isset($_SESSION['admin_id'])) : ?>
     <div class="sidebar">
         <center>
-                <img src="1.png" class="profile_image" alt="">
+                <img src="<?php echo URLROOT;?>/img/user.png" class="profile_image" alt="">
                 <h4><?php echo $_SESSION['admin_name']; ?></h4>
         </center>
             <a href="<?php echo URLROOT; ?>/admins/dashboard"><i class="fa fa-th" aria-hidden="true"></i><span>Dashboard</span></a>

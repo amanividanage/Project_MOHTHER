@@ -15,7 +15,7 @@
 
 
     <div class= "Registration">
-        <form action="<?php echo URLROOT; ?>/users/register" method= "POST">
+        <form action="<?php echo URLROOT; ?>/users/register/<?php echo $data['newexpectantRecords']->nic; ?>" method= "POST">
    
     <table align="center" cellpadding = "10">
         
@@ -26,9 +26,18 @@
     <td>
     <label for="nic">NIC </label>
     </td>
-    <td><input type="int" name="nic" maxlength="20" class= "form <?php echo (!empty($data['nic_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['nic']; ?>">
+    <td><input type="text" name="nic" maxlength="20" class= "form <?php echo (!empty($data['nic_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['newexpectantRecords']->nic; ?>">
     <span class="invalid-feedback"><?php echo $data['nic_err']; ?></span></td>
     </tr>
+
+    <tr>
+    <td>
+    <label for="name">Name </label>
+    </td>
+    <td><input type="text" name="name" class= "form <?php echo (!empty($data['nic_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['newexpectantRecords']->mname; ?>">
+    <span class="invalid-feedback"><?php echo $data['name_err']; ?></span></td>
+    </tr>
+    
 
    
 
@@ -181,6 +190,14 @@
     </td>
     <td><input type="Date" name="expectedDateofDelivery"  class= "form <?php echo (!empty($data['expectedDateofDelivery_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['expectedDateofDelivery']; ?>">
     <span class="invalid-feedback"><?php echo $data['expectedDateofDelivery_err']; ?></span></td>
+    </tr>
+
+    <tr>
+    <td>
+    <label for="password">Password </label>
+    </td>
+    <td><input type="text" name="password" class= "<?php echo (!empty($data['weight_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['password']; ?>">
+    <span class="invalid-feedback"><?php echo $data['password_err']; ?></span></td>
     </tr>
     
     <tr><td> <input type="submit" name="Submit" class="myButton"></input></td></tr>

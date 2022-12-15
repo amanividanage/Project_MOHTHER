@@ -23,9 +23,7 @@
                             <!--button type="submit" class="search_icon"><i class="fa fa-search"></i></button-->
                         </div>
                     </form>
-                    <div>
-                        <button id="myBtn" class="add">Add Children</button>
-                    </div>
+                    
                 </div>
             </div>
             <hr class="line">

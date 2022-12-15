@@ -212,7 +212,7 @@
                     //User found
                 } else {
                     //user not found
-                    $data['identity_err'] = 'No User Found';
+                    $data['identity_err'] = 'No admin Found';
                 }
 
                 //Make sure no errors

@@ -42,6 +42,30 @@
                 </div>
             </div>
             <hr class="line">
+
+            <div>
+                    <table>
+                        <tr>
+                            <th>Child Id</th>
+                            <th>Name</th>
+                            <th>Date of Birth</th>
+                            <th>Date</th>
+                            <th>Hospital</th>
+                            <th></th>
+                        </tr>
+                        <?php foreach($data['children'] as $children) : ?>
+                            <tr>
+                                <td><a href="<?php echo URLROOT; ?>/childrens/childprofile/<?php echo $children->child_id; ?>"><?php echo $children->child_id; ?></a></td>
+                                <td><?php echo $children->name; ?></td>
+                                <td><?php echo $children->dob; ?></td>
+                                <td><?php echo $children->date; ?></td>
+                                <td><?php echo $children->hospital; ?></td>
+                                <td></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+            </div>
         
         </div>
 

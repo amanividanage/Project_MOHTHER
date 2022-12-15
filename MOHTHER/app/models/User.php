@@ -54,10 +54,12 @@ class User{
     }
     //register user
     public function register($data){
-        $this->db->query('INSERT INTO expectant (nic,height,weight, bloodPressure,allergies, consanguinity, rubellaImmunization, prePregnancyScreening, preconceptionalFolicAcid, subfertility,gravidity,noofChildren,ageofYoungest,lastMenstrualDate,registrationDate,expectedDateofDelivery) VALUES(:nic,:height,:weight,:bloodPressure,:allergies,:consanguinity,:rubellaImmunization,:prePregnancyScreening,:preconceptionalFolicAcid,:subfertility,:gravidity,:noofChildren,:ageofYoungest,:lastMenstrualDate,:registrationDate,:expectedDateofDelivery)');
+        $this->db->query('INSERT INTO expectant (midwife_id,nic,name,height,weight, bloodPressure,allergies, consanguinity, rubellaImmunization, prePregnancyScreening, preconceptionalFolicAcid, subfertility,gravidity,noofChildren,ageofYoungest,lastMenstrualDate,registrationDate,expectedDateofDelivery,password) VALUES(:midwife_id,:nic,:name,:height,:weight,:bloodPressure,:allergies,:consanguinity,:rubellaImmunization,:prePregnancyScreening,:preconceptionalFolicAcid,:subfertility,:gravidity,:noofChildren,:ageofYoungest,:lastMenstrualDate,:registrationDate,:expectedDateofDelivery,:password)');
         
         //bind values
+        $this->db->bindParam(':midwife_id', $data['midwife_id']);
         $this->db->bindParam(':nic', $data['nic']);
+        $this->db->bindParam(':name', $data['name']);
         $this->db->bindParam(':height', $data['height']);
         $this->db->bindParam(':weight', $data['weight']);
         $this->db->bindParam(':bloodPressure', $data['bloodPressure']);
@@ -73,6 +75,7 @@ class User{
         $this->db->bindParam(':lastMenstrualDate', $data['lastMenstrualDate']);
         $this->db->bindParam(':registrationDate', $data['registrationDate']);
         $this->db->bindParam(':expectedDateofDelivery', $data['expectedDateofDelivery']);
+        $this->db->bindParam(':password', $data['password']);
        // $this->db->bind(':bmi', $data['bmi']);
        // $this->db->bind(':output', $data['output']);
 

@@ -62,3 +62,11 @@ function myFunction3() {
      text3.style.display = "none";
   }
 }
+
+
+
+
+
+
+
+/*..................Age.............*/ 

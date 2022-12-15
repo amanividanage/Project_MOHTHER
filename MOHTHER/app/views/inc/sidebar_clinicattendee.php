@@ -1,9 +1,9 @@
 <!--Side bar Start-->
-<?php if(isset($_SESSION['clinicattendee_id'])) : ?>
+<?php if(isset($_SESSION['clinicattendee_nic'])) : ?>
     <div class="sidebar">
         <center>
                 <img src="1.png" class="profile_image" alt="">
-                <h4>Joe Teddy</h4>
+                <h4><?php echo $_SESSION['clinicattendee_name']; ?></h4>
         </center>
             <a href="<?php echo URLROOT; ?>/clinicattendees"><i class="fa fa-th" aria-hidden="true"></i><span>Dashboard</span></a>
             <a href="<?php echo URLROOT; ?>/clinicattendees/profile"><i class="fa fa-user" aria-hidden="true"></i><span>Profile</span></a>

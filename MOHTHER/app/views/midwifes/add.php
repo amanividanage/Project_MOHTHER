@@ -45,6 +45,7 @@
                     <div>
                         <label for="clinic" class="form_font">Clinic: <sup>*</sup></label>
                         <select name="clinic" id="clinic">
+                            <option value="">Select a clinic</option>
                             <?php foreach($data['clinics'] as $clinic) : ?>
                                 <option value="<?php echo $clinic->id; ?>"><?php echo $clinic->clinic_name; ?></option>
                             <?php endforeach; ?>
@@ -52,8 +53,8 @@
                         <span class="form-err"><?php echo $data['clinic_err']; ?></span>
                     </div>
                     <div>
-                        <label for="phm">PHM Area: <sup>*</sup></label>
-                        <select name="phm" id="phm" required>
+                        <label for="phm" class="form_font">PHM Area: <sup>*</sup></label>
+                        <select name="phm" id="phm">
                             <option value="">Select Public Health Midwife Area</option>
                             <option value="North">North</option>
                             <option value="South">South</option>

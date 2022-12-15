@@ -2,6 +2,7 @@
 class Users extends Controller{
    public function __construct(){
         $this->userModel = $this->model('User');
+        $this->expectantRecordModel = $this->model('ExpectantRecord');
        
         
 }
@@ -197,7 +198,7 @@ public function expectant(){
 //}
 
 
-   public function register(){
+   public function register($nic){
     //check for post
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         //PROCESS FORM
@@ -205,11 +206,13 @@ public function expectant(){
         //sanitizing the POST data
         $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
-
+        $newexpectantRecords =  $this->expectantRecordModel-> getNewExpectantRecordsByNic($nic); 
         //init data 
         $data =[
-
-            'nic' => trim($_POST['nic']),
+            'newexpectantRecords'=> $newexpectantRecords,
+            'midwife_id'=>$_SESSION['midwife_id'],
+            'nic' => $nic,
+            'name' => trim($_POST['name']),
             'height' => trim($_POST['height']),
             'weight' => trim($_POST['weight']),
             'bloodPressure' => trim($_POST['bloodPressure']),
@@ -225,9 +228,12 @@ public function expectant(){
             'lastMenstrualDate' => trim($_POST['lastMenstrualDate']),
             'registrationDate' =>  trim($_POST['registrationDate']),
             'expectedDateofDelivery' =>  trim($_POST['expectedDateofDelivery']),
+            'password' => trim($_POST['password']),
+
           // 'bmi' => trim($_POST['bmi']),
            //'output' => trim($_POST['output']),
             'nic_err' => '',
+            'name_err' => '',
             'height_err' => '',
             'weight_err' => '',
             'bloodPressure_err' => '',
@@ -243,7 +249,7 @@ public function expectant(){
             'lastMenstrualDate_err' => '',
             'registrationDate_err' => '',
             'expectedDateofDelivery_err' => '',
-            'bmi_err'=>'',
+            'password_err' => '',            'bmi_err'=>'',
             'output_err'=>'',
             
             
@@ -313,6 +319,8 @@ public function expectant(){
                 //validated
                 //die('Successfull');
 
+                $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+
                 //register user
                 if($this->userModel->register($data)){
                     //displaying the message using sessions- sessions_helpersA.php
@@ -330,10 +338,12 @@ public function expectant(){
             }
 
     }else{
+        $newexpectantRecords =  $this->expectantRecordModel-> getNewExpectantRecordsByNic($nic); 
         //init data
         $data =[
-
+        'newexpectantRecords'=> $newexpectantRecords,
         'nic' => '',
+        'name' => '',
         'height' => '',
         'weight' => '',
         'bloodPressure' => '',
@@ -349,7 +359,9 @@ public function expectant(){
         'lastMenstrualDate' => '',
         'registrationDate' => '',
         'expectedDateofDelivery' => '',
+        'password' => '',
         'nic_err' => '',
+        'name_err' => '',
         'height_err' => '',
         'weight_err' => '',
         'bloodPressure_err' => '',
@@ -365,6 +377,7 @@ public function expectant(){
         'lastMenstrualDate_err' => '',
         'registrationDate_err' => '',
         'expectedDateofDelivery_err' => '',
+        'password_err' => '',
         'date'=>'',
         'calculatedBMI'=> '',
         'year' => '',

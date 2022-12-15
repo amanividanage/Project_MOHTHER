@@ -9,7 +9,7 @@
             </center>
     
             <li class="item">
-                <a href="#" class="menu-btn">
+                <a href="<?php echo URLROOT; ?>/expectantRecords/index" class="menu-btn">
                     <i class="fa fa-th"></i><span>Dashboard</span>
                 </a>
             </li>
@@ -25,7 +25,7 @@
                     <i class="fa fa-users"></i><span>Clinic Attendee <i class="fa fa-chevron-down drop-down"></i></span>
                 </a>
                 <div class="sub-menu">
-                    <a href=""><i class="fa fa-female"></i><span>Expectant Mother</span></a>
+                    <a href="<?php echo URLROOT; ?>/childrens/expectnatmotherlist"><i class="fa fa-female"></i><span>Expectant Mother</span></a>
                     <a href="<?php echo URLROOT; ?>/childrens/parentlist"><i class="fa fa-user-circle-o"></i><span>Parent/Guardian</span></a>
                 </div>
             </li>
