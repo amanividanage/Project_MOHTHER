@@ -31,6 +31,16 @@ class User{
         $results =  $this->db->resultSet();
         return $results;
     }
+    public function displayExpectantRecords($nic){
+        $this->db->query("SELECT *
+                         FROM registration
+                         WHERE nic= :nic"
+                         
+                         );
+                         $this->db->bindParam(':nic', $nic); 
+        $results =  $this->db->single();
+        return $results;
+    }
 
 
      

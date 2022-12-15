@@ -200,9 +200,9 @@
     <span class="invalid-feedback"><?php echo $data['password_err']; ?></span></td>
     </tr>
     
-    <tr><td> <input type="submit" name="Submit" class="myButton"></input></td></tr>
+    <!--<tr><td> <input type="submit" name="Submit" class="myButton"></input></td></tr-->
 
-
+    <tr><td> <input type="submit"  name="Submit" class="myButton"></input> </td></tr>
 
  
 </form>

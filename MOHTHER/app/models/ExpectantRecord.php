@@ -101,8 +101,8 @@ class ExpectantRecord {
         return $results;
     }
 
-    public function add($data){
-        $this->db->query('INSERT INTO detailrecords_Expectant (nic,reportNo,date,weight, vaccination,ironorForlate,vitaminC, calcium, antimarialDrugs, triposha) VALUES(:nic,:reportNo,:date,:weight,:vaccination,:ironorForlate,:vitaminC,:calcium,:antimarialDrugs,:triposha)');
+    public function addRecords($data){
+        $this->db->query('INSERT INTO detailrecords_expectant (nic,reportNo,date,weight, vaccination,ironorForlate,vitaminC, calcium, antimarialDrugs, triposha) VALUES(:nic,:reportNo,:date,:weight,:vaccination,:ironorForlate,:vitaminC,:calcium,:antimarialDrugs,:triposha)');
         
         //bind values
         $this->db->bindParam(':nic', $data['nic']);
@@ -125,6 +125,22 @@ class ExpectantRecord {
 
 
     
+}
+public function password_expectant($data){
+    $this->db->query('INSERT INTO expectant (password) VALUES(:password)');
+    
+    //bind values
+    $this->db->bindParam(':password', $data['password']);
+   
+    //execute for update/delete
+    if($this->db->execute()){
+        return true;
+    }else{
+        return false;
+    }
+
+
+
 }
 
 
