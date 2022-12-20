@@ -4,7 +4,7 @@
             $this->adminModel = $this->model('Admin');
         }
 
-        public function index(){
+        /*public function index(){
             //Get clinics 
             $admins = $this->adminModel->getAdmins();
 
@@ -13,6 +13,70 @@
             ];
 
             $this->view('admins/index', $data);
+        }*/
+
+        public function index(){
+
+            //Check if its a search
+            $find = false;
+            if(isset($_GET['search'])){
+                $search = addslashes($_GET['search']);
+                $find = true;
+
+                if($find){
+                    $admins = $this->adminModel->searchAdmins($search);
+    
+                    $data = [
+                        'admins' => $admins
+                    ];
+    
+                    $this->view('admins/index', $data);
+                } 
+            } else {
+                $admins = $this->adminModel->getAdmins();
+
+                $data = [
+                    'admins' => $admins
+                ];
+
+                $this->view('admins/index', $data);
+            }
+
+            /*if($find){
+                $admins = $this->adminModel->searchAdmins();
+
+                $data = [
+                    'admins' => $admins
+                ];
+
+                $this->view('admins/index', $data);
+            } else {
+                $admins = $this->adminModel->getAdmins();
+
+                $data = [
+                    'admins' => $admins
+                ];
+
+                $this->view('admins/index', $data);
+            }*/
+        }
+        
+        public function dashboard(){
+
+            $data = [
+               
+            ];
+
+            $this->view('admins/dashboard', $data);
+        }
+        
+        public function statistics(){
+
+            $data = [
+               
+            ];
+
+            $this->view('admins/Statistics', $data);
         }
 
 
@@ -148,7 +212,7 @@
                     //User found
                 } else {
                     //user not found
-                    $data['identity_err'] = 'No User Found';
+                    $data['identity_err'] = 'No admin Found';
                 }
 
                 //Make sure no errors

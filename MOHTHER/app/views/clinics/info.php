@@ -1,9 +1,18 @@
-<?php require APPROOT . '/views/inc/header.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style_admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <title><?php echo SITENAME; ?></title>
+</head>
 <body>
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
     <?php require APPROOT . '/views/inc/sidebar.php' ; ?>
         <div class="content">
-            <a href="<?php echo URLROOT; ?>/clinics" class="back"><i class="fa fa-backward"></i>Back</a>
+            <a href="<?php echo URLROOT; ?>/clinics" class="back"><i class="fa fa-backward"></i>  Back</a>
             <div>
                 <div>
                     <h2 class="content_h1"><?php echo $data['clinic']->clinic_name; ?></h2>
@@ -54,7 +63,7 @@
                         <tr>
                             <th>Doctors</th>
                             <th></th>
-                            <th><a href="<?php echo URLROOT; ?>/clinics/doctor/<?php echo $data['clinic']->id; ?>"><button class="add2">Add Doctor</button></a></th>
+                            <th><!--a href="<!?php echo URLROOT; ?>/clinics/doctor/<!?php echo $data['clinic']->id; ?>"><button class="add2">Add Doctor</button></a--></th>
                         </tr>
                         <tr>
                             <th>Doctor Id</th>
@@ -76,7 +85,7 @@
                         <tr>
                             <th>Midwives</th>
                             <th></th>
-                            <th><a href="<?php echo URLROOT; ?>/clinics/midwife/<?php echo $data['clinic']->id; ?>"><button class="add2">Add Midwife</button></a></th>
+                            <th><!--a href="<!?php echo URLROOT; ?>/clinics/midwife/<!?php echo $data['clinic']->id; ?>"><button class="add2">Add Midwife</button></a--></th>
                         </tr>
                         <tr>
                             <th>Midwife ID</th>

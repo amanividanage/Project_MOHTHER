@@ -57,7 +57,7 @@
                 }
 
                 if(empty($data['location'])){
-                    $data['loacation_err'] = 'Please enter your location';
+                    $data['location_err'] = 'Please enter the address';
                 }
 
 

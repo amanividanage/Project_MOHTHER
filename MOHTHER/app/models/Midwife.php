@@ -14,6 +14,14 @@
             return $results;
         }
 
+        public function searchMidwifes($search){
+            $this->db->query("SELECT * FROM midwifes WHERE CONCAT(name,identity) LIKE '%$search%' ");
+
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
+
         //Add admin
         public function addMidwife($data){
             $this->db->query('INSERT INTO midwifes (name, identity, phone, email, password, clinic, phm) VALUES (:name, :identity, :phone, :email, :password, :clinic, :phm)');
@@ -30,6 +38,21 @@
             //Execute
             if($this->db->execute()){
                 return true;
+            } else {
+                return false;
+            }
+        }
+
+        //Login user
+        public function login($identity, $password){
+            $this->db->query('SELECT * FROM midwifes WHERE identity = :identity');
+            $this->db->bindparam(':identity', $identity);
+
+            $row = $this->db->single();
+
+            $hashed_password = $row->password;
+            if(password_verify($password, $hashed_password)){
+                return $row;
             } else {
                 return false;
             }
@@ -79,5 +102,38 @@
             $results = $this->db->resultSet();
 
             return $results;
+        }
+        public function updatemidwifeinfo($data){
+            $this->db->query("UPDATE midwifes  SET email =:email, phone=:phone WHERE midwife_id = :midwife_id");
+            $this->db->bindParam(':midwife_id',  $_SESSION['midwife_id']);
+            $this->db->bindParam(':phone',  $data['phone']);
+            $this->db->bindParam(':email',  $data['email']);
+            $row = $this->db->single();
+    
+            return $row;
+            
+             //Execute
+             if($this->db->execute()){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        
+        public function getProfileMidwife(){
+            $this->db->query("SELECT * FROM midwifes WHERE midwife_id = :midwife_id");
+            $this->db->bindParam(':midwife_id',  $_SESSION['midwife_id']);
+          
+
+            $row = $this->db->single();
+            return $row;
+
+             //Execute
+             if($this->db->execute()){
+                return true;
+            } else {
+                return false;
+            }
         }
     }
