@@ -34,17 +34,6 @@
                         <span class="form-err"><?php echo $data['gnd_err']; ?></span>
                     </div> 
                     <div>
-                        <label for="phm">PHM Area: <sup>*</sup></label>
-                        <select name="phm" id="phm">
-                            <option value="">Select Public Health Midwife Area</option>
-                            <option value="North">North</option>
-                            <option value="South">South</option>
-                            <option value="East">East</option>
-                            <option value="West">West</option>
-                        </select>
-                        <span class="form-err"><?php echo $data['phm_err']; ?></span>
-                    </div>
-                    <div>
                         <label for="location">Address: <sup>*</sup></label>
                         <input type="text" name="location" placeholder="Enter the address.. ">
                         <span class="form-err"><?php echo $data['location_err']; ?></span>

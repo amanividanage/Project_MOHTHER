@@ -2,13 +2,7 @@
 class Users extends Controller{
    public function __construct(){
         $this->userModel = $this->model('User');
-<<<<<<< HEAD
         $this->expectantRecordModel = $this->model('ExpectantRecord');
-=======
-        $this->clinicattendeeModel = $this->model('Clinicattendee');
-        $this->expectantRecordModel = $this->model('ExpectantRecord');
-
->>>>>>> 0421a6c6a5a5c3ed1e4e011f3f8980dd0a85f936
        
         
 }
@@ -23,63 +17,6 @@ public function index(){
        
     
       $this->view('expectantRecords/index', $data);
-    }
-
-    public function password_expectant($nic){
-     
-       
-   
-        if($_SERVER['REQUEST_METHOD']=='POST'){
-          //Sanitize POST array
-          $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-          $data = [
-            'username' => trim($_POST['username']),
-             'username_err'=>'',
-            'password' => trim($_POST['password']),
-            'password_err'=>'',
-
-            
-          ];
-
-          //make sure that there are no errors
-           if(empty($data['password_err']))
-           {
-             //validated
-              //die('Successfull');
-
-              //add expectant mother's records
-              if($this->expectantRecordModel->password_expectant($data)){
-               
-                redirectto('pages/about');
- 
-                        
-            }else{
-                die('Something went wrong');
-            }
-        } else{
-            //load view with errors
-            $this->view('users/password_expectant', $data);
-        }
-        
-         } else{
-
-          $sendingPassword =  $this->clinicattendeeModel->getClinicAttendeeByNic($nic);
-      $data = [
-        'password'=>'',
-        'password_err'=>'',
-        'username'=>'',
-        'username_err'=>'',
-        'sendingPassword' => $sendingPassword
-      
-        
-        
-              
-        ];
-       
-    
-      $this->view('users/password_expectant', $data);
-
-      }
     }
 
 public function expectant(){
@@ -272,16 +209,10 @@ public function expectant(){
         $newexpectantRecords =  $this->expectantRecordModel-> getNewExpectantRecordsByNic($nic); 
         //init data 
         $data =[
-<<<<<<< HEAD
             'newexpectantRecords'=> $newexpectantRecords,
             'midwife_id'=>$_SESSION['midwife_id'],
             'nic' => $nic,
             'name' => trim($_POST['name']),
-=======
-
-            'nic' => trim($_POST['nic']),
-          //  'midwife_id'=>$_SESSION['midwife_id'],
->>>>>>> 0421a6c6a5a5c3ed1e4e011f3f8980dd0a85f936
             'height' => trim($_POST['height']),
             'weight' => trim($_POST['weight']),
             'bloodPressure' => trim($_POST['bloodPressure']),
@@ -297,12 +228,8 @@ public function expectant(){
             'lastMenstrualDate' => trim($_POST['lastMenstrualDate']),
             'registrationDate' =>  trim($_POST['registrationDate']),
             'expectedDateofDelivery' =>  trim($_POST['expectedDateofDelivery']),
-<<<<<<< HEAD
             'password' => trim($_POST['password']),
 
-=======
-            'password'=> trim($_POST['password']),
->>>>>>> 0421a6c6a5a5c3ed1e4e011f3f8980dd0a85f936
           // 'bmi' => trim($_POST['bmi']),
            //'output' => trim($_POST['output']),
             'nic_err' => '',
@@ -324,7 +251,6 @@ public function expectant(){
             'expectedDateofDelivery_err' => '',
             'password_err' => '',            'bmi_err'=>'',
             'output_err'=>'',
-            'password_err'=>'',
             
             
             ];
@@ -378,11 +304,8 @@ public function expectant(){
                 $data['registrationDate_err']='*Please enter the Registration Date';
             }
 
-            if(empty($data['expectedDateofDelivery'])){
-                $data['expectedDateofDelivery_err']='Please enter the Expected date of delivery';
-            }
-            if(empty($data['password'])){
-                $data['password_err']='Please enter the user password';
+            if(empty($data['expectedDateofDeliver'])){
+                $data['expectedDateofDeliver_err']='Please enter the Expected date of delivery';
             }
 
             //validate the date of registration and expected date of delivery
@@ -391,12 +314,10 @@ public function expectant(){
             //}
 
             //make sure all the necessary data are filled by midwife
-            if(empty($data[ 'nic_err']) && empty($data[ 'height_err'])&& empty($data[ 'weight_err']) && empty($data[ 'bloodPressure_err']) && empty($data[  'allergies_err']) && empty($data[  'subfertility_err']) && empty($data[  'gravidity_err']) && empty($data[ 'noofChildren_err'] )  && empty($data[ 'password_err'] ))
+            if(empty($data[ 'nic_err']) && empty($data[ 'height_err'])&& empty($data[ 'weight_err']) && empty($data[ 'bloodPressure_err']) && empty($data[  'allergies_err']) && empty($data[  'subfertility_err']) && empty($data[  'gravidity_err']) && empty($data[ 'noofChildren_err'] ))
             {
                 //validated
                 //die('Successfull');
-                  //Hash password
-                  $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
@@ -405,7 +326,7 @@ public function expectant(){
                     //displaying the message using sessions- sessions_helpersA.php
                 //   flash('register_success', 'You have successfully completed the 2nd phase of registration of clinic attendee with the NIC number ' .'   ' . $data['nic'] . ' ' . 'with the expected date of delivery on ' .'   ' . $data['expectedDateofDelivery']);
                    
-                   redirect('pages/about');
+                   redirect('expectantRecords/index');
                 }else{
                     die('Something went wrong');
                 }
@@ -422,11 +343,7 @@ public function expectant(){
         $data =[
         'newexpectantRecords'=> $newexpectantRecords,
         'nic' => '',
-<<<<<<< HEAD
         'name' => '',
-=======
-       // 'midwife_id'=>'',
->>>>>>> 0421a6c6a5a5c3ed1e4e011f3f8980dd0a85f936
         'height' => '',
         'weight' => '',
         'bloodPressure' => '',
@@ -442,11 +359,7 @@ public function expectant(){
         'lastMenstrualDate' => '',
         'registrationDate' => '',
         'expectedDateofDelivery' => '',
-<<<<<<< HEAD
         'password' => '',
-=======
-        'password'=>'',
->>>>>>> 0421a6c6a5a5c3ed1e4e011f3f8980dd0a85f936
         'nic_err' => '',
         'name_err' => '',
         'height_err' => '',
@@ -468,7 +381,6 @@ public function expectant(){
         'date'=>'',
         'calculatedBMI'=> '',
         'year' => '',
-        'password_err'=> '',
         
         
         ];

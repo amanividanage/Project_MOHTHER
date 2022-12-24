@@ -11,15 +11,21 @@
 <body>
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
     <?php require APPROOT . '/views/inc/sidebar.php' ; ?>
+    <div class=b"">
+                <div class="home_content">
         <div class="content">
-            
-            
-            <div class="container_new">
+            <img src="" alt="">
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="container_newmidwife">
                 <h2>Midwife Log In</h2>
+                <br>
                 <p>Please enter your credencials to log in</p>
                 <form action="<?php echo URLROOT; ?>/midwifes/login" method="post">
                     <div>
-                        <label for="identity">ID No: <sup>*</sup></label>
+                        <label for="identity"> ID No: <sup>*</sup></label>
                         <input type="text" name="identity" placeholder="Enter your ID no">
                         <span class="form-err"><?php echo $data['identity_err']; ?></span>
                     </div>

@@ -11,31 +11,53 @@
 <body>
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
     <?php require APPROOT . '/views/inc/sidebar_midwife.php' ; ?>
+    <div class="content">
         <div class="content_expectant2">
            
                 <div>
                     <table>
                         <tr>
-                            <th>Details </th>
+                            <th>Monthly Record by Midwife </th>
                             <th></th>
                         </tr>
                         <tr>
-                            <td>No</td>
+                            <td>Report No</td>
                             <td><?php echo $data['singlereport']->reportNo; ?></td>
                         </tr>
                         <tr>
-                            <td>date</td>
+                            <td>Date</td>
                             <td><?php echo $data['singlereport']->date; ?></td>
                         </tr>
                         <tr>
-                            <td>weight</td>
+                            <td>Weight</td>
                             <td><?php echo $data['singlereport']->weight; ?></td>
                         </tr>
                         <tr>
-                            <td>triposha</td>
+                            <td>Vaccination</td>
+                            <td><?php echo $data['singlereport']->vaccination; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Iron /Forlate</td>
+                            <td><?php echo $data['singlereport']->ironorForlate; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Vitamin C</td>
+                            <td><?php echo $data['singlereport']->vitaminC; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Calcium</td>
+                            <td><?php echo $data['singlereport']->calcium; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Antimarial Drugs</td>
+                            <td><?php echo $data['singlereport']->antimarialDrugs; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Triposha</td>
                             <td><?php echo $data['singlereport']->triposha; ?></td>
                         </tr>
                         <tr>
+</div>
                
 
                         

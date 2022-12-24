@@ -46,7 +46,7 @@ nav ul li a{
     text-decoration: none;
 }
 
-a.active,a:hover{
+a.active,.bctive:hover{
     background: #ba66de;
     transition: .5s;
 }
@@ -286,7 +286,7 @@ input[type=submit] {
 }
 
 input[type=submit]:hover {
-    background-color: #3a0642;
+    background-color: #45a049;
 }
 
 .container_new {
@@ -344,6 +344,8 @@ input[type=submit]:hover {
 .report{
     display: flex;
     justify-content: space-between;
+    scroll-behavior: no;
+    overflow: hidden;
 }
 
 .report button{
@@ -491,6 +493,62 @@ th {
     font-family: Georgia, serif;
     color: #8946A6;
 }
+/*********************************about, facilities pages*************************/
+.home-h1{
+    position: absolute;
+    margin-top: 200px;
+    margin-left: 50%;
+    font-size: 11vh;
+    font-family: Georgia, serif;
+    color: #8946A6;
+    
+}
+.home-h3{
+    position: absolute;
+    margin-top: 400px;
+    margin-left: 50%;
+    font-size: 4.5vh;
+    font-family: Georgia, serif;
+    color: #8946A6;
+   
+}
+.home-h4{
+    position: absolute;
+    margin-top: 100px;
+    margin-left: 50%;
+    font-size: 6vh;
+    font-family: Georgia, serif;
+    color: #4b0a68;
+    
+}
+.home-h5{
+    position: absolute;
+    margin-top: 150px;
+    margin-left: 50%;
+    font-size: 4.5vh;
+    font-family: Georgia, serif;
+    color: #8946A6;
+    transition: 0.3s;
+}
+.home-h6{
+    position: absolute;
+    margin-top: 340px;
+    margin-left: 50%;
+    font-size: 6vh;
+    font-family: Georgia, serif;
+    color: #382541;
+    transition: 0.3s;
+}
+.home-h7{
+    position: absolute;
+    margin-top: 200px;
+    margin-left: 40%;
+    font-size: 4.5vh;
+    font-family: Georgia, serif;
+    color: #8946A6;
+    transition: 0.3s;
+}
+
 
 /*Search botton*/
 
@@ -530,3 +588,15 @@ input[type=search]{
     color: #F0E3FF;
 }
 
+.container_newmidwife {
+    margin-top: -28px;
+    margin-left: auto;
+    margin-right: 0%;
+    width: 60%;
+    border-radius: 5px;
+    background-color:#d0aaf8;
+    padding: 120px;
+    padding-right: 100px;
+    padding-left: 100px;
+    margin-bottom: 0%;
+}

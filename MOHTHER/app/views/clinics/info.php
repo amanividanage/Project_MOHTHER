@@ -37,10 +37,6 @@
                             <td><?php echo $data['clinic']->gnd; ?></td>
                         </tr>
                         <tr>
-                            <td>PHM Area</td>
-                            <td><?php echo $data['clinic']->phm; ?></td>
-                        </tr>
-                        <tr>
                             <td>location Address</td>
                             <td><?php echo $data['clinic']->location; ?></td>
                         </tr>

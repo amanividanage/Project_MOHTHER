@@ -103,4 +103,37 @@
 
             return $results;
         }
+        public function updatemidwifeinfo($data){
+            $this->db->query("UPDATE midwifes  SET email =:email, phone=:phone WHERE midwife_id = :midwife_id");
+            $this->db->bindParam(':midwife_id',  $_SESSION['midwife_id']);
+            $this->db->bindParam(':phone',  $data['phone']);
+            $this->db->bindParam(':email',  $data['email']);
+            $row = $this->db->single();
+    
+            return $row;
+            
+             //Execute
+             if($this->db->execute()){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        
+        public function getProfileMidwife(){
+            $this->db->query("SELECT * FROM midwifes WHERE midwife_id = :midwife_id");
+            $this->db->bindParam(':midwife_id',  $_SESSION['midwife_id']);
+          
+
+            $row = $this->db->single();
+            return $row;
+
+             //Execute
+             if($this->db->execute()){
+                return true;
+            } else {
+                return false;
+            }
+        }
     }

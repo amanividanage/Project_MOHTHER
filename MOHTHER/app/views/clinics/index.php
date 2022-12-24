@@ -19,8 +19,8 @@
             </div>
             <?php foreach($data['clinics'] as $clinic) : ?>
                 <div class="gallery">
-                    <a target="_blank" href="<?php echo URLROOT; ?>/clinics/info/<?php echo $clinic->id; ?>">
-                        <img src="<?php echo URLROOT;?>/img/back.png" alt="Cinque Terre" width="600" height="400">
+                    <a href="<?php echo URLROOT; ?>/clinics/info/<?php echo $clinic->id; ?>">
+                        <img src="<?php echo URLROOT;?>/img/clinic.jpg" alt="Cinque Terre" width="600" height="400">
                     </a>
                     <div class="desc"><?php echo $clinic->clinic_name; ?></div>
                 </div>

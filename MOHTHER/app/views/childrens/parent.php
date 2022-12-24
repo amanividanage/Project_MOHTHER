@@ -12,6 +12,7 @@
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
     <?php require APPROOT . '/views/inc/sidebar_midwife.php' ; ?>
         <div class="content">
+        <a href="<?php echo URLROOT; ?>/childrens" class="back"><i class="fa fa-backward"></i>Back</a>
 
             <div class="container_new">
                 <h2>Add Mother/Parent/Guardian to Add Child</h2>
@@ -91,25 +92,14 @@
                     <h4>Other details</h4>
                     <div>
                         <label for="gnd">Grama Niladhari Division: <sup>*</sup></label>
-                        <select name="gnd" id="gnd">
-                            <option value="" selected hidden>Grama Niladhari division</option>
-                            <option value="GND-1">GND-1</option>
-                            <option value="GND-2">GND-2</option>
-                            <option value="GND-3">GND-3</option>
-                            <option value="GND-4">GND-4</option>
-                        </select>
+                        <input type="text" name="gnd" value="<?php echo $data['gnd']->gnd; ?>">
                         <span class="form-err"><?php echo $data['gnd_err']; ?></span>
                     </div> 
                     <div>
                         <label for="phm">PHM Area: <sup>*</sup></label>
-                        <select name="phm" id="phm">
-                            <option value="">Select Public Health Midwife Area</option>
-                            <option value="North">North</option>
-                            <option value="South">South</option>
-                            <option value="East">East</option>
-                            <option value="West">West</option>
-                        </select>
+                        <input type="text" name="phm" value="<?php echo $data['phm']->phm; ?>">
                         <span class="form-err"><?php echo $data['phm_err']; ?></span>
+                        
                     </div>
                     <div>
                         <label for="password">Password: <sup>*</sup></label>

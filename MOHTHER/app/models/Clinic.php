@@ -16,11 +16,10 @@
 
 
         public function addClinic($data){
-            $this->db->query("INSERT INTO `clinics` (clinic_name, gnd, phm, location) VALUES(:clinic_name, :gnd, :phm, :location)");
+            $this->db->query("INSERT INTO `clinics` (clinic_name, gnd, location) VALUES(:clinic_name, :gnd, :location)");
             //Bind values
             $this->db->bindParam(':clinic_name', $data['clinic_name']);
             $this->db->bindParam(':gnd', $data['gnd']);
-            $this->db->bindParam(':phm', $data['phm']);
             $this->db->bindParam(':location', $data['location']);
 
             //Execute

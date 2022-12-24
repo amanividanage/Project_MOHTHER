@@ -167,4 +167,23 @@ class Children{
 
     //     return $row;
     // }
+
+    public function findGndByClinic($id){
+        $this->db->query('SELECT * FROM clinics WHERE id = :id');
+        $this->db->bindParam(':id', $id);
+
+        $row = $this->db->single();
+
+        return $row;
+    }
+    
+    public function findPhmByMidwife($nic){
+        $this->db->query('SELECT * FROM midwifes WHERE identity = :identity');
+        $this->db->bindParam(':identity', $nic);
+
+        $row = $this->db->single();
+
+        return $row;
+    }
+
 }

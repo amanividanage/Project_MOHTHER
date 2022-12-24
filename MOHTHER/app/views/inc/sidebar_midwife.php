@@ -5,7 +5,7 @@
         <div class="sidebar_menu">
             <center>
                 <img src="<?php echo URLROOT;?>/img/3.png" class="profile_image" alt="">
-                <h4>Joe Teddy</h4>
+                <h4><?php echo $_SESSION['midwife_name']; ?></h4>
             </center>
     
             <li class="item">
@@ -15,8 +15,8 @@
             </li>
 
             <li class="item">
-                <a href="#" class="menu-btn">
-                    <i class="fa fa-home"></i><span>Clinics</span>
+                <a href="<?php echo URLROOT; ?>/expectantRecords/midwife_profile"" class="menu-btn">
+                    <i class="fa fa-home"></i><span>My Profile</span>
                 </a>
             </li>
 
@@ -25,13 +25,13 @@
                     <i class="fa fa-users"></i><span>Clinic Attendee <i class="fa fa-chevron-down drop-down"></i></span>
                 </a>
                 <div class="sub-menu">
-                    <a href="<?php echo URLROOT; ?>/childrens/expectnatmotherlist"><i class="fa fa-female"></i><span>Expectant Mother</span></a>
+                    <a href="<?php echo URLROOT; ?>/expectantRecords/expectnatmotherlist"><i class="fa fa-female"></i><span>Expectant Mother</span></a>
                     <a href="<?php echo URLROOT; ?>/childrens/parentlist"><i class="fa fa-user-circle-o"></i><span>Parent/Guardian</span></a>
                 </div>
             </li>
 
             <li class="item">
-                <a href="<?php echo URLROOT; ?>/children" class="menu-btn">
+                <a href="<?php echo URLROOT; ?>/childrens" class="menu-btn">
                     <i class="fa fa-child"></i><span>Children</span>
                 </a>
             </li>

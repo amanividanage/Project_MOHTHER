@@ -13,8 +13,9 @@
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
     <?php require APPROOT . '/views/inc/sidebar_midwife.php' ; ?>
 
+    <div class="content">
 
-    <div class= "dailyrecords">
+    <div class= "adddailyrecords">
         <form action="<?php echo URLROOT; ?>/expectantRecords/add/<?php echo  $data['info']->nic; ?>" method= "POST">
    <!--?php echo $data['info']->nic; ?-->
     <table align="center" cellpadding = "10">
@@ -131,13 +132,11 @@
      </select></label>
     </td></tr>
 
-    
-
     <tr><td> <input type="submit" name="Submit" class="myButton"></input></td></tr>
 
 </div>
     
-    
+</div>
     
    
  

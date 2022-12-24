@@ -515,3 +515,10 @@ th {
 .mine .card .container table thead tr{
     border-bottom: none
 }
+
+/*More*/
+.more1999{
+    background-color: #d083f1;
+    color: white;
+    cursor: pointer;
+}

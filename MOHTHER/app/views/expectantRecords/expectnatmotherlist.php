@@ -9,48 +9,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <title><?php echo SITENAME; ?></title>
 </head>
-
 <body>
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
     <?php require APPROOT . '/views/inc/sidebar_midwife.php' ; ?>
     <div class="content">
-<div class="expectant">
-<div class= "greeting" >
+        <a href="<?php echo URLROOT; ?>/expectantRecords" class="back"><i class="fa fa-backward"></i>Back</a>
+    
+    <div class="expectant">
+        <div class= "greeting" >
 
-
-<b>
-<!-- <!?php
-$hr = date("G");
-if( $hr >= 00 && $hr <12){
-    date_default_timezone_set("Asia/Colombo");
-
-    echo date(" h:i:s A") . "<br>". "Good Morning"; 
-}else if($hr >12 && $hr < 18) 
-echo "Good Afternoon "; 
-else 
-echo "Good evening"; 
-?> -->
-</b>
-<br>
-
-<?php
-
-
-echo "Today is : ";
-$today = date("d/m/Y");
-echo $today;
-?>
-<br>
-
-</div>
-
-<div>
         <div>
-            <h2 class="content_h1">New Registrants</h2>
+           
+            <h2 class="content_h1">Expectant Mothers</h2>
             <hr class="line">
         </div>
         <div class= "newregdetails">
-            <table class= "">
+            <table>
                 <tr>
                     <th>Details</th>
                     <th></th>
@@ -58,29 +32,31 @@ echo $today;
                 <tr>
                     <th>NIC</th>
                     <th>Name</th>
-                   
+                    <th>Date of Registration</th>
+                    <th>Expected Date of Delivery</th>
+                    <th></th>
                 </tr>
-                <div id="image">
-                <?php foreach($data['newexpectantRecords'] as $newexpectantRecords):?>
+                <?php foreach($data['expectantRecords'] as $expectantRecords):?>
                     <tr>
-                        <td><?php echo $newexpectantRecords->nic; ?></td> 
-                        <td><?php echo $newexpectantRecords->mname; ?></td>    
+                    <th><?php echo $expectantRecords->nic; ?></a> </th>
+                        <td><?php echo $expectantRecords->name; ?></td>
+                        <td><?php echo $expectantRecords->registrationDate; ?></td>     
+                        <td><?php echo $expectantRecords->expectedDateofDelivery; ?></td>              
                         
-
-                        <td>    <a href="<?php echo URLROOT; ?>/users/register/<?php echo $newexpectantRecords->nic; ?>" class= "updateDeliveredbutton" > Add</a></button> </td>  
-                        <td><a href="<?php echo URLROOT; ?>/expectantRecords/deleteusers/<?php echo $newexpectantRecords->nic; ?>" class= "updateDeliveredbutton" > Ignore</a></td>
+                        <td><a href="<?php echo URLROOT; ?>/expectantRecords/info/<?php echo $expectantRecords->nic; ?>"" class= "updateDeliveredbutton" > More Info</a></td>
                     </tr>
-                  
-                    
                 <?php endforeach; ?>
-                </div>
             </table>
-                   
-
         </div>
-       
     </div>
-</div>
+    </div>
+                </div>
+    
+
+
+
+
+
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 <!--<th><a href="clinics/info/<!?php echo $clinic->id; ?>"><!?php echo $expectantRecords->nic; ?></a> </th>

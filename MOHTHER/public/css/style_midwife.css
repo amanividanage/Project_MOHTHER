@@ -5,7 +5,7 @@ html{
 body{
     margin: 0;
     padding: 0;
-    font-family: "Roboto", sans-serif;
+    font-family: sans-serif;
 }
 
 nav{
@@ -107,7 +107,6 @@ a.active,a:hover{
     width: 100px;
     height: 100px;
     margin-bottom: 10px;
-    border-radius: 50%;
 }
 
 .sidebar .sidebar_menu h4{
@@ -214,7 +213,7 @@ label #sidebar_btn:hover{
 
 /*content*/
 .content{
-    margin-left: 300px;
+    margin-left: 20%;
     position: relative;
     float: left;
     margin-top: 70px;
@@ -255,7 +254,7 @@ label #sidebar_btn:hover{
     border: none;
     color: #F0E3FF;
     width: 10vw;
-    height: 3vw;
+    height: 3.5vw;
     font-size: 1vw;
     font-weight: bolder;
     text-align: center;
@@ -328,6 +327,7 @@ input::placeholder{
     margin-top: 6px;
     margin-bottom: 18px;
     resize: vertical;
+    margin-right: 10%;
 }
   
   input[type=text], input[type=password],input[type=number], input[type=double], input[type=int], select {
@@ -345,7 +345,9 @@ input::placeholder{
     margin-bottom: 25px;
   }
   .Registration{
-   margin-left: 22%;
+   margin-left: 30%;
+   margin-right: 20%;
+   padding-right: 5%;
    padding-top: 80px;
    font-family: sans-serif;
    font-size: 1.2vw;
@@ -535,6 +537,15 @@ th {
 }
 .content_h1{
     padding: 15px 0;
+    margin-left: 0%;
+    margin-top: 1%;
+    color: #3E206D;
+    font-size: large;
+}
+.content_h3{
+    padding: 15px 0;
+    margin-left: 20%;
+    margin-top: 30%;
     color: #3E206D;
     font-size: large;
 }
@@ -550,23 +561,37 @@ a:link {
     
   }
   .expectant{
-    padding-top: 5%;
-    padding-left: 20%;
+    padding-top: 1%;
+    padding-left: 2%;
     
   }
   .dailyrecords{
-    padding-top: 5%;
-    padding-left: 22%;
+    padding-top: 10%;
+    padding-left: 10%;
    
+  }
+  .adddailyrecords{
+   
+    padding-left: 15%;
+    float: left;
+    margin-right: 20%;
+    margin-left: 10%;
+    margin-top: 5%;
+    padding-right: 10%;
+    
+    background-color: #ffffff;
+    font-size: 1vw;
   }
 /*****************************************individual records******************************/
 
 .content_expectant2{
    float: left;
-    margin-right: 70%;
-    margin-left: 25%;
-    margin-top: 5%;
-    background-color: #eadbfc;
+    margin-right: 20%;
+    margin-left: 10%;
+    margin-top: 2%;
+    padding-right: 10%;
+    padding-left: 10%;
+    background-color: #ece3f7;
     font-size: 1vw;
    
 }
@@ -583,3 +608,191 @@ a:link {
     margin-right: 10%;
     margin-top: -1%;
 }
+
+.changepassword{
+    float: left;
+    background-color: #8946A6;
+    border: none;
+    margin: 8px 0px;
+    color: #F0E3FF;
+    width: 15vw;
+    height: 3.5vw;
+    font-size: 1vw;
+    font-weight: lighter;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: sans-serif;
+}
+
+/******************************************updating the profile info page************************************************
+/* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  /* Set a style for all buttons */
+  button {
+    background-color: #8946A6;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .changepassword {
+    background-color: #8946A6;
+    color: white;
+    padding: 10px 20px;
+    margin: 8px 0;
+   
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  button:hover {
+    opacity: 0.8;
+  }
+  
+  /* Extra styles for the cancel button */
+  .cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+  }
+  
+  /* Center the image and position the close button */
+  .imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+  }
+  
+  img.avatar {
+    width: 40%;
+    border-radius: 50%;
+  }
+  
+  .container {
+    padding: 16px;
+  }
+  
+  span.psw {
+    float: right;
+    padding-top: 16px;
+  }
+  
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: -100px;
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 0% auto 15% auto; /* 0% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button (x) */
+  .close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: red;
+    cursor: pointer;
+  }
+  
+  /* Add Zoom Animation */
+  .animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+  }
+  
+  @-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+  }
+    
+  @keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+  }
+  
+  /* Change styles for span and cancel button on extra small screens */
+  @media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+  }
+  .midwifeupdateinfo{
+   
+    padding-left: 10%;
+    float: left;
+    margin-right: 20%;
+    margin-left: 20%;
+    margin-top: 0%;
+    padding-right: 10%;
+
+    
+    background-color: #ffffff;
+    font-size: 1vw;
+  }
+
+  /*************************************info page****/
+  .content_child_midwifepage{
+    float: right;
+    margin-right: 10%;
+    margin-left: 60%;
+    margin-top: -31.2%;
+    padding-right: 5%;
+    padding-left: 5%; 
+    background-color: #ece3f7;
+    font-size: 1vw;
+   
+  }
+  
+  /******facilities page***/
+  .b{
+    position: relative;
+    float: left;
+    margin-top: 60px;
+}
+
+.home_content{
+    background-image: url('../img/bg.jpg');
+    /**background-size: cover;*/
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+

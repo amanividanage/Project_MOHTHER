@@ -17,7 +17,7 @@
                 <h2>Add Child</h2>
                 <p>Please enter child's information to add child</p>
 
-                <form action="<?php echo URLROOT; ?>/childrens/add/<?php echo $data['parents']->nic; ?>" method="post">
+                <form action="<?php echo URLROOT; ?>/childrens_expectant/add/<?php echo $data['expectant']->nic; ?>" method="post">
 
                     <h4>Basic details</h4>
                     <div>
@@ -42,7 +42,7 @@
                     </div>
                     <div>
                         <label for="weight">Birth Weight (in Kg):  <sup>*</sup></label>
-                        <input type="text" maxlength="5"  name="weight" placeholder="Enter birth weight in kg here...">
+                        <input type="text" name="weight" placeholder="Enter birth weight in kg here...">
                         <span class="form-err"><?php echo $data['weight_err']; ?></span>
                     </div>
                     <div>

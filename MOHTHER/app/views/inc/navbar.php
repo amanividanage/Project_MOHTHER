@@ -11,7 +11,7 @@
     
     
     <ul>
-        <?php if((isset($_SESSION['admin_id'])) || (isset($_SESSION['clinicattendee_id'])) || (isset($_SESSION['midwife_id']))) : ?>
+        <?php if((isset($_SESSION['admin_id'])) || (isset($_SESSION['clinicattendee_nic'])) || (isset($_SESSION['midwife_id']))) : ?>
             
     <!--if((isset($_SESSION['admin_id'])) || (isset($_SESSION['clinicattendee_id'])))-->
             <li>
@@ -22,16 +22,16 @@
                 <a class="active" href="<?php echo URLROOT; ?>">HOME</a>
             </li>
             <li>
-                <a href="<?php echo URLROOT; ?>/pages/contact" >CONTACT US</a>
+                <a href="<?php echo URLROOT; ?>/pages/contact" class="bctive">CONTACT US</a>
             </li>
             <li>
-                <a href="<?php echo URLROOT; ?>/pages/facilities" >FACILITIES</a> 
+                <a href="<?php echo URLROOT; ?>/pages/facilities" class="bctive" >FACILITIES</a> 
             </li>
             <li>
-                <a href="<?php echo URLROOT; ?>/pages/about">ABOUT US</a> 
+                <a href="<?php echo URLROOT; ?>/pages/about" class="bctive">ABOUT US</a> 
             </li>
             <li>
-                <a href="<?php echo URLROOT; ?>/clinicattendees/register">REGISTER</a>
+                <a href="<?php echo URLROOT; ?>/clinicattendees/register" class="bctive">REGISTER</a>
             </li>
             <li class="dropdown-login">
                 <a href="">LOGIN</a>

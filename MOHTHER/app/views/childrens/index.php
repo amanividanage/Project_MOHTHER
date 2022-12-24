@@ -12,6 +12,7 @@
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
     <?php require APPROOT . '/views/inc/sidebar_midwife.php' ; ?>
         <div class="content">
+        <a href="<?php echo URLROOT; ?>/expectantRecords" class="back"><i class="fa fa-backward"></i>Back</a>
             <div class="search_add-main">
                 <div>
                     <h2 class="content_h1">Children List</h2>
@@ -34,7 +35,7 @@
                         <div class="modal-content">
                             <span class="close">&times;</span>
                             <h4>Is mother/parent already registered?</h4> 
-                            <a href="<?php echo URLROOT; ?>/children"><button class="curve_btn">Yes</button></a>
+                            <a href="<?php echo URLROOT; ?>/expectantRecords/expectnatmotherlist"><button class="curve_btn">Yes</button></a>
                             <a href="<?php echo URLROOT; ?>/childrens/parent"><button class="curve_btn">No</button></a>
                         </div>
 
@@ -55,12 +56,12 @@
                         </tr>
                         <?php foreach($data['children'] as $children) : ?>
                             <tr>
-                                <td><a href="<?php echo URLROOT; ?>/childrens/childprofile/<?php echo $children->child_id; ?>"><?php echo $children->child_id; ?></a></td>
+                                <td><?php echo $children->child_id; ?></td>
                                 <td><?php echo $children->name; ?></td>
                                 <td><?php echo $children->dob; ?></td>
                                 <td><?php echo $children->date; ?></td>
                                 <td><?php echo $children->hospital; ?></td>
-                                <td></td>
+                                <td><a href="<?php echo URLROOT; ?>/childrens/childprofile/<?php echo $children->child_id; ?>"><button class="more1999">More</button></a></td>
                             </tr>
                         <?php endforeach; ?>
                     </table>

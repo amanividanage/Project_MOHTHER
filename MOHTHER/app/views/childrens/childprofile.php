@@ -12,6 +12,7 @@
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
     <?php require APPROOT . '/views/inc/sidebar_midwife.php' ; ?>
         <div class="content">
+        <a href="<?php echo URLROOT; ?>/childrens" class="back"><i class="fa fa-backward"></i>Back</a>
             <div class="align">
                 <div>
                     <h2 class="content_h1">Child profile - <?php echo $data['child']->name; ?></h2>

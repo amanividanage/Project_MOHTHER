@@ -183,17 +183,17 @@
                 </div>
                 <div class="input-box">
                     <label for="nic">ID No: <sup>*</sup></label>
-                    <input type="text" name="nic" placeholder="Enter your ID no here...">
+                    <input type="text" maxlength="12" name="nic" placeholder="Enter your ID no here...">
                     <span class="form-err"><?php echo $data['nic_err']; ?></span>
                 </div>
                 <div class="input-box">
                     <label for="mage">Age: <sup>*</sup></label>
-                    <input type="text" name="mage" placeholder="Enter your age here...">
+                    <input type="text" maxlength="2"  name="mage" placeholder="Enter your age here...">
                     <span class="form-err"><?php echo $data['mage_err']; ?></span>
                 </div>
                 <div class="input-box">
                     <label for="gravidity">Gravidity: <sup>*</sup></label>
-                    <input type="text" name="gravidity" placeholder="Enter your no of pregnancies here...">
+                    <input type="text" maxlength="2"  name="gravidity" placeholder="Enter your no of pregnancies here...">
                     <span class="form-err"><?php echo $data['gravidity_err']; ?></span>
                 </div>
                 <div class="input-box">
@@ -219,7 +219,7 @@
                 </div>
                 <div class="input-box">
                     <label for="address">Address: <sup>*</sup></label>
-                    <input type="text" name="address" placeholder="Enter your address here...">
+                    <input type="text" maxlength="10"  name="address" placeholder="Enter your address here...">
                     <span class="form-err"><?php echo $data['address_err']; ?></span>
                 </div>
                 <div class="input-box">
@@ -242,7 +242,7 @@
                 </div>
                 <div class="input-box">
                     <label for="hage">Age: </label>
-                    <input type="text" name="hage" placeholder="Enter age here...">
+                    <input type="text" maxlength="2"  name="hage" placeholder="Enter age here...">
                     <span class="form-err"><?php echo $data['hage_err']; ?></span>
                 </div>
                 <div class="input-box">
@@ -262,7 +262,7 @@
                 </div>
                 <div class="input-box">
                     <label for="hcontactno">Contact no: </label>
-                    <input type="text" name="hcontactno" placeholder="Enter contact no here...">
+                    <input type="text" maxlength="10"  name="hcontactno" placeholder="Enter contact no here...">
                     <span class="form-err"><?php echo $data['hcontactno_err']; ?></span>
                 </div>
                 <div class="input-box">

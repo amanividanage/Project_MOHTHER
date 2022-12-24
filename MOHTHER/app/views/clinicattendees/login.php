@@ -59,68 +59,35 @@
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
     <?php require APPROOT . '/views/inc/sidebar.php' ; ?>
 
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
-    <div class="content_login">
-        <section class="section1">
-            <div class="mainloginpage"> <img src="../img/bg.png" alt="">
-            </div>
+    <div class="bg-img">
+        <form action="<?php echo URLROOT; ?>/clinicattendees/login" method="post" class="container56">
+            <h2>Clinicattendee Login</h2>
+                
+                    <label for="nic">ID No: <sup>*</sup></label>
+                    <input type="text" name="nic" placeholder="Enter your ID no">
+                    <span class="form-err"><?php echo $data['nic_err']; ?><br></span>
+                
 
-            <div class="container_login">
-
-                <br><br>
-                <div class="log_bg">
-
-                    <br>
-                    <br>
-                    <!-- <p>Please enter your credencials to log in</p> -->
-
-
-
-
-                    <form action="<?php echo URLROOT; ?>/clinicattendees/login" method="post">
-                        <div class="loghead">
-
-                            <h2>Clinicattendee Login</h2>
-                        </div>
-                        
-
-                        <div class="loginpage">
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                            <label for="nic">ID No: <sup>*</sup></label>
-                            <input type="text" name="nic" placeholder="Enter your ID no">
-                            <span class="form-err"><?php echo $data['nic_err']; ?></span>
-                        </div>
-
-
-
-                        <div class="loginpage">
-                            <i class="fa fa-lock" aria-hidden="true"> </i>
-                            <label for="password">Password: <sup>*</sup></label>
-                            <input type="password" name="password" placeholder="Enter your password">
-                            <span class="form-err"><?php echo $data['password_err']; ?></span>
-                        </div>
-
-
-                        <div class="loginbtn">
-                            <input type="submit" value="Login">
-                        </div>
-
-                        
-
-                        <a href=" <?php echo URLROOT; ?>/clinicattendees/register"> No
-                            Account? Register</a>
-
-
-
-                    </form>
-
-                </div>
-            </div>
-
-
-        </section>
-
+                
+                    <label for="password">Password: <sup>*</sup></label>
+                    <input type="password" name="password" placeholder="Enter your password">
+                    <span class="form-err"><?php echo $data['password_err']; ?></span>
+                
+                <br>
+                
+                <button type="submit" class="loginbtn1999">Login</button><br>
+                
+                <a href=" <?php echo URLROOT; ?>/clinicattendees/register"> No Account? Register</a>
+        </form>
     </div>
-
     
     <?php require APPROOT . '/views/inc/footer.php'; ?>

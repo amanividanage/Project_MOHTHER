@@ -12,6 +12,7 @@
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
     <?php require APPROOT . '/views/inc/sidebar_midwife.php' ; ?>
         <div class="content">
+            <a href="<?php echo URLROOT; ?>/childrens/parentlist" class="back"><i class="fa fa-backward"></i>  Back</a>
             <br>
             <div class="report">
                 <h2 class="content_h1">Parent profile - <?php echo $data['parents']->name; ?></h2>
@@ -76,9 +77,9 @@
                                 </tr>
                                 <?php foreach($data['children'] as $children) : ?>
                                     <tr>
-                                        <td><a href="<?php echo URLROOT; ?>/childrens/childprofile/<?php echo $children->child_id; ?>"><?php echo $children->child_id; ?></a></td>
+                                        <td><?php echo $children->child_id; ?></td>
                                         <td><?php echo $children->name; ?></td>
-                                        <td></td>
+                                        <td><a href="<?php echo URLROOT; ?>/childrens/childprofile/<?php echo $children->child_id; ?>"><button class="more1999">More</button></a></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </table>

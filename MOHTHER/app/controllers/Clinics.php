@@ -2,9 +2,9 @@
     class Clinics extends Controller{
         public function __construct(){
 
-            if(!isLoggedIn()){
-                redirect('admins/login');
-            }
+            // if(!isLoggedIn()){
+            //     redirect('admins/login');
+            // }
             
 
             $this->clinicModel = $this->model('Clinic');
@@ -34,11 +34,9 @@
                 $data = [
                     'clinic_name' => trim($_POST['clinic_name']),
                     'gnd' => trim($_POST['gnd']),
-                    'phm' => trim($_POST['phm']),
                     'location' => trim($_POST['location']),
                     'clinic_name_err' => '',
                     'gnd_err' => '',
-                    'phm_err' => '',
                     'location_err' => '',
                     
                 ];
@@ -52,17 +50,13 @@
                     $data['gnd_err'] = 'Please select the Grama Niladhari Division';
                 }
 
-                if(empty($data['phm'])){
-                    $data['phm_err'] = 'Please select the PHM Area';
-                }
-
                 if(empty($data['location'])){
                     $data['location_err'] = 'Please enter the address';
                 }
 
 
                 //Make sure no errors
-                if(empty($data['clinic_name_err']) && empty($data['gnd_err']) && empty($data['phm_err']) && empty($data['location_err'])){
+                if(empty($data['clinic_name_err']) && empty($data['gnd_err']) && empty($data['location_err'])){
                     if($this->clinicModel->addClinic($data)){
                         //flash('clinic_added', 'Clinic Added');
                         redirect('clinics');
@@ -80,11 +74,9 @@
                 $data = [
                     'clinic_name' => '',
                     'gnd' => '',
-                    'phm' => '',
                     'location' => '',
                     'clinic_name_err' => '',
                     'gnd_err' => '',
-                    'phm_err' => '',
                     'location_err' => '',
                 ];
     
