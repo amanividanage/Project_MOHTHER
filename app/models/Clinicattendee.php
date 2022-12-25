@@ -17,7 +17,7 @@ class Clinicattendee{
 
     //register user
     public function register($data){
-        $this->db->query("INSERT INTO registration (mname, nic, mage, gravidity, mlevelofeducation, moccupation, mcontactno, address, memail, hname, hage, hlevelofeducation, hoccupation, hcontactno, hemail, gnd) VALUES (:mname, :nic, :mage, :gravidity, :mlevelofeducation, :moccupation, :mcontactno, :address, :memail, :hname, :hage, :hlevelofeducation, :hoccupation, :hcontactno, :hemail, :gnd)");
+        $this->db->query("INSERT INTO registration (mname, nic, mage, gravidity, mlevelofeducation, moccupation, mcontactno, address, memail, hname, hage, hlevelofeducation, hoccupation, hcontactno, hemail, gnd, active) VALUES (:mname, :nic, :mage, :gravidity, :mlevelofeducation, :moccupation, :mcontactno, :address, :memail, :hname, :hage, :hlevelofeducation, :hoccupation, :hcontactno, :hemail, :gnd, :active)");
 
          //bind values
          $this->db->bindParam(':mname',$data['mname']);
@@ -36,6 +36,7 @@ class Clinicattendee{
          $this->db->bindParam(':hcontactno',$data['hcontactno']);
          $this->db->bindParam(':hemail',$data['hemail']);
          $this->db->bindParam(':gnd',$data['gnd']);
+         $this->db->bindParam(':active',$data['active']);
         
          
          //execute

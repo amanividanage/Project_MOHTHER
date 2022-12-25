@@ -52,9 +52,28 @@ class User{
 
 
     }
+
+    public function updateactive($data){
+       
+    $this->db->query("UPDATE registration  SET active ='0' WHERE nic = :nic");
+    $this->db->bindParam(':nic', $data['nic']);
+        $row = $this->db->single();
+
+        return $row;
+        
+         //Execute
+         if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     //register user
     public function register($data){
-        $this->db->query('INSERT INTO expectant (midwife_id,nic,name,height,weight, bloodPressure,allergies, consanguinity, rubellaImmunization, prePregnancyScreening, preconceptionalFolicAcid, subfertility,gravidity,noofChildren,ageofYoungest,lastMenstrualDate,registrationDate,expectedDateofDelivery,password) VALUES(:midwife_id,:nic,:name,:height,:weight,:bloodPressure,:allergies,:consanguinity,:rubellaImmunization,:prePregnancyScreening,:preconceptionalFolicAcid,:subfertility,:gravidity,:noofChildren,:ageofYoungest,:lastMenstrualDate,:registrationDate,:expectedDateofDelivery,:password)');
+        $this->db->query('INSERT INTO expectant (midwife_id,nic,name,height,weight, bloodPressure,allergies, consanguinity, rubellaImmunization, prePregnancyScreening, preconceptionalFolicAcid, subfertility,gravidity,noofChildren,ageofYoungest,lastMenstrualDate,registrationDate,expectedDateofDelivery,password,active) VALUES(:midwife_id,:nic,:name,:height,:weight,:bloodPressure,:allergies,:consanguinity,:rubellaImmunization,:prePregnancyScreening,:preconceptionalFolicAcid,:subfertility,:gravidity,:noofChildren,:ageofYoungest,:lastMenstrualDate,:registrationDate,:expectedDateofDelivery,:password, :active)');
+       
+      
         
         //bind values
         $this->db->bindParam(':midwife_id', $data['midwife_id']);
@@ -76,6 +95,7 @@ class User{
         $this->db->bindParam(':registrationDate', $data['registrationDate']);
         $this->db->bindParam(':expectedDateofDelivery', $data['expectedDateofDelivery']);
         $this->db->bindParam(':password', $data['password']);
+        $this->db->bindParam(':active', $data['active']);
        // $this->db->bind(':bmi', $data['bmi']);
        // $this->db->bind(':output', $data['output']);
 
@@ -85,6 +105,7 @@ class User{
         }else{
             return false;
         }
+      
 
 
     }

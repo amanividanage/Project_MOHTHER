@@ -211,6 +211,7 @@ public function expectant(){
         $data =[
             'newexpectantRecords'=> $newexpectantRecords,
             'midwife_id'=>$_SESSION['midwife_id'],
+            'active'=>'0',
             'nic' => $nic,
             'name' => trim($_POST['name']),
             'height' => trim($_POST['height']),
@@ -251,6 +252,7 @@ public function expectant(){
             'expectedDateofDelivery_err' => '',
             'password_err' => '',            'bmi_err'=>'',
             'output_err'=>'',
+            'active'=>'0',
             
             
             ];
@@ -322,13 +324,13 @@ public function expectant(){
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
                 //register user
-                if($this->userModel->register($data)){
+                if($this->userModel->register($data) && $this->userModel->updateactive($data)){
                     //displaying the message using sessions- sessions_helpersA.php
                 //   flash('register_success', 'You have successfully completed the 2nd phase of registration of clinic attendee with the NIC number ' .'   ' . $data['nic'] . ' ' . 'with the expected date of delivery on ' .'   ' . $data['expectedDateofDelivery']);
                    
                    redirect('expectantRecords/index');
                 }else{
-                    die('Something went wrong');
+                    redirect('expectantRecords/index');
                 }
 
 
@@ -381,6 +383,7 @@ public function expectant(){
         'date'=>'',
         'calculatedBMI'=> '',
         'year' => '',
+        'active'=>'',
         
         
         ];

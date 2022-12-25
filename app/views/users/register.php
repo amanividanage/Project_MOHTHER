@@ -15,6 +15,7 @@
 
 
     <div class= "Registration">
+    <a href="<?php echo URLROOT; ?>/expectantRecords" class="back"><i class="fa-fa-backward"></i>Back</a>
         <form action="<?php echo URLROOT; ?>/users/register/<?php echo $data['newexpectantRecords']->nic; ?>" method= "POST">
    
     <table align="center" cellpadding = "10">
@@ -26,7 +27,7 @@
     <td>
     <label for="nic">NIC </label>
     </td>
-    <td><input type="text" name="nic" maxlength="12" class= "form <?php echo (!empty($data['nic_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['newexpectantRecords']->nic; ?>">
+    <td><input type="text" name="nic" maxlength="20" class= "form <?php echo (!empty($data['nic_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['newexpectantRecords']->nic; ?>">
     <span class="invalid-feedback"><?php echo $data['nic_err']; ?></span></td>
     </tr>
 
@@ -43,7 +44,7 @@
 
     <tr>
     <td>
-    <label for="height">Height in inches </label>
+    <label for="height">Height </label>
     </td>
     <td><input type="double" name="height" maxlength="5" class= "form <?php echo (!empty($data['height_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['height']; ?>">
     <span class="invalid-feedback"><?php echo $data['height_err']; ?></span></td>
@@ -51,7 +52,7 @@
 
     <tr>
     <td>
-    <label for="weight">Weight in Kg </label>
+    <label for="weight">Weight </label>
     </td>
     <td><input type="double" name="weight" maxlength="5" class= "form <?php echo (!empty($data['weight_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['weight']; ?>">
     <span class="invalid-feedback"><?php echo $data['weight_err']; ?></span></td>
@@ -60,7 +61,7 @@
 
     <tr>
     <td>
-    <label for="bloodPressure">Blood Pressure in mmHg </label>
+    <label for="bloodPressure">Blood Pressure </label>
     </td>
     <td><input type="double" name="bloodPressure" maxlength="5" class= "form <?php echo (!empty($data['bloodPressure_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['bloodPressure']; ?>">
     <span class="invalid-feedback"><?php echo $data['bloodPressure_err']; ?></span></td>
@@ -149,7 +150,7 @@
     <td>
     <label for="gravidity">Gravidity </label>
     </td>
-    <td><input type="int" name="gravidity" maxlength="2" class= "form <?php echo (!empty($data['gravidity_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['gravidity']; ?>">
+    <td><input type="int" name="gravidity" maxlength="5" class= "form <?php echo (!empty($data['gravidity_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['gravidity']; ?>">
     <span class="invalid-feedback"><?php echo $data['gravidity_err']; ?></span></td>
     </tr>
 

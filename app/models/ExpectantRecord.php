@@ -29,10 +29,10 @@ class ExpectantRecord {
         //                     JOIN midwifes m ON C.id = m.clinic
 
         $this->db->query("SELECT r.nic, r.mname FROM  registration r 
-                          INNER JOIN clinics c ON R.gnd = C.gnd 
-                          WHERE C.id = ".$_SESSION['midwife_clinic']);
+                          INNER JOIN clinics c  ON r.gnd = c.gnd   WHERE active ='1' AND 
+                          c.id = ".$_SESSION['midwife_clinic']);
                            
-                
+                          
                      
         $results =  $this->db->resultSet();
         return $results;

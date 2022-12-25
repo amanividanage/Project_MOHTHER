@@ -57,6 +57,8 @@
                     'hcontactno'=>trim($_POST['hcontactno']),
                     'hemail'=>trim($_POST['hemail']),
                     'gnd'=>trim($_POST['gnd']),
+                    'active'=>'1',
+            
                     
         
                     'mname_err'=>'',
@@ -212,7 +214,9 @@
                     'hoccupation_err'=>'',
                     'hcontactno_err'=>'',
                     'hemail_err'=>'',
-                    'gnd_err'=>''
+                    'gnd_err'=>'',
+                    'active'=>'',
+
                     
                 ];
 
@@ -350,57 +354,6 @@
 
         $this->view('clinicattendees/session', $data);
     }
-
-    public function cliniccalendar(){
-       
-
-        $data = [
-            
-        ];
-
-        $this->view('clinicattendees/cliniccalendar', $data);
-    }
-    
-    public function child_chart(){
-       
-
-        $data = [
-            
-        ];
-
-        $this->view('clinicattendees/child_chart', $data);
-    }
-    
-    public function child_vaccination(){
-       
-
-        $data = [
-            
-        ];
-
-        $this->view('clinicattendees/child_vaccination', $data);
-    }
-    
-    public function timeslot_mothlyclinic(){
-       
-
-        $data = [
-            
-        ];
-
-        $this->view('clinicattendees/timeslot_mothlyclinic', $data);
-    }
-    
-    public function request(){
-       
-
-        $data = [
-            
-        ];
-
-        $this->view('clinicattendees/request', $data);
-    }
-
 
     
 

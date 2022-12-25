@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <title><?php echo SITENAME; ?></title>
+ 
 </head>
 
 <body>
@@ -19,17 +20,22 @@
 
 
 <b>
-<!-- <!?php
+<?php
 $hr = date("G");
-if( $hr >= 00 && $hr <12){
+if( 'h' >= 00 && 'h' <12){
     date_default_timezone_set("Asia/Colombo");
 
     echo date(" h:i:s A") . "<br>". "Good Morning"; 
-}else if($hr >12 && $hr < 18) 
-echo "Good Afternoon "; 
-else 
-echo "Good evening"; 
-?> -->
+}else if('h' >12 && 'h' < 18) {
+    date_default_timezone_set("Asia/Colombo");
+    
+    echo date(" h:i:s A") . "<br>". "Good Afternoon"; 
+}
+
+else {date_default_timezone_set("Asia/Colombo");
+    
+    echo date(" h:i:s A") . "<br>". "Good Evening"; }
+?>
 </b>
 <br>
 
