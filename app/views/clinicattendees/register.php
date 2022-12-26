@@ -238,12 +238,12 @@
                 <div class="input-box">
                     <label for="hname">Name: </label>
                     <input type="text" name="hname" placeholder="Enter name here...">
-                    <span class="form-err"><?php echo $data['hname_err']; ?></span>
+                    <!-- <span class="form-err"><!?php echo $data['hname_err']; ?></span> -->
                 </div>
                 <div class="input-box">
                     <label for="hage">Age: </label>
                     <input type="text" maxlength="2"  name="hage" placeholder="Enter age here...">
-                    <span class="form-err"><?php echo $data['hage_err']; ?></span>
+                    <!-- <span class="form-err"><!?php echo $data['hage_err']; ?></span> -->
                 </div>
                 <div class="input-box">
                     <label for="hlevelofeducation">Level of Education: </label>
@@ -253,22 +253,22 @@
                         <option value="A/L">A/L</option>
                         <option value="Higher education">Higher education</option>
                     </select>
-                    <span class="form-err"><?php echo $data['hlevelofeducation_err']; ?></span>
+                    <!-- <span class="form-err"><!?php echo $data['hlevelofeducation_err']; ?></span> -->
                 </div>
                 <div class="input-box">
                     <label for="hoccupation">Occupation: </label>
                     <input type="text" name="hoccupation" placeholder="Enter occupation here...">
-                    <span class="form-err"><?php echo $data['hoccupation_err']; ?></span>
+                    <!-- <span class="form-err"><!?php echo $data['hoccupation_err']; ?></span> -->
                 </div>
                 <div class="input-box">
                     <label for="hcontactno">Contact no: </label>
                     <input type="text" maxlength="10"  name="hcontactno" placeholder="Enter contact no here...">
-                    <span class="form-err"><?php echo $data['hcontactno_err']; ?></span>
+                    <!-- <span class="form-err"><!?php echo $data['hcontactno_err']; ?></span> -->
                 </div>
                 <div class="input-box">
                     <label for="hemail">E-mail: </label>
                     <input type="email" name="hemail" placeholder="Enter e-mail here...">
-                    <span class="form-err"><?php echo $data['hemail_err']; ?></span>
+                    <!-- <span class="form-err"><!?php echo $data['hemail_err']; ?></span> -->
                 </div>
 
 

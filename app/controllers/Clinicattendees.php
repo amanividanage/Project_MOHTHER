@@ -4,6 +4,7 @@
 
             $this->clinicattendeeModel = $this->model('Clinicattendee');
             $this->expectantRecordModel = $this->model('ExpectantRecord');
+            $this->childrenModel = $this->model('Children');
         }
 
         public function index(){
@@ -82,7 +83,7 @@
 
                 //Validate data
                 if(empty($data['mname'])){
-                    $data['mname_err']='please enter your name';
+                    $data['mname_err']='Please enter your name';
                 }
 
                 if(empty($data['nic'])){
@@ -91,25 +92,27 @@
                     $data['nic_err'] = 'Please enter valid ID number';
                 } else {
                     //Check identity no
-                    if($this->clinicattendeeModel->findClinicAttendeeByNic($data['nic'])){
+                    if($this->childrenModel->findParentByNic($data['nic'])){
+                        $data['nic_err'] = 'Id is already registered as a parent';
+                    } elseif($this->clinicattendeeModel->findClinicAttendeeByNic($data['nic'])){
                         $data['nic_err'] = 'Id is already taken';
                     }
                 }
 
                 if(empty($data['mage'])){
-                    $data['mage_err']='please enter your age';
+                    $data['mage_err']='Please enter your age';
                 }
 
                 if(empty($data['gravidity'])){
-                    $data['gravidity_err']='please enter your no of pregnancies';
+                    $data['gravidity_err']='Please enter your no of pregnancies';
                 }
 
                 if(empty($data['mlevelofeducation'])){
-                    $data['mlevelofeducation_err']='please select your level of education';
+                    $data['mlevelofeducation_err']='Please select your level of education';
                 }
 
                 if(empty($data['moccupation'])){
-                    $data['moccupation_err']='please enter your occupation';
+                    $data['moccupation_err']='Please enter your occupation';
                 }
 
                 if(empty($data['mcontactno'])){
@@ -119,7 +122,7 @@
                 }
                 
                 if(empty($data['address'])){
-                    $data['address_err']='please enter your address';
+                    $data['address_err']='Please enter your address';
                 }
         
                 if(empty($data['memail'])){
@@ -127,11 +130,11 @@
                 }
 
                 if(empty($data['hname'])){
-                    $data['hname_err']='please enter name';
+                    $data['hname_err']='Please enter name';
                 }
 
                 if(empty($data['hage'])){
-                    $data['hage_err']='please enter age';
+                    $data['hage_err']='Please enter age';
                 }
 
                 if(empty($data['hlevelofeducation'])){
@@ -154,7 +157,7 @@
                 }
 
                 if(empty($data['gnd'])){
-                    $data['gnd_err']='please enter garama niladharii area';
+                    $data['gnd_err']='Please enter grama niladhari area';
                 }
 
                
