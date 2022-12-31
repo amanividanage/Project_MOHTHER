@@ -5,7 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style_midwife.css">
-
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <title><?php echo SITENAME; ?></title>
 </head>
@@ -44,7 +52,7 @@
 
     <tr>
     <td>
-    <label for="height">Height </label>
+    <label for="height">Height in inches </label>
     </td>
     <td><input type="double" name="height" maxlength="5" class= "form <?php echo (!empty($data['height_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['height']; ?>">
     <span class="invalid-feedback"><?php echo $data['height_err']; ?></span></td>
@@ -52,7 +60,7 @@
 
     <tr>
     <td>
-    <label for="weight">Weight </label>
+    <label for="weight">Weight in Kg</label>
     </td>
     <td><input type="double" name="weight" maxlength="5" class= "form <?php echo (!empty($data['weight_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['weight']; ?>">
     <span class="invalid-feedback"><?php echo $data['weight_err']; ?></span></td>
@@ -61,7 +69,7 @@
 
     <tr>
     <td>
-    <label for="bloodPressure">Blood Pressure </label>
+    <label for="bloodPressure">Blood Pressure in mmHg </label>
     </td>
     <td><input type="double" name="bloodPressure" maxlength="5" class= "form <?php echo (!empty($data['bloodPressure_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['bloodPressure']; ?>">
     <span class="invalid-feedback"><?php echo $data['bloodPressure_err']; ?></span></td>
@@ -200,13 +208,14 @@
     <td><input type="text" name="password" class= "<?php echo (!empty($data['weight_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['password']; ?>">
     <span class="invalid-feedback"><?php echo $data['password_err']; ?></span></td>
     </tr>
-    
     <tr><td> <input type="submit" name="Submit" class="myButton"></input></td></tr>
 
+    </form>
+   
 
+    <script src="script.js"></script>
+</body>
 
- 
-</form>
 
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

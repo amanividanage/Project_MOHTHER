@@ -57,7 +57,7 @@
                     <tr>
                         <td><?php echo $children->child_id; ?></td>
                         <td><?php echo $children->name; ?></td>
-                        <td><a href="<?php echo URLROOT; ?>/childrens/childprofile/<?php echo $children->child_id; ?>"><button>More</button></a></td>
+                        <td><a href="<?php echo URLROOT; ?>/childrens/childprofile/<?php echo $children->child_id; ?>" class= "updateDeliveredbutton" > More</a></td>
                     </tr>
                 <?php endforeach; ?>
             </table>

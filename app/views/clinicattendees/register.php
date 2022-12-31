@@ -178,28 +178,28 @@
                 <!--"class="user-details"-->
                 <div class="input-box">
                     <label for="mname">Name: <sup>*</sup></label>
-                    <input type="text" name="mname" placeholder="Enter your name here...">
+                    <input type="text" name="mname"  class= "form <?php echo (!empty($data['mname_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['mname']; ?>" placeholder="Enter your name here...">
                     <span class="form-err"><?php echo $data['mname_err']; ?></span>
                 </div>
                 <div class="input-box">
                     <label for="nic">ID No: <sup>*</sup></label>
-                    <input type="text" maxlength="12" name="nic" placeholder="Enter your ID no here...">
+                    <input type="text" maxlength="12" name="nic" class= "form <?php echo (!empty($data['nic_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['nic']; ?>" placeholder="Enter your ID no here...">
                     <span class="form-err"><?php echo $data['nic_err']; ?></span>
                 </div>
                 <div class="input-box">
                     <label for="mage">Age: <sup>*</sup></label>
-                    <input type="text" maxlength="2"  name="mage" placeholder="Enter your age here...">
+                    <input type="text" maxlength="2"  name="mage" class= "form <?php echo (!empty($data['mage_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['mage']; ?>"placeholder="Enter your age here...">
                     <span class="form-err"><?php echo $data['mage_err']; ?></span>
                 </div>
                 <div class="input-box">
                     <label for="gravidity">Gravidity: <sup>*</sup></label>
-                    <input type="text" maxlength="2"  name="gravidity" placeholder="Enter your no of pregnancies here...">
+                    <input type="text" maxlength="2"  name="gravidity" class= "form <?php echo (!empty($data['gravidity_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['gravidity']; ?>" placeholder="Enter your no of pregnancies here...">
                     <span class="form-err"><?php echo $data['gravidity_err']; ?></span>
                 </div>
                 <div class="input-box">
                     <label for="mlevelofeducation">Level of Education: <sup>*</sup></label>
                     <select name="mlevelofeducation" id="mlevelofeducation">
-                        <option value="">Select Your level of Eduction</option>
+                        <option value="">Select Your level of Education</option>
                         <option value="O/L">O/L</option>
                         <option value="A/L">A/L</option>
                         <option value="Higher education">Higher education</option>
@@ -209,22 +209,22 @@
                 </div>
                 <div class="input-box">
                     <label for="moccupation">Occupation: <sup>*</sup></label>
-                    <input type="text" name="moccupation" placeholder="Enter your occupation here...">
+                    <input type="text" name="moccupation" class= "form <?php echo (!empty($data['moccupation_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['moccupation']; ?>" placeholder="Enter your occupation here...">
                     <span class="form-err"><?php echo $data['moccupation_err']; ?></span>
                 </div>
                 <div class="input-box">
                     <label for="mcontactno">Contact No: <sup>*</sup></label>
-                    <input type="text" name="mcontactno" placeholder="Enter your contact no here...">
+                    <input type="text" name="mcontactno" class= "form <?php echo (!empty($data['mcontactno_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['mcontactno']; ?>" placeholder="Enter your contact no here...">
                     <span class="form-err"><?php echo $data['mcontactno_err']; ?></span>
                 </div>
                 <div class="input-box">
                     <label for="address">Address: <sup>*</sup></label>
-                    <input type="text" maxlength="10"  name="address" placeholder="Enter your address here...">
+                    <input type="text" maxlength="10"  name="address" class= "form <?php echo (!empty($data['address_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['address']; ?>" placeholder="Enter your address here...">
                     <span class="form-err"><?php echo $data['address_err']; ?></span>
                 </div>
                 <div class="input-box">
                     <label for="memail">E-mail: <sup>*</sup></label>
-                    <input type="email" name="memail" placeholder="Enter your email here...">
+                    <input type="email" name="memail" class= "form <?php echo (!empty($data['memail_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['memail']; ?>" placeholder="Enter your email here...">
                     <span class="form-err"><?php echo $data['memail_err']; ?></span>
                 </div>
 
