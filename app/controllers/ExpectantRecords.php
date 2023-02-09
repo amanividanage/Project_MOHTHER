@@ -53,7 +53,7 @@
             'email_err'=>'',
             'phone' => trim($_POST['phone']),
             'phone_err'=>'',
-            'midwifeprofileinfo' => $midwifeprofileinfo ,
+         //   'midwifeprofileinfo' => $midwifeprofileinfo ,
 
            
             ];
@@ -75,9 +75,9 @@
               //add expectant mother's records
               if($this->midwifeModel->updatemidwifeinfo($data)){
                 //print_r($_POST);
-               redirect('expectantRecords/index');
+               redirect('expectantRecords/midwife_profile');
             }else{
-             redirect('expectantRecords/midwife_profile');
+           redirect('expectantRecords/midwife_profile');
             }
         } else{
             //load view with errors
@@ -88,7 +88,7 @@
         
          } else{
           
-          $midwifeprofileinfo =  $this->midwifeModel->getProfileMidwife(); 
+        $midwifeprofileinfo =  $this->midwifeModel->getProfileMidwife(); 
    
          
         $data = [
@@ -110,12 +110,14 @@
         $info =  $this->expectantRecordModel->displayExpectantRecords($nic);
        $report=  $this->expectantRecordModel->showExpectantMonthlyRecords($nic);
        $expectantRecords =  $this->expectantRecordModel-> getExpectantRecords(); 
+       $expectantRecordsHeight =  $this->expectantRecordModel-> getExpectantHeight($nic); 
        $children = $this->childrenModel->getChildrenByParent($nic);
 
         $data = [
             'info' => $info,
             'report'=> $report,
-            'children' => $children
+            'children' => $children,
+            'expectantRecordsHeight' => $expectantRecordsHeight
         ];
 
         $this->view('expectantRecords/info', $data);
@@ -132,6 +134,9 @@
 
       $this->view('expectantRecords/expectant', $data);
   }
+
+  
+
    
       public function email(){
 

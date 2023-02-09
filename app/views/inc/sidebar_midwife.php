@@ -41,8 +41,8 @@
                     <i class="fa fa-calendar"></i><span>Clinic Calendar <i class="fa fa-chevron-down drop-down"></i></span>
                 </a>
                 <div class="sub-menu">
-                    <a href=""><i class="fa fa-calendar-plus-o"></i><span>Maternity Clinic</span></a>
-                    <a href=""><i class="fa fa-calendar-check-o"></i><span>Child Clinic</span></a>
+                    <a href="<?php echo URLROOT; ?>/calendars/maternitycalendar"><i class="fa fa-calendar-plus-o"></i><span>Maternity Clinic</span></a>
+                    <a href="<?php echo URLROOT; ?>/calendars/build_calendar"><i class="fa fa-calendar-check-o"></i><span>Child Clinic</span></a>
                 </div>
             </li>
 
