@@ -76,10 +76,10 @@
     <div class="midwifeupdateinfo">
         <h2>Change the info</h2>
       <label for="uname"><b>Email</b></label>
-      <input type="text" placeholder="Enter Email" name="email" value='<?php echo $data['midwifeprofileinfo']->email; ?>' required>
+      <input type="text" placeholder="Enter Email" name="email" value='<?php echo $data['midwifeprofileinfo']->email; ?>'>
 
       <label for="psw"><b>Contact No</b></label>
-      <input type="text" placeholder="Enter Password" name="phone"  value='<?php echo $data['midwifeprofileinfo']->phone; ?>' required>
+      <input type="text" placeholder="Enter Password" name="phone"  value='<?php echo $data['midwifeprofileinfo']->phone; ?>' >
         
       <button type="submit">Submit</button>
      

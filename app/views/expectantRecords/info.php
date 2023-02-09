@@ -60,6 +60,7 @@
                         <td><a href="<?php echo URLROOT; ?>/childrens/childprofile/<?php echo $children->child_id; ?>" class= "updateDeliveredbutton" > More</a></td>
                     </tr>
                 <?php endforeach; ?>
+                
             </table>
         </div>
     
@@ -68,8 +69,11 @@
                 <div class="infobutton">
              
                  <th><a href="<?php echo URLROOT; ?>/expectantRecords/add/<?php echo $data['info']->nic; ?>" class= "updateDeliveredbutton" > Add Report</a></th>
-                 
+             
 
+                </div>
+                <div class="infobutton">
+                <th class= "updateDeliveredbutton"> risky </th>
                 </div>
                 
         <div class="dailyrecords">
@@ -87,19 +91,23 @@
                     <th>Date</th>
                     <th>Weight</th>
                     <th>Triposha</th>
+                    <th>BMI</th>
                     
                 </tr>
-                <?php foreach($data['report'] as $report):?>
+                <?php foreach($data['report'] as $report):?> <?php foreach ($data['expectantRecordsHeight'] as $expectantRecordsHeight):?>
                     <tr>
                     <th><?php echo $report->reportNo; ?></a> </th>
                         <td><?php echo $report->date; ?></td>
                         <td><?php echo $report->weight; ?></td> 
                         <td><?php echo $report->triposha; ?></td>
+                        <!--<td><--?php echo ($report->weight)/($expectantRecordsHeight->height); ?></td>-->
                         <td><a href="<?php echo URLROOT; ?>/expectantRecords/expectant/<?php echo $data['info']->nic; ?>/<?php echo $report->reportNo; ?>" class= "updateDeliveredbutton" > More Info</a></td>
+               
                         
      
                                     
                     </tr>
+                <?php endforeach; ?>
                 <?php endforeach; ?>
             </table>
         </div>

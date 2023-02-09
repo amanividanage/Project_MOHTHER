@@ -21,20 +21,23 @@
 
 <b>
 <?php
-$hr = date("G");
-if( 'h' >= 00 && 'h' <12){
+$hr = date(" G");
+if( $hr >= 00 && $hr <12){
     date_default_timezone_set("Asia/Colombo");
 
-    echo date(" h:i:s A") . "<br>". "Good Morning"; 
-}else if('h' >12 && 'h' < 18) {
+    echo date("h:i:s A") . "<br>". "Good Morning"; 
+}else if($hr >12 && $hr< 18) {
     date_default_timezone_set("Asia/Colombo");
     
     echo date(" h:i:s A") . "<br>". "Good Afternoon"; 
 }
 
-else {date_default_timezone_set("Asia/Colombo");
+else if($hr> 18){date_default_timezone_set("Asia/Colombo");
     
     echo date(" h:i:s A") . "<br>". "Good Evening"; }
+
+
+    
 ?>
 </b>
 <br>

@@ -22,6 +22,8 @@ class ExpectantRecord {
         return $results;
     }
 
+    
+
     public function getNewExpectantRecords(){
         // $this->db->query('SELECT s.nic, s.mname
         //                   FROM registration s
@@ -62,6 +64,17 @@ class ExpectantRecord {
     public function displayExpectantRecords($nic){
         $this->db->query("SELECT *
                          FROM registration
+                         WHERE nic= :nic"
+                         
+                         );
+                         $this->db->bindParam(':nic', $nic); 
+        $results =  $this->db->single();
+        return $results;
+    }
+    
+    public function getExpectantHeight($nic){
+        $this->db->query("SELECT height
+                         FROM expectant
                          WHERE nic= :nic"
                          
                          );

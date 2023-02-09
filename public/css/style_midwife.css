@@ -797,4 +797,34 @@ input[type=text], input[type=password] {
     height: 100vh;
 }
 
+/**************************************calendar- midwife**********************************************************/
+
+.calendarcontent{
+    margin-left: 40%;
+    position: relative;
+    float: left;
+    margin-top: 70px;
+    margin-bottom: 50%;
+    width: 40%;
+    height:10vh;
+    transition: 0.3s;
+    color: #9c349e;
+    
+    
+}
+.calendar-container{
+   
+
+
+    
+}
+.insertdates{
+    font-size: 0.5vw;
+    float: right;
+    margin-right: -40%;
+    margin-top: -70%;
+    position: relative;
+    
+    
+}
 

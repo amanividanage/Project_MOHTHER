@@ -219,7 +219,7 @@
                 </div>
                 <div class="input-box">
                     <label for="address">Address: <sup>*</sup></label>
-                    <input type="text" maxlength="10"  name="address" class= "form <?php echo (!empty($data['address_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['address']; ?>" placeholder="Enter your address here...">
+                    <input type="text" maxlength="50"  name="address" class= "form <?php echo (!empty($data['address_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['address']; ?>" placeholder="Enter your address here...">
                     <span class="form-err"><?php echo $data['address_err']; ?></span>
                 </div>
                 <div class="input-box">
