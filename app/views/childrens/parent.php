@@ -90,17 +90,17 @@
                     </div>
                     
                     <h4>Other details</h4>
-                    <div>
+                    <!-- <div>
                         <label for="gnd">Grama Niladhari Division: <sup>*</sup></label>
-                        <input type="text" name="gnd" value="<?php echo $data['gnd']->gnd; ?>">
-                        <span class="form-err"><?php echo $data['gnd_err']; ?></span>
+                        <input type="text" name="gnd" value="<!?php echo $data['gnd']->gnd; ?>">
+                        <span class="form-err"><!?php echo $data['gnd_err']; ?></span>
                     </div> 
                     <div>
                         <label for="phm">PHM Area: <sup>*</sup></label>
-                        <input type="text" name="phm" value="<?php echo $data['phm']->phm; ?>">
-                        <span class="form-err"><?php echo $data['phm_err']; ?></span>
+                        <input type="text" name="phm" value="<!?php echo $data['phm']->phm; ?>">
+                        <span class="form-err"><!?php echo $data['phm_err']; ?></span>
                         
-                    </div>
+                    </div> -->
                     <div>
                         <label for="password">Password: <sup>*</sup></label>
                         <input type="text" name="password" placeholder="Enter password here...">

@@ -26,7 +26,7 @@
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
                 $gnd = $this->childrenModel->findGndByClinic($_SESSION['midwife_clinic']);
-                $phm = $this->childrenModel->findPhmByMidwife($_SESSION['midwife_identity']);
+                $phm = $this->childrenModel->findPhmByMidwife($_SESSION['midwife_nic']);
 
                 $data =[
                     'midwife_id'=>$_SESSION['midwife_id'],
@@ -40,8 +40,8 @@
                     'contactno'=>trim($_POST['contactno']),
                     'address'=>trim($_POST['address']),
                     'email'=>trim($_POST['email']),
-                    'gnd'=>trim($_POST['gnd']),
-                    'phm' => trim($_POST['phm']),
+                    // 'gnd'=>trim($_POST['gnd']),
+                    // 'phm' => trim($_POST['phm']),
                     'password' => trim($_POST['password']),
 
         
@@ -70,11 +70,11 @@
                 }
 
                 if(empty($data['nic'])){
-                    $data['nic_err'] = 'Please enter an identity number';
+                    $data['nic_err'] = 'Please enter an nic number';
                 } elseif(strlen($data['nic']) < 10){
                     $data['nic_err'] = 'Please enter valid ID number';
                 } else {
-                    //Check identity no
+                    //Check nic no
                     if($this->clinicattendeeModel->findClinicAttendeeByNic($data['nic'])){
                         $data['nic_err'] = 'Id is already registered as a expectant mother';
                     } elseif($this->childrenModel->findParentByNic($data['nic'])){
@@ -125,12 +125,12 @@
                 }
 
                 //Make sure no errors
-                if(empty($data['name_err']) && empty($data['nic_err']) &&empty($data['contactno_err']) && empty($data['email_err']) && empty($data['gnd_err']) && empty($data['phm_err'])){
-                    
+                if(empty($data['name_err']) && empty($data['nic_err']) &&empty($data['contactno_err']) && empty($data['email_err'])){
+                    // && empty($data['gnd_err']) && empty($data['phm_err'])
                    $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
                     //register clinic attendee
-                    if($this->childrenModel->parent($data)){
+                    if($this->childrenModel->parent($data) AND $this->childrenModel->addUser($data)){
                         redirect('childrens/parentlist');
                     } else {
                         die('Someting went wrong');
@@ -144,8 +144,8 @@
             
             
             } else {
-                $gnd = $this->childrenModel->findGndByClinic($_SESSION['midwife_clinic']);
-                $phm = $this->childrenModel->findPhmByMidwife($_SESSION['midwife_identity']);
+                $gnd = $this->childrenModel->findGndByClinic($_SESSION['midwife_nic']);
+                $phm = $this->childrenModel->findPhmByMidwife($_SESSION['midwife_nic']);
                 //Init data
                 $data =[
                     //'phm' =>$phm,
@@ -159,8 +159,8 @@
                     'contactno'=>'',
                     'address'=>'',
                     'email'=>'',
-                    'gnd'=> $gnd,
-                    'phm' =>$phm,
+                    // 'gnd'=> $gnd,
+                    // 'phm' =>$phm,
                     'password' =>'',
         
                     'relationship_err'=>'',
@@ -173,8 +173,8 @@
                     'contactno_err'=>'',
                     'address_err'=>'',
                     'email_err'=>'',
-                    'gnd_err'=>'',
-                    'phm_err' => '',
+                    // 'gnd_err'=>'',
+                    // 'phm_err' => '',
                     'password_err' => ''
                 ];
                 

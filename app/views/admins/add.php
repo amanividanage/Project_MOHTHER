@@ -23,9 +23,9 @@
                             <span class="form-err"><?php echo $data['name_err']; ?></span>
                         </div>
                         <div>
-                            <label for="identity" class="form_font">ID No: <sup>*</sup></label>
-                            <input type="text" name="identity" placeholder="Enter ID number here... ">
-                            <span class="form-err"><?php echo $data['identity_err']; ?></span>
+                            <label for="nic" class="form_font">ID No: <sup>*</sup></label>
+                            <input type="text" name="nic" placeholder="Enter ID number here... ">
+                            <span class="form-err"><?php echo $data['nic_err']; ?></span>
                         </div>
                         <div>
                             <label for="phone" class="form_font">Phone No: <sup>*</sup></label>

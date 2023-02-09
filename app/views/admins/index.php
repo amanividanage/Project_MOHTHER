@@ -41,7 +41,7 @@
                         <tr>
                             <th>Admin Id</th>
                             <th>Name</th>
-                            <th>Identity No</th>
+                            <th>nic No</th>
                             <th>Contact No</th>
                             <th>E-mail</th>
                             <th></th>
@@ -50,7 +50,7 @@
                             <tr>
                                 <td><?php echo $admin->admin_id; ?></td>
                                 <td><?php echo $admin->name; ?></td>
-                                <td><?php echo $admin->identity; ?></td>
+                                <td><?php echo $admin->nic; ?></td>
                                 <td><?php echo $admin->phone; ?></td>
                                 <td><?php echo $admin->email; ?></td>
                                 <td></td>

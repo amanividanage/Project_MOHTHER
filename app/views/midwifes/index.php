@@ -40,10 +40,8 @@
                         </tr>
                         <tr>
                             <th>Midwife Id</th>
-                            <th>Clinic</th>
-                            <th>PHM Area</th>
                             <th>Name</th>
-                            <th>Identity No</th>
+                            <th>nic No</th>
                             <th>Contact No</th>
                             <th>E-mail</th>
                             <th></th>
@@ -51,13 +49,11 @@
                         <?php foreach($data['midwifes'] as $midwife) : ?>
                             <tr>
                                 <td><?php echo $midwife->midwife_id; ?></td>
-                                <td><?php echo $midwife->clinic; ?></td>
-                                <td><?php echo $midwife->phm; ?></td>
                                 <td><?php echo $midwife->name; ?></td>
-                                <td><?php echo $midwife->identity; ?></td>
+                                <td><?php echo $midwife->nic; ?></td>
                                 <td><?php echo $midwife->phone; ?></td>
                                 <td><?php echo $midwife->email; ?></td>
-                                <td></td>
+                                <td><td><a href="<?php echo URLROOT; ?>/midwifes/midwifeprofile/<?php echo $midwife->nic; ?>"><button class="more1999"> More Info </button></a></td></td>
                             </tr>
                         <?php endforeach; ?>
                     </table>

@@ -45,19 +45,17 @@
                 //Init data
                 $data = [
                     'name' => trim($_POST['name']),
-                    'identity' => trim($_POST['identity']),
+                    'nic' => trim($_POST['nic']),
                     'phone' => trim($_POST['phone']),
                     'email' => trim($_POST['email']),
                     'password' => trim($_POST['password']),
-                    'clinic' => trim($_POST['clinic']),
-                    'phm' => trim($_POST['phm']),
+                    'regdate' => date("Y-m-d"),
                     'name_err' => '',
-                    'identity_err' => '',
+                    'nic_err' => '',
                     'phone_err' => '',
                     'email_err' => '',
                     'password_err' => '',
-                    'clinic_err' => '',
-                    'phm_err' => ''
+                    'active'=>'0'
                 ];
 
                 //validate data
@@ -65,14 +63,14 @@
                     $data['name_err'] = 'Please enter the name';
                 }
 
-                if(empty($data['identity'])){
-                    $data['identity_err'] = 'Please enter an identity number';
-                } elseif(strlen($data['identity']) < 10){
-                    $data['identity_err'] = 'Please enter valid ID number';
+                if(empty($data['nic'])){
+                    $data['nic_err'] = 'Please enter an nic number';
+                } elseif(strlen($data['nic']) < 10){
+                    $data['nic_err'] = 'Please enter valid ID number';
                 } else {
-                    //Check identity no
-                    if($this->midwifeModel->findMidwifeByIdentity($data['identity'])){
-                        $data['identity_err'] = 'Id is already taken';
+                    //Check nic no
+                    if($this->midwifeModel->findMidwifeBynic($data['nic'])){
+                        $data['nic_err'] = 'Id is already taken';
                     }
                 }
 
@@ -97,24 +95,20 @@
                     $data['password_err'] = 'Password must be at least 6 characters'; 
                 }
 
-                if(empty($data['clinic'])){
-                    $data['clinic_err'] = 'Please select a clinic';
-                }
-
                 if(empty($data['phm'])){
                     $data['phm_err'] = 'Please select the PHM Area';
                 }
 
                 
                 //Make sure no errors
-                if(empty($data['name_err']) && empty($data['identity_err']) && empty($data['phone_err']) && empty($data['email_err']) && empty($data['password_err'])){
+                if(empty($data['name_err']) && empty($data['nic_err']) && empty($data['phone_err']) && empty($data['email_err']) && empty($data['password_err'])){
                     //validated
 
                     //Hash password
                     $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
                     //Register User
-                    if($this->midwifeModel->addMidwife($data)){
+                    if($this->midwifeModel->addMidwife($data) AND $this->midwifeModel->addUser($data)){
                         redirect('midwifes');
                     } else {
                         die('Someting went wrong');
@@ -130,20 +124,17 @@
                 //Init data
                 $data = [
                     'name' => '',
-                    'identity' => '',
+                    'nic' => '',
                     'phone' => '',
                     'email' => '',
                     'password' => '',
-                    'clinic' => '',
-                    'phm' => '',
+                    'regdate' => '',
                     'name_err' => '',
-                    'identity_err' => '',
+                    'nic_err' => '',
                     'phone_err' => '',
                     'email_err' => '',
                     'password_err' => '',
-                    'clinics' => $clinics,
-                    'clinic_err' => '',
-                    'phm_err' => ''
+                    'active'=>''
                 ];
 
                 //Load view
@@ -159,15 +150,15 @@
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
                 $data = [
-                    'identity' => trim($_POST['identity']),
+                    'nic' => trim($_POST['nic']),
                     'password' => trim($_POST['password']),
-                    'identity_err' => '',
+                    'nic_err' => '',
                     'password_err' => ''
                 ];
 
                 //Validate data
-                if(empty($data['identity'])){
-                    $data['identity_err'] = 'Please enter an identity number';
+                if(empty($data['nic'])){
+                    $data['nic_err'] = 'Please enter an nic number';
                 }
 
                 if(empty($data['password'])){
@@ -176,12 +167,12 @@
 
 
                 //Check for clinicattendee id
-                /*if($this->midwifeModel->findMidwifeByIdentity($data['identity'])){
+                /*if($this->midwifeModel->findMidwifeBynic($data['nic'])){
                     //Clinic attendee found 
-                    if(empty($data['identity_err']) && empty($data['password_err'])){
+                    if(empty($data['nic_err']) && empty($data['password_err'])){
                         //Validated
                         //Check and set logged in Clinic attendee
-                        $loggedInUser = $this->midwifeModel->login($data['identity'], $data['password']);
+                        $loggedInUser = $this->midwifeModel->login($data['nic'], $data['password']);
 
                         if($loggedInUser){
                             //Create session
@@ -198,13 +189,13 @@
                     }
                 } else {
                     //Clinic Attendee not found
-                    $data['identity_err'] = 'No Midwife found';
+                    $data['nic_err'] = 'No Midwife found';
                 }*/
 
-                if(empty($data['identity_err']) && empty($data['password_err'])){
+                if(empty($data['nic_err']) && empty($data['password_err'])){
 
-                    if($this->midwifeModel->findMidwifeByIdentity($data['identity'])){
-                        $loggedInUser = $this->midwifeModel->login($data['identity'], $data['password']);
+                    if($this->midwifeModel->findMidwifeBynic($data['nic'])){
+                        $loggedInUser = $this->midwifeModel->login($data['nic'], $data['password']);
 
                         if($loggedInUser){
                             //Create session
@@ -217,7 +208,7 @@
 
                     }else {
                         //Clinic Attendee not found
-                        $data['identity_err'] = 'No Midwife found';
+                        $data['nic_err'] = 'No Midwife found';
                         
                         $this->view('midwifes/login', $data);
                     }
@@ -232,9 +223,9 @@
             } else {
                 //Init data
                 $data = [
-                    'identity' => '',
+                    'nic' => '',
                     'password' => '',
-                    'identity_err' => '',
+                    'nic_err' => '',
                     'password_err' => ''
                 ];
 
@@ -243,9 +234,76 @@
             }
         }
 
+        public function midwifeprofile($nic){
+            //Check for POST
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                //Sanitize POST array
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+                $midwife = $this->midwifeModel->getMidwifeByNic($nic);
+                $postclinic = $this->midwifeModel->getMidwifeClinicByMidwife($nic);
+
+                //Init data
+                $data = [
+                    'midwife' => $midwife,
+                    'nic' => $nic,
+                    'clinic' => $postclinic->clinic,
+                    'appdate' => $postclinic->appdate,
+                    'newclinic' => trim($_POST['newclinic']),
+                    'newclinic_err' => '',
+                    'transdate'=> date("Y-m-d"),
+                ];
+
+                //validate data
+                if(empty($data['newclinic'])){
+                    $data['newclinic_err'] = 'Please select a clinic';
+                } else {
+                    //Check whether the selected clinic is the already selected clinic
+                    if($this->midwifeModel->findClinicByMidwife($data['newclinic'])){
+                        $data['newclinic_err'] = 'Midwife is already working in the clinic';
+                    }
+                }
+
+                if(empty($data['newclinic_err'])){
+                    //Transfer midwife
+                    if(($this->midwifeModel->updatetransferMidwife($data)) && ($this->midwifeModel->addtransferMidwife($data)) && ($this->midwifeModel->updateMidwife($data))){
+                        redirect('midwifes/midwifeprofile/'.$nic.'', $data);
+                    } else {
+                        die('Something went wrong');
+                    }
+                } else {
+                    $this->view('midwifes/midwifeprofile/'.$nic.'', $data);
+                }
+
+            } else {
+
+                $midwife = $this->midwifeModel->getMidwifeByNic($nic);
+                $clinic = $this->midwifeModel->getClinicByMidwife($nic);
+                $clinics = $this->midwifeModel->getClinicsToTransfer($nic);
+                $history = $this->midwifeModel->getWorkingHistory($nic);
+
+                $data = [
+                    'midwife' => $midwife,
+                    'clinic' => $clinic,
+                    'clinics' => $clinics,
+                    'newclinic_err' => '',
+                    'history' => $history
+                ];
+
+                $this->view('midwifes/midwifeprofile', $data);
+            }
+        }
+
+
+
+
+
+
+
+
         public function createMidwifeSession($midwife){
             $_SESSION['midwife_id'] = $midwife->midwife_id;
-            $_SESSION['midwife_identity'] = $midwife->identity;
+            $_SESSION['midwife_nic'] = $midwife->nic;
             $_SESSION['midwife_name'] = $midwife->name;
             $_SESSION['midwife_clinic'] = $midwife->clinic;
             redirect('expectantRecords');

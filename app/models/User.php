@@ -105,9 +105,25 @@ class User{
         }else{
             return false;
         }
-      
+    }
 
+    public function addUser($data){
+        $this->db->query('INSERT INTO users (nic, name, password) VALUES (:nic, :name, :password)');
+        
 
+        //Bind values
+        $this->db->bindParam(':nic', $data['nic']);
+        $this->db->bindParam(':name', $data['name']);
+        $this->db->bindParam(':password', $data['password']);
+
+        //Execute
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+
+        
     }
 
 
@@ -134,6 +150,23 @@ class User{
     
         return $row;
 }
+
+    //Login User
+    public function login($nic, $password){
+        $this->db->query('SELECT * FROM users WHERE nic = :nic');
+        $this->db->bindparam(':nic', $nic);
+
+        $row = $this->db->single();
+
+        $hashed_password = $row->password;
+        if(password_verify($password, $hashed_password)){
+            return $row;
+        } else {
+            return false;
+        }
+    }
+
+
 }
 
    

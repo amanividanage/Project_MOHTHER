@@ -15,7 +15,7 @@
         }
 
         public function searchAdmins($search){
-            $this->db->query("SELECT * FROM admins WHERE CONCAT(name,identity) LIKE '%$search%' ");
+            $this->db->query("SELECT * FROM admins WHERE CONCAT(name,nic) LIKE '%$search%' ");
 
             $results = $this->db->resultSet();
 
@@ -33,11 +33,12 @@
 
         //Add admin
         public function addAdmin($data){
-            $this->db->query('INSERT INTO admins (name, identity, phone, email, password) VALUES (:name, :identity, :phone, :email, :password)');
+            $this->db->query('INSERT INTO admins (name, nic, phone, email, password) VALUES (:name, :nic, :phone, :email, :password)');
+            
 
             //Bind values
             $this->db->bindParam(':name', $data['name']);
-            $this->db->bindParam(':identity', $data['identity']);
+            $this->db->bindParam(':nic', $data['nic']);
             $this->db->bindParam(':phone', $data['phone']);
             $this->db->bindParam(':email', $data['email']);
             $this->db->bindParam(':password', $data['password']);
@@ -49,11 +50,28 @@
                 return false;
             }
         }
+        
+        public function addUser($data){
+            $this->db->query('INSERT INTO users (nic, name, password) VALUES (:nic, :name, :password)');
+            
+
+            //Bind values
+            $this->db->bindParam(':nic', $data['nic']);
+            $this->db->bindParam(':name', $data['name']);
+            $this->db->bindParam(':password', $data['password']);
+
+            //Execute
+            if($this->db->execute()){
+                return true;
+            } else {
+                return false;
+            }
+        }
 
         //Login User
-        public function login($identity, $password){
-            $this->db->query('SELECT * FROM admins WHERE identity = :identity');
-            $this->db->bindparam(':identity', $identity);
+        public function login($nic, $password){
+            $this->db->query('SELECT * FROM users WHERE nic = :nic');
+            $this->db->bindparam(':nic', $nic);
 
             $row = $this->db->single();
 
@@ -66,11 +84,11 @@
         }
 
         //Find user by ID number
-        public function findAdminByIdentity($identity){
-            $this->db->query('SELECT * FROM admins WHERE identity = :identity');
+        public function findAdminBynic($nic){
+            $this->db->query('SELECT * FROM admins WHERE nic = :nic');
 
             //Bind value
-            $this->db->bindParam(':identity', $identity);
+            $this->db->bindParam(':nic', $nic);
 
             $row = $this->db->single();
 

@@ -87,7 +87,12 @@
 
                 <button type="submit" class="loginbtn1999">Login</button><br>
 
+                <br>
+
                 <a href=" <?php echo URLROOT; ?>/clinicattendees/register"> No Account? Register</a>
+
+                <br>
+                <br>
             </form>
         </div>
 

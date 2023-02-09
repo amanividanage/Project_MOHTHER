@@ -19,23 +19,29 @@
                 <form action="<?php echo URLROOT; ?>/clinics/add" method="post">
                     <div>
                         <label for="clinic_name">Name: <sup>*</sup></label>
-                        <input type="text" id="clinic_name" name="clinic_name" placeholder="Enter clinic name... ">
+                        <input type="text" id="clinic_name" name="clinic_name" placeholder="Enter clinic name... " value="<?php echo $data['clinic_name']; ?>">
                         <span class="form-err"><?php echo $data['clinic_name_err']; ?></span>
                     </div>
                     <div>
                         <label for="gnd">Grama Niladhari Division: <sup>*</sup></label>
-                        <select name="gnd" id="gnd">
+                        <select name="gnd" id="gnd" value="<?php echo $data['gnd']; ?>">
                             <option value="" selected hidden>Grama Niladhari division</option>
-                            <option value="GND-1">GND-1</option>
-                            <option value="GND-2">GND-2</option>
-                            <option value="GND-3">GND-3</option>
-                            <option value="GND-4">GND-4</option>
+                            <option value="Kalalgoda">Kalalgoda</option>
+                            <option value="Thalawathugoda West">Thalawathugoda West</option>
+                            <option value="Thalawathugoda East">Thalawathugoda East</option>
+                            <option value="Kottawa South">Kottawa South</option>
+                            <option value="Kottawa East">Kottawa East</option>
+                            <option value="Kottawa City">Kottawa City</option>
+                            <option value="Kottawa North">Kottawa North</option>
+                            <option value="Kottawa  West">Kottawa  West</option>
+                            <option value="Liyanagoda">Liyanagoda</option>
+                            <option value="Pragathipura">Pragathipura</option>
                         </select>
                         <span class="form-err"><?php echo $data['gnd_err']; ?></span>
                     </div> 
                     <div>
                         <label for="location">Address: <sup>*</sup></label>
-                        <input type="text" name="location" placeholder="Enter the address.. ">
+                        <input type="text" name="location" placeholder="Enter the address.. " value="<?php echo $data['location']; ?>">
                         <span class="form-err"><?php echo $data['location_err']; ?></span>
                     </div>
                     <input type="submit" value="Submit">

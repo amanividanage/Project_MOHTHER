@@ -35,6 +35,81 @@
             
         }
 
+        public function doctorprofile($nic){
+            //Check for POST
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                //Sanitize POST array
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+                $doctor = $this->doctorModel->getDoctorByNic($nic);
+                $postclinic = $this->doctorModel->getDoctorClinicByDoctor($nic);
+
+                //Init data
+                $data = [
+                    'doctor' => $doctor,
+                    'nic' => $nic,
+                    'clinic' => $postclinic->clinic,
+                    'appdate' => $postclinic->appdate,
+                    'newclinic' => trim($_POST['newclinic']),
+                    'newclinic_err' => '',
+                    'transdate'=> date("Y-m-d"),
+                ];
+
+                //validate data
+                if(empty($data['newclinic'])){
+                    $data['newclinic_err'] = 'Please select a clinic';
+                } else {
+                    //Check whether the selected clinic is the already selected clinic
+                    if($this->doctorModel->findClinicByDoctor($data['newclinic'])){
+                        $data['newclinic_err'] = 'Doctor is already working in the clinic';
+                    }
+                }
+
+                if(empty($data['newclinic_err'])){
+                    //Transfer doctor
+                    if(($this->doctorModel->updatetransferDoctor($data)) && ($this->doctorModel->addtransferDoctor($data)) && ($this->doctorModel->updateDoctor($data))){
+                        redirect('doctors/doctorprofile/'.$nic.'', $data);
+                    } else {
+                        die('Something went wrong');
+                    }
+                } else {
+                    $this->view('doctors/doctorprofile/'.$nic.'', $data);
+                }
+
+            } else {
+
+                $doctor = $this->doctorModel->getDoctorByNic($nic);
+                $clinic = $this->doctorModel->getClinicByDoctor($nic);
+                $clinics = $this->doctorModel->getClinicsToTransfer($nic);
+                $history = $this->doctorModel->getWorkingHistory($nic);
+
+                $data = [
+                    'doctor' => $doctor,
+                    'clinic' => $clinic,
+                    'clinics' => $clinics,
+                    'newclinic_err' => '',
+                    'history' => $history
+                ];
+
+                $this->view('doctors/doctorprofile', $data);
+            }
+            
+            
+
+            
+            
+
+            
+
+            // if(empty($data['clinic'])){
+            //     $this->view('doctors/doctorprofile', $data);
+            // } else {
+            //     $this->view('doctors/doctorprofile', $data);
+            // }
+
+            // $this->view('doctors/doctorprofile', $data);
+        }
+
 
         public function add(){
             //Check for POST
@@ -47,17 +122,18 @@
                 //Init data
                 $data = [
                     'name' => trim($_POST['name']),
-                    'identity' => trim($_POST['identity']),
+                    'nic' => trim($_POST['nic']),
                     'phone' => trim($_POST['phone']),
                     'email' => trim($_POST['email']),
                     'password' => trim($_POST['password']),
-                    'clinic' => trim($_POST['clinic']),
+                    'regdate' => date("Y-m-d"),
                     'name_err' => '',
-                    'identity_err' => '',
+                    'nic_err' => '',
                     'phone_err' => '',
                     'email_err' => '',
                     'password_err' => '',
-                    'clinic_err' => ''
+                    'clinic_err' => '',
+                    'active'=>'0'
                 ];
 
                 //validate data
@@ -65,14 +141,14 @@
                     $data['name_err'] = 'Please enter the name';
                 }
 
-                if(empty($data['identity'])){
-                    $data['identity_err'] = 'Please enter an identity number';
-                } elseif(strlen($data['identity']) < 10){
-                    $data['identity_err'] = 'Please enter valid ID number';
+                if(empty($data['nic'])){
+                    $data['nic_err'] = 'Please enter an nic number';
+                } elseif(strlen($data['nic']) < 10){
+                    $data['nic_err'] = 'Please enter valid ID number';
                 } else {
-                    //Check identity no
-                    if($this->doctorModel->findDoctorByIdentity($data['identity'])){
-                        $data['identity_err'] = 'Id is already taken';
+                    //Check nic no
+                    if($this->doctorModel->findDoctorBynic($data['nic'])){
+                        $data['nic_err'] = 'Id is already taken';
                     }
                 }
 
@@ -97,13 +173,10 @@
                     $data['password_err'] = 'Password must be at least 6 characters'; 
                 }
 
-                if(empty($data['clinic'])){
-                    $data['clinic_err'] = 'Please select a clinic';
-                }
 
-                
+
                 //Make sure no errors
-                if(empty($data['name_err']) && empty($data['identity_err']) && empty($data['phone_err']) && empty($data['email_err']) && empty($data['password_err'])){
+                if(empty($data['name_err']) && empty($data['nic_err']) && empty($data['phone_err']) && empty($data['email_err']) && empty($data['password_err'])){
                     //validated
 
                     //Hash password
@@ -122,22 +195,23 @@
                 }
 
             } else {
-                $clinics = $this->clinicModel->getClinics();
+                // $clinics = $this->clinicModel->getClinics();
                 //Init data
                 $data = [
                     'name' => '',
-                    'identity' => '',
+                    'nic' => '',
                     'phone' => '',
                     'email' => '',
                     'password' => '',
                     'clinic' => '',
                     'name_err' => '',
-                    'identity_err' => '',
+                    'nic_err' => '',
                     'phone_err' => '',
                     'email_err' => '',
                     'password_err' => '',
-                    'clinics' => $clinics,
-                    'clinic_err' => ''
+                    'regdate' => '',
+                    'clinic_err' => '',
+                    'active'=>''
                 ];
 
                 //Load view

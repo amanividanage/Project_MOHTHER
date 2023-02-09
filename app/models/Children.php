@@ -27,7 +27,7 @@ class Children{
     public function parent($data){
 
         //$sessionId = $_SESSION['midwife_id'];
-        $this->db->query("INSERT INTO parent (midwife_id, relationship, name, nic, age, nochildren, levelofeducation, occupation, contactno, address, email, gnd, phm, password) VALUES (:midwife_id, :relationship, :name, :nic, :age, :nochildren, :levelofeducation, :occupation, :contactno, :address, :email, :gnd, :phm, :password)");
+        $this->db->query("INSERT INTO parent (midwife_id, relationship, name, nic, age, nochildren, levelofeducation, occupation, contactno, address, email, password) VALUES (:midwife_id, :relationship, :name, :nic, :age, :nochildren, :levelofeducation, :occupation, :contactno, :address, :email, :password)");
 
         //bind values
         $this->db->bindParam(':midwife_id',$data['midwife_id']);
@@ -43,14 +43,31 @@ class Children{
         $this->db->bindParam(':address',$data['address']);
         $this->db->bindParam(':email',$data['email']);
 
-        $this->db->bindParam(':gnd',$data['gnd']);
-        $this->db->bindParam(':phm',$data['phm']);
+        // $this->db->bindParam(':gnd',$data['gnd']);
+        // $this->db->bindParam(':phm',$data['phm']);
         $this->db->bindParam(':password',$data['password']);
          
         //execute
         if($this->db->execute()){
             return true;
         }else{
+            return false;
+        }
+    }
+
+    public function addUser($data){
+        $this->db->query('INSERT INTO users (nic, name, password) VALUES (:nic, :name, :password)');
+        
+
+        //Bind values
+        $this->db->bindParam(':nic', $data['nic']);
+        $this->db->bindParam(':name', $data['name']);
+        $this->db->bindParam(':password', $data['password']);
+
+        //Execute
+        if($this->db->execute()){
+            return true;
+        } else {
             return false;
         }
     }
@@ -178,8 +195,8 @@ class Children{
     }
     
     public function findPhmByMidwife($nic){
-        $this->db->query('SELECT * FROM midwifes WHERE identity = :identity');
-        $this->db->bindParam(':identity', $nic);
+        $this->db->query('SELECT * FROM midwifes WHERE nic = :nic');
+        $this->db->bindParam(':nic', $nic);
 
         $row = $this->db->single();
 

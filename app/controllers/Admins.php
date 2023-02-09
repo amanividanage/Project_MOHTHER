@@ -91,12 +91,12 @@
                 //Init data
                 $data = [
                     'name' => trim($_POST['name']),
-                    'identity' => trim($_POST['identity']),
+                    'nic' => trim($_POST['nic']),
                     'phone' => trim($_POST['phone']),
                     'email' => trim($_POST['email']),
                     'password' => trim($_POST['password']),
                     'name_err' => '',
-                    'identity_err' => '',
+                    'nic_err' => '',
                     'phone_err' => '',
                     'email_err' => '',
                     'password_err' => ''
@@ -107,14 +107,14 @@
                     $data['name_err'] = 'Please enter the name';
                 }
 
-                if(empty($data['identity'])){
-                    $data['identity_err'] = 'Please enter an identity number';
-                } elseif(strlen($data['identity']) < 10){
-                    $data['identity_err'] = 'Please enter valid ID number';
+                if(empty($data['nic'])){
+                    $data['nic_err'] = 'Please enter an nic number';
+                } elseif(strlen($data['nic']) < 10){
+                    $data['nic_err'] = 'Please enter valid ID number';
                 } else {
-                    //Check identity no
-                    if($this->adminModel->findAdminByIdentity($data['identity'])){
-                        $data['identity_err'] = 'Id is already taken';
+                    //Check nic no
+                    if($this->adminModel->findAdminBynic($data['nic'])){
+                        $data['nic_err'] = 'Id is already taken';
                     }
                 }
 
@@ -141,14 +141,14 @@
 
                 
                 //Make sure no errors
-                if(empty($data['name_err']) && empty($data['identity_err']) && empty($data['phone_err']) && empty($data['email_err']) && empty($data['password_err'])){
+                if(empty($data['name_err']) && empty($data['nic_err']) && empty($data['phone_err']) && empty($data['email_err']) && empty($data['password_err'])){
                     //validated
 
                     //Hash password
                     $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
                     //Register User
-                    if($this->adminModel->addAdmin($data)){
+                    if($this->adminModel->addAdmin($data) AND $this->adminModel->addUser($data)){
                         redirect('admins');
                     } else {
                         die('Someting went wrong');
@@ -163,12 +163,12 @@
                 //Init data
                 $data = [
                     'name' => '',
-                    'identity' => '',
+                    'nic' => '',
                     'phone' => '',
                     'email' => '',
                     'password' => '',
                     'name_err' => '',
-                    'identity_err' => '',
+                    'nic_err' => '',
                     'phone_err' => '',
                     'email_err' => '',
                     'password_err' => ''
@@ -190,36 +190,36 @@
                 //Init data
                 $data = [
                     
-                    'identity' => trim($_POST['identity']),
+                    'nic' => trim($_POST['nic']),
                     'password' => trim($_POST['password']),
-                    'identity_err' => '',
+                    'nic_err' => '',
                     'password_err' => ''    
                 ];
 
                 //Validate data
-                if(empty($data['identity'])){
-                    $data['identity_err'] = 'Please enter your identity';
-                } elseif(strlen($data['identity']) < 10){
-                    $data['identity_err'] = 'Please enter valid ID number';
+                if(empty($data['nic'])){
+                    $data['nic_err'] = 'Please enter your nic';
+                } elseif(strlen($data['nic']) < 10){
+                    $data['nic_err'] = 'Please enter valid ID number';
                 }
 
                 if(empty($data['password'])){
                     $data['password_err'] = 'Please enter your password';
                 }
 
-                //Check for user/identity
-                if($this->adminModel->findAdminByIdentity($data['identity'])){
+                //Check for user/nic
+                if($this->adminModel->findAdminBynic($data['nic'])){
                     //User found
                 } else {
                     //user not found
-                    $data['identity_err'] = 'No admin Found';
+                    $data['nic_err'] = 'No admin Found';
                 }
 
                 //Make sure no errors
-                if(empty($data['identity_err']) && empty($data['password_err'])){
+                if(empty($data['nic_err']) && empty($data['password_err'])){
                     //validated
                     //checked and set logged in user
-                    $loggedInUser = $this->adminModel->login($data['identity'], $data['password']);
+                    $loggedInUser = $this->adminModel->login($data['nic'], $data['password']);
 
                     if($loggedInUser){
                         //Create session
@@ -239,9 +239,9 @@
                 //Init data
                 $data = [
                     
-                    'identity' => '',
+                    'nic' => '',
                     'password' => '',
-                    'identity_err' => '',
+                    'nic_err' => '',
                     'password_err' => ''
                     
                 ];
@@ -253,7 +253,7 @@
 
         public function createAdminSession($admin){
             $_SESSION['admin_id'] = $admin->admin_id;
-            $_SESSION['admin_identity'] = $admin->identity;
+            $_SESSION['admin_nic'] = $admin->nic;
             $_SESSION['admin_name'] = $admin->name;
             redirect('clinics');
             //redirect('clinics/info/<?php echo $clinic->id; ?-->');
@@ -261,7 +261,7 @@
 
         public function logout(){
             unset($_SESSION['admin_id']);
-            unset($_SESSION['admin_identity']);
+            unset($_SESSION['admin_nic']);
             unset($_SESSION['admin_name']);
             session_destroy();
             redirect('');

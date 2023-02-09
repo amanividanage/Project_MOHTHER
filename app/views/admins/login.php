@@ -19,9 +19,9 @@
                 <p>Please enter your credencials to log in</p>
                 <form action="<?php echo URLROOT; ?>/admins/login" method="post">
                     <div>
-                        <label for="identity">ID No: <sup>*</sup></label>
-                        <input type="text" name="identity" placeholder="Enter your ID no">
-                        <span class="form-err"><?php echo $data['identity_err']; ?></span>
+                        <label for="nic">ID No: <sup>*</sup></label>
+                        <input type="text" name="nic" placeholder="Enter your ID no">
+                        <span class="form-err"><?php echo $data['nic_err']; ?></span>
                     </div>
                     <div>
                         <label for="password">Password: <sup>*</sup></label>

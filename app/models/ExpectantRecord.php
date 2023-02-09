@@ -28,11 +28,17 @@ class ExpectantRecord {
         //                     INNER JOIN clinics c ON S.gnd = C.gnd
         //                     JOIN midwifes m ON C.id = m.clinic
 
-        $this->db->query("SELECT r.nic, r.mname FROM  registration r 
-                          INNER JOIN clinics c  ON r.gnd = c.gnd   WHERE active ='1' AND 
-                          c.id = ".$_SESSION['midwife_clinic']);
+        // $this->db->query("SELECT r.nic, r.mname FROM  registration r 
+        //                   INNER JOIN clinics c  ON r.gnd = c.gnd   WHERE active ='1' AND 
+        //                   c.id = ".$_SESSION['midwife_clinic']);
+
+        $this->db->query("SELECT r.nic, r.mname 
+                        FROM  registration r 
+                        INNER JOIN clinics c  ON r.gnd = c.gnd 
+                        INNER JOIN midwife_clinic m ON m.clinic = c.id
+                        WHERE active ='1' AND m.nic = :midwife_nic ");
                            
-                          
+                           $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
                      
         $results =  $this->db->resultSet();
         return $results;

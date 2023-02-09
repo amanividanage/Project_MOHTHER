@@ -23,9 +23,9 @@
                         <span class="form-err"><?php echo $data['name_err']; ?></span>
                     </div>
                     <div>
-                        <label for="identity" class="form_font">ID No: <sup>*</sup></label>
-                        <input type="text" name="identity" placeholder="Enter ID number here... ">
-                        <span class="form-err"><?php echo $data['identity_err']; ?></span>
+                        <label for="nic" class="form_font">ID No: <sup>*</sup></label>
+                        <input type="text" name="nic" placeholder="Enter ID number here... ">
+                        <span class="form-err"><?php echo $data['nic_err']; ?></span>
                     </div>
                     <div>
                         <label for="phone" class="form_font">Phone No: <sup>*</sup></label>
@@ -41,16 +41,6 @@
                         <label for="password" class="form_font">Password: <sup>*</sup></label>
                         <input type="text" name="password" placeholder="Enter password here... ">
                         <span class="form-err"><?php echo $data['password_err']; ?></span>
-                    </div>
-                    <div>
-                        <label for="clinic" class="form_font">Clinic: <sup>*</sup></label>
-                        <select name="clinic" id="clinic">
-                            <option value="">Select a clinic</option>
-                            <?php foreach($data['clinics'] as $clinic) : ?>
-                                <option value="<?php echo $clinic->id; ?>"><?php echo $clinic->clinic_name; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <span class="form-err"><?php echo $data['clinic_err']; ?></span>
                     </div>
                     <input type="submit" value="Submit">
                 </form>

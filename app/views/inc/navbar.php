@@ -11,7 +11,7 @@
     
     
     <ul>
-        <?php if((isset($_SESSION['admin_id'])) || (isset($_SESSION['clinicattendee_nic'])) || (isset($_SESSION['midwife_id']))) : ?>
+        <?php if((isset($_SESSION['admin_nic'])) || (isset($_SESSION['clinicattendee_nic'])) || (isset($_SESSION['midwife_id']))) : ?>
             
     <!--if((isset($_SESSION['admin_id'])) || (isset($_SESSION['clinicattendee_id'])))-->
             <li>
@@ -33,14 +33,8 @@
             <li>
                 <a href="<?php echo URLROOT; ?>/clinicattendees/register" class="bctive">REGISTER</a>
             </li>
-            <li class="dropdown-login">
-                <a href="">LOGIN</a>
-                <div class="dropdown-content-login">
-                    <a href="<?php echo URLROOT; ?>/admins/login">Admin</a>
-                    <a href="<?php echo URLROOT; ?>/midwifes/login">Midwife</a>
-                    <a href="<?php echo URLROOT; ?>/doctors/login">Doctor</a>
-                    <a href="<?php echo URLROOT; ?>/clinicattendees/login">User</a>
-                </div>
+            <li>
+                <a href="<?php echo URLROOT; ?>/users/login" class="bctive">LOGIN</a>
             </li>
         <?php endif; ?>
     </ul>

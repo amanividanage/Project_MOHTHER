@@ -372,10 +372,10 @@ form .input-box select {
 .bg-img {
     /* The image used */
 
-    background-image: url("../img/new_mirror.png");
+    background-image: url("../img/1.png");
 
-    min-height: 380px;
-    width: 60%;
+    min-height: 450px;
+    width: 65%;
     margin: auto;
     /* Center and scale the image nicely */
     background-position: center;
@@ -390,7 +390,8 @@ form .input-box select {
     position: absolute;
     right: 0;
     margin: 20px;
-    max-width: 300px;
+    min-width: 375;
+    max-width: 375px;
     padding: 20px;
     background-color: white;
     font-size: 80%;

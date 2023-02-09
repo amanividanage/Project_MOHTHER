@@ -1,136 +1,128 @@
 <?php
 class Users extends Controller{
-   public function __construct(){
+    public function __construct(){
         $this->userModel = $this->model('User');
         $this->expectantRecordModel = $this->model('ExpectantRecord');
+        $this->adminModel = $this->model('Admin');
+        $this->midwifeModel = $this->model('Midwife');
+        $this->clinicattendeeModel = $this->model('Clinicattendee');
        
-        
-}
-public function index(){
-
-    //get records
-    $expectantRecords =  $this->expectantRecordModel-> getExpectantRecords(); 
-      $data = [
-        'expectantRecords' => $expectantRecords
-              
-        ];
-       
-    
-      $this->view('expectantRecords/index', $data);
     }
 
-public function expectant(){
- //get records
- $expectantemail =  $this->userModel-> getExpectantemail(); 
- $expectantnic =  $this->userModel-> getExpectantnic(); 
- //check for post
- if($_SERVER['REQUEST_METHOD'] == 'GET'){
-     //PROCESS FORM
-     //die('Submitted');
-     //sanitizing the POST data
-     $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);  
+    public function index(){
+
+        //get records
+        $expectantRecords =  $this->expectantRecordModel-> getExpectantRecords(); 
+
+        $data = [
+            'expectantRecords' => $expectantRecords
+        ]; 
+        $this->view('expectantRecords/index', $data);
+    }
+
+    public function expectant(){
+        //get records
+        $expectantemail =  $this->userModel-> getExpectantemail(); 
+        $expectantnic =  $this->userModel-> getExpectantnic(); 
+        //check for post
+        if($_SERVER['REQUEST_METHOD'] == 'GET'){
+            //PROCESS FORM
+            //die('Submitted');
+            //sanitizing the POST data
+            $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);  
 
 
-     //init data 
-     $data =[
-         'expectantnic' =>$expectantnic ,
-         'expectantemail' => $expectantemail,
-         'password' => trim($_POST['password']),
-         
-    
-         'expectantnic_err' => '',
-         'expectantemail_err' => '',
-         'password_err' => '',
-     
-         ];
-
-         //validate variables
-         if(empty($data['password'])){
-             $data['password_err']='*Please enter the password';
-         }else{
-            // check nic with email
-             if($this->userModel->getExpectantemail($data['expectantemail'])){
-                 $data['expectantemail_err'] = 'This user is already registered';
-             }
-         }
-
-        
-         //make sure all the necessary data are filled by midwife
-         if(empty($data[ 'expectantemail_err']) && empty($data[ 'expectantnic_err'])&& empty($data[ 'password_err'] ))
-         {
-             //validated
-             //die('Successfull');
-                 //validated
-     
-                 //Hash password
-           $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-     
-                 //Register User
-                 if($this->userModel->email($data)){
-                     redirect('expectantRecords/expectant');
-                 } else {
-                     die('Someting went wrong');
-                 }
-     
-             }
-           $this->view('expectantRecords/expectant', $data);
-         }
-
-            else{
-     //init data
-     $data =[
-
-         'expectantnic' => '',
-         'expectantemail' => '',
-         'password' => '',
-         
-         'expectantnic_err' => '',
-         'expectantemail_err' => '',
-         'password_err' => '',
-     
-
-  ];
-
-      //load view
-      $this->view('expectantRecords/expectant', $data);
-  
- }
-}
-  
-    
-  
-
-   
-  public function risky(){
-    $data = [];
-  
-    $this->view('users/risky', $data);
-  }
-
-  public function email(){
-
-    //get records
-    $expectantemail =  $this->userModel-> getExpectantemail(); 
-    $expectantnic =  $this->userModel-> getExpectantnic(); 
-    //check for post
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        //PROCESS FORM
-        //die('Submitted');
-        //sanitizing the POST data
-        $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);  
-
-
-        //init data 
-        $data =[
-            'expectantnic' =>$expectantnic ,
-            'expectantemail' => $expectantemail,
-            'password' => trim($_POST['password']),
+            //init data 
+            $data =[
+                'expectantnic' =>$expectantnic ,
+                'expectantemail' => $expectantemail,
+                'password' => trim($_POST['password']),
+                
             
-       
-            'expectantnic_err' => '',
-            'expectantemail_err' => '',
-            'password_err' => '',
+                'expectantnic_err' => '',
+                'expectantemail_err' => '',
+                'password_err' => '',
+            
+            ];
+
+            //validate variables
+            if(empty($data['password'])){
+                $data['password_err']='*Please enter the password';
+            }else{
+                // check nic with email
+                if($this->userModel->getExpectantemail($data['expectantemail'])){
+                    $data['expectantemail_err'] = 'This user is already registered';
+                }
+            }
+
+                
+            //make sure all the necessary data are filled by midwife
+                if(empty($data[ 'expectantemail_err']) && empty($data[ 'expectantnic_err'])&& empty($data[ 'password_err'] ))
+                {
+                    //validated
+                    //die('Successfull');
+                        //validated
+            
+                        //Hash password
+                    $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+            
+                    //Register User
+                    if($this->userModel->email($data)){
+                        redirect('expectantRecords/expectant');
+                    } else {
+                        die('Someting went wrong');
+                    }
         
+                }
+                    $this->view('expectantRecords/expectant', $data);
+        } else{
+            //init data
+            $data =[
+
+                'expectantnic' => '',
+                'expectantemail' => '',
+                'password' => '',
+                
+                'expectantnic_err' => '',
+                'expectantemail_err' => '',
+                'password_err' => '',
+            ];
+
+            //load view
+            $this->view('expectantRecords/expectant', $data);
+  
+        }
+    }
+
+    public function risky(){
+        $data = [];
+    
+        $this->view('users/risky', $data);
+    }
+
+    public function email(){
+
+        //get records
+        $expectantemail =  $this->userModel-> getExpectantemail(); 
+        $expectantnic =  $this->userModel-> getExpectantnic(); 
+        //check for post
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            //PROCESS FORM
+            //die('Submitted');
+            //sanitizing the POST data
+            $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);  
+
+            //init data 
+            $data =[
+                'expectantnic' =>$expectantnic ,
+                'expectantemail' => $expectantemail,
+                'password' => trim($_POST['password']),
+                
+        
+                'expectantnic_err' => '',
+                'expectantemail_err' => '',
+                'password_err' => '',
+            
             ];
 
             //validate variables
@@ -163,28 +155,23 @@ public function expectant(){
         
                 }
               $this->view('users/email', $data);
-            }
+        } else{
+            //init data
+            $data =[
 
-               else{
-        //init data
-        $data =[
+                'expectantnic' => '',
+                'expectantemail' => '',
+                'password' => '',
+                
+                'expectantnic_err' => '',
+                'expectantemail_err' => '',
+                'password_err' => '',
+            ];
 
-            'expectantnic' => '',
-            'expectantemail' => '',
-            'password' => '',
-            
-            'expectantnic_err' => '',
-            'expectantemail_err' => '',
-            'password_err' => '',
-        
-
-     ];
-
-         //load view
-         $this->view('users/email', $data);
-     
+            //load view
+            $this->view('users/email', $data);
+        }
     }
-  }
     
  // public function index(){
     //Get clinics 
@@ -250,7 +237,8 @@ public function expectant(){
             'lastMenstrualDate_err' => '',
             'registrationDate_err' => '',
             'expectedDateofDelivery_err' => '',
-            'password_err' => '',            'bmi_err'=>'',
+            'password_err' => '',            
+            'bmi_err'=>'',
             'output_err'=>'',
             'active'=>'0',
             
@@ -316,7 +304,7 @@ public function expectant(){
             //}
 
             //make sure all the necessary data are filled by midwife
-            if(empty($data[ 'nic_err']) && empty($data[ 'height_err'])&& empty($data[ 'weight_err']) && empty($data[ 'bloodPressure_err']) && empty($data[  'allergies_err']) && empty($data[  'subfertility_err']) && empty($data[  'gravidity_err']) && empty($data[ 'noofChildren_err'] ))
+            if(empty($data['nic_err']) && empty($data['height_err'])&& empty($data['weight_err']) && empty($data['bloodPressure_err']) && empty($data['allergies_err']) && empty($data['subfertility_err']) && empty($data['gravidity_err']) && empty($data['noofChildren_err']))
             {
                 //validated
                 //die('Successfull');
@@ -324,13 +312,10 @@ public function expectant(){
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
                 //register user
-                if($this->userModel->register($data) && $this->userModel->updateactive($data)){
-                    //displaying the message using sessions- sessions_helpersA.php
-                //   flash('register_success', 'You have successfully completed the 2nd phase of registration of clinic attendee with the NIC number ' .'   ' . $data['nic'] . ' ' . 'with the expected date of delivery on ' .'   ' . $data['expectedDateofDelivery']);
-                   
-                   redirect('expectantRecords/index');
+                if($this->userModel->register($data) AND $this->userModel->updateactive($data) AND $this->userModel->addUser($data)){  
+                   redirect('expectantRecords');
                 }else{
-                    redirect('expectantRecords/index');
+                    die('Something went wrong');
                 }
 
 
@@ -404,4 +389,134 @@ public function expectant(){
 
     $this->view('users/risky', $data);
 }
+
+    public function login(){
+        // Check for POST
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            //Process form
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'nic' => trim($_POST['nic']),
+                'password' => trim($_POST['password']),
+                'nic_err' => '',
+                'password_err' => ''
+            ];
+
+            //Validate data
+            if(empty($data['nic'])){
+                $data['nic_err'] = 'Please enter a nic number';
+            }
+
+            if(empty($data['password'])){
+                $data['password_err'] = 'Please enter a password';
+            }
+
+            if(empty($data['nic_err']) && empty($data['password_err'])){
+
+                if($this->adminModel->findAdminBynic($data['nic'])){
+                    //validated
+                    //checked and set logged in user
+                    $loggedInUser = $this->adminModel->login($data['nic'], $data['password']);
+
+                    if($loggedInUser){
+                        //Create session
+                        $this->createAdminSession($loggedInUser);
+                    } else{
+                        $data['password_err'] = 'Password Incorrect';
+
+                        $this->view('users/login', $data);
+                    }
+
+                } elseif($this->midwifeModel->findMidwifeBynic($data['nic'])){
+                    $loggedInUser = $this->midwifeModel->login($data['nic'], $data['password']);
+
+                    if($loggedInUser){
+                        //Create session
+                        $this->createMidwifeSession($loggedInUser);
+                    } else{
+                        $data['password_err'] = 'Password Incorrect';
+
+                        $this->view('users/login', $data);
+                    }
+
+                }elseif(($this->clinicattendeeModel->findClinicAttendeeByNic($data['nic'])) OR ($this->clinicattendeeModel->findParentByNic($data['nic']))){
+                    $loggedInUser = $this->clinicattendeeModel->login($data['nic'], $data['password']);
+
+                        if($loggedInUser){
+                            //Create session
+                            $this->createClinicAttendeeSession($loggedInUser);
+                           //die('success');
+                        } else{
+                            $data['password_err'] = 'Password Incorrect';
+
+                            $this->view('clinicattendees/login', $data);
+                        }
+
+                } else {
+                    //Clinic Attendee not found
+                    $data['nic_err'] = 'No User found';
+                    
+                    $this->view('midwifes/login', $data);
+                }
+                
+                
+            } else {
+                //load view with errors
+                $this->view('users/login', $data);
+            }
+        } else {
+            //Init data
+            $data = [
+                'nic' => '',
+                'password' => '',
+                'nic_err' => '',
+                'password_err' => ''
+            ];
+
+            //Load view
+            $this->view('users/login', $data);
+        }
+    
+        
+    }
+
+    public function createAdminSession($admin){
+        $_SESSION['admin_id'] = $admin->admin_id;
+        $_SESSION['admin_nic'] = $admin->nic;
+        $_SESSION['admin_name'] = $admin->name;
+        redirect('clinics');
+        //redirect('clinics/info/<?php echo $clinic->id; ?-->');
+    }
+
+    public function createMidwifeSession($midwife){
+        $_SESSION['midwife_id'] = $midwife->midwife_id;
+        $_SESSION['midwife_nic'] = $midwife->nic;
+        $_SESSION['midwife_name'] = $midwife->name;
+        $_SESSION['midwife_clinic'] = $midwife->clinic;
+        redirect('expectantRecords');
+        //redirect('clinicattendees/'.$clinicattendee->id.'');
+    }
+
+    public function createClinicAttendeeSession($clinicattendee){
+        $_SESSION['clinicattendee_id'] = $clinicattendee->regID;
+        $_SESSION['clinicattendee_nic'] = $clinicattendee->nic;
+        $_SESSION['clinicattendee_name'] = $clinicattendee->name;
+        redirect('clinicattendees');
+        //redirect('clinicattendees/'.$clinicattendee->id.'');
+    }
+
+    public function logout(){
+        unset($_SESSION['admin_id']);
+        unset($_SESSION['admin_nic']);
+        unset($_SESSION['admin_name']);
+        session_destroy();
+        redirect('');
+    }
+
+
+
+    
+    
 }

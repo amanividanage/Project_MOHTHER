@@ -14,6 +14,26 @@ class Clinicattendee{
         return $row;
     }
 
+    // edit profile
+    // public function updateclinicattendeeinfo($data){
+    //     $this->db->query("UPDATE registration  SET  mcontactno=:mcontactno, hcontactno=:hcontactno WHERE nic = :nic");
+    //     $this->db->bindParam(':nic',  $_SESSION['clinicattendee_nic']);
+    //     $this->db->bindParam(':mcontactno',  $data['mcontactno']);
+    //     $this->db->bindParam(':hcontactno',  $data['hcontactno']);
+    //     // $this->db->bindParam(':password',  $data['password']);
+        
+    //     $row = $this->db->single();
+
+    //     return $row;
+        
+    //      //Execute
+    //      if($this->db->execute()){
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
+
 
     //register user
     public function register($data){

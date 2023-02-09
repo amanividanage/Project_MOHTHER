@@ -1,5 +1,5 @@
 <!--Side bar Start-->
-<?php if(isset($_SESSION['admin_id'])) : ?>
+<?php if(isset($_SESSION['admin_nic'])) : ?>
     <div class="sidebar">
         <center>
                 <img src="<?php echo URLROOT;?>/img/user.png" class="profile_image" alt="">

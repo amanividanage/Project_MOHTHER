@@ -22,15 +22,96 @@
             $this->view('clinicattendees/index', $data);
         }
 
-        public function profile(){
-            $profile =  $this->clinicattendeeModel->getProfile();
+        // public function profile(){
+        //     $profile =  $this->clinicattendeeModel->getProfile();
 
-            $data = [
-                'profile' => $profile
-            ];
+        //     $data = [
+        //         'profile' => $profile
+        //     ];
 
-            $this->view('clinicattendees/profile', $data);
-        }
+        //     $this->view('clinicattendees/profile', $data);
+        // }
+
+        // public function profile(){
+        //     $profile =  $this->clinicattendeeModel->getProfile();
+        //     if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        //         // Sanitize profile array
+        //         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      
+        //         $data = [
+        //             // 'clinicattendee_nic' => $_SESSION['clinicattendee_nic'],
+        //             'mcontactno' => trim($_POST['mcontactno']),
+        //             'hcontactno' => trim($_POST['hcontactno']),
+        //             // 'new_password' =>trim($_POST['new_password']),
+        //             // 'confirm_password' =>trim($_POST['confirm_password']),
+        //             'mcontactno_err' => '',
+        //             'hcontactno_err' => '',
+        //             // 'new_password_err' => '',
+        //             // 'confirm_password_err' => '',
+        //             'profile' => $profile
+        //         ];
+      
+        //         // Validate data
+        //         if(empty($data['mcontactno'])){
+        //             $data['mcontactno_err'] = 'Please enter new contact number';
+        //         }
+        //         if(strlen($data['mcontactno']) < 10){
+        //             $data['mcontactno_err'] = 'Please enter valid phone number';
+        //         }
+        //         if(empty($data['hcontactno'])){
+        //             $data['hcontactno_err'] = 'Please enter new contact number';
+        //         }
+        //         if(strlen($data['hcontactno']) < 10){
+        //             $data['hcontactno_err'] = 'Please enter valid phone number';
+        //         }
+
+        //         if(empty($data['new_password'])){
+        //             $data['new_password'] = 'please enter new password';
+        //         }elseif(strlen($data['new_password']) <8){
+        //             $data['new_password_err'] = "Password be at least 8 characters";
+        //         }
+
+        //         //validate confirm password
+        //         if(empty($data['confirm_password'])){
+        //             $data['confirm_password_err'] = 'please confirm password';
+        //         }else{
+        //             if($data['new_password'] !=$data['confirm_password']) {
+        //                 $data['confirm_password_err'] ='password do not match'; 
+        //             }
+        //         }
+      
+        //         // Make sure no errors
+        //         if(empty($data['mcontactno_err']) && empty($data['hcontactno_err'])){
+        //             // Validated
+                    
+        //             if($this->clinicattendeeModel->updateclinicattendeeinfo($data)){
+        //                 //print_r($_POST);
+        //             redirect('clinicattendees/profile');
+        //             }else{
+        //             redirect('clinicattendees/profile');
+        //             }
+                    
+        //         } else {
+        //             // Load view with errors
+        //             $this->view('clinicattendees/profile', $data);
+        //         }
+      
+        //     } else {
+                
+        //         $profile = $this->clinicattendeeModel->getProfile(); 
+      
+        //         $data = [
+        //             // 'id' => $id,
+        //             'mcontactno' => $profile->mcontactno,
+        //             'mcontactno_err' =>'',
+        //             'hcontactno' => $profile->hcontactno,
+        //             'hcontactno_err' =>'',
+        //             'profile' => $profile
+        //         ];
+            
+        //         $this->view('clinicattendees/profile', $data);
+        //     }
+        // }
 
 
         public function register(){
@@ -87,11 +168,11 @@
                 }
 
                 if(empty($data['nic'])){
-                    $data['nic_err'] = 'Please enter an identity number';
+                    $data['nic_err'] = 'Please enter an nic number';
                 } elseif(strlen($data['nic']) < 10){
                     $data['nic_err'] = 'Please enter valid ID number';
                 } else {
-                    //Check identity no
+                    //Check nic no
                     if($this->childrenModel->findParentByNic($data['nic'])){
                         $data['nic_err'] = 'Id is already registered as a parent';
                     } elseif($this->clinicattendeeModel->findClinicAttendeeByNic($data['nic'])){
@@ -245,7 +326,7 @@
 
                 //Validate data
                 if(empty($data['nic'])){
-                    $data['nic_err'] = 'Please enter an identity number';
+                    $data['nic_err'] = 'Please enter an nic number';
                 }
 
                 if(empty($data['password'])){
@@ -374,7 +455,7 @@
 
     public function logout(){
         unset($_SESSION['clinicattendee_id']);
-        unset($_SESSION['clinicattendee_identity']);
+        unset($_SESSION['clinicattendee_nic']);
         unset($_SESSION['clinicattendee_name']);
         session_destroy();
         redirect('');

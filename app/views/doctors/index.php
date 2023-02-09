@@ -40,7 +40,7 @@
                         <tr>
                             <th>Doctor Id</th>
                             <th>Name</th>
-                            <th>Identity No</th>
+                            <th>nic No</th>
                             <th>Contact No</th>
                             <th>E-mail</th>
                             <th></th>
@@ -49,10 +49,10 @@
                             <tr>
                                 <td><?php echo $doctor->doctor_id; ?></td>
                                 <td><?php echo $doctor->name; ?></td>
-                                <td><?php echo $doctor->identity; ?></td>
+                                <td><?php echo $doctor->nic; ?></td>
                                 <td><?php echo $doctor->phone; ?></td>
                                 <td><?php echo $doctor->email; ?></td>
-                                <td></td>
+                                <td><a href="<?php echo URLROOT; ?>/doctors/doctorprofile/<?php echo $doctor->nic; ?>"><button class="more1999"> More Info </button></a></td>
                             </tr>
                         <?php endforeach; ?>
                     </table>
