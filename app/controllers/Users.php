@@ -253,10 +253,8 @@ class Users extends Controller{
                 if($this->userModel->findUserByNIC($data['nic'])){
                     $data['nic_err'] = 'This user is already registered';
                 }
-
-
-
             }
+
             if(empty($data['height'])){
                 $data['height_err']='*Please enter the height';
             }
@@ -312,14 +310,16 @@ class Users extends Controller{
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
                 //register user
-                if($this->userModel->register($data) AND $this->userModel->updateactive($data) AND $this->userModel->addUser($data)){  
-                   redirect('expectantRecords');
-                }else{
-                    die('Something went wrong');
+                if($this->userModel->addUser($data) && $this->userModel->register($data) && $this->userModel->updateactive($data) ){  
+                    redirect('expectantRecords');
                 }
+                // else
+                // {
+                //     die('Something went wrong');
+                // }
 
 
-            } else{
+            } else {
                 //load view with errors
                 $this->view('users/register', $data);
             }
@@ -347,6 +347,7 @@ class Users extends Controller{
         'registrationDate' => '',
         'expectedDateofDelivery' => '',
         'password' => '',
+        
         'nic_err' => '',
         'name_err' => '',
         'height_err' => '',
@@ -373,8 +374,8 @@ class Users extends Controller{
         
         ];
 
-         //load view
-         $this->view('users/register', $data);
+        //load view
+        $this->view('users/register', $data);
      
     }
   }

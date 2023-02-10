@@ -16,9 +16,9 @@
     <?php require APPROOT . '/views/inc/sidebar_clinicattendee.php' ; ?>
     <div class="content">
         <br>
-        <a href="<?php echo URLROOT; ?>/clinicattendees/profile"><button class="back_btn">Back</button></a>
+        <a class="back_btn" href="<?php echo URLROOT; ?>/clinicattendees/profile"><i class="fa fa-chevron-left"></i></a>
         <br> <br>
-        <h1>Please fill the details</h1>
+        <h2 class="content_h1" >Please fill the details</h2>
 
         <br>
 
@@ -96,16 +96,16 @@
 
 
 
-                        <br> <br>
+                        
 
                     </div>
-                    <br> <br>
+                    
                 </form>
-                <br> <br>
-
+                
+<br>
             </div>
         </div>
-
+        <br> <br>
 
     </div>
 

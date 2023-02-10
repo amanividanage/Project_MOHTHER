@@ -41,6 +41,7 @@
         
           $this->view('expectantRecords/expectnatmotherlist', $data);
       }
+
       public function midwife_profile(){
         //get midwife details
 
@@ -89,6 +90,7 @@
          } else{
           
         $midwifeprofileinfo =  $this->midwifeModel->getProfileMidwife(); 
+        $getPHM =  $this->midwifeModel->getPHMByMidwife();
    
          
         $data = [
@@ -97,7 +99,8 @@
         'email_err' =>'',
         'phone' =>$midwifeprofileinfo->phone,
         'phone_err'=>'',
-        'midwifeprofileinfo' => $midwifeprofileinfo ,
+        'midwifeprofileinfo' => $midwifeprofileinfo,
+        'phm' => $getPHM
            
         ];
   
@@ -107,7 +110,7 @@
     }
       
       public function info($nic){
-        $info =  $this->expectantRecordModel->displayExpectantRecords($nic);
+       $info =  $this->expectantRecordModel->displayExpectantRecords($nic);
        $report=  $this->expectantRecordModel->showExpectantMonthlyRecords($nic);
        $expectantRecords =  $this->expectantRecordModel-> getExpectantRecords(); 
        $expectantRecordsHeight =  $this->expectantRecordModel-> getExpectantHeight($nic); 

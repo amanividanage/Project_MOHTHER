@@ -13,16 +13,16 @@
     <?php require APPROOT . '/views/inc/sidebar_clinicattendee.php' ; ?>
 
     <div class="content">
-        <a href="<?php echo URLROOT; ?>/clinicattendees"><button class="back_btn">Back</button></a>
+        
 
         <br>
 
-        <h1> Zoom Session</h1>
+        <h2 class="content_h1">Zoom Sessions</h2>
 
         <div class="bg_index">
             <div class="home_CA">
                 <div class="">
-                    <h1 class="session_h1">Session</h1>
+                    <h3 class="session_h1">Session</h3>
                     <br>
 
                     <b>

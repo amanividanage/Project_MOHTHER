@@ -15,7 +15,7 @@
     <?php require APPROOT . '/views/inc/sidebar_clinicattendee.php' ; ?>
 
     <div class="content">
-        <a href="<?php echo URLROOT; ?>/clinicattendees/child"><button class="back_btn">Back</button></a>
+        <a class="back_btn" href="<?php echo URLROOT; ?>/clinicattendees/child"><i class="fa fa-chevron-left"></i></a>
 
 
         <div class="child_vtable">
@@ -30,6 +30,7 @@
                 <hr>
             </h2>
 
+            <div class="card_vaccination">   
             <table>
                 <thead>
                     <tr>
@@ -150,12 +151,13 @@
 
                 </tbody>
             </table>
+        </div>
 
 
         </div>
 
 
-
+<br><br>
 
     </div>
     <?php require APPROOT . '/views/inc/footer.php'; ?>

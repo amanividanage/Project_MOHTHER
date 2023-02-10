@@ -16,7 +16,7 @@
 
     <div class="content">
 
-        <a href="<?php echo URLROOT; ?>/clinicattendees/child"><button class="back_btn">Back</button></a>
+        <a class="back_btn" href="<?php echo URLROOT; ?>/clinicattendees/child"><i class="fa fa-chevron-left"></i></a>
         <br><br>
         <br>
         <img src="<?php echo URLROOT;?>/img/c_chart.png" alt="chart" class="cChart">

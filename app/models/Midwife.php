@@ -14,6 +14,17 @@
             return $results;
         }
 
+        
+        public function getPHMByMidwife(){
+            $this->db->query('SELECT * FROM midwife_clinic WHERE nic = :nic');
+
+            $this->db->bindParam(':nic', $_SESSION['midwife_nic']);
+    
+            $row = $this->db->single();
+    
+            return $row;
+        }
+
         public function searchMidwifes($search){
             $this->db->query("SELECT * FROM midwifes WHERE CONCAT(name,nic) LIKE '%$search%' ");
 
