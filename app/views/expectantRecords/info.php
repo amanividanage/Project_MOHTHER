@@ -73,7 +73,7 @@
 
                 </div>
                 <div class="infobutton">
-                <th class= "updateDeliveredbutton"> risky </th>
+                <!-- <th class= "updateDeliveredbutton"> risky </th> -->
                 </div>
                 
         <div class="dailyrecords">

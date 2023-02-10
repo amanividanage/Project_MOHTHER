@@ -372,10 +372,10 @@ form .input-box select {
 .bg-img {
     /* The image used */
 
-    background-image: url("../img/1.png");
+    background-image: url("../img/new_mirror.png");
 
-    min-height: 450px;
-    width: 65%;
+    min-height: 380px;
+    width: 60%;
     margin: auto;
     /* Center and scale the image nicely */
     background-position: center;
@@ -390,8 +390,7 @@ form .input-box select {
     position: absolute;
     right: 0;
     margin: 20px;
-    min-width: 375;
-    max-width: 375px;
+    max-width: 300px;
     padding: 20px;
     background-color: white;
     font-size: 80%;
@@ -457,9 +456,9 @@ input[type=password]:focus {
 
 .dashboard_CA {
 
-    padding: 5%;
+    padding: 6%;
     /* border: 3px solid rgb(133, 40, 141); */
-    background-color: #d5cada;
+    background-color: rgb(241, 212, 241);
     margin: 4%;
     float: left;
     align-items: center;
@@ -468,9 +467,17 @@ input[type=password]:focus {
     height: 300px;
     background-image: url('../img/bg.png');
     margin-top: 5%;
-
+    border-color: #a698b1;
+    /* border-width: 0.1px; */
+    border-radius: 6px;
+    /* border-style: groove; */
 
 }
+
+.dashboard_CA:hover {
+    box-shadow: 10px 8px 16px 10px rgba(88, 87, 87, 0.2);
+}
+
 
 .dashboard_CA h4 {
     font-size: 1.5vw;
@@ -495,7 +502,7 @@ input[type=password]:focus {
     float: right;
     width: 30%;
     height: 100%;
-    border-radius: 8%;
+    border-radius: 5%;
     padding: 5%;
     transition: 0.2s;
 }
@@ -513,7 +520,7 @@ input[type=password]:focus {
 
 
 .more_btn {
-    background-color: #8762a8;
+    background-color: #8849be;
     border: none;
     color: white;
     text-align: center;
@@ -521,13 +528,13 @@ input[type=password]:focus {
     font-weight: bold;
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 80%;
-    margin-top: 1%;
+    font-size: 70%;
+    /* margin-top: 0%; */
     cursor: pointer;
-    width: 100%;
+    width: 150%;
     height: 90%;
-    border-radius: 9%;
-    padding: 0%;
+    border-radius: 8%;
+    padding: 10%;
     transition: 0.2s;
 }
 
@@ -542,7 +549,7 @@ input[type=password]:focus {
 }
 
 .go_btn {
-    background-color: #8762a8;
+    background-color: #65279b;
     border: none;
     color: white;
     text-align: center;
@@ -553,8 +560,9 @@ input[type=password]:focus {
     border-radius: 8%;
     cursor: pointer;
     /* float: right; */
-    width: 100%;
-    height: 160%;
+    width: 200%;
+    /* height: 200%; */
+    padding: 40%;
 
 }
 
@@ -584,6 +592,8 @@ input[type=password]:focus {
 .T1 tr {
     color: #7f5abb;
 }
+
+/* child */
 
 .go_1_btn {
     background-color: #8762a8;
@@ -618,15 +628,42 @@ input[type=password]:focus {
 }
 
 
-.back_btn {
+
+.child_pro_table {
+
+    color: #3E206D;
+    margin-top: -6%;
+    margin-left: -2%;
+    font-size: 90%;
+}
+
+.child_pro_table tr {
+
+    width: 100%;
+    height: 100%;
+}
+
+.child_pro_table th h3 {
+    margin-top: -2%;
+
+
+}
+
+.child_pro_table td {
+    padding: 2.8%;
+    width: 70%;
+    height: 100%;
+
+}
+
+
+/* .back_btn {
     background-color: #9e8cad;
     border: none;
     color: white;
-    /* text-align: center; */
     text-decoration: none;
     font-weight: bold;
     text-decoration: none;
-    /* display: inline-block; */
     text-transform: uppercase;
     font-size: 70%;
     margin-top: 0%;
@@ -637,17 +674,48 @@ input[type=password]:focus {
     border-radius: 5%;
     padding: 0.7%;
     transition: 0.2s;
-}
+} */
 
-.back_btn:hover {
+/* .back_btn :focus {
+    outline: none;
+} */
+
+/* .back_btn:hover {
     background-color: #3c1d58;
     box-shadow: 0px 2px 10px 5px #7d538a;
 
+} */
+
+.back_btn i {
+    /* background-color: #9e8cad; */
+    border: none;
+    color: #361552;
+    text-decoration: none;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 70%;
+    /* margin-top: 0%; */
+    font-size: large;
+    cursor: pointer;
+    float: left;
+    width: 10%;
+    height: 5%;
+    border-radius: 5%;
+    padding: 0.7%;
+    transition: 0.2s;
 }
 
-.back_btn :focus {
+.back_btn i:hover {
+
+    box-shadow: 0.001px 0.2px #cb83e0;
+
+}
+
+.back_btn i :focus {
     outline: none;
 }
+
 
 
 
@@ -664,7 +732,7 @@ td {
 }
 
 
-/*timeclots*/
+/*timeslots*/
 
 .time {
     margin-left: 35%;
@@ -673,43 +741,48 @@ td {
 }
 
 .timeslots {
-    margin-left: 23%;
+    margin-left: 20%;
     margin-top: 10%;
+    width: 100%;
 }
 
 
 .days {
-    width: 1000px;
+    width: 100%;
 
 }
 
 .day {
-    width: 120px;
-    height: 230px;
+    width: 15%;
+    height: 40%;
     background-color: #efeff6;
     padding: 10px;
     float: left;
     margin-right: 7px;
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
 }
 
 .datelabel {
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
     /* padding: 3%; */
     color: #3E206D;
+    width: 80%;
+    height: 12%;
+    margin-left: 20%;
 }
 
 .timeslot {
     background-color: #7d538a;
-    width: 60%;
-    height: 6%;
+    width: 50%;
+    height: 3%;
     color: white;
-    padding: 25%;
+    padding: 15%;
     margin-top: 10px;
     font-size: 2vh;
     border-radius: 3px;
-    vertical-align: center;
-    text-align: center;
+    margin-left: 10%;
+    /* vertical-align: center; */
+
 }
 
 .timeslot:hover {
@@ -733,17 +806,28 @@ td {
 } */
 
 .pro_table {
-    margin-left: 5%;
+    justify-content: center;
     color: #3E206D;
+
 }
 
-.pro_table th,
-td {
-    padding: 15px;
-    width: 30%;
+.pro_table th {
+    padding: 10px;
+    width: 100%;
     height: 100%;
 }
 
+.pro_table th h3 {
+
+    width: 200%;
+    margin-left: 30%;
+}
+
+.pro_table td {
+    padding: 25px;
+    width: 100%;
+    height: 100%;
+}
 
 
 
@@ -758,12 +842,14 @@ td {
     display: inline-block;
     text-transform: uppercase;
     font-size: 80%;
-    margin-top: -6%;
+    margin-left: 0%;
     cursor: pointer;
-    width: 150%;
-    height: 60%;
+    /* width: 90%;
+    height: 50%; */
+    width: 9.5%;
+    height: 5%;
     border-radius: 5%;
-    padding: 5%;
+    padding: 10%;
     transition: 0.2s;
 
 }
@@ -783,7 +869,7 @@ td {
 .req_btn {
     background-color: #442064;
     color: white;
-    padding: 16px 20px;
+    padding: 16px;
     border: none;
     cursor: pointer;
     width: 100%;
@@ -802,6 +888,27 @@ td {
     outline: none;
 }
 
+a .req_1_btn {
+
+    background-color: #442064;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    width: 80%;
+    opacity: 0.9;
+    text-transform: uppercase;
+}
+
+a .req_1_btn :hover {
+    background-color: #3c1d58;
+    box-shadow: 0px 2px 10px 5px #7d538a;
+
+}
+
+.req_1_btn:focus {
+    outline: none;
+}
 
 /*request*/
 
@@ -813,7 +920,7 @@ td {
     padding: 1%;
     width: 45%;
     color: #552c6b;
-    height: 120vh;
+    height: auto;
     border-radius: 15px;
     /* background-image: url(../img/output-onlinepngtools.png); */
     /* background-color: #e4c4f0; */
@@ -843,7 +950,7 @@ td {
 
 
 
-input .req_sub_btn {
+.req_sub_btn {
     background-color: #141118;
     border: none;
     color: rgb(99, 40, 155);
@@ -853,11 +960,11 @@ input .req_sub_btn {
     text-decoration: none;
     display: inline-block;
     text-transform: uppercase;
-    font-size: 50%;
+    font-size: 60%;
     margin-top: 0%;
     cursor: pointer;
     /*float: right;*/
-    width: 80%;
+    width: 70%;
     height: 100%;
     border-radius: 9%;
     padding: 9%;
@@ -918,6 +1025,91 @@ input .req_sub_btn {
 }
 
 
+
+/* request popup */
+
+/* The Modal (background) */
+.modal_1 {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
+    left: 18.3%;
+    top: 0;
+    width: 40%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content_1 {
+    background-color: #fefefe;
+    width: 40%;
+    /* margin: auto; */
+    /* padding: 1px; */
+    /* border: 1px solid #888; */
+
+}
+
+.modal-content_1 p {
+    font-size: large;
+    margin-left: 40%;
+    color: #350d66;
+    font-weight: bolder;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.ybtn {
+    float: left;
+    background-color: #442064;
+    color: white;
+    padding: 3px;
+    border: none;
+    cursor: pointer;
+    width: 20%;
+    opacity: 0.9;
+    text-transform: uppercase;
+}
+
+.nbtn {
+    float: right;
+    background-color: #442064;
+    color: white;
+    padding: 3px;
+    border: none;
+    cursor: pointer;
+    width: 40%;
+    opacity: 0.9;
+    text-transform: uppercase;
+
+}
+
+
 /* .details1 input {
 
     width: 112%;
@@ -956,8 +1148,12 @@ input .req_sub_btn {
     background-image: url('../img/output-onlinepngtools.png');
 }
 
-.session_h1{
-    color: #6f2691;
+h3 .session_h2 {
+    background-color: #39104d;
+}
+
+.bg_index h3 {
+    color: #5a1675;
 }
 
 
@@ -1009,7 +1205,7 @@ input .req_sub_btn {
     /* align-items: center; */
     width: 40%;
     color: #30165a;
-    height: 300px;
+    height: auto;
     margin-top: 5%;
     margin-left: 15%;
     background-image: url('../img/output-onlinepngtools.png');
@@ -1056,11 +1252,17 @@ td {
     align-items: center;
     width: 38%;
     color: #30165a;
-    height: 118vh;
+    height: 130vh;
     margin-top: 5%;
-    background-image: url('');
+    margin: 20px;
+    border-radius: 15px;
 
 }
+
+.report_CA1:hover {
+    box-shadow: 0 8px 16px 10px rgba(0, 0, 0, 0.2);
+}
+
 
 .report_CA2 {
 
@@ -1072,10 +1274,15 @@ td {
     align-items: center;
     width: 38%;
     color: #30165a;
-    height: 118vh;
+    height: 130vh;
     margin-top: 5%;
-    background-image: url('');
+    margin: 20px;
+    border-radius: 15px;
 
+}
+
+.report_CA2:hover {
+    box-shadow: 0 8px 16px 10px rgba(0, 0, 0, 0.2);
 }
 
 .report_CA3 {
@@ -1088,10 +1295,15 @@ td {
     align-items: center;
     width: 38%;
     color: #30165a;
-    height: 84vh;
+    height: 30%;
     margin-top: 5%;
-    background-image: url('');
+    margin: 20px;
+    border-radius: 15px;
 
+}
+
+.report_CA3:hover {
+    box-shadow: 0 8px 16px 10px rgba(0, 0, 0, 0.2);
 }
 
 .report_CA4 {
@@ -1104,12 +1316,311 @@ td {
     align-items: center;
     width: 38%;
     color: #30165a;
-    height: 200vh;
+    height: 35%;
     margin-top: 5%;
-    background-image: url('');
+    margin: 20px;
+    border-radius: 15px;
+}
 
+.report_CA4:hover {
+    box-shadow: 0 8px 16px 10px rgba(0, 0, 0, 0.2);
 }
 
 .form-err {
     color: red;
+}
+
+/* *************************************************************************************************************/
+
+/* editbtn_1 */
+/* The Modal (background) */
+.modal_1 {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 15%;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+
+
+/* The Close Button */
+.close_1 {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close_1:hover,
+.close_1:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.card {
+    box-shadow: 0 20px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    width: 100%;
+    height: auto;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.container_profile {
+    padding: 2px 16px;
+}
+
+.modal-content_1 {
+    background-color: #fefefe;
+    margin: 0% auto 15% auto;
+    /* 0% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 30%;
+    padding: 20px;
+    height: auto;
+}
+
+.modal-content_1 p {
+    margin-top: 1%;
+    color: #39104d;
+}
+
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+
+
+
+
+/*********************************************************/
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+    padding-top: -100px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto;
+    /* 0% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 50%;
+    /* Could be more or less, depending on screen size */
+}
+
+.clinicattendeeinfo {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.c_pw_btn {
+    background-color: #765592;
+    border: none;
+    color: white;
+    /* text-align: center; */
+    text-decoration: none;
+    font-weight: bold;
+    text-decoration: none;
+    /* display: inline-block; */
+    text-transform: uppercase;
+    font-size: 70%;
+    margin-top: 50%;
+    cursor: pointer;
+    /* float: left; */
+    width: 9.5%;
+    height: 5%;
+    border-radius: 5%;
+    padding: 10%;
+    transition: 0.2s;
+}
+
+.c_pw_btn:hover {
+    background-color: #3c1d58;
+    box-shadow: 0px 2px 10px 5px #7d538a;
+
+}
+
+.c_pw_btn :focus {
+    outline: none;
+}
+
+/* profile modify */
+.container_profile {
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    background: #F0E3FF;
+    width: 45%;
+    height: 900px;
+    margin: 20px;
+    border-radius: 15px;
+
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card hr {
+    margin-left: 30%;
+    color: white;
+    width: 110%;
+}
+
+hr {
+    width: auto;
+
+}
+
+/* index ekt card ekk damma */
+.card_1 {
+    background: #F0E3FF;
+    width: 90%;
+    height: auto;
+    margin: 10px;
+    border-radius: 15px;
+    margin-left: 5%;
+}
+
+.card_1:hover {
+    box-shadow: 0 8px 16px 10px rgba(0, 0, 0, 0.2);
+}
+
+.index_table {
+    width: 80%;
+    align-self: center;
+    margin-left: 10%;
+
+}
+
+.index_table th {
+    color: #431f63;
+}
+
+.index_table td {
+    color: #431f63;
+}
+
+.index_table td {
+    height: 40px;
+    width: 25%;
+}
+
+
+/* vaccination */
+
+.card_vaccination {
+    background: rgb(242, 239, 243);
+    width: 90%;
+    height: auto;
+    margin: 10px;
+    border-radius: 15px;
+    margin-left: 5%;
+    color: #30165a;
+}
+
+.card_vaccination:hover {
+    box-shadow: 0 8px 16px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+/* childta card */
+
+/* .card_2 {
+    background: rgb(242, 239, 243);
+    width: 90%;
+    height: auto;
+    margin: 10px;
+    border-radius: 15px;
+    margin-left: 0%;
+}
+
+.card_2:hover {
+    box-shadow: 0 8px 16px 10px rgba(0, 0, 0, 0.2);
+} */
+
+
+/* edit_expectant */
+form .edit_expectant {
+
+    width: 100%;
+    margin-top: 4%;
+}
+
+
+
+
+.card_req_expectant {
+    background: #F0E3FF;
+    width: 90%;
+    height: 130%;
+    margin: 1%;
+    border-radius: 15px;
+    padding: 5%;
+
+
+}
+
+.card_req_expectant:hover {
+    box-shadow: 0 8px 16px 10px rgba(0, 0, 0, 0.2);
+}
+
+.container_req_expectant {
+    display: flex;
+    width: 80%;
+    height: 60%;
+    margin-left: 5%;
+    padding: 5%;
+}
+
+.card_req_expectant hr {
+    margin-left: 30%;
+    color: white;
+    width: 90%;
+}
+
+i .fa fa-chevron-left {
+    font-size: 36px
 }

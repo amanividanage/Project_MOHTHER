@@ -44,7 +44,11 @@
             </tr>
             <tr>
                 <th>Clinic No</th>
-                <td><?php echo $data['midwifeprofileinfo']->clinic; ?></td>
+                <td><?php echo $data['phm']->clinic; ?></td>
+            </tr>
+            <tr>
+                <th>PHM Area</th>
+                <td><?php echo $data['phm']->phm; ?></td>
             </tr>
           
           

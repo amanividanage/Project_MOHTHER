@@ -56,10 +56,11 @@ class User{
     public function updateactive($data){
        
     $this->db->query("UPDATE registration  SET active ='0' WHERE nic = :nic");
-    $this->db->bindParam(':nic', $data['nic']);
-        $row = $this->db->single();
 
-        return $row;
+    $this->db->bindParam(':nic', $data['nic']);
+        // $row = $this->db->single();
+
+        // return $row;
         
          //Execute
          if($this->db->execute()){
@@ -71,10 +72,8 @@ class User{
 
     //register user
     public function register($data){
-        $this->db->query('INSERT INTO expectant (midwife_id,nic,name,height,weight, bloodPressure,allergies, consanguinity, rubellaImmunization, prePregnancyScreening, preconceptionalFolicAcid, subfertility,gravidity,noofChildren,ageofYoungest,lastMenstrualDate,registrationDate,expectedDateofDelivery,password,active) VALUES(:midwife_id,:nic,:name,:height,:weight,:bloodPressure,:allergies,:consanguinity,:rubellaImmunization,:prePregnancyScreening,:preconceptionalFolicAcid,:subfertility,:gravidity,:noofChildren,:ageofYoungest,:lastMenstrualDate,:registrationDate,:expectedDateofDelivery,:password, :active)');
-       
-      
-        
+        $this->db->query('INSERT INTO expectant (midwife_id, nic, name, height, weight, bloodPressure, allergies, consanguinity, rubellaImmunization, prePregnancyScreening, preconceptionalFolicAcid, subfertility, gravidity, noofChildren, ageofYoungest, lastMenstrualDate, registrationDate, expectedDateofDelivery, password, active) VALUES(:midwife_id, :nic, :name, :height, :weight, :bloodPressure, :allergies, :consanguinity, :rubellaImmunization, :prePregnancyScreening, :preconceptionalFolicAcid, :subfertility, :gravidity, :noofChildren, :ageofYoungest, :lastMenstrualDate, :registrationDate, :expectedDateofDelivery, :password, :active)');
+         
         //bind values
         $this->db->bindParam(':midwife_id', $data['midwife_id']);
         $this->db->bindParam(':nic', $data['nic']);
@@ -108,7 +107,7 @@ class User{
     }
 
     public function addUser($data){
-        $this->db->query('INSERT INTO users (nic, name, password) VALUES (:nic, :name, :password)');
+        $this->db->query('INSERT INTO `users`(`nic`, `name`, `password`) VALUES (:nic, :name, :password)');
         
 
         //Bind values

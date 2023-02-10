@@ -14,90 +14,156 @@
 
     <div class="content">
 
-        <a href="<?php echo URLROOT; ?>/clinicattendees/children"><button class="back_btn">Children</button></a>
+    <a class="back_btn" href="<?php echo URLROOT; ?>/clinicattendees/children"><i
+                class="fa fa-chevron-left"></i></a>
 
         <br> <br>
 
-        <h2><?php echo $data['child']->name ;?> </h2>
+        <h2 class="content_h1"><?php echo $data['child']->name ;?> </h2>
 
         <div class="row_CA">
             <div class="dashboard_CA">
-                <h4>Next Clinic Date</h4> <br>
-                <div>
-                    <p>
-                    Monthly Clinic
+                <table class="child_pro_table">
 
-                    <br><br>
-                    Date: 2022/05/03
+                    <tr>
+                        <th>
+                            <h3>Baby's details</h3>
+
+                        </th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>Name</td>
+                        <td><?php echo $data['child']->name; ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Date of birth</td>
+                        <td><?php echo $data['child']->dob; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Registration date</td>
+                        <td><?php echo $data['child']->date; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Hospital</td>
+                        <td><?php echo $data['child']->hospital; ?></td>
+                    </tr>
+
+                    <tr>
+                        <td>Birth weight</td>
+                        <td><?php echo $data['child']->weight; ?></td>
+                    </tr>
+
+                    <tr>
+                        <td>Circumference</td>
+                        <td><?php echo $data['child']->circumference; ?></td>
+                    </tr>
+
+                    <tr>
+                        <td>Length</td>
+                        <td><?php echo $data['child']->length; ?></td>
+                    </tr>
+
+                    <tr>
+                        <td>Special comments</td>
+                        <td><?php echo $data['child']->special; ?></td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+
+
+            <div class="dashboard_CA">
+
+
+                <div>
+                    Charts
+                    <a href="<?php echo URLROOT; ?>/clinicattendees/child_chart"><button
+                            class="go_1_btn"><b>GO</b></button></a>
+
+                    <br><br> <br> <br> <br>
+
+                    Vaccination
+                    <a href="<?php echo URLROOT; ?>/clinicattendees/child_vaccination"><button
+                            class="go_1_btn"><b>Go</b></button></a>
+                </div>
+                <br>
+                <!-- <h4>Next Clinic Date</h4> -->
+                <div>
+                    <br>
+                    <p>
+                        Monthly Clinic
+
+                        <br><br>
+                        Date: 2022/05/03
                     </p>
                     <br>
                     <div>
-                        <a href="<?php echo URLROOT; ?>/clinicattendees/child_timeslot_mothlyclinic"><button class="reserve_btn">Reserve</button></a>
+                        <a href="<?php echo URLROOT; ?>/clinicattendees/timeslot_monthlyclinic"><button
+                                class="reserve_btn">Reserve</button></a>
                     </div>
                 </div>
 
-                <br> <br>
+
 
                 <div>
                     <p>
-                    Next vaccination
+                        Next vaccination
 
-                    <br><br>
-                    Date: 2022/05/03
+                        <br><br>
+                        Date: 2022/05/03
                     </p>
                     <br>
                     <div>
-                        <a href="<?php echo URLROOT; ?>/clinicattendees/child_timeslot_vaccination"><button
+                        <a href="<?php echo URLROOT; ?>/clinicattendees/timeslot_monthlyclinic"><button
                                 class="reserve_btn">Reserve</button></a>
                     </div>
                 </div>
             </div>
-
-
-            <div class="dashboard_CA">
-                <br>
-
-                <div class="">
-                    Charts
-                    <a href="<?php echo URLROOT; ?>/clinicattendees/child_chart"><button class="go_1_btn"><b>GO</b></button></a>
-
-                    <br><br> <br><br> <br><br>
-
-                    Vaccination
-                    <a href="<?php echo URLROOT; ?>/clinicattendees/child_vaccination"><button class="go_1_btn"><b>Go</b></button></a>
-                </div>
-            </div>
         </div>
 
+        <br><br>
+
         <div class="T1">
-            
             <br> <br>
 
-            <h3>Monthly Reports </h3>
+            <h3>Monthly Reports
+                <hr>
+            </h3>
+            <br><br>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Record No</th>
-                        <th>Date</th>
-                        <th>Skin color</th>
-                    </tr>
-                </thead>
-                <?php foreach($data['records'] as $records) : ?>
+            <div class="card_1">
+                <table class="index_table">
+                    <thead>
+                        <tr>
+                            <th>Record No</th>
+                            <th>Date</th>
+                            <th>Skin color</th>
+                        </tr>
+                    </thead>
+                    <?php foreach($data['records'] as $records) : ?>
                     <tbody>
                         <tr>
                             <td><?php echo $records->reportno; ?></td>
                             <td><?php echo $records->date; ?></td>
                             <td><?php echo $records->skin; ?></td>
-                            <td colspan=2><a href="<?php echo URLROOT; ?>/clinicattendees/childreport/<?php echo $data['id'] ;?>/<?php echo $records->reportno; ?>"><button class="more_btn"><b>More</b></button></a></td>
+                            <td colspan=2><a
+                                    href="<?php echo URLROOT; ?>/clinicattendees/childreport/<?php echo $data['id'] ;?>/<?php echo $records->reportno; ?>"><button
+                                        class="more_btn"><b>More</b></button></a></td>
                         </tr>
                     </tbody>
-                <?php endforeach; ?>
-            </table>
+                    <?php endforeach; ?>
+                </table>
+            </div>
         </div>
 
         
-
+<br>
+<br>
+<br>
     </div>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 

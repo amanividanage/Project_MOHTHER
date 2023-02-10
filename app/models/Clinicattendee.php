@@ -14,25 +14,60 @@ class Clinicattendee{
         return $row;
     }
 
-    // edit profile
-    // public function updateclinicattendeeinfo($data){
-    //     $this->db->query("UPDATE registration  SET  mcontactno=:mcontactno, hcontactno=:hcontactno WHERE nic = :nic");
-    //     $this->db->bindParam(':nic',  $_SESSION['clinicattendee_nic']);
-    //     $this->db->bindParam(':mcontactno',  $data['mcontactno']);
-    //     $this->db->bindParam(':hcontactno',  $data['hcontactno']);
-    //     // $this->db->bindParam(':password',  $data['password']);
+    //edit profile
+    public function updateclinicattendeeinfo($data){
+        $this->db->query("UPDATE registration  SET  mcontactno=:mcontactno, hcontactno=:hcontactno WHERE nic = :nic");
+        $this->db->bindParam(':nic',  $_SESSION['clinicattendee_nic']);
+        $this->db->bindParam(':mcontactno',  $data['mcontactno']);
+        $this->db->bindParam(':hcontactno',  $data['hcontactno']);
+        // $this->db->bindParam(':password',  $data['password']);
         
-    //     $row = $this->db->single();
+        $row = $this->db->single();
 
-    //     return $row;
+        return $row;
         
-    //      //Execute
-    //      if($this->db->execute()){
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
+         //Execute
+         if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function update_expectant_info($data){
+        $this->db->query("UPDATE registration  SET gravidity=:gravidity, mcontactno=:mcontactno, moccupation=:moccupation,  memail=:memail,  hname=:hname, hage=:hage, hlevelofeducation=:hlevelofeducation;  hcontactno=:hcontactno, hoccupation=:hoccupation; hemail=:hemail WHERE nic = :nic");
+        $this->db->bindParam(':nic',  $_SESSION['clinicattendee_nic']);
+        $this->db->bindParam(':gravidity',  $data['gravidity']);
+        $this->db->bindParam(':mcontactno',  $data['mcontactno']);
+        $this->db->bindParam(':moccupation',  $data['moccupation']);
+        $this->db->bindParam(':memail',  $data['memail']);
+        $this->db->bindParam(':hname',  $data['hname']);
+        $this->db->bindParam(':hage',  $data['hage']);
+        $this->db->bindParam(':hlevelofeducation',  $data['hlevelofeducation']);
+        $this->db->bindParam(':hcontactno',  $data['hcontactno']);
+        $this->db->bindParam(':hoccupation',  $data['hoccupation']);
+        $this->db->bindParam(':hemail',  $data['hemail']);
+
+        
+        $row = $this->db->single();
+
+        return $row;
+        
+         //Execute
+         if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getreq_expectant(){
+        $this->db->query("SELECT * FROM registration WHERE nic = :nic");
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+        $row = $this->db->single();
+
+        return $row;
+    }
 
 
     //register user
@@ -81,6 +116,29 @@ class Clinicattendee{
     //         return false;
     //     }
     // }
+
+
+    //request user
+    public function request($data){
+        $this->db->query("INSERT INTO request(hname, hage, hlevelofeducation, hoccupation, hcontactno, hemail) VALUES ( :hname, :hage, :hlevelofeducation, :hoccupation, :hcontactno, :hemail)");
+   
+        //bind values
+        
+        $this->db->bindParam(':hname',$data['hname']);
+        $this->db->bindParam(':hage',$data['hage']);
+        $this->db->bindParam(':hlevelofeducation',$data['hlevelofeducation']);
+        $this->db->bindParam(':hoccupation',$data['hoccupation']);
+        $this->db->bindParam(':hcontactno',$data['hcontactno']);
+        $this->db->bindParam(':hemail',$data['hemail']);
+       
+        
+        //execute
+        if($this->db->execute()){
+           return true;
+        }else{
+           return false;
+        }
+    }
 
     //Login user
     public function login($nic, $password){

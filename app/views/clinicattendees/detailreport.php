@@ -1,15 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,7 +17,7 @@
 
     <div class="content">
 
-        <a href="<?php echo URLROOT; ?>/clinicattendees"><button class="back_btn">Back</button></a>
+         <a class="back_btn" href="<?php echo URLROOT; ?>/clinicattendees"><i class="fa fa-chevron-left"></i></a>
         <br> <br>
 
         

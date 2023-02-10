@@ -38,11 +38,11 @@
 
                         <br>
                         <div>
-                            <a href="<?php echo URLROOT; ?>/clinicattendees/timeslot_mothlyclinic"><button class="reserve_btn">Reserve</button></a>
+                            <a href="<?php echo URLROOT; ?>/clinicattendees/timeslot_monthlyclinic"><button class="reserve_btn">Reserve</button></a>
                         </div>
                     </div>
 
-                    <br> <br>
+                    
 
                     <div class="">
                         <p>
@@ -51,11 +51,21 @@
                         <br><br>
                         Date: 2022/05/03
                         </p>
-                        <br>
+                 
                         <div>
-                            <a href="<?php echo URLROOT; ?>/clinicattendees/timeslot_vaccination"><button class="reserve_btn">Reserve</button></a>
+                            <a href="<?php echo URLROOT; ?>/clinicattendees/timeslot_monthlyclinic"><button class="reserve_btn">Reserve</button></a>
                         </div>
                     </div>
+
+                    <div class="">
+                        <br>
+                        Vaccination
+
+                        <a href="<?php echo URLROOT; ?>/clinicattendees/vaccination"><button
+                                class="go_1_btn"><b>Go</b></button></a>
+
+                    </div>
+
                 </div>
 
 
@@ -98,7 +108,9 @@
 
                 <h3>Monthly Reports <hr> </h3>
                 <br><br>
-                <table>
+
+                <div class="card_1">
+                <table class="index_table">
                     <thead>
                         <tr>
                             <th>Report number</th>
@@ -119,6 +131,7 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                </div>
 
 
 
@@ -127,6 +140,8 @@
             </div>
 
         </div>
+
+        <br><br>
 
     </div>
         <?php require APPROOT . '/views/inc/footer.php'; ?>
