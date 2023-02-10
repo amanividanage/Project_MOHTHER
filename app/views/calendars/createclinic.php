@@ -20,7 +20,7 @@
    <!--?php echo $data['info']->nic; ?-->
     <table align="center" cellpadding = "10">
         
- <tr><td><b> Monthly Records <hr>
+ <tr><td><b> Scheduling the monthly clinics <hr>
  
 
 
