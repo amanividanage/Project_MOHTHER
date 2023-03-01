@@ -37,7 +37,10 @@
         public function query($sql){
             $this->stmt = $this->dbh->prepare($sql);
         }
-
+  
+        public function lastInsertId(){
+            return $this->dbh->lastInsertId();
+        }
         //Bind values
         public function bindParam($param, $value, $type= null){
             if(is_null($type)){

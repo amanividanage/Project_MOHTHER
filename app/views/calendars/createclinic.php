@@ -31,6 +31,14 @@
     <td><input type="text" name="title" maxlength="20" class= " <?php echo (!empty($data['title_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['title']; ?>">
     <span class="invalid-feedback"><?php echo $data['title_err']; ?></span></td>
     </tr>
+
+    <tr>
+    <td>
+    <label for="clinic_date"> Clinic Date </label>
+    </td>
+    <td><input type="date" name="clinic_date" maxlength="20" class= " <?php echo (!empty($data['clinic_date_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['clinic_date']; ?>">
+    <span class="invalid-feedback"><?php echo $data['clinic_date_err']; ?></span></td>
+    </tr>
     
  <tr>
     <td>
@@ -46,6 +54,13 @@
     </td>
     <td><input type="time" name="end_event" maxlength="10" class= " <?php echo (!empty($data['end_event_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['end_event']; ?>">
     <span class="invalid-feedback"><?php echo $data['end_event_err']; ?></span></td>
+    </tr>
+    <tr>
+    <td>
+    <label for="duration"> duration </label>
+    </td>
+    <td><input type="int" name="duration" maxlength="10" class= " <?php echo (!empty($data['duration_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['duration']; ?>">
+    <span class="invalid-feedback"><?php echo $data['duration_err']; ?></span></td>
     </tr>
     <tr><td> <input type="submit" name="Submit" class="myButton"></input></td></tr>
 
