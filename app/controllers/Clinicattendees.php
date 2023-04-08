@@ -5,6 +5,7 @@
             $this->clinicattendeeModel = $this->model('Clinicattendee');
             $this->expectantRecordModel = $this->model('ExpectantRecord');
             $this->childrenModel = $this->model('Children');
+            $this->calendarModel = $this->model('Calendar');
         }
 
         public function index(){
@@ -22,6 +23,39 @@
             $this->view('clinicattendees/index', $data);
         }
 
+        public function calendar(){
+           
+            $data = [
+              
+            ];
+        
+             $this->view('clinicattendees/calendar', $data);
+           
+        }
+        // public function calendarEvents($nic){
+          
+        //   $calendarEvents =  $this->calendarModel->getEventsforClinicAttendee($nic);
+        //     $data = [
+        //         'clinic_dates' => $calendarEvents,
+        //     ];
+        //     echo json_encode($data['clinic_dates']);
+          
+           
+        // }
+        public function getGnd($nic){
+
+            //$calendarEvents =  $this->calendarModel->getEvents();
+            $calendarEvents =  $this->calendarModel->getEventsforClinicAttendee($nic);
+    
+    
+            $data = [
+               'clinic_dates' => $calendarEvents,
+                ];
+    
+           echo json_encode($data['clinic_dates']);
+           // $id = 
+        }
+
         // public function profile(){
         //     $profile =  $this->clinicattendeeModel->getProfile();
 
@@ -34,6 +68,7 @@
 
         public function profile(){
             $profile =  $this->clinicattendeeModel->getProfile();
+
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
               // Sanitize profile array
               $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -250,11 +285,13 @@
 
                     //register clinic attendee
                     if($this->clinicattendeeModel->register($data)){
-                        redirect('');
+                       // redirect('');
+                     //  $this->view('clinicattendees/calendar', $data);
+                     redirect('clinicattendees/calendar');
                     } else {
                         die('Someting went wrong');
                     }
-
+                  //  redirect('clinics/info/'.$clinic->clinic_id.'');
                 } else{
                     // Load view with errors
                     $this->view('clinicattendees/register', $data);

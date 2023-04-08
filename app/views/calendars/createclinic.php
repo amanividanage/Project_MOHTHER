@@ -16,19 +16,26 @@
     <div class="content">
 
     <div class= "adddailyrecords">
-        <form action="<?php echo URLROOT; ?>/calendars/createclinic" method= "POST">
+    
+        <form action="<?php echo URLROOT; ?>/calendars/createclinic/<?php echo  $data['clinic']->gnd; ?>" method= "POST">
    <!--?php echo $data['info']->nic; ?-->
     <table align="center" cellpadding = "10">
         
  <tr><td><b> Scheduling the monthly clinics <hr>
  
-
+ <tr>
+    <td>
+    <label for="gnd"> Clinic No </label>
+    </td>
+    <td><input type="text" name="gnd" maxlength="20" class= " <?php echo (!empty($data['id_err'])) ? 'is-invalid' : ''; ?>" value=" <?php echo $data['clinic']->gnd; ?>">
+    <span class="invalid-feedback"><?php echo $data['gnd_err']; ?></span></td>
+    </tr>
 
  <tr>
     <td>
     <label for="title"> Title </label>
     </td>
-    <td><input type="text" name="title" maxlength="20" class= " <?php echo (!empty($data['title_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['title']; ?>">
+    <td><input type="text" name="title" maxlength="20" class= " <?php echo (!empty($data['title_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['clinic_date']; ?>">
     <span class="invalid-feedback"><?php echo $data['title_err']; ?></span></td>
     </tr>
 

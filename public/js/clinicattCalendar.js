@@ -49,8 +49,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
     $.ajax({
         //url: `http://localhost/MOHTHER/calendars/calendarEvents/${phm}`,
-       //url: `http://localhost/MOHTHER/calendars/calendarEvents/${id}`,
-       url: "http://localhost/MOHTHER/calendars/calendarEvents",
+       url: "http://localhost/MOHTHER/clinicattendees/calendarEvents",
         type: 'GET',
         dataType: "JSON",
         success: function(res) {

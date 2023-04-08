@@ -40,7 +40,7 @@ class ExpectantRecord {
                         INNER JOIN midwife_clinic m ON m.clinic = c.id
                         WHERE active ='1' AND m.nic = :midwife_nic ");
                            
-                           $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
+                       $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
                      
         $results =  $this->db->resultSet();
         return $results;
@@ -120,7 +120,7 @@ class ExpectantRecord {
     }
 
     public function addRecords($data){
-        $this->db->query('INSERT INTO detailrecords_Expectant (nic,reportNo,date,weight, vaccination,ironorForlate,vitaminC, calcium, antimarialDrugs, triposha) VALUES(:nic,:reportNo,:date,:weight,:vaccination,:ironorForlate,:vitaminC,:calcium,:antimarialDrugs,:triposha)');
+        $this->db->query('INSERT INTO detailrecords_Expectant (nic,reportNo,date,weight, vaccination,ironorForlate,vitaminC, calcium, antimarialDrugs, triposha, nextAppointmentDate) VALUES(:nic,:reportNo,:date,:weight,:vaccination,:ironorForlate,:vitaminC,:calcium,:antimarialDrugs,:triposha, :nextAppointmentDate)');
         
         //bind values
         $this->db->bindParam(':nic', $data['nic']);
@@ -133,6 +133,8 @@ class ExpectantRecord {
         $this->db->bindParam(':calcium', $data['calcium']);
         $this->db->bindParam(':antimarialDrugs', $data['antimarialDrugs']);
         $this->db->bindParam(':triposha', $data['triposha']);
+        $this->db->bindParam(':nextAppointmentDate', $data['nextAppointmentDate']);
+
       
         //execute for update/delete
         if($this->db->execute()){

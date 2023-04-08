@@ -90,7 +90,7 @@
          } else{
           
         $midwifeprofileinfo =  $this->midwifeModel->getProfileMidwife(); 
-        $getPHM =  $this->midwifeModel->getPHMByMidwife();
+        $getPHM =  $this->midwifeModel->getPHMByMidwifee();
    
          
         $data = [
@@ -242,6 +242,8 @@
               'antimarialDrugs'=> trim($_POST['antimarialDrugs']),
               'calcium'=> trim($_POST['calcium']),
               'triposha'=> trim($_POST['triposha']),
+              'nextAppointmentDate'=> trim($_POST['nextAppointmentDate']),
+              'nextAppointmentDate_err'=> '',
             //  'info'=> $info
             
             ];
@@ -256,9 +258,12 @@
              if(empty($data['weight'])){
               $data['weight_err'] = 'Please enter the weight';
              }
+             if(empty($data['nextAppointmentDate'])){
+              $data['nextAppointmentDate_err'] = 'Please enter the next appointment date';
+            }
 
             //make sure that there are no errors
-             if(empty($data['reportNo_err']) && empty($data['date_err']) && empty($data['weight_err']) && empty($data['nic_err']))
+             if(empty($data['reportNo_err']) && empty($data['date_err']) && empty($data['weight_err']) && empty($data['nic_err']) && empty($data['nextAppointmentDate_err']))
              {
                //validated
                 //die('Successfull');
@@ -293,7 +298,9 @@
           'antimarialDrugs'=>'',
           'calcium'=>'',
           'triposha'=>'',
-          'info' => $info
+          'info' => $info,
+          'nextAppointmentDate'=> '',
+          'nextAppointmentDate_err'=>'',
         
           
           

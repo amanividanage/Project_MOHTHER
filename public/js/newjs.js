@@ -44,35 +44,52 @@ window.addEventListener('DOMContentLoaded', function () {
         
     });
 
-    
-    calendar.render();
+    let gnd;
 
+    // ajax
     $.ajax({
         //url: `http://localhost/MOHTHER/calendars/calendarEvents/${phm}`,
-       //url: `http://localhost/MOHTHER/calendars/calendarEvents/${id}`,
-       url: "http://localhost/MOHTHER/calendars/calendarEvents",
+       url: "http://localhost/MOHTHER/calendars/getGnd",
         type: 'GET',
         dataType: "JSON",
         success: function(res) {
-            console.log(res);
-
-            res.forEach(function (item) {
-                clinicDates.push(
-                    {
-                        id: item.clinic_id,
-                        title: item.title,
-                        start: item.clinic_date,
-                        end: item.clinic_date,
-                        start_time: item.start_event,
-                        end_time: item.end_event,
-                        phm: item.phm
-                    }
-                );
-            });
-
-            calendar.addEventSource(clinicDates);
+            gnd = res.nic;
         }
     });
+
+    getEvents(gnd);
+
+    
+    calendar.render();
+
+    function getEvents(nic){
+        $.ajax({
+            //url: `http://localhost/MOHTHER/calendars/calendarEvents/${phm}`,
+           url: `http://localhost/MOHTHER/calendars/calendarEvents/${nic}`,
+          // url: "http://localhost/MOHTHER/calendars/calendarEvents",
+            type: 'GET',
+            dataType: "JSON",
+            success: function(res) {
+                console.log(res);
+    
+                res.forEach(function (item) {
+                    clinicDates.push(
+                        {
+                            id: item.clinic_id,
+                            title: item.title,
+                            start: item.clinic_date,
+                            end: item.clinic_date,
+                            start_time: item.start_event,
+                            end_time: item.end_event,
+                            phm: item.phm
+                        }
+                    );
+                });
+    
+                calendar.addEventSource(clinicDates);
+            }
+        });
+    }
 })
 
 

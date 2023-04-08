@@ -7,10 +7,11 @@
         }
 
         public function insert($data){
-            $this->db->query('INSERT INTO calendar (midwife_id,title,clinic_date,start_event,end_event,duration) VALUES(:midwife_id,:title,:clinic_date,:start_event,:end_event,:duration)');
+            $this->db->query('INSERT INTO calendar (midwife_nic,gnd,title,clinic_date,start_event,end_event,duration) VALUES(:midwife_nic,:gnd,:title,:clinic_date,:start_event,:end_event,:duration)');
         
             //bind values
-            $this->db->bindParam(':midwife_id', $data['midwife_id']);
+            $this->db->bindParam(':midwife_nic', $data['midwife_nic']);
+            $this->db->bindParam(':gnd', $data['gnd']);
             $this->db->bindParam(':title', $data['title']);
             $this->db->bindParam(':clinic_date', $data['clinic_date']);
             $this->db->bindParam(':start_event', $data['start_event']);
@@ -27,15 +28,36 @@
                 $duration = $data['duration'] * 60;
         
                 while ($start_time < $end_time) {
-                    $this->db->query('INSERT INTO time_slots (calendar_id,midwife_id, start_time, end_time, is_booked) VALUES(:calendar_id,:midwife_id, :start_time, :end_time,:is_booked)');
+
+                    $this->db->query('UPDATE calendar SET calendar_id=:calendar_id WHERE title=:title');
                     $this->db->bindParam(':calendar_id', $calendar_id);
-                    $this->db->bindParam(':midwife_id', $data['midwife_id']);
+                    $this->db->bindParam(':title', $data['title']);
+                    $this->db->execute();
+
+
+                    $this->db->query('INSERT INTO time_slots (calendar_id,midwife_nic,clinic_date, start_time, end_time, is_booked) VALUES(:calendar_id,:midwife_nic,:clinic_date, :start_time, :end_time,:is_booked)');
+                    $this->db->bindParam(':calendar_id', $calendar_id);
+                    $this->db->bindParam(':midwife_nic', $data['midwife_nic']);
+                    $this->db->bindParam(':clinic_date', $data['clinic_date']);
                     $this->db->bindParam(':start_time', date('Y-m-d H:i:s', $start_time));
                     $this->db->bindParam(':end_time', date('Y-m-d H:i:s', ($start_time + $duration)));
                     $this->db->bindParam(':is_booked', false);
                     $this->db->execute();
+
+                    // $this->db->query('UPDATE calendar SET calendar_id=:calendar_id WHERE midwife_id=:midwife_id ');
+                    // $this->db->bindParam(':calendar_id', $calendar_id);
+                    // $this->db->bindParam(':midwife_id', $data['midwife_id']);
+                   
+                    // $this->db->execute();
                     $start_time += $duration;
                 }
+
+                
+                // $this->db->query('UPDATE calendar SET calendar_id=:calendar_id WHERE midwife_id=:midwife_id ');
+                // $this->db->bindParam(':calendar_id', $calendar_id);
+                // $this->db->bindParam(':midwife_id', $data['midwife_id']);
+               
+                // $this->db->execute();
         
                 return true;
             }else{
@@ -44,75 +66,85 @@
         }
         
 
-        // public function insert($data){
-        //     $this->db->query('INSERT INTO calendar (midwife_id,title,clinic_date,start_event,end_event,duration) VALUES(:midwife_id,:title,:clinic_date,:start_event,:end_event,:duration)');
-       
       
-        
-        //     //bind values
-        //     $this->db->bindParam(':midwife_id', $data['midwife_id']);
-        //     $this->db->bindParam(':title', $data['title']);
-        //     $this->db->bindParam(':clinic_date', $data['clinic_date']);
-        //     $this->db->bindParam(':start_event', $data['start_event']);
-        //     $this->db->bindParam(':end_event', $data['end_event']);
-        //     $this->db->bindParam(':duration', $data['duration']);
-            
-        //        //execute for update/delete
-        // if($this->db->execute()){
-        //     return true;
-        // }else{
-        //     return false;
-        // }
-      
-        // }
-
-
-        // function insert_time_slots($start_time, $end_time, $duration, $clinic_no, $midwife_id, $date) {
-        //     // Convert the start and end times to Unix timestamps
-        //     $start_timestamp = strtotime($start_time);
-        //     $end_timestamp = strtotime($end_time);
-        
-        //     // Convert the duration to seconds
-        //     $duration_seconds = strtotime($duration) - strtotime('00:00:00');
-        
-        //     // Loop through the timestamps in the specified duration intervals
-        //     $time_slots = array();
-        //     for ($i = $start_timestamp; $i <= $end_timestamp; $i += $duration_seconds) {
-        //         // Add each time slot to the array
-        //         $time_slot = date('h:i A', $i);
-        //         $time_slots[] = $time_slot;
-        
-        //         // Insert each time slot into the database table with additional details using PDO
-        //         $stmt = $pdo->prepare("INSERT INTO appointments (clinic_no, midwife_id, date, time_slot) VALUES (?, ?, ?, ?)");
-        //         $stmt->execute([$clinic_no, $midwife_id, $date, $time_slot]);
-        //     }
-        
-        //     // Return the array of time slots
-        //     return $time_slots;
-        // }}
-        
-        // public function update(){
-        //     $this->db->query("UPDATE events SET title=:title
-        //     WHERE id=:id
-        //     ");
-
-            
-
-        //     $results = $this->db->resultSet();
-
-        //     return $results;
-        // }
 
         public function getEvents() {
-
-            $this->db->query('SELECT * FROM `calendar` WHERE `midwife_id` = :midwife_id');
-            $this->db->bindParam(':midwife_id', $_SESSION['midwife_id']);
-       
+        //  $this->db->query('SELECT * FROM calendar INNER JOIN clinics ON calendar.gnd=clinics.gnd WHERE clinics.id=:id ');
+          // $this->db->query('SELECT * FROM calendar WHERE midwife_nic = :midwife_nic ');
+        //   $this->db->query('SELECT * FROM calendar INNER JOIN midwife_clinic ON calendar.midwife_nic=midwife_clinic.nic INNER JOIN clinics ON midwife_clinic.clinic= clinics.id WHERE midwife_clinic.nic =:midwife_nic ');
+        $this->db->query("SELECT * 
+        FROM  calendar r 
+        INNER JOIN clinics c  ON r.gnd = c.gnd 
+        INNER JOIN midwife_clinic m ON m.clinic = c.id
+        WHERE  m.nic = :midwife_nic ");
+       //   $this->db->bindParam(':id', $id); 
+          $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
+          
             $results =  $this->db->resultSet();
             return $results;
 
         }
 
+        public function getEventsforGND() {
+            //  $this->db->query('SELECT * FROM calendar INNER JOIN clinics ON calendar.gnd=clinics.gnd WHERE clinics.id=:id ');
+               $this->db->query('SELECT * FROM calendar WHERE midwife_id = :midwife_id ');
+           //   $this->db->bindParam(':id', $id); 
+              $this->db->bindParam(':midwife_id', $_SESSION['midwife_id']);
+              
+                $results =  $this->db->resultSet();
+                return $results;
+    
+            }
+        // public function getEvents($id) {
+        //     $this->db->query('SELECT * FROM calendar INNER JOIN clinics ON calendar.gnd=clinics.gnd WHERE clinics.id=:id');
+        //     $this->db->bindParam(':id', $id); 
+        //     $results = $this->db->resultSet();
+        //     return $results;
+        // }
+        
+
+        public function getEventsforClinicAttendee($nic) {
+             $this->db->query('SELECT * FROM calendar INNER JOIN registration ON calendar.gnd=registration.gnd WHERE registration.nic=:nic ');
+            // $this->db->query('SELECT * FROM calendar  ');
+            $this->db->bindParam('nic', $nic);
+            // $this->db->bindParam(':calendar_id', $calendar_id); 
+          //  $this->db->bindParam(':midwife_id', $_SESSION['midwife_id']);
+            
+              $results =  $this->db->resultSet();
+              return $results;
+  
+          }
+  
+
+        public function displayTimeSlots($calendar_id) {
+
+            
+            // Prepare the SQL query
+            $this->db->query('SELECT * FROM time_slots WHERE is_booked = "0" AND calendar_id = :calendar_id ');
+        
+            // Bind the parameters to the query
+            $this->db->bindParam(':calendar_id', $calendar_id);
+           
+            // Execute the query and return the results
+            $results = $this->db->resultSet();
+            return $results;
+        }
+
+        public function displayclinicdetails($calendar_id) {
+
+            
+            // Prepare the SQL query
+            $this->db->query('SELECT * FROM calendar WHERE calendar_id = :calendar_id');
+        
+            // Bind the parameters to the query
+            $this->db->bindParam(':calendar_id', $calendar_id);
+           
+            // Execute the query and return the results
+            $results = $this->db->resultSet();
+            return $results;
+        }
+
+        
         // public function delete(){
         //     $this->db->query("DELETE from events WHERE id=:id
         //     ");
@@ -128,3 +160,4 @@
 
 
     }
+    ?>

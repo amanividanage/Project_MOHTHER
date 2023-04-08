@@ -14,8 +14,18 @@
             return $results;
         }
 
-        
         public function getPHMByMidwife(){
+            $this->db->query('SELECT clinics.gnd FROM midwife_clinic INNER JOIN clinics ON  midwife_clinic.clinic=clinics.id WHERE nic=:nic');
+
+            $this->db->bindParam(':nic', $_SESSION['midwife_nic']);
+    
+            $row = $this->db->single();
+    
+            return $row;
+        }
+
+        
+        public function getPHMByMidwifee(){
             $this->db->query('SELECT * FROM midwife_clinic WHERE nic = :nic');
 
             $this->db->bindParam(':nic', $_SESSION['midwife_nic']);
@@ -238,6 +248,13 @@
     
             return $row;
         }
+        // public function getMidwifeGnd($midwife_id) {
+        //     $this->db->query('SELECT * FROM calendar INNER JOIN clinics ON calendar.gnd=clinics.gnd WHERE midwife_id=:midwife_id');
+        //     $this->db->bindParam(':midwife_id', $midwife_id);
+        //     $result = $this->db->single();
+        //     return $result['gnd'];
+        // }
+        
 
         public function getClinicsToTransfer($nic){
             $this->db->query("SELECT clinics.clinic_name, clinics.id FROM clinics EXCEPT SELECT clinics.clinic_name, clinics.id FROM clinics INNER JOIN midwife_clinic ON clinics.id = midwife_clinic.clinic WHERE midwife_clinic.nic = :nic");

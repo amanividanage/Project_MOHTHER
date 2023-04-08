@@ -798,7 +798,15 @@ input[type=text], input[type=password] {
 }
 
 /**************************************calendar- midwife**********************************************************/
-
+.home-h7{
+    position: absolute;
+    margin-top: 200px;
+    margin-left: 40%;
+    font-size: 4.5vh;
+    font-family: Georgia, serif;
+    color: #8946A6;
+    transition: 0.3s;
+}
 .calendarcontent{
     margin-left: 40%;
     position: relative;
@@ -806,6 +814,19 @@ input[type=text], input[type=password] {
     margin-top: 70px;
     margin-bottom: 50%;
     width: 40%;
+    height:10vh;
+    transition: 0.3s;
+    color: #9c349e;
+    
+    
+}
+.calendarcontentclinic{
+    margin-left: 60%;
+    position: relative;
+    float: left;
+    margin-top: 70px;
+    margin-bottom: 50%;
+    width: 30%;
     height:10vh;
     transition: 0.3s;
     color: #9c349e;
@@ -828,3 +849,113 @@ input[type=text], input[type=password] {
     
 }
 
+/*****************************************Time Slots*******************************/
+.timeslotbox{
+    background: #b234d9;
+    background-image: -webkit-linear-gradient(top, #b234d9, #5e2bb8);
+    background-image: -moz-linear-gradient(top, #b234d9, #5e2bb8);
+    background-image: -ms-linear-gradient(top, #b234d9, #5e2bb8);
+    background-image: -o-linear-gradient(top, #b234d9, #5e2bb8);
+    background-image: linear-gradient(to bottom, #b234d9, #5e2bb8);
+    -webkit-border-radius: 37;
+    -moz-border-radius: 37;
+    border-radius: 37px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 12px;
+    padding: 14px 20px 18px 20px;
+    text-decoration: none;
+    display: inline-block;
+}
+.timeslotbox:hover{
+    background: #c451c4;
+    background-image: -webkit-linear-gradient(top, #c451c4, #cb34d9);
+    background-image: -moz-linear-gradient(top, #c451c4, #cb34d9);
+    background-image: -ms-linear-gradient(top, #c451c4, #cb34d9);
+    background-image: -o-linear-gradient(top, #c451c4, #cb34d9);
+    background-image: linear-gradient(to bottom, #c451c4, #cb34d9);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.time-slot-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* .time-slot-box {
+    width: calc(25% - 10px);
+    height: 100px;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} */
+
+.time {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.status {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.status.booked {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.status.available {
+    background-color: #2ecc71;
+    color: #fff;
+}
+
+.time-slot-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .time-slot {
+    width: 200px;
+    height: 100px;
+    background-color: #f2f2f2;
+    margin: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+  }
+  
+  .time-slot h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+  }
+  
+  .time-slot p {
+    margin: 0;
+  }
+  
+  /* Add more styles as needed */
+  .calendarcontent_form {
+    position: absolute;
+    top: 1025px;
+    right: -30px;
+    width: 30%;
+    height: 800px;
+    transition: 0.3s;
+    color: #9c349e;
+    z-index: 1;
+}
+
+
+  

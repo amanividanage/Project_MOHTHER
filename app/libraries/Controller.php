@@ -23,4 +23,13 @@
         die('View does not exist');
       }
     }
+
+    function find($items, $callback) {
+      foreach ($items as $item) {
+          if ($callback($item)) {
+              return $item;
+          }
+      }
+      return null;
+  }
   }

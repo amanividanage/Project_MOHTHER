@@ -6,6 +6,7 @@ class Users extends Controller{
         $this->adminModel = $this->model('Admin');
         $this->midwifeModel = $this->model('Midwife');
         $this->clinicattendeeModel = $this->model('Clinicattendee');
+        $this->doctorModel = $this->model('Doctor');
        
     }
 
@@ -442,7 +443,20 @@ class Users extends Controller{
                         $this->view('users/login', $data);
                     }
 
-                }elseif(($this->clinicattendeeModel->findClinicAttendeeByNic($data['nic'])) OR ($this->clinicattendeeModel->findParentByNic($data['nic']))){
+                } elseif($this->doctorModel->findDoctorBynic($data['nic'])){
+                    $loggedInUser = $this->doctorModel->login($data['nic'], $data['password']);
+
+                    if($loggedInUser){
+                        //Create session  createDoctorSession
+                        $this->createDoctorSession($loggedInUser);
+                    } else{
+                        $data['password_err'] = 'Password Incorrect';
+
+                        $this->view('users/login', $data);
+                    }
+
+                }
+                elseif(($this->clinicattendeeModel->findClinicAttendeeByNic($data['nic'])) OR ($this->clinicattendeeModel->findParentByNic($data['nic']))){
                     $loggedInUser = $this->clinicattendeeModel->login($data['nic'], $data['password']);
 
                         if($loggedInUser){
@@ -505,6 +519,13 @@ class Users extends Controller{
         $_SESSION['clinicattendee_nic'] = $clinicattendee->nic;
         $_SESSION['clinicattendee_name'] = $clinicattendee->name;
         redirect('clinicattendees');
+        //redirect('clinicattendees/'.$clinicattendee->id.'');
+    }
+    public function createDoctorSession($clinicattendee){
+        $_SESSION['doctor_id'] = $doctor->doctor_id;
+        $_SESSION['doctor_nic'] = $doctor->nic;
+        $_SESSION['doctor_name'] = $doctor->name;
+        redirect('users/register');
         //redirect('clinicattendees/'.$clinicattendee->id.'');
     }
 
