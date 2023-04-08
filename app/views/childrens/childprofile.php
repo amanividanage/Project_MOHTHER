@@ -75,6 +75,17 @@
                         <div class="container">
                             <div>
                             <h3 class="content_h2">Vaccination</h3>
+                            
+                            <?php echo $data['months']. ' months '; ?>
+
+                            <?php foreach($data['checkvaccine'] as $checkvaccine) : ?>
+                            
+                                <p><?php echo $checkvaccine->vaccine; ?></p>
+                                
+                            <?php endforeach; ?>
+
+                            
+                            
                             <a href="<?php echo URLROOT; ?>/childrens/vaccination/<?php echo $data['child']->child_id; ?>"><button class="add">Vaccination</button></a>
                             </div>
                             
@@ -86,7 +97,7 @@
                         <div class="container">
                             <div>
                             <h3 class="content_h2">Weight Age Chart</h3>
-                            <button class="add">Weight Age Chart</button>
+                            <a href="<?php echo URLROOT; ?>/childrens/children_charts/<?php echo $data['child']->child_id; ?>"><button class="add">Weight Age Chart</button></a>
                             </div>
                             
                         </div>
@@ -96,7 +107,10 @@
                         <div class="container">
                             <div>
                             <h3 class="content_h2">Age of the Child</h3>
-                            <button class="add">Age</button>
+                            <!-- <button class="add">Age</button> -->
+                            <!-- <h1><!?php echo $data['name']; ?></h1> -->
+                            <p> <?php echo $data['age']['years'] . ' years, ' . $data['age']['months'] . ' months, ' . $data['age']['days'] . ' days'; ?></p>
+
                             </div>
                             
                         </div>
@@ -117,7 +131,7 @@
                     <table>
                         <tr>
                             <th>Date</th>
-                            <th>Report No</th>
+                            <!-- <th>Report No</th> -->
                             <th>Skin color</th>
                             <th>Eye Sight</th>
                             <th>Temperature</th>
@@ -128,13 +142,32 @@
                         <?php foreach($data['records'] as $records) : ?>
                             <tr>
                                 <td><?php echo $records->date; ?></td>
-                                <td><?php echo $records->reportno; ?></td>
                                 <td><?php echo $records->skin; ?></td>
                                 <td><?php echo $records->eye; ?></td>
                                 <td><?php echo $records->temp; ?></td>
                                 <td><?php echo $records->umbilicus; ?></td>
                                 <td><?php echo $records->other; ?></td>
-                                <td></td>
+                                <td>
+                                <?php
+
+                                    $found = false;
+                                    if ($data['check_doctorrecords']) {
+                                        foreach ($data['check_doctorrecords'] as $check_doctorrecords) {
+                                            if ($records->date == $check_doctorrecords->date) {
+                                                echo '<a href="' . URLROOT . '/childrens/child_reports/' . $data['child']->child_id . '/' . $records->date . '"><button class="more1999">See All Records</button></a>';
+                                                $found = true;
+                                                break;
+                                            }
+                                        }
+                                        if (!$found) {
+                                            echo '';
+                                        }
+                                    } else {
+                                        echo '';
+                                    }
+
+                                ?>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                         

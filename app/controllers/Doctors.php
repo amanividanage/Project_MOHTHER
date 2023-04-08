@@ -179,11 +179,13 @@
                 if(empty($data['name_err']) && empty($data['nic_err']) && empty($data['phone_err']) && empty($data['email_err']) && empty($data['password_err'])){
                     //validated
 
+                    sendmail($data);
+                    
                     //Hash password
                     $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-
                     //Register User
-                    if($this->doctorModel->addDoctor($data)){
+                    if($this->doctorModel->addDoctor($data) AND $this->doctorModel->addUser($data)){
+                        
                         redirect('doctors');
                     } else {
                         die('Someting went wrong');

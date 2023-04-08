@@ -267,7 +267,7 @@ input[type=submit]:hover {
     color: #3E206D;
 } */
 
-tr {
+/* tr {
     border-bottom: 1px solid #3E206D;
 
 }
@@ -285,7 +285,7 @@ th {
 
 .line {
     border-top: 3px solid #3E206D;
-}
+} */
 
 
 
@@ -719,7 +719,7 @@ input[type=password]:focus {
 
 
 
-.T1 th,
+/* .T1 th,
 td {
     padding: 20px;
     width: 35%;
@@ -729,7 +729,7 @@ td {
 .T1 th {
     text-align: left;
     width: 35%;
-}
+} */
 
 
 /*timeslots*/
@@ -1233,8 +1233,7 @@ h3 .session_h2 {
 }
 
 
-.child_vtable th,
-td {
+.child_vtable th,td {
     padding: 30px;
     width: 45%;
     height: 100%;
@@ -1374,16 +1373,16 @@ td {
     cursor: pointer;
 }
 
-.card {
+/* .card {
     box-shadow: 0 20px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
     width: 100%;
     height: auto;
-}
+} */
 
-.card:hover {
+/* .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-}
+} */
 
 .container_profile {
     padding: 2px 16px;
@@ -1490,24 +1489,24 @@ td {
     justify-content: center;
 }
 
-.card {
+/* .card {
     background: #F0E3FF;
     width: 45%;
     height: 900px;
     margin: 20px;
     border-radius: 15px;
 
-}
+} */
 
-.card:hover {
+/* .card:hover {
     box-shadow: 0 8px 16px 10px rgba(0, 0, 0, 0.2);
-}
+} */
 
-.card hr {
+/* .card hr {
     margin-left: 30%;
     color: white;
     width: 110%;
-}
+} */
 
 hr {
     width: auto;
@@ -1623,4 +1622,107 @@ form .edit_expectant {
 
 i .fa fa-chevron-left {
     font-size: 36px
+}
+
+
+/*P....................................................*/
+.mine {
+	display:flex;
+    margin-left: auto;
+    margin-right: auto;
+}
+.card {
+    box-shadow: 0 4px 8px 0 rgba(214, 4, 211, 0.2);
+    transition: 0.3s;
+    width: 40%;
+    margin-right: 80px;
+    margin-left: 80px;
+    border-radius: 15px;
+    border: 1px solid;
+    border-color:rgb(78, 10, 97)
+}
+
+.card1 {
+    box-shadow: 0 4px 8px 0 rgba(214, 4, 211, 0.2);
+    transition: 0.3s;
+    width: 80%;
+    height: 30%;
+    margin-right: 80px;
+    margin-left: 80px;
+    border-radius: 15px;
+    margin-bottom: 23px;
+    border: 1px solid;
+    border-color:rgb(78, 10, 97)
+}
+
+.card:hover, .card1:hover {
+  box-shadow: 0 8px 16px 0 rgba(156, 4, 148, 0.2);
+}
+
+.container {
+  padding: 10px 16px;
+}
+
+.container2 {
+    padding: 10px 16px;
+  }
+
+.align{
+    display: inline;
+}
+
+.report{
+    display: flex;
+    justify-content: space-between;
+}
+
+.report button{
+    float: right;
+}
+
+.report a:hover{
+    background: none;
+}
+    
+.mine .card .container table tr th{
+    background: #d083f1;
+    border-radius: 10px;
+}
+
+.mine .card .container table thead tr{
+    border-bottom: none
+}
+
+/*table in the info page*/
+table {
+    border-collapse: collapse;
+    width: 100%;
+    color: #3E206D;
+}
+  
+tr {
+    border-bottom: 1px solid #3E206D;
+}
+  
+th, td {
+    padding: 15px;
+}
+  
+th {
+    text-align: left;
+}
+
+.line {
+	border-top: 3px solid #3E206D;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #8946A6;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
 }

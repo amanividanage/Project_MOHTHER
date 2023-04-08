@@ -1,5 +1,5 @@
 <!--Side bar Start-->
-<?php if(isset($_SESSION['midwife_id'])) : ?>
+<?php if(isset($_SESSION['midwife_nic'])) : ?>
     <!--Side bar Start-->
     <div class="sidebar">
         <div class="sidebar_menu">
@@ -27,6 +27,7 @@
                 <div class="sub-menu">
                     <a href="<?php echo URLROOT; ?>/expectantRecords/expectnatmotherlist"><i class="fa fa-female"></i><span>Expectant Mother</span></a>
                     <a href="<?php echo URLROOT; ?>/childrens/parentlist"><i class="fa fa-user-circle-o"></i><span>Parent/Guardian</span></a>
+                    <a href="<?php echo URLROOT; ?>/expectantRecords/delivered"><i class="fa fa-user-circle-o"></i><span>Delivered Mothers</span></a>
                 </div>
             </li>
 

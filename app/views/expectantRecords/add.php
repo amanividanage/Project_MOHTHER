@@ -31,24 +31,6 @@
     </tr>
 
 
- <tr>
-    <td>
-    <label for="reportNo">Report No </label>
-    </td>
-    <td><input type="int" name="reportNo" maxlength="20" class= " <?php echo (!empty($data['reportNo_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['reportNo']; ?>">
-    <span class="invalid-feedback"><?php echo $data['reportNo_err']; ?></span></td>
-    </tr>
-
-   
-
-    <tr>
-    <td>
-    <label for="date">Date </label>
-    </td>
-    <td><input type="Date" name="date" class= " <?php echo (!empty($data['date_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['date']; ?>">
-    <span class="invalid-feedback"><?php echo $data['date_err']; ?></span></td>
-    </tr>
-
     <tr>
     <td>
     <label for="weight">Weight </label>
@@ -60,14 +42,11 @@
 
     <tr>
     <td>
-    <label for="vaccination">Vaccination</label>
+    <label for="bp">Blood Pressure</label>
     </td>
-    <td>
-    <label for="opt"><select  name="vaccination" >
-    <option value="Yes">Yes</option>
-    <option value="No">No</option> 
-     </select></label>
-    </td></tr>
+    <td><input type="double" name="bp" class= "<?php echo (!empty($data['bp_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['bp']; ?>">
+    <span class="invalid-feedback"><?php echo $data['bp_err']; ?></span></td>
+    </tr>
     
     
     

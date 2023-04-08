@@ -76,97 +76,80 @@
                     </table>
                 </div>
 
+
                 <div class="column">
+    <h1 class="content_h1">PHM Area</h1>
+    <br>
+    <?php foreach($data['phm'] as $phm) : ?>
+        <table>
+            <tr>
+                <td><?php echo $phm->phm; ?></td>
+                <td></td>
+                <td><a href="<?php echo URLROOT; ?>/clinics/phm/<?php echo $phm->id; ?>"><button class="add2">Add Midwife</button></a></td>    
+            </tr>
+            <tr>
+                <th>Midwife Id</th>
+                <th>Name</th>
+                <th>E-mail</th>
+            </tr>
+            <?php 
+                $midwives = $data['midwife'];
+                $phm_midwives = array_filter($midwives, function($midwife) use ($phm) {
+                    return $midwife->phm == $phm->id;
+                });
+                if(!empty($phm_midwives)){
+                    foreach($phm_midwives as $midwife){
+            ?>
+                        <tr>
+                            <th><?php echo $midwife->nic; ?></th>
+                            <th><?php echo $midwife->name; ?></th>
+                            <th><?php echo $midwife->email; ?></th>
+                        </tr>
+            <?php 
+                    }
+                } else {
+                    echo '<tr><td colspan="3">Not assigned any midwife</td></tr>';
+                }
+            ?>   
+        </table>
+        <br>    
+    <?php endforeach; ?>
+</div>
+
+
+                <!-- <div class="column">
                     <h1 class="content_h1">PHM Area</h1>
                     <br>
-                    <?php foreach($data['phm'] as $phm) : ?>
+                    <!?php foreach($data['phm'] as $phm) : ?>
                         <table>
                             <tr>
-                                <td><?php echo $phm->phm; ?></td>
+                                <td><!?php echo $phm->phm; ?></td>
                                 <td></td>
-                                <td><a href="<?php echo URLROOT; ?>/clinics/phm/<?php echo $phm->id; ?>"><button class="add2">Add Midwife</button></a></td>    
+                                <td><a href="<!?php echo URLROOT; ?>/clinics/phm/<!?php echo $phm->id; ?>"><button class="add2">Add Midwife</button></a></td>    
                             </tr>
                             <tr>
                                 <th>Midwife Id</th>
                                 <th>Name</th>
                                 <th>E-mail</th>
                             </tr>
-                            <?php foreach($data['midwife'] as $midwife) : ?>
-                                <tr>
-                                        <th><?php echo $midwife->nic; ?></th>
-                                        <th><?php echo $midwife->name; ?></th>
-                                        <th><?php echo $midwife->email; ?></th>
-                                    </tr>
-                            <?php endforeach; ?>
-
-                            <!-- <!?php if(!empty($data['midwife']->phm == $data['phm']->id)){
-                                foreach($data['midwife'] as $midwife){
-                                    echo '<tr>
-                                        <th><!?php echo $midwife->nic; ?></th>
-                                        <th><!?php echo $midwife->name; ?></th>
-                                        <th><!?php echo $midwife->email; ?></th>
-                                    </tr>' ;
-                                }
-                            }
-                            ?> -->
-                            <!-- <!?php foreach($data['midwife'] as $midwife) : ?>
-                                <!?php if(($midwife->phm)==$phm->id){
-                                    echo '<tr>
-                                        <th><!?php echo $midwife->nic; ?></th>
-                                        <th><!?php echo $midwife->name; ?></th>
-                                        <th><!?php echo $midwife->email; ?></th>
-                                    </tr>' ;
-                                }else
-                                    
+                            <!?php 
+                                if(($data['midwife']->phm) == ($phm->id)){
+                                    foreach($data['midwife'] as $midwife) {
                                 ?>
-                            <!?php endforeach; ?> -->
+                                        <tr>
+                                            <th><!?php echo $midwife->nic; ?></th>
+                                            <th><!?php echo $midwife->name; ?></th>
+                                            <th><!?php echo $midwife->email; ?></th>
+                                        </tr>
+                                <!?php 
+                                    }
+                                } else {
+                                    echo 'Not assigned any midwife';
+                                }
+                            ?>   
                         </table>
-                        <br>
-
-                        
-
-                        <!-- <table>
-                            <tr>
-                                <th>PHM Area</th>
-                                <th></th>
-                                <th><a href="<!?php echo URLROOT; ?>/clinics/midwife/<!?php echo $data['clinic']->id; ?>"><button class="add2">Add Midwife</button></a></th>
-                            </tr>
-                            <tr>
-                                <th>Midwife ID</th>
-                                <th>PHM Area</th>
-                                <th>Name</th>
-                            </tr>
-                            <!?php foreach($data['midwife'] as $midwife) : ?> -->
-                                <!-- <tr>
-                                    <th><!?php echo $midwife->midwife_id; ?></th>
-                                    <th><!?php echo $midwife->phm; ?></th>
-                                    <th><!?php echo $midwife->name; ?></th>
-                                </tr> -->    
-                        <!-- </table> -->
-                    <?php endforeach; ?>
-                </div>
-            
-                <!-- <div class="column">
-                    <table>
-                        <tr>
-                            <th>Midwives</th>
-                            <th></th>
-                            <th><a href="<!?php echo URLROOT; ?>/clinics/midwife/<!?php echo $data['clinic']->id; ?>"><button class="add2">Add Midwife</button></a></th>
-                        </tr>
-                        <tr>
-                            <th>Midwife ID</th>
-                            <th>PHM Area</th>
-                            <th>Name</th>
-                        </tr>
-                        <!?php foreach($data['midwife'] as $midwife) : ?>
-                            <tr>
-                                <th><!?php echo $midwife->midwife_id; ?></th>
-                                <th><!?php echo $midwife->phm; ?></th>
-                                <th><!?php echo $midwife->name; ?></th>
-                            </tr>
-                        <!?php endforeach; ?>
-                        
-                    </table>
+                        <br>    
+                    <!?php endforeach; ?>
                 </div> -->
             </div>
 

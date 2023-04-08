@@ -4,19 +4,31 @@
 
             $this->clinicattendeeModel = $this->model('Clinicattendee');
             $this->expectantRecordModel = $this->model('ExpectantRecord');
+            $this->doctorRecordModel = $this->model('DoctorRecord');
             $this->childrenModel = $this->model('Children');
         }
 
         public function index(){
             //Get clinic attendee
            //$clinicattendee = $this->clinicattendeeModel->getClinicAttendeeByNic($nic);
+            $mother_or_parent = $this->clinicattendeeModel->clarifyMotherOrParent();
             $children =  $this->clinicattendeeModel->getchild_list();
             $report = $this->clinicattendeeModel->getReport();
 
+            $mother = $this->clinicattendeeModel-> getMother(); 
+            $poa = '';
+            if(!empty($mother_or_parent)){
+                $poa = $this->clinicattendeeModel->calculatePOA($mother->poa, $mother->registrationDate);
+            }
+            // $poa = $this->clinicattendeeModel-> calculatePOA($mother->poa, $mother->registrationDate);
+
             $data = [
               // 'clinicattendee' => $clinicattendee
+              'mother_or_parent' => $mother_or_parent,
               'children' => $children,
-              'report'  => $report
+              'report'  => $report,
+
+              'poa' => $poa,
             ];
 
             $this->view('clinicattendees/index', $data);
@@ -34,79 +46,84 @@
 
         public function profile(){
             $profile =  $this->clinicattendeeModel->getProfile();
+            
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
               // Sanitize profile array
-              $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            //   $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
       
-              $data = [
-                // 'clinicattendee_nic' => $_SESSION['clinicattendee_nic'],
-                'mcontactno' => trim($_POST['mcontactno']),
-                'hcontactno' => trim($_POST['hcontactno']),
-                // 'new_password' =>trim($_POST['new_password']),
-                // 'confirm_password' =>trim($_POST['confirm_password']),
-                'mcontactno_err' => '',
-                'hcontactno_err' => '',
-                // 'new_password_err' => '',
-                // 'confirm_password_err' => '',
-                'profile' => $profile
-              ];
+            //   $data = [
+            //     // 'clinicattendee_nic' => $_SESSION['clinicattendee_nic'],
+            //     'mcontactno' => trim($_POST['mcontactno']),
+            //     'hcontactno' => trim($_POST['hcontactno']),
+            //     // 'new_password' =>trim($_POST['new_password']),
+            //     // 'confirm_password' =>trim($_POST['confirm_password']),
+            //     'mcontactno_err' => '',
+            //     'hcontactno_err' => '',
+            //     // 'new_password_err' => '',
+            //     // 'confirm_password_err' => '',
+            //     'profile' => $profile
+            //   ];
       
-              // Validate data
-              if(empty($data['mcontactno'])){
-                $data['mcontactno_err'] = 'Please enter new contact number';
-              }
-              if(strlen($data['mcontactno']) < 10){
-                $data['mcontactno_err'] = 'Please enter valid phone number';
-            }
-              if(empty($data['hcontactno'])){
-                $data['hcontactno_err'] = 'Please enter new contact number';
-              }
-              if(strlen($data['hcontactno']) < 10){
-                $data['hcontactno_err'] = 'Please enter valid phone number';
-            }
+            //   // Validate data
+            //   if(empty($data['mcontactno'])){
+            //     $data['mcontactno_err'] = 'Please enter new contact number';
+            //   }
+            //   if(strlen($data['mcontactno']) < 10){
+            //     $data['mcontactno_err'] = 'Please enter valid phone number';
+            // }
+            //   if(empty($data['hcontactno'])){
+            //     $data['hcontactno_err'] = 'Please enter new contact number';
+            //   }
+            //   if(strlen($data['hcontactno']) < 10){
+            //     $data['hcontactno_err'] = 'Please enter valid phone number';
+            // }
 
-            if(empty($data['new_password'])){
-                $data['new_password'] = 'please enter new password';
-            }elseif(strlen($data['new_password']) <8){
-                $data['new_password_err'] = "Password be at least 8 characters";
-            }
+            // if(empty($data['new_password'])){
+            //     $data['new_password'] = 'please enter new password';
+            // }elseif(strlen($data['new_password']) <8){
+            //     $data['new_password_err'] = "Password be at least 8 characters";
+            // }
 
-            //validate confirm password
-            if(empty($data['confirm_password'])){
-                $data['confirm_password_err'] = 'please confirm password';
-            }else{
-                if($data['new_password'] !=$data['confirm_password']) {
-                    $data['confirm_password_err'] ='password do not match'; 
-                }
-            }
+            // //validate confirm password
+            // if(empty($data['confirm_password'])){
+            //     $data['confirm_password_err'] = 'please confirm password';
+            // }else{
+            //     if($data['new_password'] !=$data['confirm_password']) {
+            //         $data['confirm_password_err'] ='password do not match'; 
+            //     }
+            // }
       
-              // Make sure no errors
-              if(empty($data['mcontactno_err']) && empty($data['hcontactno_err'])){
-                // Validated
+            //   // Make sure no errors
+            //   if(empty($data['mcontactno_err']) && empty($data['hcontactno_err'])){
+            //     // Validated
                 
-                if($this->clinicattendeeModel->updateclinicattendeeinfo($data)){
-                    //print_r($_POST);
-                   redirect('clinicattendees/profile');
-                }else{
-                 redirect('clinicattendees/profile');
-                }
+            //     if($this->clinicattendeeModel->updateclinicattendeeinfo($data)){
+            //         //print_r($_POST);
+            //        redirect('clinicattendees/profile');
+            //     }else{
+            //      redirect('clinicattendees/profile');
+            //     }
                 
-              } else {
-                // Load view with errors
-                $this->view('clinicattendees/profile', $data);
-              }
+            //   } else {
+            //     // Load view with errors
+            //     $this->view('clinicattendees/profile', $data);
+            //   }
       
             } else {
                 
-                 $profile = $this->clinicattendeeModel->getProfile(); 
+                //  $profile = $this->clinicattendeeModel->getProfile(); 
+                $profile_expectant = $this->clinicattendeeModel->getProfile_expectant();
+                $profile_parent = $this->clinicattendeeModel->getProfile_parent();
       
               $data = [
+                'profile_expectant' => $profile_expectant,
+                'profile_parent' => $profile_parent,
                 // 'id' => $id,
-                'mcontactno' => $profile->mcontactno,
-                'mcontactno_err' =>'',
-                'hcontactno' => $profile->hcontactno,
-                'hcontactno_err' =>'',
-                'profile' => $profile
+                // 'mcontactno' => $profile->mcontactno,
+                // 'mcontactno_err' =>'',
+                // 'hcontactno' => $profile->hcontactno,
+                // 'hcontactno_err' =>'',
+                // 'profile' => $profile
               ];
         
               $this->view('clinicattendees/profile', $data);
@@ -403,30 +420,35 @@
     public function child($id){
         
         $child =  $this->clinicattendeeModel->getChildById($id);
-        $records = $this->clinicattendeeModel->getReportListByChild($id);
+        // $records = $this->clinicattendeeModel->getReportListByChild($id);
+        $midwiferecords = $this->doctorRecordModel->getMidwifeRecordsByChild($id);
+        $doctorrecords = $this->doctorRecordModel->getDoctorRecordsByChild($id);
+        $age = $this->doctorRecordModel->calculateAge($child->dob);
 
         $data = [
-            'id' => $id,
+            
             'child' => $child,
-            'records' => $records
+            'midwiferecords' => $midwiferecords,
+            'doctorrecords' => $doctorrecords,
+            'age' => $age,
         ];
 
         $this->view('clinicattendees/child', $data);
     }
 
-    public function childreport($id,$reportno){
+    public function child_reports($id, $date){
         $child =  $this->clinicattendeeModel->getChildById($id);
-        $records = $this->clinicattendeeModel->getReportListByChild($id);
-        $detailrecord =  $this->clinicattendeeModel->getReportByChild($id,$reportno);
+
+        $midwiferecords = $this->doctorRecordModel->getMidwifeRecordsByChildAndDate($id, $date);
+        $doctorrecords = $this->doctorRecordModel->getDoctorRecordsByChildAndDate($id, $date);
 
         $data = [
-            'id' => $id,
             'child' => $child,
-            'records' => $records,
-            'detailrecord' => $detailrecord
+            'midwiferecords' => $midwiferecords,
+            'doctorrecords' => $doctorrecords,
         ];
 
-        $this->view('clinicattendees/childreport', $data);
+        $this->view('clinicattendees/child_reports', $data);
     }
     
     public function session(){
@@ -449,31 +471,36 @@
         $this->view('clinicattendees/timeslot_monthlyclinic', $data);
     }
 
-    public function vaccination(){
+    public function child_vaccination($id){
+        $child =  $this->clinicattendeeModel->getChildById($id);
+        $vaccines = $this->doctorRecordModel->getVaccine();
+        $given_vaccines = $this->doctorRecordModel->getGivenVaccinesByChild($id);
         
         $data = [
-           
-        ];
-
-        $this->view('clinicattendees/vaccination', $data);
-    }
-
-    public function child_chart(){
-        
-        $data = [
-           
-        ];
-
-        $this->view('clinicattendees/child_chart', $data);
-    }
-
-    public function child_vaccination(){
-        
-        $data = [
-           
+            'child' => $child,
+            'vaccines' => $vaccines,
+            'given_vaccines' => $given_vaccines,
         ];
 
         $this->view('clinicattendees/child_vaccination', $data);
+    }
+
+    public function child_charts($id){
+        $child = $this->doctorRecordModel->getChildById($id);
+        $chart = $this->doctorRecordModel->getChartByChild($id);
+        // $age = $this->childrenModel->calculateAge($child->dob);
+        // $jsonChartData = json_encode($chart);
+
+        // die($jsonChartData);
+
+        $data = [
+            'child' => $child,
+            // // 'ageweight' => "['age','weight']",
+            'chart' => $chart,
+            // 'jsonChartData' => $jsonChartData
+        ];
+
+        $this->view('clinicattendees/child_charts', $data);
     }
 
     public function request(){
@@ -685,6 +712,64 @@
             }
       
     }
+
+    
+    public function mother_vaccination(){
+
+        $mother = $this->clinicattendeeModel-> getMother(); 
+        $vaccines = $this->expectantRecordModel->getVaccine();
+        // // $months = $this->childrenModel->calculateMonths($child->dob);
+        $buttonactive = $this->clinicattendeeModel->activateButton();
+        $buttondeactive = $this->clinicattendeeModel->deactivateButton();
+  
+  
+        $data = [
+          'mother'=> $mother,
+            'vaccines' => $vaccines,
+        //     // 'months' => $months,
+            'buttonactive' => $buttonactive,
+            'buttondeactive' => $buttondeactive,
+  
+        //     // 'batch'=>'',
+        //     // 'batch_err'=>''
+        ];
+  
+        $this->view('clinicattendees/mother_vaccination', $data);
+  
+    }
+    
+
+    public function mother_charts(){
+     
+        $mother = $this->clinicattendeeModel-> getMother(); 
+        $chart = $this->clinicattendeeModel->getChartByMother();
+   
+         $data = [
+             
+             'mother'=> $mother,
+             'chart'=> $chart
+         ];
+   
+         $this->view('clinicattendees/mother_charts', $data);
+    }
+
+    public function expectant_allrecords($date){
+        
+        $mother = $this->clinicattendeeModel-> getMother(); 
+        $midwife_records = $this->clinicattendeeModel-> getMidwifeRecordsByMotherAndDate($date); 
+        $doctor_records = $this->clinicattendeeModel->getDoctorRecordsByMotherAndDate($date);
+        // // $chart = $this->expectantRecordModel->getChartByMother($nic);
+  
+        $data = [
+            
+            'mother'=> $mother,
+            'midwife_records'=> $midwife_records,
+            'doctor_records'=> $doctor_records,
+        ];
+  
+        $this->view('clinicattendees/expectant_allrecords', $data);
+    }
+
     
 
     

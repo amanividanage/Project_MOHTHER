@@ -72,12 +72,13 @@ class User{
 
     //register user
     public function register($data){
-        $this->db->query('INSERT INTO expectant (midwife_id, nic, name, height, weight, bloodPressure, allergies, consanguinity, rubellaImmunization, prePregnancyScreening, preconceptionalFolicAcid, subfertility, gravidity, noofChildren, ageofYoungest, lastMenstrualDate, registrationDate, expectedDateofDelivery, password, active) VALUES(:midwife_id, :nic, :name, :height, :weight, :bloodPressure, :allergies, :consanguinity, :rubellaImmunization, :prePregnancyScreening, :preconceptionalFolicAcid, :subfertility, :gravidity, :noofChildren, :ageofYoungest, :lastMenstrualDate, :registrationDate, :expectedDateofDelivery, :password, :active)');
+        $this->db->query('INSERT INTO expectant (phm, nic, name, poa, height, weight, bloodPressure, allergies, consanguinity, rubellaImmunization, prePregnancyScreening, preconceptionalFolicAcid, subfertility, gravidity, noofChildren, ageofYoungest, lastMenstrualDate, registrationDate, expectedDateofDelivery, password, active) VALUES(:phm, :nic, :name, :poa, :height, :weight, :bloodPressure, :allergies, :consanguinity, :rubellaImmunization, :prePregnancyScreening, :preconceptionalFolicAcid, :subfertility, :gravidity, :noofChildren, :ageofYoungest, :lastMenstrualDate, :registrationDate, :expectedDateofDelivery, :password, :active)');
          
         //bind values
-        $this->db->bindParam(':midwife_id', $data['midwife_id']);
+        $this->db->bindParam(':phm', $data['phm']);
         $this->db->bindParam(':nic', $data['nic']);
         $this->db->bindParam(':name', $data['name']);
+        $this->db->bindParam(':poa', $data['poa']);
         $this->db->bindParam(':height', $data['height']);
         $this->db->bindParam(':weight', $data['weight']);
         $this->db->bindParam(':bloodPressure', $data['bloodPressure']);

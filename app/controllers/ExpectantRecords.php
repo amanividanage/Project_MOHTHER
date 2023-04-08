@@ -1,14 +1,14 @@
 <?php
-  class ExpectantRecords extends Controller {
-    public function __construct(){
-       // if(!isLoggedInExpectant()){ // we use this to say that only the logged in midwife can see this page and add records
+    class ExpectantRecords extends Controller {
+      public function __construct(){
+          // if(!isLoggedInExpectant()){ // we use this to say that only the logged in midwife can see this page and add records
             //redirect('users/register');
-       // }
-        $this->expectantRecordModel = $this->model('ExpectantRecord');
-        $this->clinicattendeeModel = $this->model('Clinicattendee');
-        $this->clinicModel = $this->model('Clinic');
-        $this->midwifeModel = $this->model('Midwife');
-        $this->childrenModel = $this->model('Children');
+          // }
+          $this->expectantRecordModel = $this->model('ExpectantRecord');
+          $this->clinicattendeeModel = $this->model('Clinicattendee');
+          $this->clinicModel = $this->model('Clinic');
+          $this->midwifeModel = $this->model('Midwife');
+          $this->childrenModel = $this->model('Children');
        
        
      
@@ -32,7 +32,7 @@
 
       public function expectnatmotherlist(){
         //get records
-        $expectantRecords =  $this->expectantRecordModel-> getExpectantRecords(); 
+        $expectantRecords =  $this->expectantRecordModel-> getExpectantMothers(); 
           $data = [
             'expectantRecords' => $expectantRecords
             
@@ -111,16 +111,37 @@
       
       public function info($nic){
        $info =  $this->expectantRecordModel->displayExpectantRecords($nic);
-       $report=  $this->expectantRecordModel->showExpectantMonthlyRecords($nic);
+       $report = $this->expectantRecordModel->showExpectantMonthlyRecords($nic);
        $expectantRecords =  $this->expectantRecordModel-> getExpectantRecords(); 
        $expectantRecordsHeight =  $this->expectantRecordModel-> getExpectantHeight($nic); 
        $children = $this->childrenModel->getChildrenByParent($nic);
+
+       $date = $this->expectantRecordModel-> getMother($nic); 
+       $poa =  $this->expectantRecordModel-> calculatePOA($date->poa, $date->registrationDate);
+      //  print_r($bplimit);
+
+      $bplimit = array(); // Initialize an empty array to store the blood pressure limits
+      $bmilimit = array(); // Initialize an empty array to store the BMI limits
+      $risky = array(); // Initialize an empty array to store the risk status
+  
+      // Loop through the $report array and calculate the values for each index
+      foreach ($report as $index => $reportItem) {
+          $bplimit[$index] = $this->expectantRecordModel->calculateBloodPressure($reportItem->bp);
+          $bmilimit[$index] = $this->expectantRecordModel->calculateBMILimit($reportItem->bmi);
+          $risky[$index] = $this->expectantRecordModel->calculateRisky($bplimit[$index], $bmilimit[$index]);
+      }
+
+        
 
         $data = [
             'info' => $info,
             'report'=> $report,
             'children' => $children,
-            'expectantRecordsHeight' => $expectantRecordsHeight
+            'expectantRecordsHeight' => $expectantRecordsHeight,
+            'poa' => $poa,
+            'bplimit' => $bplimit,
+            'bmilimit' => $bmilimit,
+            'risky' => $risky,
         ];
 
         $this->view('expectantRecords/info', $data);
@@ -222,6 +243,10 @@
 
       public function add($nic){
         $info =  $this->clinicattendeeModel->getClinicAttendeeByNic($nic);
+        date_default_timezone_set('Asia/Colombo');
+
+        $mother = $this->expectantRecordModel-> getMother($nic); 
+        $poa = $this->expectantRecordModel->calculatePOAWeeks($mother->poa, $mother->registrationDate);
 
         if($_SERVER['REQUEST_METHOD']=='POST'){
             //Sanitize POST array
@@ -230,41 +255,49 @@
               'info' => $info,
               'nic' => trim($_POST['nic']),
               'nic_err'=>'',
-              'reportNo' => trim($_POST['reportNo']),
-              'reportNo_err'=>'',
-              'date'=> trim($_POST['date']),
-              'date_err'=>'',
+              // 'reportNo' => trim($_POST['reportNo']),
+              // 'reportNo_err'=>'',
+              'date' => date("Y-m-d"),
+              // 'date_err'=>'',
               'weight'=> trim($_POST['weight']),
               'weight_err'=>'',
-              'vaccination'=> trim($_POST['vaccination']),
+              'bp'=> trim($_POST['bp']),
+              'bp_err'=>'',
               'vitaminC'=> trim($_POST['vitaminC']),
               'ironorForlate'=> trim($_POST['ironorForlate']),
               'antimarialDrugs'=> trim($_POST['antimarialDrugs']),
               'calcium'=> trim($_POST['calcium']),
               'triposha'=> trim($_POST['triposha']),
+              'poa'=>$poa,
+              'mother'=>$mother
             //  'info'=> $info
             
             ];
            //validate data
-             if(empty($data['reportNo'])){
-              $data['reportNo_err'] = 'Please enter the report Number';
-             }
-             if(empty($data['date'])){
-              $data['date_err'] = 'Please enter the date';
-            }
+            //  if(empty($data['reportNo'])){
+            //   $data['reportNo_err'] = 'Please enter the report Number';
+            //  }
+
+            //  if(empty($data['date'])){
+            //   $data['date_err'] = 'Please enter the date';
+            // }
              
              if(empty($data['weight'])){
               $data['weight_err'] = 'Please enter the weight';
              }
 
+             if(empty($data['bp'])){
+              $data['bp_err'] = 'Please enter the blood pressure';
+             }
+
             //make sure that there are no errors
-             if(empty($data['reportNo_err']) && empty($data['date_err']) && empty($data['weight_err']) && empty($data['nic_err']))
+             if(empty($data['weight_err']) && empty($data['bp_err']))
              {
                //validated
                 //die('Successfull');
 
                 //add expectant mother's records
-                if($this->expectantRecordModel->addRecords($data)){
+                if($this->expectantRecordModel->addRecords($data) && $this->expectantRecordModel->addMother_age_weight($data)){
                  
                  redirect('expectantRecords/info/'.$nic.'');
               }else{
@@ -281,13 +314,14 @@
         $data = [
           'nic' =>'',
           'nic_err' =>'',
-          'reportNo' =>'',
-          'reportNo_err'=>'',
+          // 'reportNo' =>'',
+          // 'reportNo_err'=>'',
           'date'=>'',
           'date_err'=>'',
           'weight'=>'',
           'weight_err'=>'',
-          'vaccination'=>'',
+          'bp'=>'',
+          'bp_err'=>'',
           'vitaminC'=>'',
           'ironorForlate'=>'',
           'antimarialDrugs'=>'',
@@ -305,6 +339,144 @@
 
         }
       }
+
+      public function mother_charts($nic){
+     
+        $mother = $this->expectantRecordModel-> getMother($nic); 
+        $chart = $this->expectantRecordModel->getChartByMother($nic);
+   
+         $data = [
+             
+             'mother'=> $mother,
+             'chart'=> $chart
+         ];
+   
+         $this->view('expectantRecords/mother_charts', $data);
+     }
+
+     public function mother_vaccination($nic){
+
+      $mother = $this->expectantRecordModel-> getMother($nic); 
+      $vaccines = $this->expectantRecordModel->getVaccine();
+      // $months = $this->childrenModel->calculateMonths($child->dob);
+      $buttonactive = $this->expectantRecordModel->activateButton($nic);
+      $buttondeactive = $this->expectantRecordModel->deactivateButton($nic);
+
+
+      $data = [
+        'mother'=> $mother,
+          'vaccines' => $vaccines,
+          // 'months' => $months,
+          'buttonactive' => $buttonactive,
+          'buttondeactive' => $buttondeactive,
+
+          // 'batch'=>'',
+          // 'batch_err'=>''
+      ];
+
+      $this->view('expectantRecords/mother_vaccination', $data);
+
+  }
+
+  public function expectant_vaccination($nic, $vaccination_id){
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        $mother = $this->expectantRecordModel-> getMother($nic); 
+        date_default_timezone_set('Asia/Colombo');
+
+
+        $data=[
+            'mother'=>$mother,
+            'nic' => $nic,
+            'date' => date("Y-m-d"),
+            'vaccination_id' => $vaccination_id,
+            'batch'=>trim($_POST['batch']),
+ 
+            'batch_err'=>'',
+        ];
+
+        //Validate data
+        if(empty($data['batch'])){
+            $data['batch_err']='please enter batch no to complete the registration';
+        }
+
+        //Make sure no errors
+        if(empty($data['batch_err'])){
+            
+            //vaccination child
+            if($this->expectantRecordModel->addMotherVaccination($data)){
+                redirect('expectantRecords/mother_vaccination/'.$nic.'');
+            } else {
+                die('Someting went wrong');
+            }
+
+        } else{
+             // Load view with errors
+             $this->view('expectantRecords/expectant_vaccination', $data);
+        }
+
+
+
+    } else {
+
+      $mother = $this->expectantRecordModel-> getMother($nic); 
+      $vaccine = $this->expectantRecordModel->getVaccineById($vaccination_id);
+        // $months = $this->childrenModel->calculateMonths($child->dob);
+        // $buttonactive = $this->childrenModel->activateButton($months);
+
+
+        $data = [
+            'mother' => $mother,
+            'vaccine' => $vaccine,
+            // 'months' => $months,
+            // 'buttonactive' => $buttonactive,
+
+            'batch'=>'',
+            'batch_err'=>''
+        ];
+
+        $this->view('expectantRecords/expectant_vaccination', $data);
+
+    }
+
+}
+
+    public function expectant_allrecords($nic, $date){
+        
+      $mother = $this->expectantRecordModel-> getMother($nic); 
+      $midwife_records = $this->expectantRecordModel-> getMidwifeRecordsByMotherAndDate($nic, $date); 
+      $doctor_records = $this->expectantRecordModel->getDoctorRecordsByMotherAndDate($nic, $date);
+      // $chart = $this->expectantRecordModel->getChartByMother($nic);
+
+      $data = [
+          
+          'mother'=> $mother,
+          'midwife_records'=> $midwife_records,
+          'doctor_records'=> $doctor_records,
+      ];
+
+      $this->view('expectantRecords/expectant_allrecords', $data);
+    }
+
+    public function delivered(){
+        
+      // $mother = $this->expectantRecordModel-> getMother($nic); 
+      // $midwife_records = $this->expectantRecordModel-> getMidwifeRecordsByMotherAndDate($nic, $date); 
+      // $doctor_records = $this->expectantRecordModel->getDoctorRecordsByMotherAndDate($nic, $date);
+      // // $chart = $this->expectantRecordModel->getChartByMother($nic);
+
+      $data = [
+          
+          // 'mother'=> $mother,
+          // 'midwife_records'=> $midwife_records,
+          // 'doctor_records'=> $doctor_records,
+      ];
+
+      $this->view('expectantRecords/delivered', $data);
+    }
     
   
 }

@@ -13,10 +13,10 @@
     <?php require APPROOT . '/views/inc/sidebar_midwife.php' ; ?>
     <div class="content">
         <a href="<?php echo URLROOT; ?>/expectantRecords" class="back"><i class="fa fa-backward"></i>Back</a>
+
     <div class="expectant">
 
-    <div>
-           
+        <div> 
            <h2 class="content_h1">Profile</h2>
            <hr class="line">
        </div>

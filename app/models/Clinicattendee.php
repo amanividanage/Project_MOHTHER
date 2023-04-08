@@ -6,12 +6,59 @@ class Clinicattendee{
         $this->db=new Database;
     }
 
+    
+    public function clarifyMotherOrParent(){
+        $this->db->query("SELECT * FROM expectant WHERE nic = :nic");
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+        $row = $this->db->single();
+
+        // if($row<1){
+        //     $this->db->query('SELECT * FROM parent WHERE nic = :nic');
+        //     $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+
+        //     $row = $this->db->single();
+
+        //     return $row;
+            
+        // } else {
+            return $row;
+        // }
+
+       
+    }
+
+    public function getProfile_expectant(){
+        $this->db->query('SELECT * FROM registration WHERE nic = :nic');
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+        $row = $this->db->single();
+        return $row;
+    }
+    
+    public function getProfile_parent(){
+        $this->db->query('SELECT * FROM parent WHERE nic = :nic');
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+        $row = $this->db->single();
+        return $row;
+    }
+
     public function getProfile(){
         $this->db->query("SELECT * FROM registration WHERE nic = :nic");
         $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
         $row = $this->db->single();
 
-        return $row;
+        if($row<1){
+            $this->db->query('SELECT * FROM parent WHERE nic = :nic');
+            $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+
+            $row = $this->db->single();
+
+            return $row;
+            
+        } else {
+            return $row;
+        }
+
+       
     }
 
     //edit profile
@@ -296,5 +343,86 @@ class Clinicattendee{
         return $row;
     }
 
+    
+    public function getMother(){
+        $this->db->query("SELECT * FROM expectant WHERE nic = :nic");
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+
+        $row = $this->db->single();
+
+        return $row;
+    }
+
+    public function activateButton(){
+        
+        $this->db->query('SELECT mother_vaccination.id, mother_vaccination.vaccine, mother_vaccination.gravidity
+                      FROM mother_vaccination, expectant WHERE mother_vaccination.gravidity=expectant.gravidity AND nic=:nic');
+
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+
+        $row = $this->db->resultSet();
+        
+        return $row;
+    }
+
+    public function deactivateButton(){
+        $this->db->query('SELECT * FROM expectant_vaccination WHERE nic = :nic');
+
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+        // $this->db->bindParam(':term', $data['term']);
+
+        $row = $this->db->resultSet();
+
+        return $row;
+    }
+
+    public function getChartByMother(){
+        $this->db->query("SELECT * FROM mother_age_weight WHERE nic = :nic");
+
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+
+        $results = $this->db->resultSet();
+
+        return $results;
+    }
+
+    public function calculatePOA($weeks, $date) {
+        $now = time();
+        $registered = strtotime($date);
+    
+        $diff = $now - $registered;
+    
+        $weeks_diff = floor($diff / (7 * 24 * 60 * 60));
+        $days_diff = floor($diff / (24 * 60 * 60) % 7);
+    
+        return array(
+            'weeks' => $weeks_diff + $weeks,
+            'days' => $days_diff
+        );
+    }
+    
+    public function getMidwifeRecordsByMotherAndDate($date){
+
+        $this->db->query("SELECT * FROM detailrecords_expectant WHERE nic=:nic AND date=:date" ) ;
+ 
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);  
+        $this->db->bindParam(':date', $date);      
+                                         
+        $row =  $this->db->single();
+
+        return $row;
+    }
+
+    public function getDoctorRecordsByMotherAndDate($date){
+
+        $this->db->query("SELECT * FROM doctor_mother_records WHERE nic=:nic AND date=:date" ) ;
+ 
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);  
+        $this->db->bindParam(':date', $date);      
+                                         
+        $row =  $this->db->single();
+
+        return $row;
+    }
     
 }

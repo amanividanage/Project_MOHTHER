@@ -48,6 +48,13 @@
     </tr>
     
 
+    <tr>
+    <td>
+    <label for="poa">Premature Ovarian Failure Aging(POA): (in weeks)</label>
+    </td>
+    <td><input type="text" name="poa" class= "form <?php echo (!empty($data['poa_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['poa']; ?>">
+    <span class="invalid-feedback"><?php echo $data['poa_err']; ?></span></td>
+    </tr>
    
 
     <tr>
@@ -65,6 +72,8 @@
     <td><input type="double" name="weight" maxlength="5" class= "form <?php echo (!empty($data['weight_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['weight']; ?>">
     <span class="invalid-feedback"><?php echo $data['weight_err']; ?></span></td>
     </tr>
+
+    
 
 
     <tr>

@@ -19,16 +19,12 @@
 
                 <form action="<?php echo URLROOT; ?>/childrens/report/<?php echo $data['child']->child_id; ?>" method="post">
 
-                    <div>
-                        <label for="date">Report adding Date: <sup>*</sup></label>
-                        <input type="date" name="date" placeholder="Enter report addingc date here...">
-                        <span class="form-err"><?php echo $data['date_err']; ?></span>
-                    </div>
-                    <div>
+                    
+                    <!-- <div>
                         <label for="reportno">Report No: <sup>*</sup></label>
                         <input type="text" name="reportno" placeholder="Enter report no here...">
-                        <span class="form-err"><?php echo $data['reportno_err']; ?></span>
-                    </div>
+                        <span class="form-err"><!?php echo $data['reportno_err']; ?></span>
+                    </div> -->
                     <h4>Info about child growth</h4>
                     <div>
                         <label for="skin">Skin color: <sup>*</sup></label>
@@ -49,6 +45,11 @@
                         <label for="umbilicus">Nature of the umbilicus: <sup>*</sup></label>
                         <input type="text" name="umbilicus" placeholder="Enter nature of the umbilicus of the baby here...">
                         <span class="form-err"><?php echo $data['umbilicus_err']; ?></span>
+                    </div>
+                    <div>
+                        <label for="weight">Current weight(In Kg): <sup>*</sup></label>
+                        <input type="text" name="weight" placeholder="Enter current weight in Kg...">
+                        <span class="form-err"><?php echo $data['weight_err']; ?></span>
                     </div>
                     <div>
                         <label for="other">Other Complications (If any) : </label>

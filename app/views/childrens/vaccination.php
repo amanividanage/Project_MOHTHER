@@ -23,107 +23,90 @@
                     <table>
                         <thead>
                             <tr>
-                                <th></th>
+                                <th>Months</th>
                                 <th>Name</th>
                                 <th>Date</th>
+                                <!-- <th>
+                                <!?php
+// Example code to check array contents
+echo "<pre>";
+print_r($data['buttonactive']);
+echo "</pre>";
+?></th> -->
                             </tr>
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>At birth</td>
-                                <td>BCG</td>
-                                <td></td>
-                            </tr>
+                            <?php foreach ($data['vaccines'] as $vaccines) : ?>
+                                <tr>
+                                    <td><?php echo $vaccines->months; ?> months completed</td>
+                                    <td><?php echo $vaccines->vaccine; ?></td>
+                                    <td>
+                                        <!-- <!?php if (in_array($vaccines, $data['buttondeactive'])) : ?>
+                                            Already given
+                                        <!?php elseif (in_array($vaccines, $data['buttonactive'])) : ?>
+                                            <a href="<!?php echo URLROOT; ?>/childrens/child_vaccination/<!?php echo $data['child']->child_id; ?>/<!?php echo $vaccines->id; ?>"><button class="more1999">Give Vaccine</button></a>
+                                        <!?php else : ?>
+                                            Not Available Yet
+                                        <!?php endif; ?> -->
 
-                            <tr>
-                                <td rowspan="3">2 months completed</td>
-                                <td>Pentavalent 1</td>
-                            </tr>
+                                        <!-- <!!?php if (($vaccines->id) == (foreach($data['buttondeactive'] as $buttondeactive)->vaccination_id)) : ?>
+                                            Already given
+                                        <!?php elseif (in_array($vaccines, $data['buttonactive'])) : ?>
+                                            <a href="<!?php echo URLROOT; ?>/childrens/child_vaccination/<!?php echo $data['child']->child_id; ?>/<!?php echo $vaccines->id; ?>"><button class="more1999">Give Vaccine</button></a>
+                                        <!?php else : ?>
+                                            Not Available Yet
+                                        <Y?php endif; ?> -->
 
-                            <tr>
-                                <td>OPV 1</td>
-                            </tr>
 
-                            <tr>
-                                <td>FlPV 1</td>
-                            </tr>
+                                        <?php
+                                            $found = false;
 
-                            <tr>
-                                <td rowspan="3">4 months completed</td>
-                                <td>Pentavalent 1</td>
+                                            if ($data['buttondeactive']) {
+                                                foreach ($data['buttondeactive'] as $buttondeactive) {
+                                                    if ($vaccines->id == $buttondeactive->vaccination_id) {
+                                                        echo 'Already given';
+                                                        $found = true;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            
+                                            if (!$found && in_array($vaccines, $data['buttonactive'])) {
+                                                echo '<a href="' . URLROOT . '/childrens/child_vaccination/' . $data['child']->child_id . '/' . $vaccines->id . '"><button class="more1999">Give Vaccine</button></a>';
+                                            } elseif (!$found) {
+                                                echo 'Not Available Yet';
+                                            }
+                                        ?>
 
-                            </tr>
+                                        <!-- <!?php
+                                            foreach($data['buttondeactive'] as $buttondeactive){
+                                                if ($vaccines->id == $buttondeactive->vaccination_id){
+                                                    echo 'Already given';
+                                                    continue;
+                                                } else if (in_array($vaccines, $data['buttonactive'])) {
+                                                    echo '<a href="' . URLROOT . '/childrens/child_vaccination/' . $data['child']->child_id . '/' . $vaccines->id . '"><button class="more1999">Give Vaccine</button></a>';
+                                                    continue;
+                                                } else {
+                                                    echo 'Not Available Yet';
+                                                }
+                                            }
+                                        
+                                        ?> -->
 
-                            <tr>
-                                <td>OPV 2</td>
-                            </tr>
 
-                            <tr>
 
-                                <td>FlPV 2</td>
-                            </tr>
 
-                            <tr>
-                                <td rowspan="2">6 months completed</td>
-                                <td>Pentavalent 3</td>
-                            </tr>
 
-                            <tr>
-                                <td>OPV 3</td>
-                            </tr>
 
-                            <tr>
-                                <td>9 months completed</td>
-                                <td>Measles Mumps Rubella 1</td>
-                                <td></td>
-                            </tr>
-
-                            <tr>
-                                <td>12 months completed</td>
-                                <td>Live JE</td>
-                                <td></td>
-                            </tr>
-
-                            <tr>
-                                <td rowspan="2">18 months completed</td>
-                                <td>DPT</td>
-                            </tr>
-
-                            <tr>
-                                <td>OPV 4</td>
-                            </tr>
-
-                            <tr>
-                                <td>3 years completed</td>
-                                <td>Measles Mumps Rubella 2</td>
-                                <td></td>
-                            </tr>
-
-                            <tr>
-                                <td rowspan="2">5 years completed</td>
-                                <td>DP</td>
-                            </tr>
-
-                            <tr>
-                                <td>OPV 5</td>
-                            </tr>
-
-                            <tr>
-                                <td rowspan="2">10 years completed</td>
-                                <td>HPV Vaccine 1</td>
-                            </tr>
-
-                            <tr>
-                                <td>HPV Vaccine 2</td>
-                            </tr>
-
-                            <tr>
-                                <td>11 years completed</td>
-                                <td>Adult tetanus and diphtheria</td>
-                                <td></td>
-                            </tr>
-
+                                        <!-- <!?php if (in_array($vaccines, $data['buttonactive'])) : ?>
+                                            <a href="<!?php echo URLROOT; ?>/childrens/child_vaccination/<!?php echo $data['child']->child_id; ?>/<!?php echo $vaccines->id; ?>"><button class="more1999">Give Vaccine</button></a>
+                                        <!?php else : ?>
+                                            Not Available Yet
+                                        <!?php endif; ?> -->
+                                    </td>    
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -138,8 +121,29 @@
 
             
 
-            
+            <!-- The Modal -->
+            <!-- <div id="myModal" class="modal">
 
+                 Modal content -->
+                <!-- <div class="modal-content">
+                    <span class="close">&times;</span>
+                    
+                    <form action="<!?php echo URLROOT; ?>/childrens/vaccination/<!?php echo $data['child']->child_id; ?>" method="post">
+                        <h4>Given the Vaccination? </h4> -->
+                        <!-- <div>
+                            <label for="batch" class="form_font">Enter Vaccination Batch No here: <sup>*</sup></label>
+                            <input type="text" id="batch" name="batch" placeholder="Enter batch no here... ">
+                            <input type="hidden" id="vaccination_id" name="vaccination_id">
+                            <span class="form-err"><!?php echo $data['batch_err']; ?></span> 
+                        </div>
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>  -->
+
+            <!-- </div> --> 
+
+
+            
             
             
                
@@ -151,4 +155,8 @@
         </div>
 
         
-<?php require APPROOT . '/views/inc/footer.php'; ?>
+
+    
+
+
+    <?php require APPROOT . '/views/inc/footer.php'; ?>

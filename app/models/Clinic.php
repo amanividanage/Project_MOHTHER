@@ -85,7 +85,7 @@
         
         //Find doctor by Clinic Id
         public function showMidwife($clinic){
-            $this->db->query('SELECT midwife_clinic.nic, midwifes.name, midwifes.email FROM midwife_clinic, midwifes WHERE midwife_clinic.nic=midwifes.nic AND midwife_clinic.clinic = :clinic');
+            $this->db->query('SELECT midwife_clinic.nic, midwife_clinic.phm, midwifes.name, midwifes.email FROM midwife_clinic, midwifes WHERE midwife_clinic.nic=midwifes.nic AND midwife_clinic.clinic = :clinic');
 
             //Bind value
             $this->db->bindParam(':clinic', $clinic);

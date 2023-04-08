@@ -68,7 +68,11 @@
                                     echo $data['clinic']->clinic;
                                     echo "</br>";
                                     echo $data['clinic']->clinic_name;
-                                    echo '<button id="myBtn" class="add">Transfer</button>';
+                                    echo "</br>";
+                                    echo $data['clinic']->phm;
+                                    echo '<a href="' . URLROOT . '/midwifes/midwife_transfer/' . $data['midwife']->nic . '"><button id="myBtn" class="add">Transfer</button></a>';
+                                    // echo '<button id="myBtn" class="add">Transfer</button>';
+
                                 } else {
                                     echo 'Not Appointed to any clinic';
                                     // echo '<button id="myBtn" class="add">Appoint</button>';
@@ -98,6 +102,7 @@
                     <table>
                         <tr>
                             <th>Clinic name</th>
+                            <th>PHM Ares</th>
                             <th>Appointed Date</th>
                             <th>Terminated Date</th>
                             <th>Total Work Period</th>
@@ -105,6 +110,7 @@
                         <?php foreach($data['history'] as $history) : ?>
                             <tr>
                                 <td><?php echo $history->clinic_name; ?></td>
+                                <td><?php echo $history->phm; ?></td>
                                 <td><?php echo $history->appdate; ?></td>
                                 <td><?php echo $history->transdate; ?></td>
                             </tr>
@@ -120,27 +126,34 @@
             <!-- <a href="<!?php echo URLROOT; ?>/doctors/changeclinic/<!?php echo $data['doctor']->nic; ?>"></a> -->
 
             <!--The model for popup-->
-            <div id="myModal" class="modal">
-                <!-- Modal content -->
-                <div class="container_new_modal">
+            <!-- <div id="myModal" class="modal">
+                <Modal content -->
+                <!-- <div class="container_new_modal">
                     <span class="close">&times;</span>
-                    <form action="<?php echo URLROOT; ?>/midwifes/midwifeprofile/<?php echo $data['midwife']->nic; ?>" method="post">
+                    <form action="<!?php echo URLROOT; ?>/midwifes/midwifeprofile/<!?php echo $data['midwife']->nic; ?>" method="post">
                         <h2>Transfer midwife to another clinic</h2>
                         <p>Select a clinic to transfer the midwife </p>
                         <div>
                             <label for="newclinic">Clinics: <sup>*</sup></label> <br>
-                            <select name="newclinic" id="newclinic" value="<?php echo $data['newclinic']; ?>">
+                            <select name="newclinic" id="newclinic" onchange="myFunction()" value="<!?php echo $data['newclinic']; ?>">
                                 <option value="">Select a clinic</option>
-                                <?php foreach($data['clinics'] as $clinics) : ?>
-                                    <option value="<?php echo $clinics->id; ?>"><?php echo $clinics->clinic_name; ?></option>
-                                <?php endforeach; ?>
+                                <!?php foreach($data['clinics'] as $clinics) : ?>
+                                    <option value="<!?php echo $clinics->id; ?>"><!?php echo $clinics->clinic_name; ?></option>
+                                <!?php endforeach; ?>
                             </select>
-                            <span class="form-err"><?php echo $data['newclinic_err']; ?></span>
+                            <span class="form-err"><!?php echo $data['newclinic_err']; ?></span>
+
+                            <select name="newphm" id="newphm" value="<!?php echo $data['newphm']; ?>">
+                                <option value="">Select a clinic</option>
+                            </select>
+                            <span class="form-err"><!?php echo $data['newphm_err']; ?></span>
+
                         </div> 
                         <input type="submit" value="Submit">
                     </form>
-                </div>
-            </div>
+                </div> -->
+            <!-- </div>--> 
         
         <script src="<?php echo URLROOT ; ?>/js/admin.js"></script>
+        
 <?php require APPROOT . '/views/inc/footer.php'; ?>

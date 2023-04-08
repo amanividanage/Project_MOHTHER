@@ -25,8 +25,13 @@
                 //Get midwives 
                 $midwifes = $this->midwifeModel->getMidwifes();
 
+                //Edit
+                // $midwife = $this->midwifeModel->getMidwifeByNic($nic);
+
                 $data = [
-                    'midwifes' => $midwifes
+                    'midwifes' => $midwifes,
+
+                    // 'midwife' => $midwife
                 ];
 
                 $this->view('midwifes/index', $data);
@@ -235,9 +240,26 @@
         }
 
         public function midwifeprofile($nic){
+            $midwife = $this->midwifeModel->getMidwifeByNic($nic);
+            $clinic = $this->midwifeModel->getClinicByMidwife($nic);
+            $clinics = $this->midwifeModel->getClinicsToTransfer($nic);
+            $history = $this->midwifeModel->getWorkingHistory($nic);
+
+            $data = [
+                'midwife' => $midwife,
+                'clinic' => $clinic,
+                'clinics' => $clinics,
+                'history' => $history
+            ];
+
+            $this->view('midwifes/midwifeprofile', $data);
+        }
+        
+
+        public function midwife_transfer($nic){
             //Check for POST
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
-                //Sanitize POST array
+
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
                 $midwife = $this->midwifeModel->getMidwifeByNic($nic);
@@ -250,7 +272,9 @@
                     'clinic' => $postclinic->clinic,
                     'appdate' => $postclinic->appdate,
                     'newclinic' => trim($_POST['newclinic']),
+                    'newphm' => trim($_POST['newphm']),
                     'newclinic_err' => '',
+                    'newphm_err' => '',
                     'transdate'=> date("Y-m-d"),
                 ];
 
@@ -264,34 +288,43 @@
                     }
                 }
 
-                if(empty($data['newclinic_err'])){
+                if(empty($data['newclinic_err']) && empty($data['newphm_err'])){
                     //Transfer midwife
                     if(($this->midwifeModel->updatetransferMidwife($data)) && ($this->midwifeModel->addtransferMidwife($data)) && ($this->midwifeModel->updateMidwife($data))){
-                        redirect('midwifes/midwifeprofile/'.$nic.'', $data);
+                        // redirect('midwifes/midwifeprofile/'.$nic.'', $data);
+                        redirect('midwifes');
                     } else {
                         die('Something went wrong');
                     }
                 } else {
-                    $this->view('midwifes/midwifeprofile/'.$nic.'', $data);
+                    $this->view('midwifes/midwife_transfer/'.$nic.'', $data);
                 }
 
             } else {
 
+                
                 $midwife = $this->midwifeModel->getMidwifeByNic($nic);
-                $clinic = $this->midwifeModel->getClinicByMidwife($nic);
                 $clinics = $this->midwifeModel->getClinicsToTransfer($nic);
+                $phms = $this->midwifeModel->getPHMsToTransfer();
+                $postclinic = $this->midwifeModel->getMidwifeClinicByMidwife($nic);
                 $history = $this->midwifeModel->getWorkingHistory($nic);
 
-                $data = [
+                $data =[
                     'midwife' => $midwife,
-                    'clinic' => $clinic,
                     'clinics' => $clinics,
+                    'phms' => $phms,
+                    'newclinic' => '',
+                    'newphm' => '',
                     'newclinic_err' => '',
+                    'newphm_err' => '',
                     'history' => $history
                 ];
 
-                $this->view('midwifes/midwifeprofile', $data);
+                
             }
+            
+
+            $this->view('midwifes/midwife_transfer', $data);
         }
 
 

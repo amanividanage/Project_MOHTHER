@@ -30,10 +30,11 @@
 
                 
                 $expectant = $this->expectantRecordModel->displayExpectantRecords($nic);
+                $findPHM = $this->childrenModel-> findPHM();
 
                 $data=[
                     'expectant'=>$expectant,
-                    'midwife_id'=>$_SESSION['midwife_id'],
+                    'phm'=>$findPHM->phm,
                     'parent' => $nic,
                     'name'=>trim($_POST['name']),
                     'dob'=>trim($_POST['dob']), 

@@ -757,7 +757,18 @@ input[type=search]{
 }
 
 .mine .card .container table thead tr{
-    border-bottom: none
+    border-bottom: none;
 }
 
+.content table tr td i {
+    font-size: larger;
+    font-weight: 800px;
+}
+
+.popup-form-err{
+    visibility: hidden;
+    font-size: smaller;
+    color: red;
+     
+}
 

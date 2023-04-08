@@ -231,7 +231,11 @@
         }
         
         public function getClinicByMidwife($nic){
-            $this->db->query('SELECT midwife_clinic.clinic, clinics.clinic_name, clinics.id FROM midwife_clinic INNER JOIN clinics ON clinics.id = midwife_clinic.clinic WHERE midwife_clinic.nic = :nic');
+            $this->db->query('SELECT midwife_clinic.clinic, phm.phm, clinics.clinic_name, clinics.id 
+                              FROM midwife_clinic 
+                              INNER JOIN clinics ON clinics.id = midwife_clinic.clinic 
+                              INNER JOIN phm ON phm.id = midwife_clinic.phm 
+                              WHERE midwife_clinic.nic = :nic');
             $this->db->bindParam(':nic', $nic);
     
             $row = $this->db->single();
@@ -245,7 +249,20 @@
             // SELECT * FROM clinics INNERJOIN doctor_clinic ON clinics.id = doctor_clinic.clinics WHERE doctor_clinic.nic = :nic
 
         
-             $this->db->bindParam(':nic', $nic);
+            $this->db->bindParam(':nic', $nic);
+
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
+        
+        public function getPHMsToTransfer(){
+            $this->db->query("SELECT * FROM phm");
+
+            // SELECT * FROM clinics INNERJOIN doctor_clinic ON clinics.id = doctor_clinic.clinics WHERE doctor_clinic.nic = :nic
+
+        
+            // $this->db->bindParam(':clinic_id', $newclinic);
 
             $results = $this->db->resultSet();
 
@@ -278,11 +295,12 @@
         }
         
         public function updatetransferMidwife($data){
-            $this->db->query('UPDATE midwife_clinic SET clinic = :newclinic, appdate = :transdate WHERE nic = :nic');
+            $this->db->query('UPDATE midwife_clinic SET clinic = :newclinic, phm=:newphm, appdate = :transdate WHERE nic = :nic');
 
             //Bind values
             $this->db->bindParam(':nic', $data['nic']);
             $this->db->bindParam(':newclinic', $data['newclinic']);
+            $this->db->bindParam(':newphm', $data['newphm']);
             $this->db->bindParam(':transdate', $data['transdate']);
 
             //Execute
@@ -294,11 +312,12 @@
         }
         
         public function addtransferMidwife($data){
-            $this->db->query('INSERT midwife_transfer (nic, clinic, appdate) VALUES (:nic, :newclinic, :transdate)');
+            $this->db->query('INSERT midwife_transfer (nic, clinic, phm, appdate) VALUES (:nic, :newclinic, :newphm, :transdate)');
 
             //Bind values
             $this->db->bindParam(':nic', $data['nic']);
             $this->db->bindParam(':newclinic', $data['newclinic']);
+            $this->db->bindParam(':newphm', $data['newphm']);
             $this->db->bindParam(':transdate', $data['transdate']);
 
             //Execute
@@ -326,7 +345,11 @@
         }
         
         public function getWorkingHistory($nic){
-            $this->db->query("SELECT clinics.clinic_name, midwife_transfer.appdate, midwife_transfer.transdate FROM midwife_transfer INNER JOIN clinics on midwife_transfer.clinic = clinics.id WHERE nic = :nic");
+            $this->db->query("SELECT clinics.clinic_name, phm.phm, midwife_transfer.appdate, midwife_transfer.transdate 
+                              FROM midwife_transfer 
+                              INNER JOIN clinics ON midwife_transfer.clinic = clinics.id 
+                              INNER JOIN PHM ON phm.id = midwife_transfer.phm
+                              WHERE nic = :nic");
 
             // SELECT * FROM clinics INNERJOIN doctor_clinic ON clinics.id = doctor_clinic.clinics WHERE doctor_clinic.nic = :nic
 

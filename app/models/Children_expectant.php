@@ -10,10 +10,10 @@ class Children_expectant{
     public function add($data){
 
         //$sessionId = $_SESSION['midwife_id'];
-        $this->db->query("INSERT INTO children (midwife_id, parent, name, dob, date, hospital, weight, circumference, length, special) VALUES (:midwife_id, :parent, :name, :dob, :date, :hospital, :weight, :circumference, :length, :special)");
+        $this->db->query("INSERT INTO children (phm, parent, name, dob, date, hospital, weight, circumference, length, special) VALUES (:phm, :parent, :name, :dob, :date, :hospital, :weight, :circumference, :length, :special)");
 
         //bind values
-        $this->db->bindParam(':midwife_id',$data['midwife_id']);
+        $this->db->bindParam(':phm',$data['phm']);
         $this->db->bindParam(':parent',$data['parent']);
 
         $this->db->bindParam(':name',$data['name']);

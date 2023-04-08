@@ -8,7 +8,9 @@ class Children{
 
     //get parent list
     public function getParentList(){
-        $this->db->query("SELECT * FROM parent WHERE midwife_id = ".$_SESSION['midwife_id']);
+        $this->db->query("SELECT parent.nic, parent.relationship, parent.name, parent.occupation, parent.contactno, parent.email FROM parent, midwife_clinic WHERE midwife_clinic.phm = parent.phm AND midwife_clinic.nic = :midwife_nic");
+
+        $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
 
         $results = $this->db->resultSet();
 
@@ -16,21 +18,33 @@ class Children{
     }
 
     public function getChildren(){
-        $this->db->query("SELECT * FROM children WHERE midwife_id = ".$_SESSION['midwife_id']);
+        $this->db->query("SELECT * FROM children, midwife_clinic WHERE midwife_clinic.phm = children.phm AND midwife_clinic.nic = :midwife_nic");
+
+        $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
 
         $results = $this->db->resultSet();
 
         return $results;
     }
 
+    public function findPHM(){
+        $this->db->query('SELECT * FROM midwife_clinic WHERE nic= :nic');
+
+        $this->db->bindParam('nic', $_SESSION['midwife_nic']);
+    
+        $row = $this->db->single();
+    
+        return $row;
+    }
+
     //register user
     public function parent($data){
 
         //$sessionId = $_SESSION['midwife_id'];
-        $this->db->query("INSERT INTO parent (midwife_id, relationship, name, nic, age, nochildren, levelofeducation, occupation, contactno, address, email, password) VALUES (:midwife_id, :relationship, :name, :nic, :age, :nochildren, :levelofeducation, :occupation, :contactno, :address, :email, :password)");
+        $this->db->query("INSERT INTO parent (phm, relationship, name, nic, age, nochildren, levelofeducation, occupation, contactno, address, email, password) VALUES (:phm, :relationship, :name, :nic, :age, :nochildren, :levelofeducation, :occupation, :contactno, :address, :email, :password)");
 
         //bind values
-        $this->db->bindParam(':midwife_id',$data['midwife_id']);
+        $this->db->bindParam(':phm',$data['phm']);
         $this->db->bindParam(':relationship',$data['relationship']);
 
         $this->db->bindParam(':name',$data['name']);
@@ -76,10 +90,10 @@ class Children{
     public function add($data){
 
         //$sessionId = $_SESSION['midwife_id'];
-        $this->db->query("INSERT INTO children (midwife_id, parent, name, dob, date, hospital, weight, circumference, length, special) VALUES (:midwife_id, :parent, :name, :dob, :date, :hospital, :weight, :circumference, :length, :special)");
+        $this->db->query("INSERT INTO children (phm, parent, name, dob, date, hospital, weight, circumference, length, special) VALUES (:phm, :parent, :name, :dob, :date, :hospital, :weight, :circumference, :length, :special)");
 
         //bind values
-        $this->db->bindParam(':midwife_id',$data['midwife_id']);
+        $this->db->bindParam(':phm',$data['phm']);
         $this->db->bindParam(':parent',$data['parent']);
 
         $this->db->bindParam(':name',$data['name']);
@@ -101,16 +115,17 @@ class Children{
     
     //add report
     public function addReport($data){
-        $this->db->query("INSERT INTO childrecords (child_id, date, reportno, skin, eye, temp, umbilicus, other) VALUES (:child_id, :date, :reportno, :skin, :eye, :temp, :umbilicus, :other)");
+        $this->db->query("INSERT INTO childrecords (child_id, date, skin, eye, temp, umbilicus, weight, other) VALUES (:child_id, :date, :skin, :eye, :temp, :umbilicus, :weight, :other)");
 
         //bind values
         $this->db->bindParam(':child_id',$data['child_id']);
         $this->db->bindParam(':date',$data['date']);
-        $this->db->bindParam(':reportno',$data['reportno']);
+        // $this->db->bindParam(':reportno',$data['reportno']);
         $this->db->bindParam(':skin',$data['skin']);
         $this->db->bindParam(':eye',$data['eye']);
         $this->db->bindParam(':temp',$data['temp']);
         $this->db->bindParam(':umbilicus',$data['umbilicus']);
+        $this->db->bindParam(':weight',$data['weight']);
         $this->db->bindParam(':other',$data['other']);
          
         //execute
@@ -161,6 +176,57 @@ class Children{
 
         $row = $this->db->single();
 
+        // $child = new stdClass();
+        // $child->name = $row->name;
+        // $child->birthday = $row->dob;
+
+        // return $child;
+        return $row;
+    }
+
+    public function calculateAge($birthday) {
+        $now = time();
+        $age = strtotime($birthday);
+
+        $diff = $now - $age;
+
+        $years = floor($diff / (365 * 60 * 60 * 24));
+        $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+        $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+
+        return array(
+            'years' => $years,
+            'months' => $months,
+            'days' => $days
+        );
+    }
+    
+    public function calculateMonths($birthday) {
+        $now = time();
+        $age = strtotime($birthday);
+    
+        $diff = $now - $age;
+    
+        $months = floor($diff / (30 * 60 * 60 * 24));
+    
+        return $months;
+        // return array(
+        //     'months' => $months
+        // );
+    }
+    
+    public function checkvaccine($months){
+        $this->db->query('SELECT * FROM vaccination WHERE months <= :months AND :months < term');
+        $this->db->bindParam(':months', $months);
+        // $this->db->bindParam(':term', $data['term']);
+
+        $row = $this->db->resultSet();
+        
+        // $child = new stdClass();
+        // $child->name = $row->name;
+        // $child->birthday = $row->dob;
+
+        // return $child;
         return $row;
     }
     
@@ -202,5 +268,153 @@ class Children{
 
         return $row;
     }
+    
+    public function getChartByChild($id){
+        $this->db->query("SELECT * FROM children_age_weight WHERE child_id = :child_id");
+
+        $this->db->bindParam(':child_id', $id);
+
+        $results = $this->db->resultSet();
+
+        // $chart = [];
+
+        // foreach ($results as $row) {
+        //     $age = intval($row->age);
+        //     $weight = floatval($row->weight);
+        //     $chart[] = [$age, $weight];
+        // }
+
+        // return $chart;
+        return $results;
+    }
+    
+    public function addChildren_age_weight($data){
+
+
+        $this->db->query("INSERT INTO children_age_weight (child_id, age, weight) 
+                      SELECT :child_id, DATEDIFF(NOW(), :dob) AS age, :weight");
+
+        //bind values
+        $this->db->bindParam(':child_id', $data['child_id']);
+        $this->db->bindParam(':dob', $data['child']->dob);
+        $this->db->bindParam(':weight', $data['weight']);
+         
+        //execute
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function getVaccine(){
+        $this->db->query("SELECT * FROM vaccination");
+
+        // $this->db->bindParam(':child_id', $id);
+
+        $results = $this->db->resultSet();
+
+        // $chart = [];
+
+        // foreach ($results as $row) {
+        //     $age = intval($row->age);
+        //     $weight = floatval($row->weight);
+        //     $chart[] = [$age, $weight];
+        // }
+
+        // return $chart;
+        return $results;
+    }
+    
+    public function activateButton($months, $id){
+        
+        $this->db->query('SELECT vaccination.id, vaccination.vaccine, vaccination.months, vaccination.term 
+                      FROM vaccination 
+                      LEFT JOIN children_vaccination ON vaccination.id = children_vaccination.vaccination_id AND children_vaccination.child_id = :child_id
+                      WHERE vaccination.months <= :months 
+                        AND :months < vaccination.term 
+                        AND (children_vaccination.vaccination_id IS NULL OR children_vaccination.vaccination_id != vaccination.id)');
+        $this->db->bindParam(':months', $months);
+        $this->db->bindParam(':child_id', $id);
+        
+        // $this->db->bindParam(':term', $data['term']);
+
+        $row = $this->db->resultSet();
+        
+        // $child = new stdClass();
+        // $child->name = $row->name;
+        // $child->birthday = $row->dob;
+
+        // return $child;
+        return $row;
+    }   
+    
+    public function deactivateButton($id){
+        $this->db->query('SELECT * FROM children_vaccination WHERE child_id = :child_id');
+        $this->db->bindParam(':child_id', $id);
+        // $this->db->bindParam(':term', $data['term']);
+
+        $row = $this->db->resultSet();
+        
+        // $child = new stdClass();
+        // $child->name = $row->name;
+        // $child->birthday = $row->dob;
+
+        // return $child;
+        return $row;
+    }
+    
+    public function addChildVaccination($data){
+
+
+        $this->db->query("INSERT INTO children_vaccination (child_id, vaccination_id, date, batch) VALUES (:child_id, :vaccination_id, :date, :batch)");
+
+        //bind values
+        $this->db->bindParam(':child_id', $data['child_id']);
+        $this->db->bindParam(':vaccination_id', $data['vaccination_id']);
+        $this->db->bindParam(':date', $data['date']);
+        $this->db->bindParam(':batch', $data['batch']);
+         
+        //execute
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    public function getVaccineById($vaccination_id){
+        $this->db->query('SELECT * FROM vaccination WHERE id = :vaccination_id');
+        $this->db->bindParam(':vaccination_id', $vaccination_id);
+
+        $row = $this->db->single();
+
+        return $row;
+    }
+
+    public function getMidwifeRecordsByChildAndDate($id, $date){
+
+        $this->db->query("SELECT * FROM childrecords WHERE child_id=:child_id AND date=:date" ) ;
+ 
+        $this->db->bindParam(':child_id', $id);  
+        $this->db->bindParam(':date', $date);      
+                                         
+        $row =  $this->db->single();
+
+        return $row;
+    }
+    
+    public function getDoctorRecordsByChildAndDate($id, $date){
+
+        $this->db->query("SELECT * FROM doctor_child_records WHERE child_id=:child_id AND date=:date" ) ;
+ 
+        $this->db->bindParam(':child_id', $id);  
+        $this->db->bindParam(':date', $date);      
+                                         
+        $row =  $this->db->single();
+
+        return $row;
+    }
+
 
 }

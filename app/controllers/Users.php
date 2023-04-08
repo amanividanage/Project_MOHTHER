@@ -5,6 +5,7 @@ class Users extends Controller{
         $this->expectantRecordModel = $this->model('ExpectantRecord');
         $this->adminModel = $this->model('Admin');
         $this->midwifeModel = $this->model('Midwife');
+        $this->doctorModel = $this->model('Doctor');
         $this->clinicattendeeModel = $this->model('Clinicattendee');
        
     }
@@ -194,13 +195,15 @@ class Users extends Controller{
         $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
         $newexpectantRecords =  $this->expectantRecordModel-> getNewExpectantRecordsByNic($nic); 
+        $findPHM = $this->expectantRecordModel-> findPHM();
         //init data 
         $data =[
             'newexpectantRecords'=> $newexpectantRecords,
-            'midwife_id'=>$_SESSION['midwife_id'],
+            'phm'=>$findPHM->phm,
             'active'=>'0',
             'nic' => $nic,
             'name' => trim($_POST['name']),
+            'poa' => trim($_POST['poa']),
             'height' => trim($_POST['height']),
             'weight' => trim($_POST['weight']),
             'bloodPressure' => trim($_POST['bloodPressure']),
@@ -222,6 +225,7 @@ class Users extends Controller{
            //'output' => trim($_POST['output']),
             'nic_err' => '',
             'name_err' => '',
+            'poa_err' => '',
             'height_err' => '',
             'weight_err' => '',
             'bloodPressure_err' => '',
@@ -331,6 +335,7 @@ class Users extends Controller{
         'newexpectantRecords'=> $newexpectantRecords,
         'nic' => '',
         'name' => '',
+        'poa' => '',
         'height' => '',
         'weight' => '',
         'bloodPressure' => '',
@@ -350,6 +355,7 @@ class Users extends Controller{
         
         'nic_err' => '',
         'name_err' => '',
+        'poa_err' => '',
         'height_err' => '',
         'weight_err' => '',
         'bloodPressure_err' => '',
@@ -442,6 +448,18 @@ class Users extends Controller{
                         $this->view('users/login', $data);
                     }
 
+                }elseif($this->doctorModel->findDoctorBynic($data['nic'])){
+                    $loggedInUser = $this->doctorModel->login($data['nic'], $data['password']);
+
+                    if($loggedInUser){
+                        //Create session
+                        $this->createDoctorSession($loggedInUser);
+                    } else{
+                        $data['password_err'] = 'Password Incorrect';
+
+                        $this->view('users/login', $data);
+                    }
+
                 }elseif(($this->clinicattendeeModel->findClinicAttendeeByNic($data['nic'])) OR ($this->clinicattendeeModel->findParentByNic($data['nic']))){
                     $loggedInUser = $this->clinicattendeeModel->login($data['nic'], $data['password']);
 
@@ -497,6 +515,15 @@ class Users extends Controller{
         $_SESSION['midwife_name'] = $midwife->name;
         $_SESSION['midwife_clinic'] = $midwife->clinic;
         redirect('expectantRecords');
+        //redirect('clinicattendees/'.$clinicattendee->id.'');
+    }
+    
+    public function createDoctorSession($doctor){
+        $_SESSION['doctor_id'] = $doctor->doctor_id;
+        $_SESSION['doctor_nic'] = $doctor->nic;
+        $_SESSION['doctor_name'] = $doctor->name;
+        $_SESSION['doctor_clinic'] = $doctor->clinic;
+        redirect('doctorRecords');
         //redirect('clinicattendees/'.$clinicattendee->id.'');
     }
 
