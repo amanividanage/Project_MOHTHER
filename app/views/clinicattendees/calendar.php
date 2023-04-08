@@ -25,25 +25,13 @@
 <div class= "calendarcontent">
 <div class ="calendar-container">
 <div id ="calendar">
-   
-
+</div>
+</div>
 </div>
 
 
-
-</div>
-
-<div class= "insertdates">
-       <div>
-        <table>
-            <tr>
-            <td> <a href="<?php echo URLROOT; ?>/calendars/createclinic/<?php echo $data['clinic']->gnd; ?>"> <button class="add">Create Clinics</button></a></td></tr>
-                       <tr>  <td> <a href="<?php echo URLROOT; ?>/children"><button class="add">Update clinic dates</button></a></td> </tr>
-                       <tr>  <td>     <a href="<?php echo URLROOT; ?>/children"><button class="add">Delete clinic dates</button></a></td> </tr>
-</table>
-                    </div>
-                    <!-- <script>const id = <!?php echo $id; ?>;</script> -->
-
-                </div>
-<script src="<?= URLROOT ?>/js/maternityCalendar.js">const id = <?php echo $id; ?>;</script>
-
+<script src="<?= URLROOT ?>/js/newjs.js"></script>
+<!-- <script src="<!?= URLROOT ?>/js/maternityCalendar.js"></script> -->
+<?php require APPROOT . '/views/inc/footer.php'; ?>
+ 
+ 

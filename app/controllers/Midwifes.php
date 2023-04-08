@@ -264,6 +264,7 @@
 
                 $midwife = $this->midwifeModel->getMidwifeByNic($nic);
                 $postclinic = $this->midwifeModel->getMidwifeClinicByMidwife($nic);
+                
 
                 //Init data
                 $data = [
@@ -308,6 +309,7 @@
                 $phms = $this->midwifeModel->getPHMsToTransfer();
                 $postclinic = $this->midwifeModel->getMidwifeClinicByMidwife($nic);
                 $history = $this->midwifeModel->getWorkingHistory($nic);
+               // $postclinic = $this->midwifeModel->getMidwifeClinicByMidwife($nic);
 
                 $data =[
                     'midwife' => $midwife,
@@ -332,17 +334,28 @@
 
 
 
-
+  
 
         public function createMidwifeSession($midwife){
             $_SESSION['midwife_id'] = $midwife->midwife_id;
             $_SESSION['midwife_nic'] = $midwife->nic;
             $_SESSION['midwife_name'] = $midwife->name;
             $_SESSION['midwife_clinic'] = $midwife->clinic;
+          
             redirect('expectantRecords');
             //redirect('clinicattendees/'.$clinicattendee->id.'');
         }
 
+        
+        // public function createMidwifeSession($midwife) {
+        //     $_SESSION['midwife_id'] = $midwife->midwife_id;
+        //     $_SESSION['midwife_nic'] = $midwife->nic;
+        //     $_SESSION['midwife_name'] = $midwife->name;
+        //     $_SESSION['midwife_clinic'] = $midwife->clinic;
+        //    // $_SESSION['midwife_gnd'] = $this->getMidwifeGnd($midwife->midwife_id);
+        //     redirect('expectantRecords');
+        // }
+        
         
 
         

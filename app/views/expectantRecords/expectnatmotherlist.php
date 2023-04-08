@@ -42,8 +42,8 @@
                         <td><?php echo $expectantRecords->name; ?></td>
                         <td><?php echo $expectantRecords->registrationDate; ?></td>     
                         <td><?php echo $expectantRecords->expectedDateofDelivery; ?></td>              
-                        
                         <td><a href="<?php echo URLROOT; ?>/expectantRecords/info/<?php echo $expectantRecords->nic; ?>" class= "updateDeliveredbutton" > More Info</a></td>
+                        <td><a href="<?php echo URLROOT; ?>/expectantRecords/info/<?php echo $expectantRecords->nic; ?>" class= "updateDeliveredbutton" > Delivered List</a></td>
                     </tr>
                 <?php endforeach; ?>
             </table>

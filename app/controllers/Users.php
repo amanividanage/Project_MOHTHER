@@ -7,6 +7,7 @@ class Users extends Controller{
         $this->midwifeModel = $this->model('Midwife');
         $this->doctorModel = $this->model('Doctor');
         $this->clinicattendeeModel = $this->model('Clinicattendee');
+        $this->doctorModel = $this->model('Doctor');
        
     }
 
@@ -534,6 +535,13 @@ class Users extends Controller{
         redirect('clinicattendees');
         //redirect('clinicattendees/'.$clinicattendee->id.'');
     }
+    // public function createDoctorSession($clinicattendee){
+    //     $_SESSION['doctor_id'] = $doctor->doctor_id;
+    //     $_SESSION['doctor_nic'] = $doctor->nic;
+    //     $_SESSION['doctor_name'] = $doctor->name;
+    //     redirect('users/register');
+        //redirect('clinicattendees/'.$clinicattendee->id.'');
+    //}
 
     public function logout(){
         unset($_SESSION['admin_id']);

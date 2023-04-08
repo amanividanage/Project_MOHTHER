@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style_midwife.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  <!-- full calendar CDN  -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.0.1/index.global.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title><?php echo SITENAME; ?></title>
 </head>
 <body>
@@ -111,6 +117,14 @@
      </select></label>
     </td></tr>
 
+    <tr>
+    <td>
+    <label for="nextAppointmentDate">Next Appointment Date </label>
+    </td>
+    <td><input type="Date" name="nextAppointmentDate"  class= "form <?php echo (!empty($data['nextAppointmentDate_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['nextAppointmentDate']; ?>">
+    <span class="invalid-feedback"><?php echo $data['nextAppointmentDate_err']; ?></span></td>
+    </tr>
+
     <tr><td> <input type="submit" name="Submit" class="myButton"></input></td></tr>
 
 </div>
@@ -120,6 +134,12 @@
    
  
 </form>
+<div class= "calendarcontent_form">
+<!-- <div class ="calendar-container-form"> -->
+<div id ="calendar">
+   
 
+</div>
+<script src="<?= URLROOT ?>/js/maternityCalendar.js"></script>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

@@ -37,7 +37,10 @@
         public function query($sql){
             $this->stmt = $this->dbh->prepare($sql);
         }
-
+  
+        public function lastInsertId(){
+            return $this->dbh->lastInsertId();
+        }
         //Bind values
         public function bindParam($param, $value, $type= null){
             if(is_null($type)){
@@ -62,12 +65,19 @@
         //execute the prepared statement
         public function execute(){
             return $this->stmt->execute();
+            
         }
 
         //get resulit set as array of objects
         public function resultSet(){
             $this->execute();
             return $this->stmt->fetchAll(PDO::FETCH_OBJ);
+        }
+
+        public function result(){
+            $this->execute();
+            return $this->stmt->fetchAll(PDO::FETCH_OBJ);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
         }
 
         //Get single record as object

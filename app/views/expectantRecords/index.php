@@ -96,8 +96,8 @@ echo $today;
                         <td>    <a href="<?php echo URLROOT; ?>/users/register/<?php echo $newexpectantRecords->nic; ?>" class= "updateDeliveredbutton" > Add</a></button> </td>  
                         <td><a href="<?php echo URLROOT; ?>/expectantRecords/deleteusers/<?php echo $newexpectantRecords->nic; ?>" class= "updateDeliveredbutton" > Ignore</a></td>
                     </tr>
-                  
-                    
+<!--                   
+                    <a href="<!?php echo URLROOT; ?>/calendars/timeslot/<!?php echo $timeSlots->calendar_id; ?>" class= "updateDeliveredbutton" > Ignore</a> -->
                 <?php endforeach; ?>
                 </div>
             </table>

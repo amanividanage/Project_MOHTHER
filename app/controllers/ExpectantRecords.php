@@ -90,7 +90,7 @@
          } else{
           
         $midwifeprofileinfo =  $this->midwifeModel->getProfileMidwife(); 
-        $getPHM =  $this->midwifeModel->getPHMByMidwife();
+        $getPHM =  $this->midwifeModel->getPHMByMidwifee();
    
          
         $data = [
@@ -269,7 +269,9 @@
               'calcium'=> trim($_POST['calcium']),
               'triposha'=> trim($_POST['triposha']),
               'poa'=>$poa,
-              'mother'=>$mother
+              'mother'=>$mother,
+              'nextAppointmentDate'=> trim($_POST['nextAppointmentDate']),
+              'nextAppointmentDate_err'=> '',
             //  'info'=> $info
             
             ];
@@ -285,13 +287,17 @@
              if(empty($data['weight'])){
               $data['weight_err'] = 'Please enter the weight';
              }
+             if(empty($data['nextAppointmentDate'])){
+              $data['nextAppointmentDate_err'] = 'Please enter the next appointment date';
+            }
 
              if(empty($data['bp'])){
               $data['bp_err'] = 'Please enter the blood pressure';
              }
 
             //make sure that there are no errors
-             if(empty($data['weight_err']) && empty($data['bp_err']))
+            //  if(empty($data['weight_err']) && empty($data['bp_err']))
+             if(empty($data['weight_err']) && empty($data['bp_err']) && empty($data['nic_err']) && empty($data['nextAppointmentDate_err']))
              {
                //validated
                 //die('Successfull');
@@ -311,7 +317,7 @@
            } else{
 
             $info =  $this->clinicattendeeModel->getClinicAttendeeByNic($nic);
-        $data = [
+          $data = [
           'nic' =>'',
           'nic_err' =>'',
           // 'reportNo' =>'',
@@ -327,7 +333,10 @@
           'antimarialDrugs'=>'',
           'calcium'=>'',
           'triposha'=>'',
-          'info' => $info
+          'poa' => '',
+          'info' => $info,
+          'nextAppointmentDate'=> '',
+          'nextAppointmentDate_err'=>'',
         
           
           
@@ -479,6 +488,4 @@
     }
     
   
-}
-  
-  
+} 
