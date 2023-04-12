@@ -22,9 +22,10 @@
                 <h2 class="content_h1">Clinic Attendee Profile</h2>
 
                 <button class="req_btn" id="myBtn_1"><b>Request
-                        for Re-registration for Maternity Clinics</b></button>
+                        for Re-registration for Maternity Clinics</b>
+                </button>
 
-<br><br>
+                <br><br>
 
                 <!-- The Modal -->
                 <!-- <div id="myModal_1" class="modal_1">
@@ -105,10 +106,10 @@
                         <td>E-mail:</td>
                         <td><?php echo $data['profile_expectant']->memail; ?> </td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td></td>
                         <td><button class="edit_btn" onclick="document.getElementById(\'1\').style.display=\'block\'" style="width:auto;">Edit</button></td>
-                    </tr>
+                    </tr> -->
                     </table>
                     </div>
                     </div>
@@ -146,8 +147,8 @@
                         <td><?php echo $data['profile_expectant']->hemail; ?> </td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td><button class="edit_btn" onclick="document.getElementById(\'1\').style.display=\'block\'" style="width:auto;">Edit</button></td>
+                        <td><button onclick="editExpectant('<?php echo $data['profile_expectant']->mcontactno; ?>', '<?php echo $data['profile_expectant']->hcontactno; ?>')">Edit Profile</button></td>
+                        <td><a href="<?php echo URLROOT; ?>/clinicattendees/changeexpectantpassword"><button>Change Password</button></a></td>
                     </tr>
                     </table>
                     </div>
@@ -191,7 +192,8 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td><button class="edit_btn" onclick="document.getElementById(\'1\').style.display=\'block\'" style="width:auto;">Edit</button></td>
+
+                        <!-- <td><button class="edit_btn" onclick="document.getElementById(\'1\').style.display=\'block\'" style="width:auto;">Edit</button></td> -->
                     </tr>
                     </table>
                     </div>
@@ -202,7 +204,7 @@
                     <table>
                     <thead>
                         <tr>
-                            <th colspan=2>Parent Records</th>
+                            <th colspan=2>Parent Details</th>
                         </tr>
                     </thead>
                     <tr>
@@ -226,8 +228,8 @@
                         <td><?php echo $data['profile_parent']->phm; ?></td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td><a href="' . URLROOT . '/clinicattendees/changePassword"><button class="c_pw_btn" onclick="document.getElementById(\'11\').style.display=\'block\'" style="width:auto;">change password</button></a></td>
+                        <td><button onclick="editParent('<?php echo $data['profile_parent']->contactno; ?>')">Edit Profile</button></td>
+                        <td><a href="<?php echo URLROOT; ?>/clinicattendees/changeparentpassword"><button>Change Password</button></a></td>
                     </tr>
                     </table>
                     </div>
@@ -236,113 +238,124 @@
                         <?php
                     }
                 ?>
-
-
-
-                <hr class="line">
+    
             </div>
-            
 
             
 
-                    <!-- edit mcontact -->
-                    <div id="1" class="modal">
-                        <!-- <form class="modal-content animate" action="</?php echo URLROOT; ?>/clinicattendees/profile"
-                            method="post"> -->
+            <div id="edit-modal1" class="modal">
+                <!-- Modal content -->
+                <div class="container_new_modal">
+                    <span onclick="document.getElementById('edit-modal').style.display='none'" class="close3">&times;</span>
+                    <form name="edit-form1" action="<?php echo URLROOT; ?>/clinicattendees/profile" method="post" onsubmit="return validateForm1()">
+                        <label for="edit-mcontact">Mother Contact No:</label>
+                        <input type="text" id="edit-mcontact" name="edit-mcontact" required>
+                        <span id="phone-error1" class="popup-form-err"></span><br>
 
-                        <!-- <div class="clinicattendeeinfo">
-                                <h2>Change the info</h2>
-                                <label for="mcontactno"> Your contact No</label>
-                                <input type="text" placeholder="Enter new contact number" name="mcontactno"
-                                    value='</?php echo $data[' profile_expectant']->mcontactno; ?>' required>
+                        <label for="edit-hcontact">Father Contact No:</label>
+                        <input type="text" id="edit-hcontact" name="edit-hcontact" required>
+                        <span id="phone-error2" class="popup-form-err"></span><br>
 
-                                <label for="hcontactno">Husbund's Contact No</label>
-                                <input type="text" placeholder="Enter new contact number" name="hcontactno"
-                                    value='</?php echo $data[' profile_expectant']->hcontactno; ?>' required>
-
-                                <button class="back_btn" type="submit">Submit</button>
-                                <br> <br>
-
-                            </div> -->
-
-                        <?php if(!empty($data['profile_expectant'])){ ?>
-                        <form name="edit-form_1" class="modal-content animate"
-                            action="<?php echo URLROOT; ?>/clinicattendees/profile" method="post"
-                            onsubmit="return validateForm_1()">
-                            <div class="clinicattendee_expectant_info">
-                                <h2>Change the info</h2>
-                                <label for="m_contactno"> Your contact No</label>
-                                <input type="text" placeholder="Enter new contact number" name="m_contactno"
-                                    value="<?php echo $data['profile_expectant']->mcontactno; ?>" required>
-                                <span class="form-err"
-                                    id="m_contactno_err"><?php echo $data['m_contactno_err']; ?></span>
-
-                                <label for="h_contactno">Husband's Contact No</label>
-                                <input type="text" placeholder="Enter new contact number" name="h_contactno"
-                                    value="<?php echo $data['profile_expectant']->hcontactno; ?>" required>
-                                <span class="form-err"
-                                    id="h_contactno_err"><?php echo $data['h_contactno_err']; ?></span>
-                                <button class="back_btn" type="submit">Submit</button>
-
-                                <br> <br>
-                            </div>
-                        </form>
-                        <?php } else { ?>
-                        <form name="edit-form_1" class="modal-content animate"
-                            action="<?php echo URLROOT; ?>/clinicattendees/profile" method="post"
-                            onsubmit="return validateForm_1()">
-                            <div class="clinicattendee_parent_info">
-                                <label for="contact_no">Contact No</label>
-                                <input type="text" placeholder="Enter new contact number" name="contact_no"
-                                    value="<?php echo $data['profile_parent']->contactno; ?>" required>
-                                <span class="form-err" id="contact_no_err"><?php echo $data['contact_no_err']; ?></span>
-                                <button class="back_btn" type="submit"
-                                    onclick="clinicattendee_parent_info('<?php echo $data['profile_parent']->contactno; ?>')">Submit</button>
-                                <br> <br>
-                            </div>
-                        </form>
-                        <?php } ?>
-
-
-
-
-                    </div>
+                        <input type="submit" value="Save">
+                    </form>
                 </div>
             </div>
 
+            <div id="edit-modal2" class="modal">
+                <!-- Modal content -->
+                <div class="container_new_modal">
+                    <span onclick="document.getElementById('edit-modal').style.display='none'" class="close3">&times;</span>
+                    <form name="edit-form2" action="<?php echo URLROOT; ?>/clinicattendees/profile" method="post" onsubmit="return validateForm2()">
+                        <label for="edit-contact">Parent's Contact No:</label>
+                        <input type="text" id="edit-contact" name="edit-contact" required>
+                        <span id="phone-error" class="popup-form-err"></span><br>
 
-
-
+                        <input type="submit" value="Save">
+                    </form>
+                </div>
+            </div>
+            
             <script>
-            function validateForm_1() {
-                var m_contactno = document.forms["edit-form_1"]["m_contactno"].value;
-                var h_contactno = document.forms["edit-form_1"]["h_contactno"].value;
-                var contact_no = document.forms["edit-form_1"]["contact_no"].value;
+                function validateForm1() {
+                    var mcontact = document.forms["edit-form1"]["edit-mcontact"].value;
+                    var hcontact = document.forms["edit-form1"]["edit-hcontact"].value;
+
+                    if (mcontact == "" || hcontact == "") {
+                        alert("Please fill out all fields");
+                        return false;
+                    }
 
 
-                if (m_contactno == "" || h_contactno == "" || contact_no == "") {
-                    alert("Please fill out all fields");
-                    return false;
+                    var phoneRegex = /^\d{10}$/;
+                    if (!phoneRegex.test(mcontact)) {
+                        document.getElementById("phone-error1").innerHTML = "Invalid Phone Number";
+                        document.getElementById("phone-error1").style.visibility = "visible";
+                        return false;
+                    } else if(!phoneRegex.test(hcontact)){
+                        document.getElementById("phone-error2").innerHTML = "Invalid Phone Number";
+                        document.getElementById("phone-error2").style.visibility = "visible";
+                        return false;
+                    } else {
+                        document.getElementById("phone-error1").style.visibility = "hidden";
+                        document.getElementById("phone-error2").style.visibility = "hidden";
+                        return true;
+                    }
+
                 }
 
-                var m_contactnoRegex = /^\d{10}$/;
-                if (!m_contactnoRegex.test(m_contactno)) {
-                    document.getElementById("m_contactno_err").innerHTML = "Invalid Phone Number";
-                    document.getElementById("m_contactno_err").style.visibility = "visible";
-                    return false;
-                } else {
-                    document.getElementById("m_contactno_err").style.visibility = "hidden";
-                    return true;
+                function validateForm2() {
+                    var contact = document.forms["edit-form2"]["edit-contact"].value;
+
+                    if (contact == "") {
+                        alert("Please fill out all fields");
+                        return false;
+                    }
+
+
+                    var phoneRegex = /^\d{10}$/;
+                    if (!phoneRegex.test(contact)) {
+                        document.getElementById("phone-error").innerHTML = "Invalid Phone Number";
+                        document.getElementById("phone-error").style.visibility = "visible";
+                        return false;
+                    } else {
+                        document.getElementById("phone-error").style.visibility = "hidden";
+                        return true;
+                    }
+
                 }
 
+                function editExpectant(mcontact, hcontact) {
+                    // Get the input fields in the edit form
+                    var mcontactField = document.getElementById("edit-mcontact");
+                    var hcontactField = document.getElementById("edit-hcontact");
 
+                    // Set the values of the input fields to the data from the row
+                    mcontactField.value = mcontact;
+                    hcontactField.value = hcontact;
 
-            }
+                    // Show the popup modal
+                    document.getElementById('edit-modal1').style.display='block';
+                }
 
-            <script src = "<?php echo URLROOT ; ?>/js/clinicattendee.js" >
+                function editParent(contact) {
+                    // Get the input fields in the edit form
+                    var contactField = document.getElementById("edit-contact");
+
+                    // Set the values of the input fields to the data from the row
+                    contactField.value = contact;
+
+                    // Show the popup modal
+                    document.getElementById('edit-modal2').style.display='block';
+                }
+
+                    
             </script>
+            
+
+                    
+
+           
 
 
-
-            <script src="<?php echo URLROOT ; ?>/js/clinicattendee.js"></script>
+            <!-- <script src="<!?php echo URLROOT ; ?>/js/clinicattendee.js"></script> -->
             <?php require APPROOT . '/views/inc/footer.php'; ?>

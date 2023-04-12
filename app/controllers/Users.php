@@ -471,14 +471,14 @@ class Users extends Controller{
                         } else{
                             $data['password_err'] = 'Password Incorrect';
 
-                            $this->view('clinicattendees/login', $data);
+                            $this->view('users/login', $data);
                         }
 
                 } else {
                     //Clinic Attendee not found
                     $data['nic_err'] = 'No User found';
                     
-                    $this->view('midwifes/login', $data);
+                    $this->view('users/login', $data);
                 }
                 
                 

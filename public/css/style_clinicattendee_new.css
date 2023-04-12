@@ -300,3 +300,150 @@ button {
     cursor: pointer;
     width: 100%;
 }
+
+
+
+/*model...........................................................................................*/
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+  /*container_new_modal*/
+.container_new_modal {
+    margin-top: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    border-radius: 5px;
+    background-color: #F0E3FF;
+    padding: 20px;
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #F0E3FF;
+    font-size: larger;
+    color: #3E206D;
+    margin-top: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    height: 20%;
+}
+
+  /* The Close Button  - Close1*/
+  .close {
+    color: #8946A6;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+  
+.close:hover,
+.close:focus {
+    color: #3E206D;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*Close-2*/
+.close2 {
+    color: #8946A6;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+  
+.close2:hover,
+.close2:focus {
+    color: #3E206D;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*Close-3*/
+.close3 {
+    color: #8946A6;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+} 
+  
+.close3:hover,
+.close3:focus {
+    color: #3E206D;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.popup-form-err{
+    visibility: hidden;
+    font-size: smaller;
+    color: red;
+     
+}
+
+/*........................................................*/
+/*Form - CSS - start*/
+
+input[type=text], select, input[type=email], input[type=password], input[type=date] {
+    width: 100%;
+    background-color: #8946A6;
+    color: #F0E3FF;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 18px;
+    resize: vertical;
+}
+
+input::placeholder{
+    color: #F0E3FF;
+}
+
+input[type=submit] {
+    background-color: #8946A6;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.container_new {
+    margin-top: 70px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    border-radius: 5px;
+    background-color: #F0E3FF;
+    padding: 20px;
+}
+
+.form_font{
+    color: #3E206D;
+    font-weight: bold;
+}
+
+.form-err{
+    font-size: smaller;
+    color: red;
+}
