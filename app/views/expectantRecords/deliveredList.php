@@ -20,7 +20,7 @@
 
         <div>
            
-            <h2 class="content_h1">Expectant Mothers</h2>
+            <h2 class="content_h1">Delivered Mothers</h2>
             <hr class="line">
         </div>
         <div class= "newregdetails">
@@ -42,8 +42,8 @@
                         <td><?php echo $expectantRecords->name; ?></td>
                         <td><?php echo $expectantRecords->registrationDate; ?></td>     
                         <td><?php echo $expectantRecords->expectedDateofDelivery; ?></td>              
+                        
                         <td><a href="<?php echo URLROOT; ?>/expectantRecords/info/<?php echo $expectantRecords->nic; ?>" class= "updateDeliveredbutton" > More Info</a></td>
-                        <td><a href="<?php echo URLROOT; ?>/expectantRecords/delivered/<?php echo $expectantRecords->nic; ?>" class= "updateDeliveredbutton" > Delivered List</a></td>
                     </tr>
                 <?php endforeach; ?>
             </table>
@@ -59,6 +59,5 @@
 
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
-<!--<th><a href="clinics/info/<!?php echo $clinic->id; ?>"><!?php echo $expectantRecords->nic; ?></a> </th>
 
 

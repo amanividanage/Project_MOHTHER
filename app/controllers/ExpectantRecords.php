@@ -470,7 +470,7 @@
       $this->view('expectantRecords/expectant_allrecords', $data);
     }
 
-    public function delivered(){
+    public function deliveredList(){
         
       // $mother = $this->expectantRecordModel-> getMother($nic); 
       // $midwife_records = $this->expectantRecordModel-> getMidwifeRecordsByMotherAndDate($nic, $date); 
@@ -486,6 +486,188 @@
 
       $this->view('expectantRecords/delivered', $data);
     }
+
+    public function delivered($nic){
+      $info =  $this->clinicattendeeModel->getClinicAttendeeByNic($nic);
+      $infoOfRegistrant =  $this->expectantRecordModel->getdatafromRegistration($nic);
+      date_default_timezone_set('Asia/Colombo');
+
+    //  $info =  $this->expectantRecordModel->displayExpectantRecords($nic);
+      $report = $this->expectantRecordModel->showExpectantMonthlyRecords($nic);
+      $expectantRecords =  $this->expectantRecordModel-> getExpectantRecords(); 
+      $expectantRecordsHeight =  $this->expectantRecordModel-> getExpectantHeight($nic); 
+      $children = $this->childrenModel->getChildrenByParent($nic);
+
+      $date = $this->expectantRecordModel-> getMother($nic); 
+
+     // $info =  $this->clinicattendeeModel->getClinicAttendeeByNic($nic);
+     
+      $mother = $this->expectantRecordModel-> getMother($nic); 
+      $poa = $this->expectantRecordModel->calculatePOAWeeks($mother->poa, $mother->registrationDate);
+
+      if($_SERVER['REQUEST_METHOD']=='POST'){
+          //Sanitize POST array
+          $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+          $data = [
+            'info' => $info,
+            'report'=>$report,
+            'expectantRecords'=>$expectantRecords,
+            'expectantRecordsHeight'=>$expectantRecordsHeight,
+            'children'=>$children,
+            'infoOfRegistrant'=>$infoOfRegistrant,
+
+            'nic' => trim($_POST['nic']),
+            'nic_err'=>'',
+            // 'reportNo' => trim($_POST['reportNo']),
+            // 'reportNo_err'=>'',
+            'phm'=>trim($_POST['phm']),
+            'relationship'=>'Mother',
+            'name'=>trim($_POST['name']),
+            'nic'=>trim($_POST['nic']), 
+            'age'=>trim($_POST['age']),
+            'nochildren'=>trim($_POST['nochildren']),
+            'levelofeducation'=>trim($_POST['levelofeducation']),
+            'occupation'=>trim($_POST['occupation']),
+            'contactno'=>trim($_POST['contactno']),
+            'address'=>trim($_POST['address']),
+            'email'=>trim($_POST['email']),
+            'date' => date("Y-m-d"),
+            'miscarriage' => trim($_POST['miscarriage']),
+            'weekscompleted' => trim($_POST['weekscompleted']),
+            'weekscompleted_err'=>'',
+            'weight'=> trim($_POST['weight']),
+            'weight_err'=>'',
+            'bp'=> trim($_POST['bp']),
+            'bp_err'=>'',
+            'placeofDelivery'=> trim($_POST['placeofDelivery']),
+            'placeofDelivery_err'=>'',
+            'modeofDelivery'=> trim($_POST['weight']),
+            'modeofDelivery_err'=>'',
+            'postnatalcomplication'=> trim($_POST['postnatalcomplication']),
+            'postnatalcomplication_err'=>'',
+           
+            'symptoms'=> trim($_POST['symptoms']),
+            'symptoms_err'=>'',
+            'diabetes'=> trim($_POST['diabetes']),
+            'diabetes_err'=>'',
+
+            'poa'=>$poa,
+            'mother'=>$mother,
+          
+          
+          ];
+         //validate data
+          //  if(empty($data['reportNo'])){
+          //   $data['reportNo_err'] = 'Please enter the report Number';
+          //  }
+
+          //  if(empty($data['date'])){
+          //   $data['date_err'] = 'Please enter the date';
+          // }
+           
+           if(empty($data['weight'])){
+            $data['weight_err'] = 'Please enter the weight';
+           }
+          
+
+           if(empty($data['bp'])){
+            $data['bp_err'] = 'Please enter the blood pressure';
+           }
+           
+           if(empty($data['weekscompleted'])){
+            $data['weekscompleted_err'] = 'Enter the No. of weeks completed';
+          }
+          if(empty($data['symptoms'])){
+            $data['symptoms_err'] = 'Enter the symptoms if any';
+          }
+          if(empty($data['postnatalcomplication'])){
+            $data['postnatalcomplication_err'] = 'Any Postnatal complications?';
+          }
+          //make sure that there are no errors
+          //  if(empty($data['weight_err']) && empty($data['bp_err']))
+           if(empty($data['weight_err']) && empty($data['bp_err']) && empty($data['weekscompleted_err']) && ($data['miscarriage'])=='No'  )
+           {
+             //validated
+              //die('Successfull');
+
+              //add expectant mother's records
+              if($this->expectantRecordModel->movingToDeliveredList($data) && $this->expectantRecordModel->updateactiveOfExpectant($data) && $this->expectantRecordModel->deliveredToParent($data)){
+               
+               redirect('expectantRecords/expectnatmotherlist');
+            }else{
+                die('Something went wrong');
+            }
+        }  if(empty($data['weight_err']) && empty($data['bp_err']) && empty($data['weekscompleted_err']) && ($data['miscarriage'])=='Yes'  ){
+          if($this->expectantRecordModel->movingToDeliveredList($data) && $this->expectantRecordModel->updateactiveOfExpectant($data)){
+         
+            redirect('expectantRecords/expectnatmotherlist');
+          }
+        } 
+        
+        
+        
+        
+        
+        else{
+            //load view with errors
+            $this->view('expectantRecords/delivered', $data);
+        }
+        
+         } else{
+
+        
+         // $mother = $this->expectantRecordModel-> getMother($nic); 
+         // $poa = $this->expectantRecordModel->calculatePOAWeeks($mother->poa, $mother->registrationDate);
+    
+        $data = [
+          'info' => $info,
+          'nic' => '',
+          'nic_err'=>'',
+          'date' => date("Y-m-d"),
+          'miscarriage' => '',
+          'weekscompleted' => '',
+          'weekscompleted_err'=>'',
+          'weight'=> '',
+          'weight_err'=>'',
+          'bp'=> '',
+          'bp_err'=>'',
+          'placeofDelivery'=> '',
+          'placeofDelivery_err'=>'',
+          'modeofDelivery'=> '',
+          'modeofDelivery_err'=>'',
+          'postnatalcomplication'=> '',
+          'postnatalcomplication_err'=>'',
+         
+          'symptoms'=> '',
+          'symptoms_err'=>'',
+          'diabetes'=> '',
+
+          'poa'=>$poa,
+          'mother'=>$mother,
+          'report'=>$report,
+          'expectantRecords'=>$expectantRecords,
+          'expectantRecordsHeight'=>$expectantRecordsHeight,
+          'children'=>$children,
+          'infoOfRegistrant'=>$infoOfRegistrant
+        //  'newexpectantRecords'=> $newexpectantRecords,
+        
+      
+        
+        
+              
+        ];
+       
+    
+      $this->view('expectantRecords/delivered', $data);
+
+      
+
+
+
+
+
+
+      }
     
   
-} 
+} }
