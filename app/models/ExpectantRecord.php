@@ -167,6 +167,95 @@ class ExpectantRecord {
 
     }
 
+    public function movingToDeliveredList($data){
+        $this->db->query('INSERT INTO deliveredlist (nic,date, miscarriage, weekscompleted, weight,bmi, bp, placeofDelivery, modeofDelivery, postnatalcomplication, symptoms, diabetes) 
+                          SELECT :nic, :date, :miscarriage,:weekscompleted, :weight, (:weight / POW((:height / 100), 2)) AS bmi, :bp, :placeofDelivery, :modeofDelivery, :postnatalcomplication, :symptoms, :diabetes');
+        
+        
+        //bind values
+        $this->db->bindParam(':nic', $data['nic']);
+        $this->db->bindParam(':date', $data['date']);
+        $this->db->bindParam(':miscarriage', $data['miscarriage']);
+        $this->db->bindParam(':weekscompleted', $data['weekscompleted']);
+        $this->db->bindParam(':weight', $data['weight']);
+        $this->db->bindParam(':height', $data['mother']->height);
+        $this->db->bindParam(':bp', $data['bp']);
+        $this->db->bindParam(':placeofDelivery', $data['placeofDelivery']);
+        $this->db->bindParam(':modeofDelivery', $data['modeofDelivery']);
+        $this->db->bindParam(':postnatalcomplication', $data['postnatalcomplication']);
+        $this->db->bindParam(':symptoms', $data['symptoms']);
+        $this->db->bindParam(':diabetes', $data['diabetes']);
+
+      
+        //execute for update/delete
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+
+
+    }
+    public function deliveredToParent($data){
+
+        //$sessionId = $_SESSION['midwife_id'];
+        $this->db->query("INSERT INTO parent (phm, relationship, name, nic, age, nochildren, levelofeducation, occupation, contactno, address, email) VALUES (:phm, :relationship, :name, :nic, :age, :nochildren, :levelofeducation, :occupation, :contactno, :address, :email)");
+    
+        //bind values
+        $this->db->bindParam(':phm',$data['phm']);
+        $this->db->bindParam(':relationship',$data['relationship']);
+    
+        $this->db->bindParam(':name',$data['name']);
+        $this->db->bindParam(':nic',$data['nic']);
+        $this->db->bindParam(':age',$data['age']);
+        $this->db->bindParam(':nochildren',($data['nochildren'] + 1));
+        $this->db->bindParam(':levelofeducation',$data['levelofeducation']);
+        $this->db->bindParam(':occupation',$data['occupation']);
+        $this->db->bindParam(':contactno',$data['contactno']);
+        $this->db->bindParam(':address',$data['address']);
+        $this->db->bindParam(':email',$data['email']);
+    
+        // $this->db->bindParam(':gnd',$data['gnd']);
+        // $this->db->bindParam(':phm',$data['phm']);
+      //  $this->db->bindParam(':password',$data['password']);
+         
+        //execute
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+
+
+    public function getdatafromRegistration($nic){
+        $this->db->query('SELECT * FROM registration WHERE nic = :nic');
+        $this->db->bindParam(':nic', $nic);
+
+        $row = $this->db->single();
+
+        return $row;
+    }
+
+    public function updateactiveOfExpectant($data){
+       
+        $this->db->query("UPDATE expectant  SET active ='1' WHERE nic = :nic");
+    
+        $this->db->bindParam(':nic', $data['nic']);
+            // $row = $this->db->single();
+    
+            // return $row;
+            
+             //Execute
+             if($this->db->execute()){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
     public function addMother_age_weight($data){
 
 
