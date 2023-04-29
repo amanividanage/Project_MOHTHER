@@ -62,16 +62,86 @@ class Clinicattendee{
     }
 
     //edit profile
-    public function updateclinicattendeeinfo($data){
-        $this->db->query("UPDATE registration  SET  mcontactno=:mcontactno, hcontactno=:hcontactno WHERE nic = :nic");
+    public function updateExpectantInfo($data){
+        $this->db->query("UPDATE registration SET mcontactno=:mcontactno, hcontactno=:hcontactno WHERE nic = :nic");
         $this->db->bindParam(':nic',  $_SESSION['clinicattendee_nic']);
-        $this->db->bindParam(':mcontactno',  $data['mcontactno']);
-        $this->db->bindParam(':hcontactno',  $data['hcontactno']);
+        $this->db->bindParam(':mcontactno',  $data['edit-mcontact']);
+        $this->db->bindParam(':hcontactno',  $data['edit-hcontact']);
         // $this->db->bindParam(':password',  $data['password']);
         
-        $row = $this->db->single();
+        //Execute
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function updateParentInfo($data){
+        $this->db->query("UPDATE parent SET contactno=:contactno WHERE nic = :nic");
+        $this->db->bindParam(':nic',  $_SESSION['clinicattendee_nic']);
+        $this->db->bindParam(':contactno',  $data['edit-contact']);
+        // $this->db->bindParam(':password',  $data['password']);
+        
+        //Execute
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-        return $row;
+    public function getExpectantPassword() {
+        $this->db->query("SELECT password FROM expectant WHERE nic = :nic");
+        $this->db->bindParam(':nic',  $_SESSION['clinicattendee_nic']);
+    
+        $row = $this->db->single();
+    
+        return $row->password;
+    }
+
+    public function getParentPassword() {
+        $this->db->query("SELECT password FROM parent WHERE nic = :nic");
+        $this->db->bindParam(':nic',  $_SESSION['clinicattendee_nic']);
+    
+        $row = $this->db->single();
+    
+        return $row->password;
+    }
+
+    public function editExpectantPassword($data){
+        $this->db->query("UPDATE expectant SET password = :password WHERE nic = :nic");
+
+        $this->db->bindParam(':nic',  $_SESSION['clinicattendee_nic']);
+        $this->db->bindParam(':password',  $data['new-password']);
+        
+         //Execute
+         if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function editParentPassword($data){
+        $this->db->query("UPDATE parent SET password = :password WHERE nic = :nic");
+
+        $this->db->bindParam(':nic',  $_SESSION['clinicattendee_nic']);
+        $this->db->bindParam(':password',  $data['new-password']);
+        
+         //Execute
+         if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function editUserPassword($data){
+        $this->db->query("UPDATE users SET password = :password WHERE nic = :nic");
+
+        $this->db->bindParam(':nic',  $_SESSION['clinicattendee_nic']);
+        $this->db->bindParam(':password',  $data['new-password']);
         
          //Execute
          if($this->db->execute()){

@@ -72,90 +72,235 @@
         // }
 
         public function profile(){
-            $profile =  $this->clinicattendeeModel->getProfile();
+            // $profile =  $this->clinicattendeeModel->getProfile();
             
 
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
-              // Sanitize profile array
-            //   $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-      
-            //   $data = [
-            //     // 'clinicattendee_nic' => $_SESSION['clinicattendee_nic'],
-            //     'mcontactno' => trim($_POST['mcontactno']),
-            //     'hcontactno' => trim($_POST['hcontactno']),
-            //     // 'new_password' =>trim($_POST['new_password']),
-            //     // 'confirm_password' =>trim($_POST['confirm_password']),
-            //     'mcontactno_err' => '',
-            //     'hcontactno_err' => '',
-            //     // 'new_password_err' => '',
-            //     // 'confirm_password_err' => '',
-            //     'profile' => $profile
-            //   ];
-      
-            //   // Validate data
-            //   if(empty($data['mcontactno'])){
-            //     $data['mcontactno_err'] = 'Please enter new contact number';
-            //   }
-            //   if(strlen($data['mcontactno']) < 10){
-            //     $data['mcontactno_err'] = 'Please enter valid phone number';
-            // }
-            //   if(empty($data['hcontactno'])){
-            //     $data['hcontactno_err'] = 'Please enter new contact number';
-            //   }
-            //   if(strlen($data['hcontactno']) < 10){
-            //     $data['hcontactno_err'] = 'Please enter valid phone number';
-            // }
-
-            // if(empty($data['new_password'])){
-            //     $data['new_password'] = 'please enter new password';
-            // }elseif(strlen($data['new_password']) <8){
-            //     $data['new_password_err'] = "Password be at least 8 characters";
-            // }
-
-            // //validate confirm password
-            // if(empty($data['confirm_password'])){
-            //     $data['confirm_password_err'] = 'please confirm password';
-            // }else{
-            //     if($data['new_password'] !=$data['confirm_password']) {
-            //         $data['confirm_password_err'] ='password do not match'; 
-            //     }
-            // }
-      
-            //   // Make sure no errors
-            //   if(empty($data['mcontactno_err']) && empty($data['hcontactno_err'])){
-            //     // Validated
+                // Sanitize profile array
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                //print_r($_POST['profile_parent']);
                 
-            //     if($this->clinicattendeeModel->updateclinicattendeeinfo($data)){
-            //         //print_r($_POST);
-            //        redirect('clinicattendees/profile');
-            //     }else{
-            //      redirect('clinicattendees/profile');
-            //     }
+                if(!($_POST['edit-contact'])){
+                    
+
+                    $data = [
+                        'edit-mcontact' => trim($_POST['edit-mcontact']),
+                        'edit-hcontact' => trim($_POST['edit-hcontact']),
+                        'edit-mcontact_err' => '',
+                        'edit-hcontact_err' => '',
+                    ];
+          
+                    // Make sure no errors
+                    if(empty($data['edit-mcontact_err']) && empty($data['edit-hcontact_err'])){
+                        // Validated
+                        
+                        if($this->clinicattendeeModel->updateExpectantInfo($data)){
+                            //print_r($_POST);
+                            redirect('clinicattendees/profile');
+                        }else{
+                            die('Someting went wrong');
+                        }
+                        
+                    } else {
+                        // Load view with errors
+                        $this->view('clinicattendees/profile', $data);
+                    }
+
+                } else {
+                    $data = [
+                        'edit-contact' => trim($_POST['edit-contact']),
+                        'edit-contact_err' => '',
+                    ];
+          
+                    // Make sure no errors
+                    if(empty($data['edit-contact_err'])){
+                        // Validated
+                        
+                        if($this->clinicattendeeModel->updateParentInfo($data)){
+                            //print_r($_POST);
+                            redirect('clinicattendees/profile');
+                        }else{
+                            die('Someting went wrong');
+                        }
+                        
+                    } else {
+                        // Load view with errors
+                        $this->view('clinicattendees/profile', $data);
+                    }
+                }
+
                 
-            //   } else {
-            //     // Load view with errors
-            //     $this->view('clinicattendees/profile', $data);
-            //   }
       
             } else {
                 
-                //  $profile = $this->clinicattendeeModel->getProfile(); 
                 $profile_expectant = $this->clinicattendeeModel->getProfile_expectant();
                 $profile_parent = $this->clinicattendeeModel->getProfile_parent();
       
-              $data = [
-                'profile_expectant' => $profile_expectant,
-                'profile_parent' => $profile_parent,
-                // 'id' => $id,
-                // 'mcontactno' => $profile->mcontactno,
-                // 'mcontactno_err' =>'',
-                // 'hcontactno' => $profile->hcontactno,
-                // 'hcontactno_err' =>'',
-                // 'profile' => $profile
-              ];
+                $data = [
+                    'profile_expectant' => $profile_expectant,
+                    'profile_parent' => $profile_parent,
+                    'edit-mcontact' => '',
+                    'edit-hcontact' => '',
+                    'edit-mcontact_err' => '',
+                    'edit-hcontact_err' => '',
+                    'edit-contact' => '',
+                    'edit-contact_err' => '',
+                ];
         
-              $this->view('clinicattendees/profile', $data);
+                $this->view('clinicattendees/profile', $data);
             }
+        }
+
+        public function changeexpectantpassword(){
+            if($_SERVER["REQUEST_METHOD"] == 'POST'){
+                //Sanitize POST array
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        
+                $data = [
+                    'current-password' => trim($_POST['current-password']),
+                    'new-password' => trim($_POST['new-password']),
+                    'confirm-password' => trim($_POST['confirm-password']),
+                    'current-password_err' => '',
+                    'new-password_err' => '',
+                    'confirm-password_err' => '',
+                ];
+        
+                // Retrieve the hashed password from the database
+                $hashed_password = $this->clinicattendeeModel->getExpectantPassword();
+        
+                // Validate the current password
+                if (!password_verify($data['current-password'], $hashed_password)) {
+                    $data['current-password_err'] = 'Current password is incorrect';
+                }
+        
+                //validate data
+        
+                if(empty($data['new-password'])){
+                    $data['new-password_err'] = 'Please enter a password';
+                } elseif(strlen($data['new-password']) < 8){
+                    $data['new-password_err'] = 'Password must be at least 8 characters long';
+                } elseif(!preg_match('/[A-Z]/', $data['new-password'])){
+                    $data['new-password_err'] = 'Password must contain at least one uppercase letter';
+                } elseif(!preg_match('/[a-z]/', $data['new-password'])){
+                    $data['new-password_err'] = 'Password must contain at least one lowercase letter';
+                } elseif(!preg_match('/[0-9]/', $data['new-password'])){
+                    $data['new-password_err'] = 'Password must contain at least one number';
+                } elseif(!preg_match('/[!@#$%^&*()\-_=+{};:,<.>]/', $data['new-password'])){
+                    $data['new-password_err'] = 'Password must contain at least one special character';
+                } elseif(empty($data['confirm-password'])) {
+                    $data['confirm-password_err'] = 'Please confirm your password';
+                } elseif($data['new-password'] !== $data['confirm-password']){
+                    $data['confirm-password_err'] = 'Passwords do not match';
+                }
+        
+                //Make sure no errors
+                if(empty($data['confirm-password_err']) && empty($data['new-password_err']) && empty($data['current-password_err'])){
+
+                    //Hash password
+                    $data['new-password'] = password_hash($data['new-password'], PASSWORD_DEFAULT);
+
+                    if($this->clinicattendeeModel->editExpectantPassword($data) AND $this->clinicattendeeModel->editUserPassword($data)){
+                    //     //flash('clinic_added', 'Clinic Added');
+                        redirect('clinicattendees/profile');
+                    //     //header("Location: http://localhost/moh/clinics");
+                    //     //exit();
+                    } else {
+                        die('Someting went wrong');
+                    }
+                } else {
+                    //Load view with errors
+                    $this->view('clinicattendees/changeexpectantpassword', $data);
+                }
+        
+            } else {
+                $data = [
+                    'current-password' => '',
+                    'new-password' => '',
+                    'confirm-password' => '',
+                    'current-password_err' => '',
+                    'new-password_err' => '',
+                    'confirm-password_err' => '',
+                ];
+            
+        
+                $this->view('clinicattendees/changeexpectantpassword', $data);
+            }     
+        }
+
+        public function changeparentpassword(){
+            if($_SERVER["REQUEST_METHOD"] == 'POST'){
+                //Sanitize POST array
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        
+                $data = [
+                    'current-password' => trim($_POST['current-password']),
+                    'new-password' => trim($_POST['new-password']),
+                    'confirm-password' => trim($_POST['confirm-password']),
+                    'current-password_err' => '',
+                    'new-password_err' => '',
+                    'confirm-password_err' => '',
+                ];
+        
+                // Retrieve the hashed password from the database
+                $hashed_password = $this->clinicattendeeModel->getParentPassword();
+        
+                // Validate the current password
+                if (!password_verify($data['current-password'], $hashed_password)) {
+                    $data['current-password_err'] = 'Current password is incorrect';
+                }
+        
+                //validate data
+        
+                if(empty($data['new-password'])){
+                    $data['new-password_err'] = 'Please enter a password';
+                } elseif(strlen($data['new-password']) < 8){
+                    $data['new-password_err'] = 'Password must be at least 8 characters long';
+                } elseif(!preg_match('/[A-Z]/', $data['new-password'])){
+                    $data['new-password_err'] = 'Password must contain at least one uppercase letter';
+                } elseif(!preg_match('/[a-z]/', $data['new-password'])){
+                    $data['new-password_err'] = 'Password must contain at least one lowercase letter';
+                } elseif(!preg_match('/[0-9]/', $data['new-password'])){
+                    $data['new-password_err'] = 'Password must contain at least one number';
+                } elseif(!preg_match('/[!@#$%^&*()\-_=+{};:,<.>]/', $data['new-password'])){
+                    $data['new-password_err'] = 'Password must contain at least one special character';
+                } elseif(empty($data['confirm-password'])) {
+                    $data['confirm-password_err'] = 'Please confirm your password';
+                } elseif($data['new-password'] !== $data['confirm-password']){
+                    $data['confirm-password_err'] = 'Passwords do not match';
+                }
+        
+                //Make sure no errors
+                if(empty($data['confirm-password_err']) && empty($data['new-password_err']) && empty($data['current-password_err'])){
+
+                    //Hash password
+                    $data['new-password'] = password_hash($data['new-password'], PASSWORD_DEFAULT);
+
+                    if($this->clinicattendeeModel->editParentPassword($data) AND $this->clinicattendeeModel->editUserPassword($data)){
+                    //     //flash('clinic_added', 'Clinic Added');
+                        redirect('clinicattendees/profile');
+                    //     //header("Location: http://localhost/moh/clinics");
+                    //     //exit();
+                    } else {
+                        die('Someting went wrong');
+                    }
+                } else {
+                    //Load view with errors
+                    $this->view('clinicattendees/changeparentpassword', $data);
+                }
+        
+            } else {
+                $data = [
+                    'current-password' => '',
+                    'new-password' => '',
+                    'confirm-password' => '',
+                    'current-password_err' => '',
+                    'new-password_err' => '',
+                    'confirm-password_err' => '',
+                ];
+            
+        
+                $this->view('clinicattendees/changeparentpassword', $data);
+            }     
         }
 
 
