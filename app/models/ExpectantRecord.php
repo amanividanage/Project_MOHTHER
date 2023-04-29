@@ -22,6 +22,17 @@ class ExpectantRecord {
         $results =  $this->db->resultSet();
         return $results;
     }
+    public function getDeliveredList(){
+        $this->db->query("SELECT * FROM deliveredlist, midwife_clinic WHERE midwife_clinic.phm = deliveredlist.phm AND midwife_clinic.nic = :midwife_nic ");
+
+        $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
+         
+
+        $results =  $this->db->resultSet();
+        return $results;
+    }
+
+
     
     public function getExpectantMothers(){
         $this->db->query("SELECT expectant.nic, expectant.name, expectant.registrationDate, expectant.expectedDateofDelivery FROM expectant, midwife_clinic WHERE midwife_clinic.phm = expectant.phm AND expectant.active='0' AND midwife_clinic.nic = :midwife_nic ");
@@ -168,13 +179,14 @@ class ExpectantRecord {
     }
 
     public function movingToDeliveredList($data){
-        $this->db->query('INSERT INTO deliveredlist (nic,date, miscarriage, weekscompleted, weight,bmi, bp, placeofDelivery, modeofDelivery, postnatalcomplication, symptoms, diabetes) 
-                          SELECT :nic, :date, :miscarriage,:weekscompleted, :weight, (:weight / POW((:height / 100), 2)) AS bmi, :bp, :placeofDelivery, :modeofDelivery, :postnatalcomplication, :symptoms, :diabetes');
+        $this->db->query('INSERT INTO deliveredlist (nic,date, phm, miscarriage, weekscompleted, weight,bmi, bp, placeofDelivery, modeofDelivery, postnatalcomplication, symptoms, diabetes) 
+                          SELECT :nic, :date,:phm,:miscarriage,:weekscompleted, :weight, (:weight / POW((:height / 100), 2)) AS bmi, :bp, :placeofDelivery, :modeofDelivery, :postnatalcomplication, :symptoms, :diabetes');
         
         
         //bind values
         $this->db->bindParam(':nic', $data['nic']);
         $this->db->bindParam(':date', $data['date']);
+        $this->db->bindParam(':phm', $data['phm']);
         $this->db->bindParam(':miscarriage', $data['miscarriage']);
         $this->db->bindParam(':weekscompleted', $data['weekscompleted']);
         $this->db->bindParam(':weight', $data['weight']);

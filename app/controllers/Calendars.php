@@ -4,9 +4,51 @@
         $this->calendarModel = $this->model('Calendar');
         $this->midwifeModel = $this->model('Midwife');
        $this->timeSlotModel = $this->model('TimeSlot');
+       $this->clinicattendeeModel = $this->model('Clinicattendee');
        
      
     }
+
+    public function index(){
+
+        //get records
+        // $expectantRecords =  $this->expectantRecordModel-> getExpectantRecords(); 
+        // $newexpectantRecords =  $this->expectantRecordModel-> getNewExpectantRecords(); 
+  
+          $data = [
+            // 'expectantRecords' => $expectantRecords ,
+            // 'newexpectantRecords'=> $newexpectantRecords
+            ];
+           
+        
+          $this->view('calendars/clinicattendeecalendar', $data);
+        }
+  
+    // public function index(){
+    //     //Get clinic attendee
+    //    //$clinicattendee = $this->clinicattendeeModel->getClinicAttendeeByNic($nic);
+    //     $mother_or_parent = $this->clinicattendeeModel->clarifyMotherOrParent();
+    //     $children =  $this->clinicattendeeModel->getchild_list();
+    //     $report = $this->clinicattendeeModel->getReport();
+
+    //     $mother = $this->clinicattendeeModel-> getMother(); 
+    //     $poa = '';
+    //     if(!empty($mother_or_parent)){
+    //         $poa = $this->clinicattendeeModel->calculatePOA($mother->poa, $mother->registrationDate);
+    //     }
+    //     // $poa = $this->clinicattendeeModel-> calculatePOA($mother->poa, $mother->registrationDate);
+
+    //     $data = [
+    //       // 'clinicattendee' => $clinicattendee
+    //       'mother_or_parent' => $mother_or_parent,
+    //       'children' => $children,
+    //       'report'  => $report,
+
+    //       'poa' => $poa,
+    //     ];
+
+    //     $this->view('clinicattendees/index', $data);
+    // }
 
     public function calendarEvents () {
         $calendarEvents =  $this->calendarModel->getEvents();
@@ -47,24 +89,76 @@
 
         $this->view('calendars/maternitycalendar', $data);
     }
+
+    public function calendarEventsforclinicattendee () {
+        $calendarEvents =  $this->clinicattendeeModel->getnextclinicdate();
+
+
+        $data = [
+            'clinic_dates' => $calendarEvents,
+            ];
+
+        echo json_encode($data['clinic_dates']);
+    }
+
+   
+    
+
+    public function calendarforclinicattendees(){
+        // $clinic =  $this->clinicattendeeModel->getclinicattendeebyPHM();
+        // //$calendarEvents =  $this->calendarModel->getEvents();
+
+
+        $data = [
+            // 'clinic' => $clinic,
+          
+            ];
+
+        
+
+        $this->view('calendars/clinicattendeecalendar', $data);
+    }
     public function timeslot($calendar_id) {
         
     
         // Get the time slots for the given date and midwife
         $timeSlots = $this->calendarModel->displayTimeSlots($calendar_id);
-        $clinicdetails = $this->calendarModel->displayclinicdetails($calendar_id);
+        // $clinicdetails = $this->calendarModel->displayclinicdetails($calendar_id);
     
         $data = [
             'timeSlots' => $timeSlots,
-            'clinicdetails'=>$clinicdetails,
+            // 'clinicdetails'=>$clinicdetails,
             
         ];
     
         $this->view('calendars/timeslot', $data);
     }
+
+    public function timeslotclinicattendee($calendar_id) {
+        
     
-
-
+        // Get the time slots for the given date and midwife
+        $timeSlots = $this->calendarModel->displayTimeSlots($calendar_id);
+        // $displayTimeslotdetails = $this->calendarModel->displayTimeslotdetails($clinic_timeslot_id);
+    
+        $data = [
+            'timeSlots' => $timeSlots,
+            // 'displayTimeslotdetails'=>$displayTimeslotdetails,
+            // 'clinic_timeslot_id'=>$clinic_timeslot_id,
+            
+        ];
+     
+          
+        //    if($this->calendarModel->updatethetimeslot($data)){
+        //     
+        //      redirect('calendars/timeslotclinicattendee');}
+     
+   
+        $this->view('calendars/timeslotclinicattendee', $data);
+        
+    }
+    
+   
 
   public function createclinic(){
     $clinic =  $this->midwifeModel->getPHMByMidwife();
