@@ -36,7 +36,7 @@ window.addEventListener('DOMContentLoaded', function () {
             }).then((result) => {
                 if (result.isConfirmed) {
                     const calendarId = info.event.id;
-                    const url = `http://localhost/MOHTHER/calendars/timeslot/${calendarId}`;
+                    const url = `http://localhost/MOHTHER/calendars/timeslotclinicattendee/${calendarId}`;
                     window.location.href = url;
                 }
             });
@@ -44,29 +44,13 @@ window.addEventListener('DOMContentLoaded', function () {
         
     });
 
-    // let gnd;
-
-    // // ajax
-    // $.ajax({
-    //     //url: `http://localhost/MOHTHER/calendars/calendarEvents/${phm}`,
-    //    url: "http://localhost/MOHTHER/clinicattendees/getGnd",
-    //     type: 'GET',
-    //     dataType: "JSON",
-    //     success: function(res) {
-    //         gnd = res.nic;
-    //         getEvents(gnd);
-    //     }
-    // });
-
-    // getEvents(gnd);
-    // var nic = document.getElementById("nic").value;
-    var nic = "fffzzzwwetth";
+    
     calendar.render();
 
     $.ajax({
-        
-        // url: "http://localhost/MOHTHER/clinicattendees/getGnd/" + nic,
-        url: `http://localhost/MOHTHER/clinicattendees/getGnd/${nic}`,
+        //url: `http://localhost/MOHTHER/calendars/calendarEvents/${phm}`,
+       //url: `http://localhost/MOHTHER/calendars/calendarEvents/${id}`,
+       url: "http://localhost/MOHTHER/calendars/calendarEventsforclinicattendee",
         type: 'GET',
         dataType: "JSON",
         success: function(res) {
@@ -88,36 +72,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
             calendar.addEventSource(clinicDates);
         }
-    });})
-
-    // function getEvents(nic){
-    //     $.ajax({
-    //         //url: `http://localhost/MOHTHER/calendars/calendarEvents/${phm}`,
-    //        url: `http://localhost/MOHTHER/clinicattendees/getGnd/${nic}`,
-    //       // url: "http://localhost/MOHTHER/calendars/calendarEvents",
-    //         type: 'GET',
-    //         dataType: "JSON",
-    //         success: function(res) {
-    //             console.log(res);
-    
-    //             res.forEach(function (item) {
-    //                 clinicDates.push(
-    //                     {
-    //                         id: item.clinic_id,
-    //                         title: item.title,
-    //                         start: item.clinic_date,
-    //                         end: item.clinic_date,
-    //                         start_time: item.start_event,
-    //                         end_time: item.end_event,
-    //                         phm: item.phm
-//     //                     }
-//     //                 );
-//     //             });
-    
-//                 calendar.addEventSource(clinicDates);
-//             }
-//         });
-//     }
-// })
+    });
+})
 
 

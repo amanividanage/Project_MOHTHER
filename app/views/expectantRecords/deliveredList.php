@@ -20,7 +20,7 @@
 
         <div>
            
-            <h2 class="content_h1">Delivered Mothers</h2>
+            <h2 class="content_h1">Delivered List
             <hr class="line">
         </div>
         <div class= "newregdetails">
@@ -31,19 +31,19 @@
                 </tr>
                 <tr>
                     <th>NIC</th>
-                    <th>Name</th>
-                    <th>Date of Registration</th>
-                    <th>Expected Date of Delivery</th>
+                    <th>Date</th>
+                    <th>Miscarriage/Not</th>
+                    <th>Place of Delivery</th>
                     <th></th>
                 </tr>
-                <?php foreach($data['expectantRecords'] as $expectantRecords):?>
+                <?php foreach($data['deliveredlistinfo'] as $deliveredlistinfo):?>
                     <tr>
-                    <th><?php echo $expectantRecords->nic; ?></a> </th>
-                        <td><?php echo $expectantRecords->name; ?></td>
-                        <td><?php echo $expectantRecords->registrationDate; ?></td>     
-                        <td><?php echo $expectantRecords->expectedDateofDelivery; ?></td>              
-                        
-                        <td><a href="<?php echo URLROOT; ?>/expectantRecords/info/<?php echo $expectantRecords->nic; ?>" class= "updateDeliveredbutton" > More Info</a></td>
+                    <th><?php echo $deliveredlistinfo->nic; ?></a> </th>
+                        <td><?php echo $deliveredlistinfo->date; ?></td>
+                        <td><?php echo $deliveredlistinfo->miscarriage; ?></td>     
+                        <td><?php echo $deliveredlistinfo->placeofDelivery; ?></td>              
+                        <td><a href="<?php echo URLROOT; ?>/expectantRecords/info/<?php echo $deliveredlistinfo->nic; ?>" class= "updateDeliveredbutton" > More Info</a></td>
+                       
                     </tr>
                 <?php endforeach; ?>
             </table>
@@ -59,5 +59,6 @@
 
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
+<!--<th><a href="clinics/info/<!?php echo $clinic->id; ?>"><!?php echo $expectantRecords->nic; ?></a> </th>
 
 

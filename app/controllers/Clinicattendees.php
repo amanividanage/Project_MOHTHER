@@ -36,27 +36,20 @@
         }
 
         public function calendar(){
-           
-            $data = [
+
+            $data = [  
               
             ];
         
              $this->view('clinicattendees/calendar', $data);
            
         }
-        // public function calendarEvents($nic){
-          
-        //   $calendarEvents =  $this->calendarModel->getEventsforClinicAttendee($nic);
-        //     $data = [
-        //         'clinic_dates' => $calendarEvents,
-        //     ];
-        //     echo json_encode($data['clinic_dates']);
-          
-           
-        // }
+        
+       
+     
         public function getGnd($nic){
 
-            //$calendarEvents =  $this->calendarModel->getEvents();
+           
             $calendarEvents =  $this->calendarModel->getEventsforClinicAttendee($nic);
     
     
@@ -65,7 +58,7 @@
                 ];
     
            echo json_encode($data['clinic_dates']);
-           // $id = 
+           
         }
 
         // public function profile(){
@@ -450,6 +443,8 @@
                        // redirect('');
                      //  $this->view('clinicattendees/calendar', $data);
                      redirect('clinicattendees/calendar');
+
+                    //   redirect('childrens/childprofile/'.$id.'');
                     } else {
                         die('Someting went wrong');
                     }

@@ -471,20 +471,17 @@
     }
 
     public function deliveredList(){
-        
-      // $mother = $this->expectantRecordModel-> getMother($nic); 
-      // $midwife_records = $this->expectantRecordModel-> getMidwifeRecordsByMotherAndDate($nic, $date); 
-      // $doctor_records = $this->expectantRecordModel->getDoctorRecordsByMotherAndDate($nic, $date);
-      // // $chart = $this->expectantRecordModel->getChartByMother($nic);
-
+      $deliveredlistinfo =  $this->expectantRecordModel->getDeliveredList();
+      $expectantRecords =  $this->expectantRecordModel-> getExpectantMothers(); 
       $data = [
           
-          // 'mother'=> $mother,
-          // 'midwife_records'=> $midwife_records,
-          // 'doctor_records'=> $doctor_records,
+         'expectantRecords'=> $expectantRecords,
+        // 'info'=> $info,
+        'deliveredlistinfo'=> $deliveredlistinfo,
+       
       ];
 
-      $this->view('expectantRecords/delivered', $data);
+      $this->view('expectantRecords/deliveredList', $data);
     }
 
     public function delivered($nic){

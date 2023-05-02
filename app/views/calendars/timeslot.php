@@ -47,6 +47,7 @@
                <tr>
                    <th>slot id</th>
                    <th>Time duration</th>
+                   <th>Reserverd/Not</th>
                    
                   
                </tr>
@@ -55,7 +56,7 @@
                     <tr>
                     <th ><?php echo $timeSlots->clinic_timeslot_id; ?></th>
                         <td class= "timeslotbox"><?php echo $timeSlots->start_time; ?> - <?php echo $timeSlots->end_time;; ?></td>
-                                    
+                              
                     </tr>
                 <?php endforeach; ?>
 
