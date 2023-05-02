@@ -680,362 +680,112 @@
         $this->view('clinicattendees/child_charts', $data);
     }
 
-    // public function request(){
-    //     // Check for POST
-    //     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    //         //Process form
+    public function request(){
+        // Check for POST
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            //Process form
 
-    //         // Sanitize POST data
-    //         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-    //         $data =[
+            $data =[
                
-    //             'hname'=>trim($_POST['hname']),
-    //             'hage'=>trim($_POST['hage']),
-    //             'hlevelofeducation'=>trim($_POST['hlevelofeducation']),
-    //             'hoccupation'=>trim($_POST['hoccupation']),
-    //             'hcontactno'=>trim($_POST['hcontactno']),
-    //             'hemail'=>trim($_POST['hemail']),
+                'hname'=>trim($_POST['hname']),
+                'hage'=>trim($_POST['hage']),
+                'hlevelofeducation'=>trim($_POST['hlevelofeducation']),
+                'hoccupation'=>trim($_POST['hoccupation']),
+                'hcontactno'=>trim($_POST['hcontactno']),
+                'hemail'=>trim($_POST['hemail']),
                 
     
                
-    //             'hname_err'=>'',
-    //             'hage_err'=>'',
-    //             'hlevelofeducation_err'=>'',
-    //             'hoccupation_err'=>'',
-    //             'hcontactno_err'=>'',
-    //             'hemail_err'=>''
+                'hname_err'=>'',
+                'hage_err'=>'',
+                'hlevelofeducation_err'=>'',
+                'hoccupation_err'=>'',
+                'hcontactno_err'=>'',
+                'hemail_err'=>''
                 
-    //         ];
+            ];
 
-    //         //Validate data
+            //Validate data
            
 
-    //         if(empty($data['hname'])){
-    //             $data['hname_err']='please enter name';
-    //         }
-
-    //         if(empty($data['hage'])){
-    //             $data['hage_err']='please enter age';
-    //         }
-
-    //         if(empty($data['hlevelofeducation'])){
-    //             $data['hlevelofeducation_err']='please enter level of education';
-    //         }
-
-    //         if(empty($data['hoccupation'])){
-    //             $data['hoccupation_err']='please enter occupation';
-    //         }
-
-    //         if(empty($data['hcontactno'])){
-    //             $data['h_contactno_err']='please enter contact no';
-    //         } 
-    //         if(strlen($data['hcontactno']) < 10){
-    //             $data['hcontactno_err'] = 'Please enter valid phone number';
-    //         }
-
-
-    //         if(empty($data['hemail'])){
-    //             $data['hemail_err']='please enter an e-mail';
-    //         }
-            
-           
-
-    //         //Make sure no errors
-    //         if(empty($data['hname_err']) && empty($data['hage_err']) &&empty($data['h_levelofeducation_err']) && empty($data['h_occupation_err']) && empty($data['h_contactno_err']) && empty($data['hemail_err'])){
-                
-               
-
-    //             //reuestq clinic attendee
-    //             if($this->clinicattendeeModel->request($data)){
-    //                 redirect('clinicattendees/request_date');
-    //             } else {
-    //                 die('Someting went wrong');
-    //             }
-
-    //         } else{
-    //             // Load view with errors
-    //             $this->view('clinicattendees/request', $data);
-    //         }
-
-
-
-    //     } else {
-    //         //Init data
-    //         $data =[
-                
-    //             'hname'=>'',
-    //             'hage'=>'',
-    //             'hlevelofeducation'=>'',
-    //             'hoccupation'=>'',
-    //             'hcontactno'=>'',
-    //             'hemail'=>'',
-                
-    
-                
-    //             'hname_err'=>'',
-    //             'hage_err'=>'',
-    //             'hlevelofeducation_err'=>'',
-    //             'hoccupation_err'=>'',
-    //             'hcontactno_err'=>'',
-    //             'hemail_err'=>''
-              
-    //         ];
-
-    //         // Load view
-    //         $this->view('clinicattendees/request', $data);
-
-    //     }
-    // }
-
-
-    public function parent_request(){
-
-        $parent_request =  $this->clinicattendeeModel->getparent_request();
-            if($_SERVER['REQUEST_METHOD'] == 'POST'){
-              // Sanitize profile array
-              $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-      
-              $data = [
-                // 'clinicattendee_nic' => $_SESSION['clinicattendee_nic'],
-                
-                //  'relationship' => trim($_POST['relationship']),
-                 'name' => trim($_POST['name']),
-                 'age' => trim($_POST['age']),
-                 'nochildren' => trim($_POST['nochildren']),
-                 'levelofeducation' => trim($_POST['levelofeducation']),
-                 'occupation' => trim($_POST['occupation']),
-                 'contactno' => trim($_POST['contactno']),
-                 'address' => trim($_POST['address']),
-                 'email' => trim($_POST['email']),
-                 'gnd' => trim($_POST['gnd']),
-                 'hname' => trim($_POST['hname']),
-                 'hage' => trim($_POST['hage']),
-                 'hlevelofeducation' => trim($_POST['hlevelofeducation']),
-                 'hcontactno' => trim($_POST['hcontactno']),
-                 'hoccupation' => trim($_POST['hoccupation']),
-                 'hemail' => trim($_POST['hemail']),
-                
-                'name_err' => '',
-                'age_err' => '',
-                'nochildren_err' => '',
-                'levelofeducation_err' => '',
-                'occupation_err' => '',
-                'contactno_err' => '',
-                'address_err' => '',
-                'email_err' => '',
-                'gnd_err' => '',
-                'hname_err' => '',
-                'hage_err' => '',
-                'hlevelofeducation_err' => '',
-                'hcontactno_err' => '',
-                'hoccupation_err' => '',
-                'hemail_err' => '',
-                
-                
-               
-                'parent_request' => $parent_request
-              ];
-      
-              // Validate data
-              if(empty($data['contactno'])){
-                $data['contactno_err'] = 'Please enter new contact number';
-              }
-              if(strlen($data['contactno']) < 10){
-                $data['contactno_err'] = 'Please enter valid phone number';
+            if(empty($data['hname'])){
+                $data['hname_err']='please enter name';
             }
-              if(empty($data['hcontactno'])){
-                $data['hcontactno_err'] = 'Please enter new contact number';
-              }
-              if(strlen($data['hcontactno']) < 10){
+
+            if(empty($data['hage'])){
+                $data['hage_err']='please enter age';
+            }
+
+            if(empty($data['hlevelofeducation'])){
+                $data['hlevelofeducation_err']='please enter level of education';
+            }
+
+            if(empty($data['hoccupation'])){
+                $data['hoccupation_err']='please enter occupation';
+            }
+
+            if(empty($data['hcontactno'])){
+                $data['h_contactno_err']='please enter contact no';
+            } 
+            if(strlen($data['hcontactno']) < 10){
                 $data['hcontactno_err'] = 'Please enter valid phone number';
             }
 
-      
-              // Make sure no errors
-              if(empty($data['contactno_err']) && empty($data['hcontactno_err'])){
-                // Validated
+
+            if(empty($data['hemail'])){
+                $data['hemail_err']='please enter an e-mail';
+            }
+            
+           
+
+            //Make sure no errors
+            if(empty($data['hname_err']) && empty($data['hage_err']) &&empty($data['h_levelofeducation_err']) && empty($data['h_occupation_err']) && empty($data['h_contactno_err']) && empty($data['hemail_err'])){
                 
-                if($this->clinicattendeeModel->update_parent_info($data) AND $this->clinicattendeeModel->insert_all_details($data)){
-                    //print_r($_POST);
-                   redirect('clinicattendees/parent_request');
-                }else{
+               
+
+                //reuestq clinic attendee
+                if($this->clinicattendeeModel->request($data)){
+                    redirect('clinicattendees/request_date');
+                } else {
                     die('Someting went wrong');
                 }
-                
-              } else {
-                // Load view with errors
-                $this->view('clinicattendees/parent_request', $data);
-              }
-      
-            } else {
-                
-                 $parent_request = $this->clinicattendeeModel->getparent_request(); 
-      
-              $data = [
-                // 'id' => $id,
-                
 
-                'name' => $parent_request->name,
-                'name_err' => '',
-                'age' => $parent_request->age,
-                'age_err' =>'',
-                'nochildren' => $parent_request->nochildren,
-                'nochildren_err' => '',
-                'levelofeducation' => $parent_request->levelofeducation,
-                'levelofeducation_err' => '',
-                'occupation' => $parent_request->occupation,
-                'occupation_err' => '',
-                'contactno' => $parent_request->contactno,
-                'contactno_err' => '',
-                'address_err' => $parent_request->address,
-                'address_err' => '',
-                'email' => $parent_request->email,
-                'email_err' => '',
-                'gnd' => $parent_request->gnd,
-                'gnd_err' => '',
-                // 'hname' => $parent_request->hname,
-                // 'hname_err' => '',
-                // 'hage' => $parent_request->hage,
-                // 'hage_err' => '',
-                // 'hlevelofeducation' => $parent_request->hlevelofeducation,
-                // 'hlevelofeducation_err' => '',
-                // 'hcontactno' => $parent_request->hcontactno,
-                // 'hcontactno_err' =>'',
-                // 'hoccupation' => $parent_request->hoccupation,
-                // 'hoccupation_err' =>'',
-                // 'hemail' => $parent_request->hemail,
-                // 'hemail_err' =>'',
-                
-                'parent_request' => $parent_request
-              ];
-        
-              $this->view('clinicattendees/parent_request', $data);
+            } else{
+                // Load view with errors
+                $this->view('clinicattendees/request', $data);
             }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // // Check for POST
-        // if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        //     //Process form
-
-        //     // Sanitize POST data
-        //     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-        //     $data =[
-               
-        //         'hname'=>trim($_POST['hname']),
-        //         'hage'=>trim($_POST['hage']),
-        //         'hlevelofeducation'=>trim($_POST['hlevelofeducation']),
-        //         'hoccupation'=>trim($_POST['hoccupation']),
-        //         'hcontactno'=>trim($_POST['hcontactno']),
-        //         'hemail'=>trim($_POST['hemail']),
+        } else {
+            //Init data
+            $data =[
                 
-    
-               
-        //         'hname_err'=>'',
-        //         'hage_err'=>'',
-        //         'hlevelofeducation_err'=>'',
-        //         'hoccupation_err'=>'',
-        //         'hcontactno_err'=>'',
-        //         'hemail_err'=>''
-                
-        //     ];
-
-        //     //Validate data
-           
-
-        //     if(empty($data['hname'])){
-        //         $data['hname_err']='please enter name';
-        //     }
-
-        //     if(empty($data['hage'])){
-        //         $data['hage_err']='please enter age';
-        //     }
-
-        //     if(empty($data['hlevelofeducation'])){
-        //         $data['hlevelofeducation_err']='please enter level of education';
-        //     }
-
-        //     if(empty($data['hoccupation'])){
-        //         $data['hoccupation_err']='please enter occupation';
-        //     }
-
-        //     if(empty($data['hcontactno'])){
-        //         $data['h_contactno_err']='please enter contact no';
-        //     } 
-        //     if(strlen($data['hcontactno']) < 10){
-        //         $data['hcontactno_err'] = 'Please enter valid phone number';
-        //     }
-
-
-        //     if(empty($data['hemail'])){
-        //         $data['hemail_err']='please enter an e-mail';
-        //     }
-            
-           
-
-        //     //Make sure no errors
-        //     if(empty($data['hname_err']) && empty($data['hage_err']) &&empty($data['h_levelofeducation_err']) && empty($data['h_occupation_err']) && empty($data['h_contactno_err']) && empty($data['hemail_err'])){
-                
-               
-
-        //         //reuestq clinic attendee
-        //         if($this->clinicattendeeModel->request($data)){
-        //             redirect('clinicattendees/request_date');
-        //         } else {
-        //             die('Someting went wrong');
-        //         }
-
-        //     } else{
-        //         // Load view with errors
-        //         $this->view('clinicattendees/request', $data);
-        //     }
-
-
-
-        // } else {
-        //     //Init data
-        //     $data =[
-                
-        //         'hname'=>'',
-        //         'hage'=>'',
-        //         'hlevelofeducation'=>'',
-        //         'hoccupation'=>'',
-        //         'hcontactno'=>'',
-        //         'hemail'=>'',
+                'hname'=>'',
+                'hage'=>'',
+                'hlevelofeducation'=>'',
+                'hoccupation'=>'',
+                'hcontactno'=>'',
+                'hemail'=>'',
                 
     
                 
-        //         'hname_err'=>'',
-        //         'hage_err'=>'',
-        //         'hlevelofeducation_err'=>'',
-        //         'hoccupation_err'=>'',
-        //         'hcontactno_err'=>'',
-        //         'hemail_err'=>''
+                'hname_err'=>'',
+                'hage_err'=>'',
+                'hlevelofeducation_err'=>'',
+                'hoccupation_err'=>'',
+                'hcontactno_err'=>'',
+                'hemail_err'=>''
               
-        //     ];
+            ];
 
-        //     // Load view
-        //     $this->view('clinicattendees/request', $data);
+            // Load view
+            $this->view('clinicattendees/request', $data);
 
-        // }
+        }
     }
 
     public function req_expectant(){
@@ -1069,7 +819,6 @@
                 'hcontactno_err' => '',
                 'hoccupation_err' => '',
                 'hemail_err' => '',
-                'active'=>'1',
                 
                
                 'req_expectant' => $req_expectant
@@ -1098,7 +847,7 @@
                     //print_r($_POST);
                    redirect('clinicattendees/req_expectant');
                 }else{
-                 redirect('clinicattendees/profile');
+                 redirect('clinicattendees/req_expectant');
                 }
                 
               } else {
@@ -1198,18 +947,6 @@
         $this->view('clinicattendees/expectant_allrecords', $data);
     }
 
-
-    public function pro_pic(){
-     
-        
-   
-         $data = [
-             
-             
-         ];
-   
-         $this->view('clinicattendees/pro_pic', $data);
-    }
     
 
     

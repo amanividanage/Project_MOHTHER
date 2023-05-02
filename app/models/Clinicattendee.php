@@ -8,7 +8,7 @@ class Clinicattendee{
 
     
     public function clarifyMotherOrParent(){
-        $this->db->query("SELECT * FROM parent WHERE nic = :nic");
+        $this->db->query("SELECT * FROM expectant WHERE nic = :nic");
         $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
         $row = $this->db->single();
 
@@ -234,69 +234,19 @@ class Clinicattendee{
     //     }
     // }
 
-    public function getparent_request(){
-        $this->db->query("SELECT * FROM parent WHERE nic = :nic");
-        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
-        $row = $this->db->single();
 
-        return $row;
-    }
-
-    // public function parent_request($data){
-    //     $this->db->query("INSERT INTO parent(name,age,nochildren,levelofeducation,occupation,contactno,address,email,gnd,hname, hage, hlevelofeducation, hoccupation, hcontactno, hemail) VALUES ( :name, :age, :nochildren, :levelofeducation, :occupation, :contactno,:address, :email, :gnd, :hname, :hage, :hlevelofeducation, :hoccupation, :hcontactno, :hemail)");
-   
-    //     //bind values
-    //     $this->db->bindParam(':name',$data['name']);
-    //     $this->db->bindParam(':age',$data['age']);
-    //     $this->db->bindParam(':nochildren',$data['nochildren']);
-    //     $this->db->bindParam(':levelofeducation',$data['levelofeducation']);
-    //     $this->db->bindParam(':occupation',$data['occupation']);
-    //     $this->db->bindParam(':contactno',$data['contactno']);
-    //     $this->db->bindParam(':address',$data['address']);
-    //     $this->db->bindParam(':email',$data['email']);
-    //     $this->db->bindParam(':gnd',$data['gnd']);
-        
-    //     $this->db->bindParam(':hname',$data['hname']);
-    //     $this->db->bindParam(':hage',$data['hage']);
-    //     $this->db->bindParam(':hlevelofeducation',$data['hlevelofeducation']);
-    //     $this->db->bindParam(':hoccupation',$data['hoccupation']);
-    //     $this->db->bindParam(':hcontactno',$data['hcontactno']);
-    //     $this->db->bindParam(':hemail',$data['hemail']);
-       
-        
-    //     //execute
-    //     if($this->db->execute()){
-    //        return true;
-    //     }else{
-    //        return false;
-    //     }
-    // }
-    
-    
-    //insert_husband_details
-
-
-    public function insert_all_details($data){
-        $this->db->query("INSERT INTO registration(mname,  mage,  mlevelofeducation,  moccupation,  mcontactno,  address,  memail,  gnd, hname, hage, hlevelofeducation, hoccupation, hcontactno, hemail) VALUES ( :name,  :age,  :levelofeducation,  :occupation,  :contactno,  :address,  :email,  gnd, :hname, :hage, :hlevelofeducation, :hoccupation, :hcontactno, :hemail)");
+    //request user
+    public function request($data){
+        $this->db->query("INSERT INTO request(hname, hage, hlevelofeducation, hoccupation, hcontactno, hemail) VALUES ( :hname, :hage, :hlevelofeducation, :hoccupation, :hcontactno, :hemail)");
    
         //bind values
-       
-        $this->db->bindParam(':name',$data['name']);
-        $this->db->bindParam(':age',$data['age']);
-        // $this->db->bindParam(':nochildren',$data['nochildren']);
-        $this->db->bindParam(':levelofeducation',$data['levelofeducation']);
-        $this->db->bindParam(':occupation',$data['occupation']);
-        $this->db->bindParam(':contactno',$data['contactno']);
-        $this->db->bindParam(':address',$data['address']);
-        $this->db->bindParam(':email',$data['email']);
-        $this->db->bindParam(':gnd',$data['gnd']);
+        
         $this->db->bindParam(':hname',$data['hname']);
         $this->db->bindParam(':hage',$data['hage']);
         $this->db->bindParam(':hlevelofeducation',$data['hlevelofeducation']);
         $this->db->bindParam(':hoccupation',$data['hoccupation']);
         $this->db->bindParam(':hcontactno',$data['hcontactno']);
         $this->db->bindParam(':hemail',$data['hemail']);
-        
        
         
         //execute
@@ -306,65 +256,6 @@ class Clinicattendee{
            return false;
         }
     }
-
-    public function update_parent_info($data){
-        // $this->db->query("UPDATE parent  SET name=:name,  age=:age,  nochildren=:nochildren,  levelofeducation=:levelofeducation,  occupation=:occupation,  contactno=:contactno,  address=:address,  email=:email,  gnd=:gnd,  hname=:hname, hage=:hage, hlevelofeducation=:hlevelofeducation;  hcontactno=:hcontactno, hoccupation=:hoccupation; hemail=:hemail WHERE nic = :nic");
-        $this->db->query("UPDATE parent  SET name=:name,  age=:age,  nochildren=:nochildren,  levelofeducation=:levelofeducation,  occupation=:occupation,  contactno=:contactno,  address=:address,  email=:email,  gnd=:gnd WHERE nic = :nic");
-        $this->db->bindParam(':nic',  $_SESSION['clinicattendee_nic']);
-        $this->db->bindParam(':name',$data['name']);
-        $this->db->bindParam(':age',$data['age']);
-        $this->db->bindParam(':nochildren',$data['nochildren']);
-        $this->db->bindParam(':levelofeducation',$data['levelofeducation']);
-        $this->db->bindParam(':occupation',$data['occupation']);
-        $this->db->bindParam(':contactno',$data['contactno']);
-        $this->db->bindParam(':address',$data['address']);
-        $this->db->bindParam(':email',$data['email']);
-        $this->db->bindParam(':gnd',$data['gnd']);
-        
-        // $this->db->bindParam(':hname',$data['hname']);
-        // $this->db->bindParam(':hage',$data['hage']);
-        // $this->db->bindParam(':hlevelofeducation',$data['hlevelofeducation']);
-        // $this->db->bindParam(':hoccupation',$data['hoccupation']);
-        // $this->db->bindParam(':hcontactno',$data['hcontactno']);
-        // $this->db->bindParam(':hemail',$data['hemail']);
-
-        
-        $row = $this->db->single();
-
-        return $row;
-        
-         //Execute
-         if($this->db->execute()){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
-
-
-    //request user
-    // public function request($data){
-    //     $this->db->query("INSERT INTO parent(hname, hage, hlevelofeducation, hoccupation, hcontactno, hemail) VALUES ( :hname, :hage, :hlevelofeducation, :hoccupation, :hcontactno, :hemail)");
-   
-    //     //bind values
-        
-    //     $this->db->bindParam(':hname',$data['hname']);
-    //     $this->db->bindParam(':hage',$data['hage']);
-    //     $this->db->bindParam(':hlevelofeducation',$data['hlevelofeducation']);
-    //     $this->db->bindParam(':hoccupation',$data['hoccupation']);
-    //     $this->db->bindParam(':hcontactno',$data['hcontactno']);
-    //     $this->db->bindParam(':hemail',$data['hemail']);
-       
-        
-    //     //execute
-    //     if($this->db->execute()){
-    //        return true;
-    //     }else{
-    //        return false;
-    //     }
-    // }
 
     //Login user
     public function login($nic, $password){
