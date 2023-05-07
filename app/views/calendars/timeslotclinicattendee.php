@@ -98,14 +98,21 @@ function myFunction() {
                <script src="bookingtimeslots.js"></script>
 
               
-              
+            
+
                <div id="1" class="modal">
+<form class="modal-content animate" action="<?php echo URLROOT; ?>/calendars/timeslotclinicattendee" method="post">
+ 
+<div class="midwifeupdateinfo">
+        <h1>Are you sure you want to book this time slot?</h1>
+     
+      <label for="nic"><b>YOUR NIC</b></label>
+      <!-- <input type="text"  name="email" value='<!?php echo $data['getnic']->nic; ?>'> -->
+
 
    
 
-    <div class="midwifeupdateinfo">
-        <h1>Are you sure you want to book this time slot?</h1>
-     
+   
         
       <button type="submit">Yes</button>
       <button >No</button>

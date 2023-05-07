@@ -326,11 +326,11 @@
 
 
     <?php require APPROOT . '/views/inc/footer.php'; ?>
-    <!-- <script src="<?= URLROOT ?>/js/newjs.js"></script> -->
-    <script>
+    <script src="<?= URLROOT ?>/js/newjs.js"></script>
+    <!-- <script>
   var submitButton = document.getElementById("submit");
   submitButton.addEventListener("click", function() {
     var nic = document.getElementById("nic").value;
     // Use the value of 'nic' to make the AJAX request
   });
-</script>
+</script> -->

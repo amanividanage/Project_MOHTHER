@@ -135,26 +135,21 @@
     }
 
     public function timeslotclinicattendee($calendar_id) {
-        
-    
+        // $calendarEvents =  $this->calendarModel->getEventsforClinicAttendee($nic);
+        //getProfile
         // Get the time slots for the given date and midwife
         $timeSlots = $this->calendarModel->displayTimeSlots($calendar_id);
+        // $getnic = $this->clinicattendeeModel->getProfile();
         // $displayTimeslotdetails = $this->calendarModel->displayTimeslotdetails($clinic_timeslot_id);
     
         $data = [
             'timeSlots' => $timeSlots,
-            // 'displayTimeslotdetails'=>$displayTimeslotdetails,
-            // 'clinic_timeslot_id'=>$clinic_timeslot_id,
-            
-        ];
-     
+            // 'getnic' => $getnic,
+            // 'calendarEvents' => $calendarEvents
           
-        //    if($this->calendarModel->updatethetimeslot($data)){
-        //     
-        //      redirect('calendars/timeslotclinicattendee');}
-     
-   
+        ];
         $this->view('calendars/timeslotclinicattendee', $data);
+
         
     }
     

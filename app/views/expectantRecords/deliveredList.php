@@ -42,7 +42,7 @@
                         <td><?php echo $deliveredlistinfo->date; ?></td>
                         <td><?php echo $deliveredlistinfo->miscarriage; ?></td>     
                         <td><?php echo $deliveredlistinfo->placeofDelivery; ?></td>              
-                        <td><a href="<?php echo URLROOT; ?>/expectantRecords/info/<?php echo $deliveredlistinfo->nic; ?>" class= "updateDeliveredbutton" > More Info</a></td>
+                        <td><a href="<?php echo URLROOT; ?>/expectantRecords/previousPregInfo/<?php echo $deliveredlistinfo->nic; ?>" class= "updateDeliveredbutton" > More Info</a></td>
                        
                     </tr>
                 <?php endforeach; ?>
