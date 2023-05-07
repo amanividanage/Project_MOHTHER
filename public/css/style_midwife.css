@@ -905,6 +905,18 @@ input[type=text], input[type=password] {
     border: 1px solid;
     border-color:rgb(78, 10, 97)
 }
+.card2 {
+    box-shadow: 0 4px 8px 0 rgba(214, 4, 211, 0.2);
+    transition: 0.3s;
+    width: 80%;
+    height: 60%;
+    margin-right: 80px;
+    margin-left: 80px;
+    border-radius: 15px;
+    margin-bottom: 23px;
+    border: 1px solid;
+    border-color:rgb(78, 10, 97)
+}
 
 .card:hover, .card1:hover {
   box-shadow: 0 8px 16px 0 rgba(156, 4, 148, 0.2);
@@ -1100,7 +1112,7 @@ input[type=text], input[type=password] {
   /* Add more styles as needed */
   .calendarcontent_form {
     position: absolute;
-    top: 1025px;
+    top: 875px;
     right: -30px;
     width: 30%;
     height: 800px;
