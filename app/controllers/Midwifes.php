@@ -147,6 +147,25 @@
             }
         }
 
+        public function delete($nic){
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+                date_default_timezone_set('Asia/Colombo');
+                $data = [
+                    'date' => date("Y-m-d"), 
+                    'nic' => $nic,
+                ];
+
+                if($this->midwifeModel->deleteFromMidwifeClinic($nic) && $this->midwifeModel->setTerminatedDate($data) && $this->midwifeModel->updateMidwifeActive($nic) && $this->midwifeModel->deleteFromUser($nic)){
+                    redirect('midwifes');
+                } else {
+                    die('Something went wrong');
+                } 
+            }else {
+                redirect('midwifes');
+            }
+        }
+
         public function login(){
             // Check for POST
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -245,11 +264,17 @@
             $clinics = $this->midwifeModel->getClinicsToTransfer($nic);
             $history = $this->midwifeModel->getWorkingHistory($nic);
 
+            $workperiod = array(); 
+                foreach ($history as $index => $historyItem) {
+                    $workperiod[$index] = $this->midwifeModel->calculateWorkPeriod($historyItem->appdate, $historyItem->transdate);
+            }
+
             $data = [
                 'midwife' => $midwife,
                 'clinic' => $clinic,
                 'clinics' => $clinics,
-                'history' => $history
+                'history' => $history,
+                'workperiod' => $workperiod,
             ];
 
             $this->view('midwifes/midwifeprofile', $data);

@@ -39,6 +39,34 @@
                         </select>
                         <span class="form-err"><?php echo $data['gnd_err']; ?></span>
                     </div> 
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="child_clinic_date">Child Clinic date: <sup>*</sup></label>
+                            <select name="child_clinic_date" id="child_clinic_date" value="<?php echo $data['child_clinic_date']; ?>">
+                                <option value="" selected hidden>Select a date for the clinic</option>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                            </select>
+                            <span class="form-err"><?php echo $data['child_clinic_date_err']; ?></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="maternity_clinic_date">Maternity Clinic date: <sup>*</sup></label>
+                            <select name="maternity_clinic_date" id="maternity_clinic_date" value="<?php echo $data['maternity_clinic_date']; ?>">
+                                <option value="" selected hidden>Select a date for the clinic</option>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                            </select>
+                            <span class="form-err"><?php echo $data['maternity_clinic_date_err']; ?></span>
+                        </div>
+                    </div>
                     <div>
                         <label for="location">Address: <sup>*</sup></label>
                         <input type="text" name="location" placeholder="Enter the address.. " value="<?php echo $data['location']; ?>">

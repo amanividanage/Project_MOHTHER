@@ -65,7 +65,7 @@
 
                     <input type="checkbox" name="special[]" value="Neonatal complications">Neonatal complications
 
-                    <input type="checkbox" name="special[]" value="Congenital disorders">Congenital disorders
+                    <input type="checkbox" name="special[]" value="Congenital disorders">Congenital disorders <br/>
                     
                     <input type="submit" value="Submit">
                     

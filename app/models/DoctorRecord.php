@@ -459,6 +459,102 @@ class DoctorRecord {
             return 'Not Risky';
         }
     }
+
+    public function getTotalExpectanat(){
+
+        $this->db->query("SELECT COUNT(DISTINCT nic) AS total_count FROM (
+                        SELECT expectant.nic FROM expectant 
+                        INNER JOIN phm ON expectant.phm=phm.id 
+                        INNER JOIN doctor_clinic ON phm.clinic_id=doctor_clinic.clinic 
+                        WHERE expectant.active=0 AND doctor_clinic.nic = :doctor_nic
+                        ) AS tmp");
+
+        $this->db->bindParam(':doctor_nic', $_SESSION['doctor_nic']);
+
+        $row = $this->db->single();
+
+        return $row->total_count;
+    }
+
+    public function getTotalChildren(){
+
+        $this->db->query("SELECT COUNT(*) AS total_count FROM children
+                          INNER JOIN phm ON children.phm=phm.id
+                          INNER JOIN doctor_clinic ON phm.clinic_id=doctor_clinic.clinic 
+                          WHERE doctor_clinic.nic = :doctor_nic");
+
+        $this->db->bindParam(':doctor_nic', $_SESSION['doctor_nic']);
+
+        $row = $this->db->single();
+
+        return $row->total_count;
+    }
+
+    public function calculateSpecialChildren(){
+        $this->db->query("SELECT special AS label, COUNT(*) AS value 
+                            FROM children 
+                            INNER JOIN phm ON children.phm=phm.id 
+                            INNER JOIN doctor_clinic ON phm.clinic_id=doctor_clinic.clinic
+                            WHERE special IN ('Premature births', 'Low birth weight', 'Neonatal complications', 'Congenital disorders') 
+                            AND doctor_clinic.nic=:doctor_nic
+                            GROUP BY special;");
+
+        $this->db->bindParam(':doctor_nic', $_SESSION['doctor_nic']);
+        $rows = $this->db->resultSet();
+        
+        $data = array();
+        foreach($rows as $row){
+            $data[] = array(
+                'label' => $row->label,
+                'value' => $row->value
+            );
+        }
+        return $data;
+    }
+
+    public function calculateRiskyCount(){
+
+        $this->db->query("SELECT COUNT(*) AS total_count FROM mother_risky
+                          INNER JOIN expectant ON mother_risky.nic=expectant.nic
+                          INNER JOIN phm ON expectant.phm=phm.id 
+                          INNER JOIN doctor_clinic ON phm.clinic_id=doctor_clinic.clinic WHERE doctor_clinic.nic = :doctor_nic AND mother_risky.risky = 'High Risk' ");
+
+        $this->db->bindParam(':doctor_nic', $_SESSION['doctor_nic']);
+
+        $row = $this->db->single();
+
+        return $row->total_count;
+    }
+    
+    public function getHighRiskList(){
+        
+        $this->db->query("SELECT expectant.nic, expectant.name FROM mother_risky
+                          INNER JOIN expectant ON mother_risky.nic=expectant.nic
+                          INNER JOIN phm ON expectant.phm=phm.id 
+                          INNER JOIN doctor_clinic ON phm.clinic_id=doctor_clinic.clinic WHERE doctor_clinic.nic = :doctor_nic AND mother_risky.risky = 'High Risk' ");
+
+        $this->db->bindParam(':doctor_nic', $_SESSION['doctor_nic']);
+
+        $row = $this->db->resultSet();
+        
+        return $row;
+    }
+    
+    public function getModerateRiskList(){
+        
+        $this->db->query("SELECT expectant.nic, expectant.name FROM mother_risky
+                          INNER JOIN expectant ON mother_risky.nic=expectant.nic
+                          INNER JOIN phm ON expectant.phm=phm.id 
+                          INNER JOIN doctor_clinic ON phm.clinic_id=doctor_clinic.clinic WHERE doctor_clinic.nic = :doctor_nic AND mother_risky.risky = 'Moderate Risk' ");
+
+        $this->db->bindParam(':doctor_nic', $_SESSION['doctor_nic']);
+
+        $row = $this->db->resultSet();
+        
+        return $row;
+    }
+    
+    
     
     
 

@@ -113,6 +113,16 @@
                                 <td><?php echo $history->phm; ?></td>
                                 <td><?php echo $history->appdate; ?></td>
                                 <td><?php echo $history->transdate; ?></td>
+                                <?php
+                                    $appdate = $history->appdate;
+                                    $transdate = $history->transdate;
+                                    $workperiod = $this->midwifeModel->calculateWorkPeriod($appdate, $transdate);
+                                ?>
+                                <?php if ($history->transdate == '0000-00-00') : ?>
+                                    <td>Currently working</td>
+                                <?php else : ?>
+                                    <td><?php echo $workperiod; ?></td>
+                                <?php endif; ?>
                             </tr>
                         <?php endforeach; ?>
                         

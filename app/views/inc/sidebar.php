@@ -6,7 +6,8 @@
                 <h4><?php echo $_SESSION['admin_name']; ?></h4>
         </center>
             <a href="<?php echo URLROOT; ?>/admins/dashboard"><i class="fa fa-th" aria-hidden="true"></i><span>Dashboard</span></a>
-            <a href="<?php echo URLROOT; ?>/admins"><i class="fa fa-user" aria-hidden="true"></i><span>Admins</span></a>
+            <a href="<?php echo URLROOT; ?>/admins/profile"><i class="fa fa-user" aria-hidden="true"></i><span>Profile</span></a>
+            <a href="<?php echo URLROOT; ?>/admins"><i class="fa fa-user-circle-o" aria-hidden="true"></i><span>Admins</span></a>
             <a href="<?php echo URLROOT; ?>/clinics"><i class="fa fa-home" aria-hidden="true"></i><span>Clinics</span></a>
             <a href="<?php echo URLROOT; ?>/doctors"><i class="fa fa-user-md" aria-hidden="true"></i><span>Doctors</span></a>
             <a href="<?php echo URLROOT; ?>/midwifes"><i class="fa fa-heart" aria-hidden="true"></i><span>Midwives</span></a>

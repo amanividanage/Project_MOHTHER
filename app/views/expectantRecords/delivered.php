@@ -19,16 +19,17 @@
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
     <?php require APPROOT . '/views/inc/sidebar_midwife.php' ; ?>
 
-    <div class="content">
+        <div class="content">
 
-    <div class= "deliveredpage">
-        <form action="<?php echo URLROOT; ?>/expectantRecords/delivered/<?php echo  $data['info']->nic; ?>" method= "POST">
-   <!--?php echo $data['info']->nic; ?-->
-    <table align="center" cellpadding = "10">
+            <div class= "deliveredpage">
+            
+                <form action="<?php echo URLROOT; ?>/expectantRecords/delivered/<?php echo  $data['info']->nic; ?>" method= "POST">
+                    <div>
+                    <table align="center" cellpadding = "10">
         
- <tr><td><b><h2>Moving to Delivered/Parent List</h2>  <hr>
- 
- <tr>
+                        <tr>
+                            <td><b><h2>Moving to Delivered/Parent List</h2>  <hr>
+                        <tr>
     <td>
     <label for="nic">NIC </label>
     </td>
@@ -108,11 +109,37 @@
 </td>
     </tr>
 
+    <tr>
+        <td>
+            <label for="mother_safe"><b><i>Is the mother safe?</i></b></label>
+        </td>
+        <td>
+            <input type="checkbox" id="mother_safe" name="mother_safe" value="yes">
+        </td>
+
+        <td>
+            
+        </td>
+        <td>
+            
+        </td>
+    </tr>
+
+    <!-- <tr>
+        <td>
+            <label for="mother_safe"><b><i>Is the mother safe?</i></b></label>
+            <input type="checkbox" id="mother_safe" name="mother_safe" value="yes">
+        </td>
+    
+    </tr> -->
+</table>
+    <!-- <!?php
+if(isset($_POST['mother_safe']) && $_POST['mother_safe'] == 'yes') {
+?> -->
+<div id="delivery_info" style="display:none;">
+<table>
+</div>
 <tr><td><b>To be filled by Midwife 
- 
-<hr>
-
-
 
     <tr>
     <td>
@@ -131,11 +158,6 @@
      </select></label>
     </td>
     </tr>
-
-   
-
-  
-
 
 
     <tr>
@@ -201,22 +223,23 @@
      </select></label>
     </td></tr>
 
-   
-    
- 
-
-
-
-    
     </tr>
+    </table>
+</div>
 
+    <!-- <!?php
+} else {
+    // do nothing
+}
+?> -->
+<br>
     <tr><td> <input type="submit" name="Submit" class="myButton"></input></td></tr>
    
    
 
 </div>
 </div>
-
+</form>
 <!-- From here the next form should start-->
 
 
@@ -224,7 +247,18 @@
 
 </div>
     
-   
+<script>
+  var checkbox = document.getElementById('mother_safe');
+  var deliveryInfo = document.getElementById('delivery_info');
+
+  checkbox.addEventListener('click', function() {
+    if (this.checked) {
+      deliveryInfo.style.display = 'block';
+    } else {
+      deliveryInfo.style.display = 'none';
+    }
+  });
+</script>  
  
 
 

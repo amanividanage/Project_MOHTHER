@@ -23,7 +23,7 @@
         </h1>
 
     <?php 
-        if (!empty($data['mother_or_parent'])) {
+        if (empty($data['mother_or_parent'])) {
     ?>
 
         <div class="mine">

@@ -54,86 +54,59 @@
                                 <td><?php echo $midwife->phone; ?></td>
                                 <td><?php echo $midwife->email; ?></td>
                                 <td><td><a href="<?php echo URLROOT; ?>/midwifes/midwifeprofile/<?php echo $midwife->nic; ?>"><button class="more1999"> More Info </button></a></td></td>
-                                <td><i onclick="editMidwife('<?php echo $midwife->name; ?>', '<?php echo $midwife->phone; ?>', '<?php echo $midwife->email; ?>')" class="fa fa-edit" aria-hidden="true"></i></td>
-                                <td><i class="fa fa-trash" aria-hidden="true"></td>
+                                <!-- <td><i class="delete-icon fa fa-trash" onclick="checkDelete(<!?php echo $data['midwifes']->nic; ?>)"></i></td> -->
+                                <td>
+                                    <form id="delete-form-<?php echo $midwife->nic; ?>" action="<?php echo URLROOT; ?>/midwifes/delete/<?php echo $midwife->nic; ?>" method="post">
+                                        <input type="hidden" name="nic" value="<?php echo $midwife->nic; ?>">
+                                        <i class="delete-icon fa fa-trash" onclick="if (checkDelete()) document.getElementById('delete-form-<?php echo $midwife->nic; ?>').submit();"></i>
+                                    </form>
+                                </td>
+                                <!-- <td><i class="delete-icon fa fa-trash" onclick="return checkDelete()"></i></td> -->
+                                <!-- <td><i onclick="editMidwife('<!?php echo $midwife->name; ?>', '<!?php echo $midwife->phone; ?>', '<!?php echo $midwife->email; ?>')" class="fa fa-edit" aria-hidden="true"></i></td> -->
+                                <!-- <td><i class="delete-icon fa fa-trash" data-midwife-id="<!?php echo $midwife->midwife_id; ?>" aria-hidden="true"></i></td> -->
                             </tr>
                         <?php endforeach; ?>
                     </table>
                 </div>
             </div>
 
-            <div id="edit-modal" class="modal">
-                <!-- Modal content -->
-                <div class="container_new_modal">
-                    <span onclick="document.getElementById('edit-modal').style.display='none'" class="close3">&times;</span>
-                    <form name="edit-form" action="<?php echo URLROOT; ?>/midwifes" method="post" onsubmit="return validateForm()">
-                        <label for="edit-name">Name:</label>
-                        <input type="text" id="edit-name" name="edit-name" required>
+            <!-- Delete form for each midwife record -->
+            <!-- <form id="delete-form-<!?php echo $data['midwifes']->nic; ?>" action="<!?php echo URLROOT; ?>/midwifes/delete/<!?php echo $data['midwifes']->nic; ?>" method="post">
+                <label>Are you sure you want to delete this midwife from the system?</label>
+                <input type="submit" value="Yes" class="curve_btn">
+                <button type="button" class="curve_btn" onclick="closeModal(<!?php echo $data['midwifes']->nic; ?>)">No</button>
+            </form> -->
 
-                        <label for="edit-phone">Phone:</label>
-                        <input type="text" id="edit-phone" name="edit-phone" required>
-                        <span id="phone-error" class="popup-form-err"></span><br>
-
-                        <label for="edit-email">Email:</label>
-                        <input type="email" id="edit-email" name="edit-email" required><br>
-
-                        <input type="submit" value="Save">
-                    </form>
-                </div>
-            </div>
- 
-
-            <script>
-                function validateForm() {
-                    var name = document.forms["edit-form"]["edit-name"].value;
-                    var phone = document.forms["edit-form"]["edit-phone"].value;
-                    var email = document.forms["edit-form"]["edit-email"].value;
+            <!-- Modify your modal box to add a unique id to each modal -->
+           
+                <!-- <div id="myModalnew<!?php echo $data['midwifes']->midwife_id; ?>" class="modal">
+                    <!- Modal content -->
+                    <!-- <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <form id="delete-form-<!?php echo $data['midwifes']->midwife_id; ?>" action="<!?php echo URLROOT; ?>/midwifes/delete/<!?php echo $data['midwifes']->midwife_id; ?>" method="post">
+                                <label> Are you sure you want to delete this midwife from the system?</label>
+                                <input type="submit" value="Yes" class="curve_btn">
+                                <button type="button" class="curve_btn" onclick="closeModal(<!?php echo $data['midwifes']->midwife_id; ?>)">No</button>
+                        </form>
                     
+                    </div> -->
+                <!-- </div>  -->
 
-                    if (name == "" || email == "" || phone == "") {
-                        alert("Please fill out all fields");
-                        return false;
+                <!-- <script>
+                    function checkDelete(midwifeNIC) {
+                        if (confirm('Are you sure you want to delete this record?')) {
+                            var formId = 'delete-form-' + midwifeNIC;
+                            document.getElementById(formId).submit();
+                        }
                     }
-
-                    // var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-                    // if (!passwordRegex.test(password)) {
-                    //     document.getElementById("password-error").innerHTML = "Password must contain at least 8 characters including one uppercase letter, one lowercase letter, and one number";
-                    //     document.getElementById("password-error").style.visibility = "visible";
-                    //     return false;
-                    // } else {
-                    //     document.getElementById("password-error").style.visibility = "hidden";
-                    //     return true;
-                    // }
-
-                    var phoneRegex = /^\d{10}$/;
-                    if (!phoneRegex.test(phone)) {
-                        document.getElementById("phone-error").innerHTML = "can not be null";
-                        document.getElementById("phone-error").style.visibility = "visible";
-                        return false;
-                    } else {
-                        document.getElementById("phone-error").style.visibility = "hidden";
-                        return true;
-                    }
+                </script> -->
+            
+            <script>
+                function checkDelete() {
+                    return confirm('Are you sure you want to delete this record');
                 }
-
-                function editMidwife( name, phone, email) {
-                    // Get the input fields in the edit form
-                    var nameField = document.getElementById("edit-name");
-                    var phoneField = document.getElementById("edit-phone");
-                    var emailField = document.getElementById("edit-email");
-
-                    // Set the values of the input fields to the data from the row
-                    nameField.value = name;
-                    phoneField.value = phone;
-                    emailField.value = email;
-
-                    // Show the popup modal
-                    document.getElementById('edit-modal').style.display='block';
-                }
-
-
-                        
             </script>
 
+            <script src="<?php echo URLROOT ; ?>/js/admin.js"></script>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 

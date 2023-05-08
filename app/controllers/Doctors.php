@@ -82,13 +82,20 @@
                 $clinic = $this->doctorModel->getClinicByDoctor($nic);
                 $clinics = $this->doctorModel->getClinicsToTransfer($nic);
                 $history = $this->doctorModel->getWorkingHistory($nic);
+                
+                $workperiod = array(); 
+                foreach ($history as $index => $historyItem) {
+                    $workperiod[$index] = $this->doctorModel->calculateWorkPeriod($historyItem->appdate, $historyItem->transdate);
+                }
+                
 
                 $data = [
                     'doctor' => $doctor,
                     'clinic' => $clinic,
                     'clinics' => $clinics,
                     'newclinic_err' => '',
-                    'history' => $history
+                    'history' => $history,
+                    'workperiod' => $workperiod,
                 ];
 
                 $this->view('doctors/doctorprofile', $data);
@@ -218,6 +225,25 @@
 
                 //Load view
                 $this->view('doctors/add', $data);
+            }
+        }
+
+        public function delete($nic){
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+                date_default_timezone_set('Asia/Colombo');
+                $data = [
+                    'date' => date("Y-m-d"), 
+                    'nic' => $nic,
+                ];
+
+                if($this->doctorModel->deleteFromDoctorClinic($nic) && $this->doctorModel->setTerminatedDate($data) && $this->doctorModel->updateDoctorActive($nic) && $this->doctorModel->deleteFromUser($nic)){
+                    redirect('doctors');
+                } else {
+                    die('Something went wrong');
+                } 
+            }else {
+                redirect('midwifes');
             }
         }
 

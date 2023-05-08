@@ -7,7 +7,7 @@
         }
 
         public function getMidwifes(){
-            $this->db->query("SELECT * FROM midwifes");
+            $this->db->query("SELECT * FROM midwifes WHERE active != '2' ");
 
             $results = $this->db->resultSet();
 
@@ -97,7 +97,8 @@
 
         //Find midwife by ID number
         public function findMidwifeBynic($nic){
-            $this->db->query('SELECT * FROM midwifes WHERE nic = :nic');
+            $this->db->query('SELECT * FROM users
+                              INNER JOIN midwifes ON midwifes.nic = users.nic WHERE users.nic = :nic');
 
             //Bind value
             $this->db->bindParam(':nic', $nic);
@@ -312,7 +313,7 @@
         }
         
         public function updatetransferMidwife($data){
-            $this->db->query('UPDATE midwife_clinic SET clinic = :newclinic, phm=:newphm, appdate = :transdate WHERE nic = :nic');
+            $this->db->query('UPDATE midwife_clinic SET clinic = :newclinic, phm = :newphm, appdate = :transdate WHERE nic = :nic');
 
             //Bind values
             $this->db->bindParam(':nic', $data['nic']);
@@ -346,10 +347,10 @@
         }
         
         public function updateMidwife($data){
-            $this->db->query('UPDATE midwife_transfer SET transdate = :transdate WHERE clinic = :clinic');
+            $this->db->query('UPDATE midwife_transfer SET transdate = :transdate WHERE clinic = :clinic AND nic = :nic');
 
             //Bind values
-            // $this->db->bindParam(':nic', $data['nic']);
+            $this->db->bindParam(':nic', $data['nic']);
             $this->db->bindParam(':clinic', $data['clinic']);
             $this->db->bindParam(':transdate', $data['transdate']);
 
@@ -366,15 +367,86 @@
                               FROM midwife_transfer 
                               INNER JOIN clinics ON midwife_transfer.clinic = clinics.id 
                               INNER JOIN PHM ON phm.id = midwife_transfer.phm
-                              WHERE nic = :nic");
+                              WHERE nic = :nic
+                              ORDER BY midwife_transfer.id;");
 
-            // SELECT * FROM clinics INNERJOIN doctor_clinic ON clinics.id = doctor_clinic.clinics WHERE doctor_clinic.nic = :nic
-
-        
-             $this->db->bindParam(':nic', $nic);
-
+            $this->db->bindParam(':nic', $nic);
             $results = $this->db->resultSet();
-
+        
             return $results;
+        }
+
+        public function calculateWorkPeriod($appdate, $transdate){
+            
+            
+            // $start_date = appdate;
+            // $end_date = transdate;
+            $diff = strtotime($transdate) - strtotime($appdate);
+    
+            $years = floor($diff / (365 * 60 * 60 * 24));
+            $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+            $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+    
+            $result = "$years years, $months months, and $days days";
+        
+    
+            return $result;
+        }
+
+        public function deleteFromMidwifeClinic($nic){
+            $this->db->query('DELETE FROM midwife_clinic WHERE nic = :nic');
+
+            //Bind values
+            $this->db->bindParam(':nic', $nic);
+
+            //Execute
+            if($this->db->execute()){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function setTerminatedDate($data){
+            $this->db->query("UPDATE midwife_transfer SET transdate = :transdate WHERE nic = :nic AND transdate = '0000-00-00' ");
+
+            //Bind values
+            $this->db->bindParam(':nic', $data['nic']);
+            $this->db->bindParam(':transdate', $data['date']);
+
+            //Execute
+            if($this->db->execute()){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function updateMidwifeActive($nic){
+            $this->db->query("UPDATE midwifes SET active = '2' WHERE nic = :nic");
+
+            //Bind values
+            $this->db->bindParam(':nic', $nic);
+
+            //Execute
+            if($this->db->execute()){
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        public function deleteFromUser($nic){
+            $this->db->query('DELETE FROM users WHERE nic = :nic');
+
+            //Bind values
+            $this->db->bindParam(':nic', $nic);
+
+            //Execute
+            if($this->db->execute()){
+                return true;
+            } else {
+                return false;
+            }
         }
     }

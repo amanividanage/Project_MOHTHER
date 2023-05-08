@@ -10,7 +10,7 @@
             </center>
     
             <li class="item">
-                <a href="<?php echo URLROOT; ?>/doctorRecords" class="menu-btn">
+                <a href="<?php echo URLROOT; ?>/doctorRecords/dashboard" class="menu-btn">
                     <i class="fa fa-th"></i><span>Dashboard</span>
                 </a>
             </li>

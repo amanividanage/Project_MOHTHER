@@ -211,7 +211,7 @@
                     'weight'=>trim($_POST['weight']),
                     'circumference'=>trim($_POST['circumference']),
                     'length'=>trim($_POST['length']),
-                    'special'=>implode(",", $_POST['special']),
+                    'special'=>'',
         
                     'name_err'=>'',
                     'dob_err'=>'', 
@@ -255,6 +255,10 @@
                 /*if(empty($data['special'])){
                     $data['special_err']='please enter special instance if any';
                 }*/
+
+                if (!empty($_POST['special'])) {
+                    $data['special'] = implode(',', $_POST['special']);
+                }
 
                 //Make sure no errors
                 if(empty($data['name_err']) && empty($data['dob_err']) && empty($data['date_err']) && empty($data['hospital_err']) && empty($data['weight_err']) && empty($data['circumference_err']) && empty($data['length_err'])){

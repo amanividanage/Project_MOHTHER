@@ -16,9 +16,9 @@
             $children =  $this->clinicattendeeModel->getchild_list();
             $report = $this->clinicattendeeModel->getReport();
 
-            $mother = $this->clinicattendeeModel-> getMother(); 
+            $mother = $this->clinicattendeeModel->getMother(); 
             $poa = '';
-            if(!empty($mother_or_parent)){
+            if(!empty($mother)){
                 $poa = $this->clinicattendeeModel->calculatePOA($mother->poa, $mother->registrationDate);
             }
             // $poa = $this->clinicattendeeModel-> calculatePOA($mother->poa, $mother->registrationDate);
@@ -35,7 +35,7 @@
             $this->view('clinicattendees/index', $data);
         }
 
-        public function calendar(){
+        public function calendar($nic){
            
             $data = [
               
@@ -67,16 +67,6 @@
            echo json_encode($data['clinic_dates']);
            // $id = 
         }
-
-        // public function profile(){
-        //     $profile =  $this->clinicattendeeModel->getProfile();
-
-        //     $data = [
-        //         'profile' => $profile
-        //     ];
-
-        //     $this->view('clinicattendees/profile', $data);
-        // }
 
         public function profile(){
             // $profile =  $this->clinicattendeeModel->getProfile();
@@ -127,7 +117,7 @@
                             //print_r($_POST);
                             redirect('clinicattendees/profile');
                         }else{
-                            die('Someting went wrong');
+                            die('Something went wrong');
                         }
                         
                     } else {
@@ -315,11 +305,12 @@
             // Check for POST
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 //Process form
-
+                date_default_timezone_set('Asia/Colombo');
                 // Sanitize POST data
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
                 $data =[
+                    'date' => date("Y-m-d"), 
                     'mname'=>trim($_POST['mname']),
                     'nic'=>trim($_POST['nic']), 
                     'mage'=>trim($_POST['mage']),
@@ -449,9 +440,9 @@
                     if($this->clinicattendeeModel->register($data)){
                        // redirect('');
                      //  $this->view('clinicattendees/calendar', $data);
-                     redirect('clinicattendees/calendar');
+                     redirect('clinicattendees/calendar/'.$data['nic'].'');
                     } else {
-                        die('Someting went wrong');
+                        die('Something went wrong');
                     }
                   //  redirect('clinics/info/'.$clinic->clinic_id.'');
                 } else{
@@ -685,25 +676,44 @@
         $this->view('clinicattendees/child_charts', $data);
     }
 
-    public function request(){
+    public function req_parent(){
         // Check for POST
+        $req_parent = $this->clinicattendeeModel->getreq_parent(); 
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             //Process form
-
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
+            $findgnd = $this->clinicattendeeModel->findgndbyPHM();
+            date_default_timezone_set('Asia/Colombo');
+            // $req_parent = $this->clinicattendeeModel->getreq_parent(); 
+
             $data =[
-               
+                'date' => date("Y-m-d"),  
+                'nic' => $_SESSION['clinicattendee_nic'],
+                'name'=>trim($_POST['name']),
+                'age'=>trim($_POST['age']),
+                'levelofeducation'=> $req_parent->levelofeducation,
+                'nochildren'=>trim($_POST['nochildren']),
+                'occupation'=>trim($_POST['occupation']),
+                'contactno'=>trim($_POST['contactno']),
+                'address' => $req_parent->address,
+                'email'=>trim($_POST['email']),
                 'hname'=>trim($_POST['hname']),
                 'hage'=>trim($_POST['hage']),
                 'hlevelofeducation'=>trim($_POST['hlevelofeducation']),
                 'hoccupation'=>trim($_POST['hoccupation']),
                 'hcontactno'=>trim($_POST['hcontactno']),
                 'hemail'=>trim($_POST['hemail']),
-                
-    
+                'gnd'=> $findgnd->gnd,
+                'active'=>'1',
                
+                'name_err'=>'',
+                'age_err'=>'',
+                'nochildren_err'=>'',
+                'occupation_err'=>'',
+                'contactno_err'=>'',
+                'email_err'=>'',
                 'hname_err'=>'',
                 'hage_err'=>'',
                 'hlevelofeducation_err'=>'',
@@ -714,8 +724,6 @@
             ];
 
             //Validate data
-           
-
             if(empty($data['hname'])){
                 $data['hname_err']='please enter name';
             }
@@ -739,45 +747,40 @@
                 $data['hcontactno_err'] = 'Please enter valid phone number';
             }
 
-
             if(empty($data['hemail'])){
                 $data['hemail_err']='please enter an e-mail';
             }
             
-           
 
             //Make sure no errors
-            if(empty($data['hname_err']) && empty($data['hage_err']) &&empty($data['h_levelofeducation_err']) && empty($data['h_occupation_err']) && empty($data['h_contactno_err']) && empty($data['hemail_err'])){
+            if(empty($data['hname_err']) && empty($data['hage_err']) &&empty($data['hlevelofeducation_err']) && empty($data['hoccupation_err']) && empty($data['hcontactno_err']) && empty($data['hemail_err'])){
                 
-               
-
                 //reuestq clinic attendee
-                if($this->clinicattendeeModel->request($data)){
-                    redirect('clinicattendees/request_date');
+                if($this->clinicattendeeModel->request($data) && $this->clinicattendeeModel->prarent_update($data)){
+                    redirect('clinicattendees/profile');
                 } else {
                     die('Someting went wrong');
                 }
 
             } else{
                 // Load view with errors
-                $this->view('clinicattendees/request', $data);
+                $this->view('clinicattendees/req_parent', $data);
             }
 
-
-
         } else {
+
+            $req_parent = $this->clinicattendeeModel->getreq_parent(); 
+          
             //Init data
             $data =[
-                
-                'hname'=>'',
-                'hage'=>'',
-                'hlevelofeducation'=>'',
-                'hoccupation'=>'',
-                'hcontactno'=>'',
-                'hemail'=>'',
-                
-    
-                
+                'req_parent' => $req_parent,
+            
+                'name_err'=>'',
+                'age_err'=>'',
+                'nochildren_err'=>'',
+                'occupation_err'=>'',
+                'contactno_err'=>'',
+                'email_err'=>'',
                 'hname_err'=>'',
                 'hage_err'=>'',
                 'hlevelofeducation_err'=>'',
@@ -788,107 +791,95 @@
             ];
 
             // Load view
-            $this->view('clinicattendees/request', $data);
+            $this->view('clinicattendees/req_parent', $data);
 
         }
     }
 
     public function req_expectant(){
 
-        $req_expectant =  $this->clinicattendeeModel->getreq_expectant();
+        // $req_expectant =  $this->clinicattendeeModel->getreq_expectant();
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
               // Sanitize profile array
-              $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        
+                $data = [
+                    'mname' => trim($_POST['mname']),
+                    'mage' => trim($_POST['mage']),
+                    'gravidity' => trim($_POST['gravidity']),
+                    'moccupation' => trim($_POST['moccupation']),
+                    'mcontactno' => trim($_POST['mcontactno']),
+                    'memail' => trim($_POST['memail']),
+                    'hname' => trim($_POST['hname']),
+                    'hage' => trim($_POST['hage']),
+                    'hoccupation' => trim($_POST['hoccupation']),
+                    'hcontactno' => trim($_POST['hcontactno']), 
+                    'hemail' => trim($_POST['hemail']),
+                    'active'=>'1',
+                    
+                    'mname_err' => '',
+                    'mage_err' => '',
+                    'gravidity_err' => '',
+                    'mcontactno_err' => '',
+                    'moccupation_err' => '',
+                    'memail_err' => '',
+                    'hname_err' => '',
+                    'hage_err' => '',
+                    'hlevelofeducation_err' => '',
+                    'hcontactno_err' => '',
+                    'hoccupation_err' => '',
+                    'hemail_err' => '',    
+                ];
       
-              $data = [
-                // 'clinicattendee_nic' => $_SESSION['clinicattendee_nic'],
-                
-                 'gravidity' => trim($_POST['gravidity']),
-                 'mcontactno' => trim($_POST['mcontactno']),
-                 'moccupation' => trim($_POST['moccupation']),
-                 'memail' => trim($_POST['memail']),
-                 'hname' => trim($_POST['hname']),
-                 'hage' => trim($_POST['hage']),
-                 'hlevelofeducation' => trim($_POST['hlevelofeducation']),
-                 'hcontactno' => trim($_POST['hcontactno']),
-                 'hoccupation' => trim($_POST['hoccupation']),
-                 'hemail' => trim($_POST['hemail']),
-                
-                'gravidity_err' => '',
-                'mcontactno_err' => '',
-                'moccupation_err' => '',
-                'memail_err' => '',
-                'hname_err' => '',
-                'hage_err' => '',
-                'hlevelofeducation_err' => '',
-                'hcontactno_err' => '',
-                'hoccupation_err' => '',
-                'hemail_err' => '',
-                
-               
-                'req_expectant' => $req_expectant
-              ];
-      
-              // Validate data
-              if(empty($data['mcontactno'])){
-                $data['mcontactno_err'] = 'Please enter new contact number';
-              }
-              if(strlen($data['mcontactno']) < 10){
-                $data['mcontactno_err'] = 'Please enter valid phone number';
-            }
-              if(empty($data['hcontactno'])){
-                $data['hcontactno_err'] = 'Please enter new contact number';
-              }
-              if(strlen($data['hcontactno']) < 10){
-                $data['hcontactno_err'] = 'Please enter valid phone number';
-            }
+                // Validate data
+                if(empty($data['mcontactno'])){
+                    $data['mcontactno_err'] = 'Please enter new contact number';
+                }
+                if(strlen($data['mcontactno']) < 10){
+                    $data['mcontactno_err'] = 'Please enter valid phone number';
+                }
+                if(empty($data['hcontactno'])){
+                    $data['hcontactno_err'] = 'Please enter new contact number';
+                }
+                if(strlen($data['hcontactno']) < 10){
+                    $data['hcontactno_err'] = 'Please enter valid phone number';
+                }
 
       
-              // Make sure no errors
-              if(empty($data['mcontactno_err']) && empty($data['hcontactno_err'])){
-                // Validated
-                
-                if($this->clinicattendeeModel->update_expectant_info($data)){
-                    //print_r($_POST);
-                   redirect('clinicattendees/req_expectant');
-                }else{
-                 redirect('clinicattendees/req_expectant');
+                // Make sure no errors
+                if(empty($data['mcontactno_err']) && empty($data['hcontactno_err'])){
+                    // Validated
+                    
+                    if($this->clinicattendeeModel->update_registration($data)){
+                        redirect('clinicattendees/profile');
+                    }else{
+                        die('Something went wrong');
+                    }
+                    
+                } else {
+                    // Load view with errors
+                    $this->view('clinicattendees/req_expectant', $data);
                 }
-                
-              } else {
-                // Load view with errors
-                $this->view('clinicattendees/req_expectant', $data);
-              }
       
             } else {
                 
-                 $req_expectant = $this->clinicattendeeModel->getreq_expectant(); 
+                $req_expectant = $this->clinicattendeeModel->getreq_expectant(); 
       
-              $data = [
-                // 'id' => $id,
-                'gravidity' => $req_expectant->gravidity,
-                'gravidity_err' => '',
-                'mcontactno' => $req_expectant->mcontactno,
-                'mcontactno_err' =>'',
-                'moccupation' => $req_expectant->moccupation,
-                'moccupation_err' => '',
-                'memail' => $req_expectant->memail,
-                'memail_err' => '',
-                'hname' => $req_expectant->hname,
-                'hname_err' => '',
-                'hage' => $req_expectant->hage,
-                'hage_err' => '',
-                'hlevelofeducation' => $req_expectant->hlevelofeducation,
-                'hlevelofeducation_err' => '',
-                'hcontactno' => $req_expectant->hcontactno,
-                'hcontactno_err' =>'',
-                'hoccupation' => $req_expectant->hoccupation,
-                'hoccupation_err' =>'',
-                'hemail' => $req_expectant->hemail,
-                'hemail_err' =>'',
-                
-                'req_expectant' => $req_expectant
-              ];
+                $data = [        
+                    'req_expectant' => $req_expectant,
+                    'mname_err' => '',
+                    'mage_err' => '',
+                    'gravidity_err' => '',
+                    'mcontactno_err' => '',
+                    'moccupation_err' => '',
+                    'memail_err' => '',
+                    'hname_err' => '',
+                    'hage_err' => '',
+                    'hlevelofeducation_err' => '',
+                    'hcontactno_err' => '',
+                    'hoccupation_err' => '',
+                    'hemail_err' => '',
+                ];
         
               $this->view('clinicattendees/req_expectant', $data);
             }

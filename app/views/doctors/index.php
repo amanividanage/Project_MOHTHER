@@ -53,11 +53,21 @@
                                 <td><?php echo $doctor->phone; ?></td>
                                 <td><?php echo $doctor->email; ?></td>
                                 <td><a href="<?php echo URLROOT; ?>/doctors/doctorprofile/<?php echo $doctor->nic; ?>"><button class="more1999"> More Info </button></a></td>
+                                <td>
+                                    <form id="delete-form-<?php echo $doctor->nic; ?>" action="<?php echo URLROOT; ?>/doctors/delete/<?php echo $doctor->nic; ?>" method="post">
+                                        <input type="hidden" name="nic" value="<?php echo $doctor->nic; ?>">
+                                        <i class="delete-icon fa fa-trash" onclick="if (checkDelete()) document.getElementById('delete-form-<?php echo $doctor->nic; ?>').submit();"></i>
+                                    </form>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </table>
                 </div>
             </div>
 
-    
+            <script>
+                function checkDelete() {
+                    return confirm('Are you sure you want to delete this record');
+                }
+            </script>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

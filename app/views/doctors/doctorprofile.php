@@ -91,22 +91,31 @@
                     <!-- <a href="<!?php echo URLROOT; ?>/childrens/report/<!?php echo $data['child']->child_id; ?>"><button class="add">Add report</button></a> -->
                 </div>
                 <div>
-                    <table>
+                <table>
+                    <tr>
+                        <th>Clinic name</th>
+                        <th>Appointed Date</th>
+                        <th>Terminated Date</th>
+                        <th>Total Work Period</th>
+                    </tr>
+                    <?php foreach($data['history'] as $history) : ?>
                         <tr>
-                            <th>Clinic name</th>
-                            <th>Appointed Date</th>
-                            <th>Terminated Date</th>
-                            <th>Total Work Period</th>
+                            <td><?php echo $history->clinic_name; ?></td>
+                            <td><?php echo $history->appdate; ?></td>
+                            <td><?php echo $history->transdate; ?></td>
+                            <?php
+                                $appdate = $history->appdate;
+                                $transdate = $history->transdate;
+                                $workperiod = $this->doctorModel->calculateWorkPeriod($appdate, $transdate);
+                            ?>
+                            <?php if ($history->transdate == '0000-00-00') : ?>
+                                <td>Currently working</td>
+                            <?php else : ?>
+                                <td><?php echo $workperiod; ?></td>
+                            <?php endif; ?>
                         </tr>
-                        <?php foreach($data['history'] as $history) : ?>
-                            <tr>
-                                <td><?php echo $history->clinic_name; ?></td>
-                                <td><?php echo $history->appdate; ?></td>
-                                <td><?php echo $history->transdate; ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                        
-                    </table>
+                    <?php endforeach; ?>
+                </table>
                 </div>
                 <br>
                 <br>

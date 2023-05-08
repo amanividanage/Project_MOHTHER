@@ -9,7 +9,7 @@
             </center>
     
             <li class="item">
-                <a href="<?php echo URLROOT; ?>/expectantRecords/index" class="menu-btn">
+                <a href="<?php echo URLROOT; ?>/expectantRecords/dashboard" class="menu-btn">
                     <i class="fa fa-th"></i><span>Dashboard</span>
                 </a>
             </li>
@@ -48,7 +48,7 @@
             </li>
 
             <li class="item">
-                <a href="#" class="menu-btn">
+                <a href="<?php echo URLROOT; ?>/expectantRecords/statics" class="menu-btn">
                     <i class="fa fa-sliders"></i><span>Statistics</span>
                 </a>
             </li>

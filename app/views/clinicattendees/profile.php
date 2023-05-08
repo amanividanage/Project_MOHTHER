@@ -21,11 +21,11 @@
             <div>
                 <h2 class="content_h1">Clinic Attendee Profile</h2>
 
-                <button class="req_btn" id="myBtn_1"><b>Request
+                <!-- <button class="req_btn" id="myBtn_1"><b>Request
                         for Re-registration for Maternity Clinics</b>
-                </button>
+                </button> -->
 
-                <br><br>
+                
 
                 <!-- The Modal -->
                 <!-- <div id="myModal_1" class="modal_1">
@@ -61,6 +61,12 @@
                 <?php 
                     if (!empty($data['profile_expectant'])) {
                 ?>
+                    <a href="<?php echo URLROOT; ?>/clinicattendees/req_expectant">
+                        <button class="req_btn" id="myBtn_1">
+                            <b>Request for Re-registration for Maternity Clinics</b>
+                        </button>
+                    </a>
+                    <br><br>
                 <div class="mine">
                     <div class="card">
                     <div class="container">
@@ -157,6 +163,14 @@
                 <?php 
                     } else {
                         ?>
+                            <a href="<?php echo URLROOT; ?>/clinicattendees/req_parent">
+                                <button class="req_btn" id="myBtn_1">
+                                    <b>Request for Re-registration for Maternity Clinics</b>
+                                </button>
+                            </a>
+                            <br><br>
+
+
                         <div class="mine">
                     <div class="card">
                     <div class="container">

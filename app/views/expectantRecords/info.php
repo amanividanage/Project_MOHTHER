@@ -50,7 +50,7 @@
                                 <td><?php echo $data['info']->moccupation; ?></td>
                             </tr>
                             <tr>
-                                <td>Occupation</td>
+                                <td>Contact No</td>
                                 <td><?php echo $data['info']->mcontactno; ?></td>
                             </tr>
                             <tr>

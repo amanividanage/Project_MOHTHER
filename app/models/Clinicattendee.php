@@ -8,7 +8,7 @@ class Clinicattendee{
 
     
     public function clarifyMotherOrParent(){
-        $this->db->query("SELECT * FROM expectant WHERE nic = :nic");
+        $this->db->query("SELECT * FROM parent WHERE nic = :nic");
         $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
         $row = $this->db->single();
 
@@ -151,24 +151,22 @@ class Clinicattendee{
         }
     }
 
-    public function update_expectant_info($data){
-        $this->db->query("UPDATE registration  SET gravidity=:gravidity, mcontactno=:mcontactno, moccupation=:moccupation,  memail=:memail,  hname=:hname, hage=:hage, hlevelofeducation=:hlevelofeducation;  hcontactno=:hcontactno, hoccupation=:hoccupation; hemail=:hemail WHERE nic = :nic");
+    public function update_registration($data){
+        $this->db->query("UPDATE registration SET mname=:mname, mage=:mage, gravidity=:gravidity, moccupation=:moccupation, mcontactno=:mcontactno, memail=:memail, hname=:hname, hage=:hage, hoccupation=:hoccupation, hcontactno=:hcontactno, hemail=:hemail, active=:active WHERE nic = :nic");
         $this->db->bindParam(':nic',  $_SESSION['clinicattendee_nic']);
+        $this->db->bindParam(':mname',  $data['mname']);
+        $this->db->bindParam(':mage',  $data['mage']);
         $this->db->bindParam(':gravidity',  $data['gravidity']);
-        $this->db->bindParam(':mcontactno',  $data['mcontactno']);
         $this->db->bindParam(':moccupation',  $data['moccupation']);
+        $this->db->bindParam(':mcontactno',  $data['mcontactno']);
         $this->db->bindParam(':memail',  $data['memail']);
         $this->db->bindParam(':hname',  $data['hname']);
         $this->db->bindParam(':hage',  $data['hage']);
-        $this->db->bindParam(':hlevelofeducation',  $data['hlevelofeducation']);
-        $this->db->bindParam(':hcontactno',  $data['hcontactno']);
         $this->db->bindParam(':hoccupation',  $data['hoccupation']);
+        $this->db->bindParam(':hcontactno',  $data['hcontactno']);
         $this->db->bindParam(':hemail',  $data['hemail']);
+        $this->db->bindParam(':active',  $data['active']);
 
-        
-        $row = $this->db->single();
-
-        return $row;
         
          //Execute
          if($this->db->execute()){
@@ -186,12 +184,32 @@ class Clinicattendee{
         return $row;
     }
 
+    public function getreq_parent(){
+        $this->db->query("SELECT * FROM parent WHERE nic = :nic");
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+        $row = $this->db->single();
+
+        return $row;
+    }
+
+    public function findgndbyPHM(){
+        $this->db->query("SELECT clinics.gnd FROM parent 
+                          INNER JOIN phm ON parent.phm=phm.id 
+                          INNER JOIN clinics ON phm.clinic_id=clinics.id WHERE nic = :nic");
+
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+        $row = $this->db->single();
+
+        return $row;
+    }
+
 
     //register user
     public function register($data){
-        $this->db->query("INSERT INTO registration (mname, nic, mage, gravidity, mlevelofeducation, moccupation, mcontactno, address, memail, hname, hage, hlevelofeducation, hoccupation, hcontactno, hemail, gnd, active) VALUES (:mname, :nic, :mage, :gravidity, :mlevelofeducation, :moccupation, :mcontactno, :address, :memail, :hname, :hage, :hlevelofeducation, :hoccupation, :hcontactno, :hemail, :gnd, :active)");
+        $this->db->query("INSERT INTO registration (date, mname, nic, mage, gravidity, mlevelofeducation, moccupation, mcontactno, address, memail, hname, hage, hlevelofeducation, hoccupation, hcontactno, hemail, gnd, active) VALUES (:date, :mname, :nic, :mage, :gravidity, :mlevelofeducation, :moccupation, :mcontactno, :address, :memail, :hname, :hage, :hlevelofeducation, :hoccupation, :hcontactno, :hemail, :gnd, :active)");
 
          //bind values
+         $this->db->bindParam(':date',$data['date']);
          $this->db->bindParam(':mname',$data['mname']);
          $this->db->bindParam(':nic',$data['nic']);
          $this->db->bindParam(':mage',$data['mage']);
@@ -237,18 +255,50 @@ class Clinicattendee{
 
     //request user
     public function request($data){
-        $this->db->query("INSERT INTO request(hname, hage, hlevelofeducation, hoccupation, hcontactno, hemail) VALUES ( :hname, :hage, :hlevelofeducation, :hoccupation, :hcontactno, :hemail)");
+        $this->db->query("INSERT INTO registration (date, mname, nic, mage, mlevelofeducation, moccupation, mcontactno, address, memail, hname, hage, hlevelofeducation, hoccupation, hcontactno, hemail, gnd, active) VALUES (:date, :mname, :nic, :mage, :mlevelofeducation, :moccupation, :mcontactno, :address, :memail, :hname, :hage, :hlevelofeducation, :hoccupation, :hcontactno, :hemail, :gnd, :active)");
    
         //bind values
-        
+        $this->db->bindParam(':date',$data['date']);
+        $this->db->bindParam(':mname',$data['name']);
+        $this->db->bindParam(':nic',$data['nic']);
+        $this->db->bindParam(':mage',$data['age']);
+        $this->db->bindParam(':mlevelofeducation',$data['levelofeducation']);
+        $this->db->bindParam(':moccupation',$data['occupation']);
+        $this->db->bindParam(':mcontactno',$data['contactno']);
+        $this->db->bindParam(':address',$data['address']);
+        $this->db->bindParam(':memail',$data['email']);
         $this->db->bindParam(':hname',$data['hname']);
         $this->db->bindParam(':hage',$data['hage']);
         $this->db->bindParam(':hlevelofeducation',$data['hlevelofeducation']);
         $this->db->bindParam(':hoccupation',$data['hoccupation']);
         $this->db->bindParam(':hcontactno',$data['hcontactno']);
         $this->db->bindParam(':hemail',$data['hemail']);
+        $this->db->bindParam(':gnd',$data['gnd']);
+        $this->db->bindParam(':active',$data['active']);
        
-        
+        //execute
+        if($this->db->execute()){
+           return true;
+        }else{
+           return false;
+        }
+    }
+    
+    public function prarent_update($data){
+        $this->db->query("UPDATE parent SET name=:name, nic=:nic, age=:age, nochildren=:nochildren, levelofeducation=:levelofeducation, occupation=:occupation, contactno=:contactno, address=:address, email=:email WHERE nic=:nic");
+   
+        //bind values
+        $this->db->bindParam(':nic',$data['nic']);
+        $this->db->bindParam(':name',$data['name']);
+        $this->db->bindParam(':nic',$data['nic']);
+        $this->db->bindParam(':age',$data['age']);
+        $this->db->bindParam(':nochildren',$data['nochildren']);
+        $this->db->bindParam(':levelofeducation',$data['levelofeducation']);
+        $this->db->bindParam(':occupation',$data['occupation']);
+        $this->db->bindParam(':contactno',$data['contactno']);
+        $this->db->bindParam(':address',$data['address']);
+        $this->db->bindParam(':email',$data['email']);
+       
         //execute
         if($this->db->execute()){
            return true;
@@ -307,7 +357,8 @@ class Clinicattendee{
 
     //find clinic attendee by nic
     public function findClinicAttendeeByNic($nic){
-        $this->db->query('SELECT * FROM expectant WHERE nic = :nic');
+        $this->db->query('SELECT * FROM users 
+                          INNER JOIN expectant ON expectant.nic=users.nic WHERE users.nic = :nic');
         $this->db->bindParam(':nic', $nic);
 
         $row = $this->db->single();
@@ -323,7 +374,8 @@ class Clinicattendee{
 
     //find parent by nic
     public function findParentByNic($nic){
-        $this->db->query('SELECT * FROM parent WHERE nic = :nic');
+        $this->db->query('SELECT * FROM users
+                          INNER JOIN parent ON parent.nic=users.nic WHERE users.nic = :nic');
         $this->db->bindParam(':nic', $nic);
 
         $row = $this->db->single();

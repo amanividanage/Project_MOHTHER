@@ -35,9 +35,13 @@
                     'clinic_name' => trim($_POST['clinic_name']),
                     'gnd' => trim($_POST['gnd']),
                     'location' => trim($_POST['location']),
+                    'child_clinic_date' => trim($_POST['child_clinic_date']),
+                    'maternity_clinic_date' => trim($_POST['maternity_clinic_date']),
                     'clinic_name_err' => '',
                     'gnd_err' => '',
                     'location_err' => '',
+                    'child_clinic_date_err' => '',
+                    'maternity_clinic_date_err' => '',
                     
                 ];
 
@@ -57,6 +61,14 @@
 
                 if(empty($data['location'])){
                     $data['location_err'] = 'Please enter the address';
+                }
+
+                if(empty($data['child_clinic_date'])){
+                    $data['child_clinic_date_err'] = 'Please select a date';
+                }
+
+                if(empty($data['maternity_clinic_date'])){
+                    $data['maternity_clinic_date_err'] = 'Please select a date';
                 }
 
 
@@ -83,6 +95,10 @@
                     'clinic_name_err' => '',
                     'gnd_err' => '',
                     'location_err' => '',
+                    'child_clinic_date' => '',
+                    'maternity_clinic_date' => '',
+                    'child_clinic_date_err' => '',
+                    'maternity_clinic_date_err' => '',
                 ];
     
                 $this->view('clinics/add', $data);
@@ -104,40 +120,57 @@
                 $data = [
                     'id' => $id,
                     'clinic' => $clinic,
-                    'doctor' => trim($_POST['doctor']),
+                    'doctor' => isset($_POST['doctor']) ? trim($_POST['doctor']) : '',
                     'doctor_err' => '',
-                    'appdate'=> date("Y-m-d"),
+                    'appdate' => date("Y-m-d"),
 
-                    'newphm' => trim($_POST['newphm']),
-                    'newphm_err' => ''
+                    'newphm' => isset($_POST['newphm']) ? trim($_POST['newphm']) : '',
+                    'newphm_err' => '',
+
+                    'edit-name' => isset($_POST['edit-name']) ? trim($_POST['edit-name']) : '',
+                    'edit-location' => isset($_POST['edit-location']) ? trim($_POST['edit-location']) : '',
+                    'edit-name_err' => '',
+                    'edit-location_err' => '',
                 ];
 
                 //validate data
-                if(empty($data['doctor'])){
+                if (empty($data['doctor'])) {
                     $data['doctor_err'] = 'Please select a doctor';
                 }
 
-                if(empty($data['newphm'])){
+                if (empty($data['newphm'])) {
                     $data['newphm_err'] = 'Please enter new PHM name to add';
                 }
 
-                //Make sure no errors
-                if(empty($data['doctor_err'])){
-                    //Register User
-                    if($this->doctorModel->addDoctorToClinic($data) AND $this->doctorModel->addDoctorToClinicTwo($data) AND $this->doctorModel->updateAddededDoctorToClinic($data)){
-                        redirect('clinics/info/'.$id.'');
-                    } else{
-                        die('Something went wrong');
-                    }
+                if (empty($data['edit-name'])) {
+                    $data['edit-name_err'] = 'This field cannot be empty';
+                }
 
-                } elseif(empty($data['newphm_err'])){
-                    if($this->clinicModel->addPHM($data)){
+                if (empty($data['edit-location'])) {
+                    $data['edit-location_err'] = 'This field cannot be empty';
+                }
+
+                //Make sure no errors
+                if (empty($data['doctor_err'])) {
+                    //Register User
+                    if ($this->doctorModel->addDoctorToClinic($data) AND $this->doctorModel->addDoctorToClinicTwo($data) AND $this->doctorModel->updateAddededDoctorToClinic($data)) {
                         redirect('clinics/info/'.$id.'');
                     } else {
                         die('Something went wrong');
                     }
-
-                }else {
+                } elseif (empty($data['newphm_err'])) {
+                    if ($this->clinicModel->addPHM($data)) {
+                        redirect('clinics/info/'.$id.'');
+                    } else {
+                        die('Something went wrong');
+                    }
+                } elseif (empty($data['edit-name_err']) && empty($data['edit-location_err'])) {
+                    if ($this->clinicModel->editClinic($data)) {
+                        redirect('clinics/info/'.$id.'');
+                    } else {
+                        die('Something went wrong');
+                    }
+                } else {
                     //Load view with errors
                     $this->view('clinics/info', $data);
                 }
@@ -148,6 +181,12 @@
 
                 $phm = $this->clinicModel->showPHM($id);
                 $midwife = $this->clinicModel->showMidwife($id);
+
+                $previousdoctors = $this->clinicModel->getPreviousDoctorsByClinic($id);
+                $previousmidwifes = $this->clinicModel->getPreviousMidwifesByClinic($id);
+
+                $clinicattendees = $this->clinicModel->getClinicAttendeeCountByClinic($id);
+                $children = $this->clinicModel->getChildrenCountByClinic($id);
                 //Init data
                 $data = [
                     'clinic' => $clinic,
@@ -160,8 +199,19 @@
                     'newphm' => '',
                     'newphm_err' => '',
 
+                    'edit-name' => '',
+                    'edit-location' => '',
+                    'edit-name_err' => '',
+                    'edit-location_err' => '',
+
                     'phm' => $phm, 
-                    'midwife' => $midwife
+                    'midwife' => $midwife,
+
+                    'previousdoctors' => $previousdoctors,
+                    'previousmidwifes' => $previousmidwifes,
+
+                    'clinicattendees' => $clinicattendees,
+                    'children' => $children,
                 ];
 
                 //Load view

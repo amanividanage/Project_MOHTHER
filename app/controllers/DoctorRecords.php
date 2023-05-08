@@ -22,6 +22,33 @@
             $this->view('doctorRecords/index', $data);
         }
 
+        public function dashboard(){
+            
+            $expectant = $this->doctorRecordModel->getTotalExpectanat(); 
+            $children = $this->doctorRecordModel->getTotalChildren(); 
+            $risky = $this->doctorRecordModel->calculateRiskyCount();
+            // $child_deaths = $this->expectantRecordModel->getTotalChildDeaths(); 
+            // $chart = $this->expectantRecordModel->calculateParentAndExpectantMotherCount();
+            $chart2 = $this->doctorRecordModel->calculateSpecialChildren();
+            // $chart3 = $this->doctorRecordModel->calculateRiskyCount();
+            $highrisk_list = $this->doctorRecordModel->getHighRiskList();
+            $moderaterisk_list = $this->doctorRecordModel->getModerateRiskList();
+
+            $data = [
+                'expectant' => $expectant,
+                'children' => $children,
+                'risky' => $risky,
+                // 'child_deaths' => $child_deaths,
+                // 'chart' => $chart,
+                'chart2' => $chart2,
+                'highrisk_list' => $highrisk_list,
+                'moderaterisk_list' => $moderaterisk_list,
+            ];
+         
+      
+            $this->view('doctorRecords/dashboard', $data);
+        }
+
         public function expectantmothers(){
             
             $mothers = $this->doctorRecordModel->getExpectantMothers();

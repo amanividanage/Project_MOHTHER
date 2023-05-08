@@ -63,17 +63,174 @@
         
         public function dashboard(){
 
+            $total_clinicattendees = $this->adminModel->calculateTotalClinicAttendees();
+            $total_children = $this->adminModel->calculateTotalChildren();
+            $chart = $this->adminModel->calculateParentAndExpectantMotherCount();
+            $chart2 = $this->adminModel->calculateSpecialChildren();
+            $chart3 = $this->adminModel->calculateStaff();
+            $child_deaths = $this->adminModel->calculateChildDeaths();
+
             $data = [
-               
+               'total_clinicattendees' => $total_clinicattendees,
+               'total_children' => $total_children,
+               'chart' => $chart,
+               'chart2' => $chart2,
+               'child_deaths' => $child_deaths,
+               'chart3' => $chart3,
             ];
 
             $this->view('admins/dashboard', $data);
         }
+
+        public function profile(){
+            if($_SERVER["REQUEST_METHOD"] == 'POST'){
+                //Sanitize POST array
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+                $data = [
+                    'edit-name' => trim($_POST['edit-name']),
+                    'edit-phone' => trim($_POST['edit-phone']),
+                    'edit-email' => trim($_POST['edit-email']),
+                    'edit-name_err' => '',
+                    'edit-phone_err' => '',
+                    'edit-email_err' => '',
+                    
+                ];
+
+                //validate data
+                // if(empty($data['clinic_name'])){
+                //     $data['clinic_name_err'] = 'Please enter the name';
+                // }
+
+                // if(empty($data['gnd'])){
+                //     $data['gnd_err'] = 'Please select the Grama Niladhari Division';
+                // } else{
+                //     //Check for gnd repetition
+                //     if($this->clinicModel->findCilinicByGnd($data['gnd'])){
+                //         $data['gnd_err'] = 'Clinic is already there for this gnd, Can not make another clinic for this gnd';
+                //     }
+                // }
+
+                // if(empty($data['location'])){
+                //     $data['location_err'] = 'Please enter the address';
+                // }
+
+
+                //Make sure no errors
+                if(empty($data['edit-name_err']) && empty($data['edit-phone_err']) && empty($data['edit-email_err'])){
+                    if($this->adminModel->editAdmin($data)){
+                        //flash('clinic_added', 'Clinic Added');
+                        redirect('admins/profile');
+                        //header("Location: http://localhost/moh/clinics");
+                        //exit();
+                    } else {
+                        die('Someting went wrong');
+                    }
+                } else {
+                    //Load view with errors
+                    $this->view('admins/profile', $data);
+                }
+
+            } else {
+                $adminprofile = $this->adminModel->getProfileAdmin();
+                $data = [
+                    'adminprofile' => $adminprofile,
+                ];
+            
+        
+                $this->view('admins/profile', $data);
+
+            }
+        }
+
+        public function changepassword(){
+            if($_SERVER["REQUEST_METHOD"] == 'POST'){
+                //Sanitize POST array
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        
+                $data = [
+                    'current-password' => trim($_POST['current-password']),
+                    'new-password' => trim($_POST['new-password']),
+                    'confirm-password' => trim($_POST['confirm-password']),
+                    'current-password_err' => '',
+                    'new-password_err' => '',
+                    'confirm-password_err' => '',
+                ];
+        
+                // Retrieve the hashed password from the database
+                $hashed_password = $this->adminModel->getAdminPassword();
+        
+                // Validate the current password
+                if (!password_verify($data['current-password'], $hashed_password)) {
+                    $data['current-password_err'] = 'Current password is incorrect';
+                }
+        
+                //validate data
+        
+                if(empty($data['new-password'])){
+                    $data['new-password_err'] = 'Please enter a password';
+                } elseif(strlen($data['new-password']) < 8){
+                    $data['new-password_err'] = 'Password must be at least 8 characters long';
+                } elseif(!preg_match('/[A-Z]/', $data['new-password'])){
+                    $data['new-password_err'] = 'Password must contain at least one uppercase letter';
+                } elseif(!preg_match('/[a-z]/', $data['new-password'])){
+                    $data['new-password_err'] = 'Password must contain at least one lowercase letter';
+                } elseif(!preg_match('/[0-9]/', $data['new-password'])){
+                    $data['new-password_err'] = 'Password must contain at least one number';
+                } elseif(!preg_match('/[!@#$%^&*()\-_=+{};:,<.>]/', $data['new-password'])){
+                    $data['new-password_err'] = 'Password must contain at least one special character';
+                } elseif(empty($data['confirm-password'])) {
+                    $data['confirm-password_err'] = 'Please confirm your password';
+                } elseif($data['new-password'] !== $data['confirm-password']){
+                    $data['confirm-password_err'] = 'Passwords do not match';
+                }
+        
+                //Make sure no errors
+                if(empty($data['confirm-password_err']) && empty($data['new-password_err']) && empty($data['current-password_err'])){
+
+                    //Hash password
+                    $data['new-password'] = password_hash($data['new-password'], PASSWORD_DEFAULT);
+
+                    if($this->adminModel->editAdminPassword($data) AND $this->adminModel->editUserPassword($data)){
+                    //     //flash('clinic_added', 'Clinic Added');
+                        redirect('admins/profile');
+                    //     //header("Location: http://localhost/moh/clinics");
+                    //     //exit();
+                    } else {
+                        die('Someting went wrong');
+                    }
+                } else {
+                    //Load view with errors
+                    $this->view('admins/changepassword', $data);
+                }
+        
+            } else {
+                $data = [
+                    'current-password' => '',
+                    'new-password' => '',
+                    'confirm-password' => '',
+                    'current-password_err' => '',
+                    'new-password_err' => '',
+                    'confirm-password_err' => '',
+                ];
+            
+        
+                $this->view('admins/changepassword', $data);
+        
+            }
+                
+        }
         
         public function statistics(){
 
+            $newRegistrants = $this->adminModel->getNewRegistrantsMonthWise();
+            $newRegistrantsYear = $this->adminModel->getNewRegistrantsYearWise();
+            $newRegistrantsClinic = $this->adminModel->getNewRegistrantsClinicWise();
+
             $data = [
-               
+                'newRegistrants' => $newRegistrants,
+                'newRegistrantsYear' => $newRegistrantsYear,
+                'newRegistrantsClinic' => $newRegistrantsClinic,
             ];
 
             $this->view('admins/Statistics', $data);

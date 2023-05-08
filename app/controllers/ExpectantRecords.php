@@ -303,7 +303,7 @@
                 //die('Successfull');
 
                 //add expectant mother's records
-                if($this->expectantRecordModel->addRecords($data) && $this->expectantRecordModel->addMother_age_weight($data)){
+                if($this->expectantRecordModel->addRecords($data) && $this->expectantRecordModel->addMother_age_weight($data) && $this->expectantRecordModel->addRiskytoDataBase($data)){
                  
                  redirect('expectantRecords/info/'.$nic.'');
               }else{
@@ -516,7 +516,7 @@
             'children'=>$children,
             'infoOfRegistrant'=>$infoOfRegistrant,
 
-            'nic' => trim($_POST['nic']),
+            // 'nic' => trim($_POST['nic']),
             'nic_err'=>'',
             // 'reportNo' => trim($_POST['reportNo']),
             // 'reportNo_err'=>'',
@@ -531,6 +531,7 @@
             'contactno'=>trim($_POST['contactno']),
             'address'=>trim($_POST['address']),
             'email'=>trim($_POST['email']),
+            'mother_safe' => isset($_POST['mother_safe']) ? 'yes' : 'no',
             'date' => date("Y-m-d"),
             'miscarriage' => trim($_POST['miscarriage']),
             'weekscompleted' => trim($_POST['weekscompleted']),
@@ -552,68 +553,59 @@
             'diabetes_err'=>'',
 
             'poa'=>$poa,
-            'mother'=>$mother,
-          
-          
+            'mother'=>$mother,  
           ];
-         //validate data
-          //  if(empty($data['reportNo'])){
-          //   $data['reportNo_err'] = 'Please enter the report Number';
-          //  }
 
-          //  if(empty($data['date'])){
-          //   $data['date_err'] = 'Please enter the date';
-          // }
-           
-           if(empty($data['weight'])){
-            $data['weight_err'] = 'Please enter the weight';
-           }
-          
-
-           if(empty($data['bp'])){
-            $data['bp_err'] = 'Please enter the blood pressure';
-           }
-           
-           if(empty($data['weekscompleted'])){
-            $data['weekscompleted_err'] = 'Enter the No. of weeks completed';
+          //validate data
+          if(empty($data['weight'])){
+          $data['weight_err'] = 'Please enter the weight';
           }
+          
+          if(empty($data['bp'])){
+          $data['bp_err'] = 'Please enter the blood pressure';
+          }
+           
+          if(empty($data['weekscompleted'])){
+          $data['weekscompleted_err'] = 'Enter the No. of weeks completed';
+          }
+
           if(empty($data['symptoms'])){
             $data['symptoms_err'] = 'Enter the symptoms if any';
           }
+
           if(empty($data['postnatalcomplication'])){
             $data['postnatalcomplication_err'] = 'Any Postnatal complications?';
           }
           //make sure that there are no errors
           //  if(empty($data['weight_err']) && empty($data['bp_err']))
-           if(empty($data['weight_err']) && empty($data['bp_err']) && empty($data['weekscompleted_err']) && ($data['miscarriage'])=='No'  )
-           {
-             //validated
-              //die('Successfull');
-
-              //add expectant mother's records
-              if($this->expectantRecordModel->movingToDeliveredList($data) && $this->expectantRecordModel->updateactiveOfExpectant($data) && $this->expectantRecordModel->deliveredToParent($data)){
-               
-               redirect('expectantRecords/expectnatmotherlist');
-            }else{
+            if($data['mother_safe'] == 'no'){
+              if($this->expectantRecordModel->movingToDeliveredList($data) && $this->expectantRecordModel->updateactiveOfExpectant($data)){
+                redirect('expectantRecords/expectnatmotherlist');
+              }else{
                 die('Something went wrong');
+              }
+            } else if (($data['mother_safe'] == 'yes')) {
+              if(empty($data['weight_err']) && empty($data['bp_err']) && empty($data['weekscompleted_err']) && ($data['miscarriage'])=='No')
+              {
+                //add expectant mother's records
+                if($this->expectantRecordModel->movingToDeliveredList($data) && $this->expectantRecordModel->updateactiveOfExpectant($data) && $this->expectantRecordModel->deliveredToParent($data)){
+                  redirect('expectantRecords/expectnatmotherlist');
+                }else{
+                  die('Something went wrong');
+                }
+              } else if(empty($data['weight_err']) && empty($data['bp_err']) && empty($data['weekscompleted_err']) && ($data['miscarriage'])=='Yes'){
+                  if($this->expectantRecordModel->movingToDeliveredList($data) && $this->expectantRecordModel->updateactiveOfExpectant($data)){
+                    redirect('expectantRecords/expectnatmotherlist');
+                  }else{
+                    die('Something went wrong');
+                  }
+              }
+            } else{
+              //load view with errors
+              $this->view('expectantRecords/delivered', $data);
             }
-        }  if(empty($data['weight_err']) && empty($data['bp_err']) && empty($data['weekscompleted_err']) && ($data['miscarriage'])=='Yes'  ){
-          if($this->expectantRecordModel->movingToDeliveredList($data) && $this->expectantRecordModel->updateactiveOfExpectant($data)){
-         
-            redirect('expectantRecords/expectnatmotherlist');
-          }
-        } 
         
-        
-        
-        
-        
-        else{
-            //load view with errors
-            $this->view('expectantRecords/delivered', $data);
-        }
-        
-         } else{
+      } else{
 
         
          // $mother = $this->expectantRecordModel-> getMother($nic); 
@@ -649,25 +641,77 @@
           'expectantRecordsHeight'=>$expectantRecordsHeight,
           'children'=>$children,
           'infoOfRegistrant'=>$infoOfRegistrant
-        //  'newexpectantRecords'=> $newexpectantRecords,
-        
-      
-        
-        
-              
+        //  'newexpectantRecords'=> $newexpectantRecords,        
         ];
        
     
-      $this->view('expectantRecords/delivered', $data);
+        $this->view('expectantRecords/delivered', $data);
+      }
+    }
 
+      public function dashboard(){
+
+        $clinicattendees = $this->expectantRecordModel->getTotalClinicAttendees(); 
+        $children = $this->expectantRecordModel->getTotalChildren(); 
+        $child_deaths = $this->expectantRecordModel->getTotalChildDeaths(); 
+        $chart = $this->expectantRecordModel->calculateParentAndExpectantMotherCount();
+        $chart2 = $this->expectantRecordModel->calculateSpecialChildren();
+        $chart3 = $this->expectantRecordModel->getNewRegistrantsMonthWise();
+
+        $risky = $this->expectantRecordModel->calculateRiskyCount();
+        $highrisk_list = $this->expectantRecordModel->getHighRiskList();
+        $moderaterisk_list = $this->expectantRecordModel->getModerateRiskList();
+
+        
+  
+          $data = [
+            'clinicattendees' => $clinicattendees,
+            'children' => $children,
+            'child_deaths' => $child_deaths,
+            'chart' => $chart,
+            'chart2' => $chart2,
+            'chart3' => $chart3,
+            'risky' => $risky,
+            'highrisk_list' => $highrisk_list,
+            'moderaterisk_list' => $moderaterisk_list,
+          ];
+           
+        
+          $this->view('expectantRecords/dashboard', $data);
+      }
       
+      public function statics(){
 
+        // $clinicattendees = $this->expectantRecordModel->getTotalClinicAttendees(); 
+        // $children = $this->expectantRecordModel->getTotalChildren(); 
+        // $child_deaths = $this->expectantRecordModel->getTotalChildDeaths(); 
+        // $chart = $this->expectantRecordModel->calculateParentAndExpectantMotherCount();
+        // $chart2 = $this->expectantRecordModel->calculateSpecialChildren();
+        $newRegistrants = $this->expectantRecordModel->getNewRegistrantsMonthWise();
+        $newRegistrantsYear = $this->expectantRecordModel->getNewRegistrantsYearWise();
 
+        // $risky = $this->expectantRecordModel->calculateRiskyCount();
+        // $highrisk_list = $this->expectantRecordModel->getHighRiskList();
+        // $moderaterisk_list = $this->expectantRecordModel->getModerateRiskList();
 
-
-
-
+        
+  
+          $data = [
+            // 'clinicattendees' => $clinicattendees,
+            // 'children' => $children,
+            // 'child_deaths' => $child_deaths,
+            // 'chart' => $chart,
+            // 'chart2' => $chart2,
+            'newRegistrants' => $newRegistrants,
+            'newRegistrantsYear' => $newRegistrantsYear,
+            // 'risky' => $risky,
+            // 'highrisk_list' => $highrisk_list,
+            // 'moderaterisk_list' => $moderaterisk_list,
+          ];
+           
+        
+          $this->view('expectantRecords/statics', $data);
       }
     
   
-} }
+} 

@@ -168,13 +168,14 @@ class ExpectantRecord {
     }
 
     public function movingToDeliveredList($data){
-        $this->db->query('INSERT INTO deliveredlist (nic,date, miscarriage, weekscompleted, weight,bmi, bp, placeofDelivery, modeofDelivery, postnatalcomplication, symptoms, diabetes) 
-                          SELECT :nic, :date, :miscarriage,:weekscompleted, :weight, (:weight / POW((:height / 100), 2)) AS bmi, :bp, :placeofDelivery, :modeofDelivery, :postnatalcomplication, :symptoms, :diabetes');
+        $this->db->query('INSERT INTO deliveredlist (nic,date,mother_safe, miscarriage, weekscompleted, weight,bmi, bp, placeofDelivery, modeofDelivery, postnatalcomplication, symptoms, diabetes) 
+                          SELECT :nic, :date, :mother_safe, :miscarriage,:weekscompleted, :weight, (:weight / POW((:height / 100), 2)) AS bmi, :bp, :placeofDelivery, :modeofDelivery, :postnatalcomplication, :symptoms, :diabetes');
         
         
         //bind values
         $this->db->bindParam(':nic', $data['nic']);
         $this->db->bindParam(':date', $data['date']);
+        $this->db->bindParam(':mother_safe', $data['mother_safe']);
         $this->db->bindParam(':miscarriage', $data['miscarriage']);
         $this->db->bindParam(':weekscompleted', $data['weekscompleted']);
         $this->db->bindParam(':weight', $data['weight']);
@@ -269,6 +270,38 @@ class ExpectantRecord {
         $this->db->bindParam(':weightbefore', $data['mother']->weight);
         
          
+        //execute
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function addRiskytoDataBase($data){
+
+        $bpRisk = $this->calculateBloodPressure($data['bp']);
+        $bmiRisk = $this->calculateBMILimit($data['weight'] / POW(($data['mother']->height / 100), 2));
+        $risk = $this->calculateRisky($bpRisk, $bmiRisk);
+
+        $this->db->query("SELECT * FROM mother_risky WHERE nic = :nic");
+        $this->db->bindParam(':nic', $data['nic']);
+        $row = $this->db->single();
+
+        if($row<1){
+            $this->db->query("INSERT INTO mother_risky (nic, date, risky) VALUES (:nic, :date, :risky)");
+
+            $this->db->bindParam(':nic', $data['nic']);
+            $this->db->bindParam(':date', $data['date']);
+            $this->db->bindParam(':risky', $risk);
+        } else {
+            $this->db->query("UPDATE mother_risky SET date=:date, risky=:risky WHERE nic=:nic");
+
+            $this->db->bindParam(':nic', $data['nic']);
+            $this->db->bindParam(':date', $data['date']);
+            $this->db->bindParam(':risky', $risk);
+        }
+        
         //execute
         if($this->db->execute()){
             return true;
@@ -439,8 +472,6 @@ class ExpectantRecord {
         }
     }
     
-    
-
     public function calculateRisky($bpRisk, $bmiRisk)
     {
 
@@ -457,7 +488,168 @@ class ExpectantRecord {
             return 'Not Risky';
         }
     }
+    
+    public function getTotalClinicAttendees(){
 
+        $this->db->query("SELECT COUNT(DISTINCT nic) AS total_count FROM (
+            SELECT expectant.nic FROM expectant, midwife_clinic WHERE midwife_clinic.phm = expectant.phm AND midwife_clinic.nic = :midwife_nic
+            UNION ALL
+            SELECT parent.nic FROM parent, midwife_clinic WHERE midwife_clinic.phm = parent.phm AND midwife_clinic.nic = :midwife_nic 
+            AND parent.nic NOT IN (SELECT expectant.nic FROM expectant, midwife_clinic WHERE midwife_clinic.phm = expectant.phm AND midwife_clinic.nic = :midwife_nic)
+        ) AS clinic_attendees");
+
+        $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
+
+        $row = $this->db->single();
+
+        return $row->total_count;
+    }
+
+    
+    public function getTotalChildren(){
+
+        $this->db->query("SELECT COUNT(*) AS total_count FROM children, midwife_clinic WHERE children.phm=midwife_clinic.phm AND midwife_clinic.nic=:midwife_nic");
+
+        $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
+
+        $row = $this->db->single();
+
+        return $row->total_count;
+    }
+
+    public function getTotalChildDeaths(){
+
+        $this->db->query("SELECT COUNT(*) AS total_count FROM deliveredlist
+                          INNER JOIN expectant ON deliveredlist.nic=expectant.nic
+                          INNER JOIN midwife_clinic ON midwife_clinic.phm = expectant.phm
+                          WHERE deliveredlist.miscarriage='Yes' AND midwife_clinic.nic = :midwife_nic");
+
+        $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
+        $row = $this->db->single();
+
+        return $row->total_count;
+    }
+
+    public function calculateParentAndExpectantMotherCount(){
+        $this->db->query("SELECT 'Parent' AS label, COUNT(*) AS value FROM parent, midwife_clinic WHERE midwife_clinic.phm = parent.phm AND midwife_clinic.nic = :midwife_nic
+                          UNION
+                          SELECT 'Expectant Mother' AS label, COUNT(*) AS value FROM expectant, midwife_clinic WHERE midwife_clinic.phm = expectant.phm AND midwife_clinic.nic = :midwife_nic AND expectant.active=0");
+    
+        $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
+        $rows = $this->db->resultSet();
+        
+    
+        $data = array();
+        foreach($rows as $row){
+            $data[] = array(
+                'label' => $row->label,
+                'value' => $row->value
+            );
+        }
+        return $data;
+    }
+    
+    public function calculateSpecialChildren(){
+        $this->db->query("SELECT special AS label, COUNT(*) AS value 
+                            FROM children 
+                            INNER JOIN midwife_clinic ON children.phm=midwife_clinic.phm 
+                            WHERE special IN ('Premature births', 'Low birth weight', 'Neonatal complications', 'Congenital disorders') 
+                            AND midwife_clinic.nic=:midwife_nic
+                            GROUP BY special;");
+
+        $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
+        $rows = $this->db->resultSet();
+        
+        $data = array();
+        foreach($rows as $row){
+            $data[] = array(
+                'label' => $row->label,
+                'value' => $row->value
+            );
+        }
+        return $data;
+    }
+    
+    public function getNewRegistrantsMonthWise(){
+        $this->db->query("SELECT MONTH(date) AS month, COUNT(*) AS value 
+                            FROM registration
+                            INNER JOIN clinics ON registration.gnd=clinics.gnd
+                            INNER JOIN midwife_clinic ON clinics.id=midwife_clinic.clinic 
+                            WHERE midwife_clinic.nic=:midwife_nic
+                            GROUP BY MONTH(date);");
+
+        $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
+        $rows = $this->db->resultSet();
+        
+        $data = array();
+        foreach($rows as $row){
+            $data[] = array(
+                'label' => date('F', mktime(0, 0, 0, $row->month, 1)),
+                'value' => $row->value
+            );
+        }
+        return $data;
+    }
+    
+    public function getNewRegistrantsYearWise() {
+        $this->db->query("SELECT YEAR(date) AS year, COUNT(*) AS value 
+                            FROM registration
+                            INNER JOIN clinics ON registration.gnd=clinics.gnd
+                            INNER JOIN midwife_clinic ON clinics.id=midwife_clinic.clinic 
+                            WHERE midwife_clinic.nic=:midwife_nic
+                            GROUP BY YEAR(date);");
+    
+        $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
+        $rows = $this->db->resultSet();
+    
+        $data = array();
+        foreach($rows as $row) {
+            $data[] = array(
+                'label' => $row->year,
+                'value' => $row->value
+            );
+        }
+        return $data;
+    }
+
+    public function calculateRiskyCount(){
+
+        $this->db->query("SELECT COUNT(*) AS total_count FROM mother_risky
+                          INNER JOIN expectant ON mother_risky.nic=expectant.nic
+                          INNER JOIN midwife_clinic ON expectant.phm=midwife_clinic.phm WHERE midwife_clinic.nic = :midwife_nic AND mother_risky.risky = 'High Risk' ");
+
+        $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
+
+        $row = $this->db->single();
+
+        return $row->total_count;
+    }
+
+    public function getHighRiskList(){
+        
+        $this->db->query("SELECT expectant.nic, expectant.name FROM mother_risky
+                          INNER JOIN expectant ON mother_risky.nic=expectant.nic
+                          INNER JOIN midwife_clinic ON expectant.phm=midwife_clinic.phm WHERE midwife_clinic.nic = :midwife_nic AND mother_risky.risky = 'High Risk' ");
+
+        $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
+
+        $row = $this->db->resultSet();
+        
+        return $row;
+    }
+    
+    public function getModerateRiskList(){
+        
+        $this->db->query("SELECT expectant.nic, expectant.name FROM mother_risky
+                          INNER JOIN expectant ON mother_risky.nic=expectant.nic
+                          INNER JOIN midwife_clinic ON expectant.phm=midwife_clinic.phm WHERE midwife_clinic.nic = :midwife_nic AND mother_risky.risky = 'Moderate Risk' ");
+
+        $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
+
+        $row = $this->db->resultSet();
+        
+        return $row;
+    }
     
     
 
