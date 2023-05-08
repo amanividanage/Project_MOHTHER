@@ -22,6 +22,47 @@ class ExpectantRecord {
         $results =  $this->db->resultSet();
         return $results;
     }
+
+    public function showExpectantMonthlyRecords($nic){
+        $this->db->query('SELECT * FROM detailrecords_Expectant WHERE nic= :nic'
+              
+                         
+                         );
+                         $this->db->bindParam(':nic', $nic); 
+        $results =  $this->db->resultSet();
+        return $results;
+    }
+
+    public function showMonthlyRecordsByGravidity($nic){
+        $this->db->query('SELECT MAX(gravidity) as max_gravidity FROM detailrecords_Expectant WHERE nic= :nic');
+        $this->db->bindParam(':nic', $nic); 
+        $result = $this->db->single();
+        return $result->max_gravidity;
+    }
+
+    public function showPreviousReportsInDeliveredlist($nic, $gravidity){
+        $this->db->query('SELECT * FROM detailrecords_Expectant WHERE nic= :nic AND gravidity = :gravidity');
+        $this->db->bindParam(':nic', $nic); 
+        $this->db->bindParam(':gravidity', $gravidity);
+        $result = $this->db->resultSet();
+        return $result;
+    }
+   
+
+
+ public function getDeliveredList(){
+        $this->db->query("SELECT deliveredlist.nic, deliveredlist.date, deliveredlist.miscarriage , deliveredlist.placeofDelivery FROM deliveredlist, midwife_clinic WHERE midwife_clinic.phm = deliveredlist.phm AND midwife_clinic.nic = :midwife_nic ");
+
+        $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
+         
+
+        $results =  $this->db->resultSet();
+        return $results;
+    }
+   
+
+
+
     
     public function getExpectantMothers(){
         $this->db->query("SELECT expectant.nic, expectant.name, expectant.registrationDate, expectant.expectedDateofDelivery FROM expectant, midwife_clinic WHERE midwife_clinic.phm = expectant.phm AND expectant.active='0' AND midwife_clinic.nic = :midwife_nic ");
@@ -104,15 +145,15 @@ class ExpectantRecord {
         return $results;
     }
 
-    public function showExpectantMonthlyRecords($nic){
-        $this->db->query('SELECT * FROM detailrecords_Expectant WHERE nic= :nic'
+    // public function showExpectantMonthlyRecords($nic){
+    //     $this->db->query('SELECT * FROM detailrecords_Expectant WHERE nic= :nic'
               
                          
-                         );
-                         $this->db->bindParam(':nic', $nic); 
-        $results =  $this->db->resultSet();
-        return $results;
-    }
+    //                      );
+    //                      $this->db->bindParam(':nic', $nic); 
+    //     $results =  $this->db->resultSet();
+    //     return $results;
+    // }
 
     public function displayExpectantReports($nic, $reportNo){
         $this->db->query('SELECT *
@@ -139,13 +180,14 @@ class ExpectantRecord {
     }
 
     public function addRecords($data){
-        $this->db->query('INSERT INTO detailrecords_Expectant (nic, date, weight, bmi, bp, ironorForlate, vitaminC, calcium, antimarialDrugs, triposha, nextAppointmentDate) 
-                          SELECT :nic, :date, :weight, (:weight / POW((:height / 100), 2)) AS bmi, :bp, :ironorForlate, :vitaminC, :calcium, :antimarialDrugs, :triposha, :nextAppointmentDate');
+        $this->db->query('INSERT INTO detailrecords_Expectant (nic, date, gravidity, weight, bmi, bp, ironorForlate, vitaminC, calcium, antimarialDrugs, triposha, nextAppointmentDate) 
+                          SELECT :nic, :date, :gravidity, :weight, (:weight / POW((:height / 100), 2)) AS bmi, :bp, :ironorForlate, :vitaminC, :calcium, :antimarialDrugs, :triposha, :nextAppointmentDate');
         
         
         //bind values
         $this->db->bindParam(':nic', $data['nic']);
         $this->db->bindParam(':date', $data['date']);
+        $this->db->bindParam(':gravidity', $data['gravidity']);
         $this->db->bindParam(':weight', $data['weight']);
         $this->db->bindParam(':height', $data['mother']->height);
         $this->db->bindParam(':bp', $data['bp']);

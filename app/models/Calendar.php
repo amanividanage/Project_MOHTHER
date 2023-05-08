@@ -84,6 +84,21 @@
             return $results;
 
         }
+        public function updatethetimeslot($data){
+            $this->db->query("UPDATE time_slots  SET is_booked ='1' WHERE clinic_timeslot_id = :clinic_timeslot_id");
+    
+            $this->db->bindParam(':clinic_timeslot_id', $data['clinic_timeslot_id']);
+                // $row = $this->db->single();
+        
+                // return $row;
+                
+                 //Execute
+                 if($this->db->execute()){
+                    return true;
+                } else {
+                    return false;
+                }
+        }
 
         public function getEventsforGND() {
             //  $this->db->query('SELECT * FROM calendar INNER JOIN clinics ON calendar.gnd=clinics.gnd WHERE clinics.id=:id ');
@@ -95,9 +110,9 @@
                 return $results;
     
             }
-        // public function getEvents($id) {
-        //     $this->db->query('SELECT * FROM calendar INNER JOIN clinics ON calendar.gnd=clinics.gnd WHERE clinics.id=:id');
-        //     $this->db->bindParam(':id', $id); 
+        // public function getEventsforinitialregistration() {
+        //     $this->db->query('SELECT * FROM calendar INNER JOIN clinics ON calendar.gnd=clinics.gnd ');
+        //     // $this->db->bindParam(':id', $id); 
         //     $results = $this->db->resultSet();
         //     return $results;
         // }
@@ -130,18 +145,19 @@
             return $results;
         }
 
-        public function displayclinicdetails($calendar_id) {
+        public function displayTimeslotdetails($clinic_timeslot_id) {
 
             
             // Prepare the SQL query
-            $this->db->query('SELECT * FROM calendar WHERE calendar_id = :calendar_id');
+            $this->db->query('SELECT * FROM time_slots WHERE clinic_timeslot_id = :clinic_timeslot_id');
         
             // Bind the parameters to the query
-            $this->db->bindParam(':calendar_id', $calendar_id);
+            $this->db->bindParam(':clinic_timeslot_id', $clinic_timeslot_id);
            
             // Execute the query and return the results
-            $results = $this->db->resultSet();
-            return $results;
+            $row = $this->db->single();
+
+            return $row;
         }
 
         

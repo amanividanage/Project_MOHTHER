@@ -35,28 +35,21 @@
             $this->view('clinicattendees/index', $data);
         }
 
-        public function calendar($nic){
-           
-            $data = [
+        public function calendar(){
+
+            $data = [  
               
             ];
         
-             $this->view('clinicattendees/calendar', $data);
+            $this->view('clinicattendees/calendar', $data);
            
         }
-        // public function calendarEvents($nic){
-          
-        //   $calendarEvents =  $this->calendarModel->getEventsforClinicAttendee($nic);
-        //     $data = [
-        //         'clinic_dates' => $calendarEvents,
-        //     ];
-        //     echo json_encode($data['clinic_dates']);
-          
-           
-        // }
+        
+       
+     
         public function getGnd($nic){
 
-            //$calendarEvents =  $this->calendarModel->getEvents();
+           
             $calendarEvents =  $this->calendarModel->getEventsforClinicAttendee($nic);
     
     
@@ -65,7 +58,7 @@
                 ];
     
            echo json_encode($data['clinic_dates']);
-           // $id = 
+           
         }
 
         public function profile(){
@@ -970,4 +963,3 @@
     
 
 }
-

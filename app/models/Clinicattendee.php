@@ -370,6 +370,19 @@ class Clinicattendee{
             return false;
         }
     }
+    public function findRegistrantByNic($nic){
+        $this->db->query('SELECT * FROM registration WHERE nic = :nic');
+        $this->db->bindParam(':nic', $nic);
+
+        $row = $this->db->single();
+
+        //check row
+        if($this->db->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 
     //find parent by nic
@@ -408,7 +421,41 @@ class Clinicattendee{
 
         return $results;
     }
-    
+    // public function getPHMByclinicattendee(){
+    //     $this->db->query('SELECT clinics.gnd FROM midwife_clinic INNER JOIN clinics ON  midwife_clinic.clinic=clinics.id WHERE nic=:nic');
+
+    //     $this->db->bindParam(':nic', $_SESSION['midwife_nic']);
+
+    //     $row = $this->db->single();
+
+    //     return $row;
+    // }
+
+    public function getnextclinicdate(){
+        
+        $this->db->query("SELECT * FROM calendar INNER JOIN detailrecords_expectant ON detailrecords_expectant.nextAppointmentDate = calendar.clinic_date WHERE  nic =:nic");
+        // $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+        
+        // $results = $this->db->resultSet();
+
+        // return $results;
+
+        // $this->db->query("SELECT * FROM  calendar WHERE nic =:nic ");
+       //   $this->db->bindParam(':id', $id); 
+          $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+          
+            $results =  $this->db->resultSet();
+            return $results;
+    }
+    public function getclinicattendeebyPHM(){
+        $this->db->query('SELECT * FROM registration INNER JOIN clinics ON  registration.gnd=clinics.gnd WHERE nic=:nic');
+
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+
+        $row = $this->db->single();
+
+        return $row;
+    }
 
     public function getReport(){
         $this->db->query("SELECT * FROM detailrecords_expectant WHERE nic = :nic");
@@ -546,5 +593,6 @@ class Clinicattendee{
 
         return $row;
     }
+
     
 }

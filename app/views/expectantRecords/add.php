@@ -35,6 +35,13 @@
     <td><input type="text" name="nic" maxlength="20" class= " <?php echo (!empty($data['nic_err'])) ? 'is-invalid' : ''; ?>" value=" <?php echo $data['info']->nic; ?>">
     <span class="invalid-feedback"><?php echo $data['nic_err']; ?></span></td>
     </tr>
+    <tr>
+    <td>
+    <label for="nic">Gravidity </label>
+    </td>
+    <td><input type="text" name="gravidity" maxlength="20" class= " <?php echo (!empty($data['gravidity_err'])) ? 'is-invalid' : ''; ?>" value=" <?php echo $data['info']->gravidity; ?>">
+    <span class="invalid-feedback"><?php echo $data['gravidity_err']; ?></span></td>
+    </tr>
 
 
     <tr>

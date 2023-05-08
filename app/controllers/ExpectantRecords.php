@@ -30,6 +30,8 @@
         $this->view('expectantRecords/index', $data);
       }
 
+
+
       public function expectnatmotherlist(){
         //get records
         $expectantRecords =  $this->expectantRecordModel-> getExpectantMothers(); 
@@ -255,9 +257,12 @@
               'info' => $info,
               'nic' => trim($_POST['nic']),
               'nic_err'=>'',
+
               // 'reportNo' => trim($_POST['reportNo']),
               // 'reportNo_err'=>'',
               'date' => date("Y-m-d"),
+              'gravidity' => trim($_POST['gravidity']),
+              'gravidity_err'=>'',
               // 'date_err'=>'',
               'weight'=> trim($_POST['weight']),
               'weight_err'=>'',
@@ -272,6 +277,7 @@
               'mother'=>$mother,
               'nextAppointmentDate'=> trim($_POST['nextAppointmentDate']),
               'nextAppointmentDate_err'=> '',
+              
             //  'info'=> $info
             
             ];
@@ -324,6 +330,8 @@
           // 'reportNo_err'=>'',
           'date'=>'',
           'date_err'=>'',
+          'gravidity'=> '',
+          'gravidity_err'=> '',
           'weight'=>'',
           'weight_err'=>'',
           'bp'=>'',
@@ -337,6 +345,7 @@
           'info' => $info,
           'nextAppointmentDate'=> '',
           'nextAppointmentDate_err'=>'',
+         
         
           
           
@@ -471,20 +480,17 @@
     }
 
     public function deliveredList(){
-        
-      // $mother = $this->expectantRecordModel-> getMother($nic); 
-      // $midwife_records = $this->expectantRecordModel-> getMidwifeRecordsByMotherAndDate($nic, $date); 
-      // $doctor_records = $this->expectantRecordModel->getDoctorRecordsByMotherAndDate($nic, $date);
-      // // $chart = $this->expectantRecordModel->getChartByMother($nic);
-
+      $deliveredlistinfo =  $this->expectantRecordModel->getDeliveredList();
+      $expectantRecords =  $this->expectantRecordModel-> getExpectantMothers(); 
       $data = [
           
-          // 'mother'=> $mother,
-          // 'midwife_records'=> $midwife_records,
-          // 'doctor_records'=> $doctor_records,
+         'expectantRecords'=> $expectantRecords,
+        // 'info'=> $info,
+        'deliveredlistinfo'=> $deliveredlistinfo,
+       
       ];
 
-      $this->view('expectantRecords/delivered', $data);
+      $this->view('expectantRecords/deliveredList', $data);
     }
 
     public function delivered($nic){
@@ -714,4 +720,100 @@
       }
     
   
-} 
+
+
+      
+    
+  
+
+public function previousPregInfo($nic){
+  $info =  $this->expectantRecordModel->displayExpectantRecords($nic);
+  $report = $this->expectantRecordModel->showExpectantMonthlyRecords($nic);
+  $expectantRecords =  $this->expectantRecordModel-> getExpectantRecords(); 
+  $expectantRecordsHeight =  $this->expectantRecordModel-> getExpectantHeight($nic); 
+  $children = $this->childrenModel->getChildrenByParent($nic);
+
+  $date = $this->expectantRecordModel-> getMother($nic); 
+  $poa =  $this->expectantRecordModel-> calculatePOA($date->poa, $date->registrationDate);
+ //  print_r($bplimit);
+
+ $bplimit = array(); // Initialize an empty array to store the blood pressure limits
+ $bmilimit = array(); // Initialize an empty array to store the BMI limits
+ $risky = array(); // Initialize an empty array to store the risk status
+
+//  $gravidity = $this->expectantRecordModel->showMonthlyRecordsByGravidity($nic);
+ $max_gravidity = $this->expectantRecordModel->showMonthlyRecordsByGravidity($nic);
+
+
+ // Loop through the $report array and calculate the values for each index
+ foreach ($report as $index => $reportItem) {
+     $bplimit[$index] = $this->expectantRecordModel->calculateBloodPressure($reportItem->bp);
+     $bmilimit[$index] = $this->expectantRecordModel->calculateBMILimit($reportItem->bmi);
+     $risky[$index] = $this->expectantRecordModel->calculateRisky($bplimit[$index], $bmilimit[$index]);
+ }
+
+   
+
+   $data = [
+       'info' => $info,
+       'report'=> $report,
+       'children' => $children,
+       'expectantRecordsHeight' => $expectantRecordsHeight,
+       'poa' => $poa,
+       'bplimit' => $bplimit,
+       'bmilimit' => $bmilimit,
+       'risky' => $risky,
+      //  'gravidity' => $gravidity,
+       'max_gravidity' => $max_gravidity,
+
+   ];
+
+   $this->view('expectantRecords/previousPregInfo', $data);
+ }
+
+ public function infoprevious($nic,$gravidity){
+
+  $previousrecords =  $this->expectantRecordModel->showPreviousReportsInDeliveredlist($nic,$gravidity);
+  $info =  $this->expectantRecordModel->displayExpectantRecords($nic);
+  $report = $this->expectantRecordModel->showExpectantMonthlyRecords($nic);
+  $expectantRecords =  $this->expectantRecordModel-> getExpectantRecords(); 
+  $expectantRecordsHeight =  $this->expectantRecordModel-> getExpectantHeight($nic); 
+  $children = $this->childrenModel->getChildrenByParent($nic);
+
+  $date = $this->expectantRecordModel-> getMother($nic); 
+  $poa =  $this->expectantRecordModel-> calculatePOA($date->poa, $date->registrationDate);
+ //  print_r($bplimit);
+
+ $bplimit = array(); // Initialize an empty array to store the blood pressure limits
+ $bmilimit = array(); // Initialize an empty array to store the BMI limits
+ $risky = array(); // Initialize an empty array to store the risk status
+
+ // Loop through the $report array and calculate the values for each index
+ foreach ($report as $index => $reportItem) {
+     $bplimit[$index] = $this->expectantRecordModel->calculateBloodPressure($reportItem->bp);
+     $bmilimit[$index] = $this->expectantRecordModel->calculateBMILimit($reportItem->bmi);
+     $risky[$index] = $this->expectantRecordModel->calculateRisky($bplimit[$index], $bmilimit[$index]);
+ }
+
+   
+
+   $data = [
+       'info' => $info,
+       'report'=> $report,
+       'children' => $children,
+       'expectantRecordsHeight' => $expectantRecordsHeight,
+       'poa' => $poa,
+       'bplimit' => $bplimit,
+       'bmilimit' => $bmilimit,
+       'risky' => $risky,
+       'previousrecords' => $previousrecords,
+
+   ];
+
+   $this->view('expectantRecords/infoprevious', $data);
+ }
+
+
+
+}
+
