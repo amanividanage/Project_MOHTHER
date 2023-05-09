@@ -572,7 +572,107 @@ class ExpectantRecord {
         return $row->total_count;
     }
 
+    public function getTotalMotherDeaths(){
+
+        $this->db->query("SELECT COUNT(*) AS total_count FROM deliveredlist
+                          INNER JOIN expectant ON deliveredlist.nic=expectant.nic
+                          INNER JOIN midwife_clinic ON midwife_clinic.phm = expectant.phm
+                          WHERE deliveredlist.mother_safe='no' AND midwife_clinic.nic = :midwife_nic");
+
+        $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
+        $row = $this->db->single();
+
+        return $row->total_count;
+    }
+
+    public function getTotalChildDeathsMonth(){
+
+        $this->db->query("SELECT COUNT(*) AS total_count, MONTH(deliveredlist.date) AS month FROM deliveredlist
+                          INNER JOIN expectant ON deliveredlist.nic=expectant.nic
+                          INNER JOIN midwife_clinic ON midwife_clinic.phm = expectant.phm
+                          WHERE deliveredlist.miscarriage='Yes' AND midwife_clinic.nic = :midwife_nic
+                          GROUP BY MONTH(deliveredlist.date)");
+
+
+        $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
+        $rows = $this->db->resultSet();
+
+        $result = [];
+        foreach ($rows as $row) {
+            $result[$row->month] = $row->total_count;
+        }
+    
+        return $result;
+    }
+
+    public function getTotalMotherDeathsMonth(){
+
+        $this->db->query("SELECT COUNT(*) AS total_count, MONTH(deliveredlist.date) AS month FROM deliveredlist
+                          INNER JOIN expectant ON deliveredlist.nic=expectant.nic
+                          INNER JOIN midwife_clinic ON midwife_clinic.phm = expectant.phm
+                          WHERE deliveredlist.mother_safe='no' AND midwife_clinic.nic = :midwife_nic
+                          GROUP BY MONTH(deliveredlist.date)");
+
+        $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
+        $rows = $this->db->resultSet();
+
+    $result = [];
+    foreach ($rows as $row) {
+        $result[$row->month] = $row->total_count;
+    }
+
+    return $result;
+}
+
+public function getTotalDeathsMonth(){
+
+    $this->db->query("SELECT COUNT(*) AS total_count, MONTH(deliveredlist.date) AS month, 'child' AS type FROM deliveredlist
+                      INNER JOIN expectant ON deliveredlist.nic=expectant.nic
+                      INNER JOIN midwife_clinic ON midwife_clinic.phm = expectant.phm
+                      WHERE deliveredlist.miscarriage='Yes' AND midwife_clinic.nic = :midwife_nic
+                      GROUP BY MONTH(deliveredlist.date)
+                      UNION ALL
+                      SELECT COUNT(*) AS total_count, MONTH(deliveredlist.date) AS month, 'mother' AS type FROM deliveredlist
+                      INNER JOIN expectant ON deliveredlist.nic=expectant.nic
+                      INNER JOIN midwife_clinic ON midwife_clinic.phm = expectant.phm
+                      WHERE deliveredlist.mother_safe='no' AND midwife_clinic.nic = :midwife_nic
+                      GROUP BY MONTH(deliveredlist.date)");
+
+    $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
+    $rows = $this->db->resultSet();
+
+    $data = array();
+    foreach($rows as $row){
+        $data[] = array(
+            'month' => date('F', mktime(0, 0, 0, $row->month, 1)),
+            'type' => $row->type,
+            'total_count' => $row->total_count
+        );
+    }
+
+    return $data;
+}
+
     public function calculateParentAndExpectantMotherCount(){
+        $this->db->query("SELECT 'Parent' AS label, COUNT(*) AS value FROM parent, midwife_clinic WHERE midwife_clinic.phm = parent.phm AND midwife_clinic.nic = :midwife_nic
+                          UNION
+                          SELECT 'Expectant Mother' AS label, COUNT(*) AS value FROM expectant, midwife_clinic WHERE midwife_clinic.phm = expectant.phm AND midwife_clinic.nic = :midwife_nic AND expectant.active=0");
+    
+        $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
+        $rows = $this->db->resultSet();
+        
+    
+        $data = array();
+        foreach($rows as $row){
+            $data[] = array(
+                'label' => $row->label,
+                'value' => $row->value
+            );
+        }
+        return $data;
+    }
+
+    public function calculateMotherDeathVsChildDeath(){
         $this->db->query("SELECT 'Parent' AS label, COUNT(*) AS value FROM parent, midwife_clinic WHERE midwife_clinic.phm = parent.phm AND midwife_clinic.nic = :midwife_nic
                           UNION
                           SELECT 'Expectant Mother' AS label, COUNT(*) AS value FROM expectant, midwife_clinic WHERE midwife_clinic.phm = expectant.phm AND midwife_clinic.nic = :midwife_nic AND expectant.active=0");

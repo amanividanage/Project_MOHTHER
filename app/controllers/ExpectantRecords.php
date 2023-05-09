@@ -660,7 +660,13 @@
         $clinicattendees = $this->expectantRecordModel->getTotalClinicAttendees(); 
         $children = $this->expectantRecordModel->getTotalChildren(); 
         $child_deaths = $this->expectantRecordModel->getTotalChildDeaths(); 
+        $mother_deaths = $this->expectantRecordModel->getTotalMotherDeaths();
+        $total_deaths = $this->expectantRecordModel->getTotalDeathsMonth();
+        // $child_deaths_month = $this->expectantRecordModel->getTotalChildDeathsMonth(); 
+        // $mother_deaths_month = $this->expectantRecordModel->getTotalMotherDeathsMonth();
+
         $chart = $this->expectantRecordModel->calculateParentAndExpectantMotherCount();
+        // $chart1 = $this->expectantRecordModel->calculateMotherDeathVsChildDeath();
         $chart2 = $this->expectantRecordModel->calculateSpecialChildren();
         $chart3 = $this->expectantRecordModel->getNewRegistrantsMonthWise();
 
@@ -674,6 +680,10 @@
             'clinicattendees' => $clinicattendees,
             'children' => $children,
             'child_deaths' => $child_deaths,
+            'mother_deaths' => $mother_deaths,
+            'total_deaths' => $total_deaths,
+            // 'child_deaths_month' => $child_deaths,
+            // 'mother_deaths_month' => $mother_deaths,
             'chart' => $chart,
             'chart2' => $chart2,
             'chart3' => $chart3,
