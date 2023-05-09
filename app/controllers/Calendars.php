@@ -134,24 +134,105 @@
         $this->view('calendars/timeslot', $data);
     }
 
-    public function timeslotclinicattendee($calendar_id) {
-        // $calendarEvents =  $this->calendarModel->getEventsforClinicAttendee($nic);
-        //getProfile
-        // Get the time slots for the given date and midwife
-        $timeSlots = $this->calendarModel->displayTimeSlots($calendar_id);
-        // $getnic = $this->clinicattendeeModel->getProfile();
-        // $displayTimeslotdetails = $this->calendarModel->displayTimeslotdetails($clinic_timeslot_id);
+    // public function timeslotclinicattendee($calendar_id) {
+    //     // $calendarEvents =  $this->calendarModel->getEventsforClinicAttendee($nic);
+    //     //getProfile
+    //     // Get the time slots for the given date and midwife
+    //     $timeSlots = $this->calendarModel->displayTimeSlots($calendar_id);
+    //     $getnic = $this->clinicattendeeModel->getProfile_expectant();
+    //     // $displayTimeslotdetails = $this->calendarModel->displayTimeslotdetails($clinic_timeslot_id);
     
-        $data = [
-            'timeSlots' => $timeSlots,
-            // 'getnic' => $getnic,
-            // 'calendarEvents' => $calendarEvents
+    //     $data = [
+    //         'timeSlots' => $timeSlots,
+    //         'getnic' => $getnic,
+    //         // 'calendarEvents' => $calendarEvents
           
-        ];
-        $this->view('calendars/timeslotclinicattendee', $data);
-
+    //     ];
+    //     // $clinic_timeslot_id = 280;
+    //     // $this->calendarModel->bookTimeslotWithNIC($clinic_timeslot_id);
+       
+    //     $this->view('calendars/timeslotclinicattendee', $data);
         
-    }
+    // }
+
+//     public function booktimeslot($clinic_timeslot_id){
+//         $timeSlots = $this->calendarModel->displayTimeslotdetails($clinic_timeslot_id);
+//         // $singletimeslot = $this->calendarModel->displayTimeslotdetails($clinic_timeslot_id);
+//        if($_SERVER['REQUEST_METHOD']=='POST'){
+//                 //Sanitize POST array
+//                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+//                 $data = [
+//                   'nic' => $_SESSION['clinicattendee_nic'],
+//                  'timeslot'=> $timeSlots
+                 
+//                   ];
+      
+//                 //make sure that there are no errors
+//                  if(!empty($data['nic']) )
+//                  {
+                 
+//                     if($this->calendarModel->bookTimeslotWithNIC($clinic_timeslot_id)){
+//                       //print_r($_POST);
+//                       redirect('calendars/timeslotclinicattendee/' . $timeSlots[0]->calendar_id);
+//                     }
+//                      else{
+//                       die('Something went wrong');
+//                      }
+//     }}
+//     else{
+//         redirect('clinicattendees');
+//     }
+    
+// }
+
+public function booktimeslot($clinic_timeslot_id)
+{
+    $timeSlots = $this->calendarModel->displayTimeslotdetails($clinic_timeslot_id);
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Sanitize POST array
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $data = [
+            // 'nic' => $_SESSION['clinicattendee_nic'],
+            'timeslot' => $timeSlots
+        ];
+
+        // Make sure that there are no errors
+        
+            if ($this->calendarModel->bookTimeslotWithNIC($clinic_timeslot_id)) {
+                redirect('calendars/timeslotclinicattendee/' . $timeSlots[0]->calendar_id);
+            } else {
+                die('Something went wrong');
+            }
+        
+    } 
+    // Pass the $timeSlots variable to the view
+    // $data['timeSlots'] = $timeSlots;
+
+    $this->view('calendars/booktimeslot', $data);
+}
+
+    public function timeslotclinicattendee($calendar_id){
+        // displayTimeslotdetails
+        // Get the time slots for the given date and midwife
+    
+        $timeSlots = $this->calendarModel->displayTimeSlots($calendar_id);
+        $getnic = $this->clinicattendeeModel->getProfile_expectant();
+       
+        $data = [
+
+        'nic' =>$getnic->nic,
+        'timeSlots' => $timeSlots,
+        'getnic' => $getnic,
+      
+           
+        ];
+        
+  
+    $this->view('calendars/timeslotclinicattendee', $data);
+
+      }
+  
     
    
 

@@ -159,8 +159,8 @@
                                         <?php endif; ?>
 
                                         <!-- <td><a href="<!?php echo URLROOT; ?>/expectantRecords/expectant_allrecords/<!?php echo $data['info']->nic; ?>/<!?php echo $previousrecords->date; ?>"><button class="button2">See More</button></a></td> -->
-                                        <!-- <td><a href="<?php echo URLROOT; ?>/expectantRecords/expectant_allrecords/<!?php echo $data['info']->nic; ?>/<!?php echo $report->date; ?>"><button class="button2">See More</button></a></td> -->
-                                        <td><a href="<?php echo URLROOT; ?>/expectantRecords/expectant_allrecords/<?php echo $data['info']->nic; ?>/<?php echo $report->date; ?>"><button class="button2">See More</button></a></td>
+                                        <!-- <td><a href="<!?php echo URLROOT; ?>/expectantRecords/expectant_allrecords/<!?php echo $data['info']->nic; ?>/<!?php echo $report->date; ?>"><button class="button2">See More</button></a></td> -->
+                                        <td><a href="<?php echo URLROOT; ?>/expectantRecords/expectant_allrecords/<?php echo $data['info']->nic; ?>/<?php echo $previousrecords->date; ?>"><button class="button2">See More</button></a></td>
                                         <td></td>
                                     </tr>
                                 <?php endforeach; ?>

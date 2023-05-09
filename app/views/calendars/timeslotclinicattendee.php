@@ -6,135 +6,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style_clinicattendee.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style_midwife.css">
-
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <title><?php echo SITENAME; ?></title>
-  
- 
 </head>
-
 <body>
-    <?php require APPROOT . '/views/inc/navbar.php' ; ?>
-    <?php require APPROOT . '/views/inc/sidebar_clinicattendee.php' ; ?>
+    <?php require APPROOT . '/views/inc/navbar.php'; ?>
+    <?php require APPROOT . '/views/inc/sidebar_clinicattendee.php'; ?>
     <div class="content">
-
-    <div class="time-slot-container">
-   
-        
-
-   
-           
-           <h2 class="content_h1">Time Slots for <!--?php echo $data['timeSlots']->clinic_date; ?--> </h2>
-       
-       
-       </div>
-       <div class= "newregdetails">
-           <table>
-               <tr>
-          <!--     ?php echo $clinicdetails->title; ?> -->
-                   <th>Details </th>
-                   <th></th>
-               </tr>
-               <tr>
-                   <th>Time duration</th>
-                   <th>Reserved or Not</th>
-                   
-                  
-               </tr>
-               <?php foreach($data['timeSlots'] as $timeSlots):?>
-               
+        <div class="time-slot-container">
+            <!-- <h2 class="content_h1">Time Slots for <!?php echo $data['timeSlots'][0]->clinic_date; ?></h2> -->
+        </div>
+        <div class="newregdetails">
+            <table>
+                <tr>
+                    <th>Details</th>
+                    <th></th>
+                </tr>
+                <?php foreach($data['timeSlots'] as $timeSlot): ?>
                     <tr>
-                    <!-- <th ><!?php echo $timeSlots->clinic_timeslot_id; ?></th> -->
-                        <td class= "timeslotbox"><?php echo $timeSlots->start_time; ?> - <?php echo $timeSlots->end_time;; ?></td>
-                          <!-- <td  onclick="myFunction()"class= "bookbutton">Book now</td>           -->
+    <td class="timeslotbox"><?php echo $timeSlot->start_time; ?> - <?php echo $timeSlot->end_time; ?></td>
+    <td>
+        <?php if ($timeSlot->nic == NULL ): ?>
+            <button onclick="openConfirmationPopup(<?php echo $timeSlot->clinic_timeslot_id; ?>)">Book now</button>
 
-                          <!-- <td class="bookbutton" onclick="bookSlot(this)">Book now</td>  -->
-                        <td>  <button onclick="document.getElementById('1').style.display='block'" style="width:auto;">Book now</button></td>
-                    </tr>
-                <?php endforeach; ?>
+        <?php else: ?>
+            <button disabled  class="green-button">Booked</button>
+        <?php endif; ?>
+    </td>
+</tr>
 
-
-                <!-- <script>
-function bookSlot(button) {
-  if (confirm("Do you want to book this time slot?")) {
-    button.innerHTML = "Booked";
-  }
-}
-</script>     -->
-<!-- <script>
-function bookSlot(button) {
-  let text;
-  if (confirm("Do you want to book this time slot") == true) {
-    text = "Your Time slot is reserved!!";
-    // add "booked" class to the clicked table cell
-    button.innerHTML = "Booked";
-  } else {
-    text = "You canceled!";
-  }
-  document.getElementById("demo").innerHTML = text;
-}</script> -->
-
-               
-
-<!-- <p id="demo"></p>
-
-<script>
-function myFunction() {
-  let text;
-  if (confirm("Do you want to book this time slot") == true) {
-    text = "Your Time slot is reserved!!";
-  } else {
-    text = "You canceled!";
-  }
-  document.getElementById("demo").innerHTML = text;
-}
-</script> -->
-           </table>
-       </div>
-   </div>
-   </div>
-               </div>
-               <script src="bookingtimeslots.js"></script>
-
-              
-            
-
-               <div id="1" class="modal">
-<form class="modal-content animate" action="<?php echo URLROOT; ?>/calendars/timeslotclinicattendee" method="post">
- 
-<div class="midwifeupdateinfo">
-        <h1>Are you sure you want to book this time slot?</h1>
-     
-      <label for="nic"><b>YOUR NIC</b></label>
-      <!-- <input type="text"  name="email" value='<!?php echo $data['getnic']->nic; ?>'> -->
-
-
-   
-
-   
+                    <div id="modal" class="modal">
+        <div class="midwifeupdateinfo">
+        <form id="booking-form" action="<?php echo URLROOT; ?>/calendars/booktimeslot/<?php echo $timeSlot->clinic_timeslot_id; ?>" method="POST">
         
-      <button type="submit">Yes</button>
-      <button >No</button>
-     
+        
+    <h1>Are you sure you want to book this time slot?</h1>
+    <!-- <label for="nic"><b>Your NIC <!?php echo $data['getnic']->nic; ?></b></label> -->
+    <button id="submit-btn" type="submit">Submit</button>
+    <button id="cancel-btn">No</button>
+</form>
+
+        </div>
+                        
     </div>
 
-  
-  </form>
-</div>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
 
-<script>
-// Get the modal
-var modal = document.getElementById('1');
+    <script>
+    const modal = document.getElementById('modal');
+    const bookingForm = document.getElementById('booking-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const cancelBtn = document.getElementById('cancel-btn');
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+    function openConfirmationPopup(clinic_timeslot_id) {
+        const form = document.getElementById('booking-form');
+        form.action = "<?php echo URLROOT; ?>/calendars/booktimeslot/" + clinic_timeslot_id;
+        form.submit();
     }
-}
+
+    submitBtn.addEventListener('click', function() {
+        // Handle the submit button click event
+        
+        // Close the confirmation popup
+        modal.style.display = "none";
+
+        // Submit the form
+        bookingForm.submit();
+    });
+
+    cancelBtn.addEventListener('click', function() {
+        // Handle the cancel button click event
+        
+        // Close the confirmation popup
+        modal.style.display = "none";
+    });
 </script>
-              
-</div>
-                
-    
+
+
+</body

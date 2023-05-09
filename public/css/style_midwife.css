@@ -1177,3 +1177,7 @@ input[type=text], input[type=password] {
     font-size: 1vw;
   }
   
+  .green-button {
+    background-color: green;
+    color: white;
+  }

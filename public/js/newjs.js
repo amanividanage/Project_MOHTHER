@@ -60,7 +60,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // getEvents(gnd);
     // var nic = document.getElementById("nic").value;
-    var nic = "fffzzzwwetth";
+    var nic='7687577Y333V'
     calendar.render();
 
     $.ajax({
@@ -81,7 +81,7 @@ window.addEventListener('DOMContentLoaded', function () {
                         end: item.clinic_date,
                         start_time: item.start_event,
                         end_time: item.end_event,
-                        phm: item.phm
+                        // phm: item.phm
                     }
                 );
             });
