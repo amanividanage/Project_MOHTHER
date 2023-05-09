@@ -119,7 +119,8 @@
         
 
         public function getEventsforClinicAttendee($nic) {
-             $this->db->query('SELECT * FROM calendar INNER JOIN registration ON calendar.gnd=registration.gnd WHERE registration.nic=:nic ');
+             $this->db->query('SELECT calendar.clinic_id, calendar.title, calendar.clinic_date, calendar.start_event, calendar.end_event
+             FROM calendar INNER JOIN registration ON calendar.gnd=registration.gnd WHERE registration.nic=:nic ');
             // $this->db->query('SELECT * FROM calendar  ');
             $this->db->bindParam('nic', $nic);
             // $this->db->bindParam(':calendar_id', $calendar_id); 
@@ -145,6 +146,63 @@
             return $results;
         }
 
+        // public function bookTimeslotWithNIC($clinic_timeslot_id){
+        //     $this->db->query("UPDATE time_slots  SET nic =:nic  WHERE time_slots.nic = :clinicattendee_nic AND clinic_timeslot_id = :clinic_timeslot_id");
+        //     $this->db->bindParam(':clinicattendee_nic',  $_SESSION['clinicattendee_nic']);
+        //     $this->db->bindParam(':clinic_timeslot_id', $clinic_timeslot_id);
+      
+        //      //Execute
+        //      if($this->db->execute()){
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // }
+
+        // public function bookTimeslotWithNIC($clinic_timeslot_id) {
+        //     $this->db->query("UPDATE time_slots SET nic = :nic WHERE nic = :clinicattendee_nic AND clinic_timeslot_id = :clinic_timeslot_id");
+        //     $this->db->bind(':nic', $_SESSION['clinicattendee_nic']);
+        //     $this->db->bind(':clinicattendee_nic', $_SESSION['clinicattendee_nic']);
+        //     $this->db->bind(':clinic_timeslot_id', $clinic_timeslot_id);
+        
+        //     return $this->db->execute();
+        // }
+        // public function bookTimeslotWithNIC($clinic_timeslot_id) {
+        //     $this->db->query("UPDATE time_slots SET nic = :nic WHERE nic = :nic AND clinic_timeslot_id = :clinic_timeslot_id");
+        //     $this->db->bind(':nic', $_SESSION['clinicattendee_nic']);
+        //     $this->db->bind(':clinic_timeslot_id', $clinic_timeslot_id);
+        
+        //     // return $this->db->execute();
+
+        //     if($this->db->execute()){
+        //                 return true;
+        //             } else {
+        //                 return false;
+        //             }
+        // }
+        public function bookTimeslotWithNIC($clinic_timeslot_id) {
+            $this->db->query("UPDATE time_slots SET nic = :nic WHERE clinic_timeslot_id = :clinic_timeslot_id");
+            $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+            $this->db->bindParam(':clinic_timeslot_id',$clinic_timeslot_id );
+        
+            if($this->db->execute()){
+                return true;
+            } else {
+                return false;
+            }
+        }
+        // public function bookTimeslotWithNIC($clinic_timeslot_id, $nic) {
+        //     $this->db->query("UPDATE time_slots SET nic = :nic WHERE clinic_timeslot_id = :clinic_timeslot_id");
+        //     $this->db->bind(':nic', $nic);
+        //     $this->db->bind(':clinic_timeslot_id', $clinic_timeslot_id);
+            
+        //     return $this->db->execute();
+        // }
+        
+        
+
+
+
         public function displayTimeslotdetails($clinic_timeslot_id) {
 
             
@@ -155,9 +213,9 @@
             $this->db->bindParam(':clinic_timeslot_id', $clinic_timeslot_id);
            
             // Execute the query and return the results
-            $row = $this->db->single();
+            $rows = $this->db->resultSet();
 
-            return $row;
+    return $rows;
         }
 
         
