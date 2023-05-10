@@ -158,7 +158,7 @@
                                 <th colspan=3>Next Clinic Date</th>
                             </tr>
                             <tr>
-                                <td colspan=2><button>Check Calender</button></td>
+                                <td colspan=2><a href="<?php echo URLROOT; ?>/calendars/clinicattendeecalendar"><button>Check Calender</button></td>
                             </tr>
                             
                         </table>

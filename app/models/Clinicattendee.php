@@ -383,6 +383,19 @@ class Clinicattendee{
             return false;
         }
     }
+    public function getNIC($nic){
+        $this->db->query('SELECT nic FROM registration WHERE nic = :nic');
+        $this->db->bindParam(':nic', $nic);
+
+        $row = $this->db->single();
+
+        //check row
+        if($this->db->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 
     //find parent by nic

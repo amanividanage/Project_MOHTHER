@@ -119,7 +119,7 @@
         
 
         public function getEventsforClinicAttendee($nic) {
-            $this->db->query('SELECT calendar.clinic_id, calendar.title, calendar.clinic_date, calendar.start_event, calendar.end_event
+            $this->db->query('SELECT calendar.clinic_id, calendar.title, calendar.clinic_date, calendar.start_event, calendar.end_event,registration.nic
                               FROM calendar INNER JOIN registration ON calendar.gnd=registration.gnd 
                               WHERE registration.nic=:nic');
             $this->db->bindParam('nic', $nic);
@@ -133,6 +133,7 @@
                     'end' => $row->clinic_date,
                     'start_time' => $row->start_event,
                     'end_time' => $row->end_event,
+                    'nic' => $row->nic
                     // 'phm' => $row['phm']
                 );
             }
@@ -205,6 +206,33 @@
         // }
         public function bookTimeslotWithNIC($calendar_id,$clinic_timeslot_id) {
             $nic = $_SESSION['clinicattendee_nic'];
+        
+            // Check if the user has already booked a timeslot for the given calendar_id
+            $this->db->query("SELECT COUNT(*) FROM time_slots WHERE nic = :nic AND calendar_id = :calendar_id");
+            $this->db->bindParam(':nic', $nic);
+            $this->db->bindParam(':calendar_id', $calendar_id);
+            $this->db->execute();
+        
+            $rowCount = $this->db->fetchColumn();// fetchColumn is defined in the database. this is a new method I added
+        
+            if ($rowCount > 0) {
+                // User has already booked a timeslot for the given calendar_id
+                return false;
+            } else {
+                // Update the timeslot with the user's NIC
+                $this->db->query("UPDATE time_slots SET nic = :nic WHERE clinic_timeslot_id = :clinic_timeslot_id");
+                $this->db->bindParam(':nic', $nic);
+                $this->db->bindParam(':clinic_timeslot_id', $clinic_timeslot_id);
+        
+                if ($this->db->execute()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        public function bookTimeslotWithNICInitial($nic,$calendar_id,$clinic_timeslot_id) {
+            
         
             // Check if the user has already booked a timeslot for the given calendar_id
             $this->db->query("SELECT COUNT(*) FROM time_slots WHERE nic = :nic AND calendar_id = :calendar_id");

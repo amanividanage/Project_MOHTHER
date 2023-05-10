@@ -64,7 +64,9 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     const calendarId = info.event.id;
-                    const url = `http://localhost/MOHTHER/calendars/timeslot/${calendarId}`;
+                    const nic = info.event.extendedProps.nic;
+                    const clinic_timeslot_id = info.event.extendedProps.clinic_timeslot_id;
+                    const url = `http://localhost/MOHTHER/calendars/timeslotclinicattendeee/${nic}/${calendarId}`;
                     window.location.href = url;
                 }
             });

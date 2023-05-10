@@ -8,20 +8,41 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style_midwife.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <title><?php echo SITENAME; ?></title>
+    <style>
+        body {
+            background-color: #f3f3f3;
+            font-family: Arial, sans-serif;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .content h1 {
+            font-size: 24px;
+            color: #ff4d4d;
+            margin-bottom: 100px;
+        }
+
+        .content h2 {
+            font-size: 18px;
+            color: #666;
+        }
+    </style>
 </head>
 <body>
     <?php require APPROOT . '/views/inc/navbar.php'; ?>
     <?php require APPROOT . '/views/inc/sidebar_clinicattendee.php'; ?>
     <div class="content">
-        <div class="time-slot-container">
-            <!-- <h2 class="content_h1">Time Slots for <!?php echo $data['timeSlots'][0]->clinic_date; ?></h2> -->
-        </div>
-        <div class="newregdetails">
-         <h1> Sorry You can only book One time slot per clinic!</h1>
-         <h2>If you want to change the time slot press here!</h2>
-        </div>
+        <h1>Sorry, you can only book one time slot per clinic!</h1>
+        <h2>If you want to change the time slot, please press here!</h2>
     </div>
-
- 
-
-</body
+</body>
+</html>
