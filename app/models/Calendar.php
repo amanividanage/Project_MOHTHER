@@ -119,17 +119,28 @@
         
 
         public function getEventsforClinicAttendee($nic) {
-             $this->db->query('SELECT calendar.clinic_id, calendar.title, calendar.clinic_date, calendar.start_event, calendar.end_event
-             FROM calendar INNER JOIN registration ON calendar.gnd=registration.gnd WHERE registration.nic=:nic ');
-            // $this->db->query('SELECT * FROM calendar  ');
+            $this->db->query('SELECT calendar.clinic_id, calendar.title, calendar.clinic_date, calendar.start_event, calendar.end_event
+                              FROM calendar INNER JOIN registration ON calendar.gnd=registration.gnd 
+                              WHERE registration.nic=:nic');
             $this->db->bindParam('nic', $nic);
-            // $this->db->bindParam(':calendar_id', $calendar_id); 
-          //  $this->db->bindParam(':midwife_id', $_SESSION['midwife_id']);
+            $rows = $this->db->resultSet();
+            $data = array();
+            foreach ($rows as $row) {
+                $data[] = array(
+                    'id' => $row->clinic_id,
+                    'title' => $row->title,
+                    'start' => $row->clinic_date,
+                    'end' => $row->clinic_date,
+                    'start_time' => $row->start_event,
+                    'end_time' => $row->end_event,
+                    // 'phm' => $row['phm']
+                );
+            }
+            return $data;
+        }
+        
+        
             
-              $results =  $this->db->resultSet();
-              return $results;
-  
-          }
   
 
         public function displayTimeSlots($calendar_id) {
