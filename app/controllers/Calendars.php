@@ -185,7 +185,7 @@
     
 // }
 
-public function booktimeslot($clinic_timeslot_id)
+public function booktimeslot($calendar_id,$clinic_timeslot_id)
 {
     $timeSlots = $this->calendarModel->displayTimeslotdetails($clinic_timeslot_id);
 
@@ -199,17 +199,18 @@ public function booktimeslot($clinic_timeslot_id)
 
         // Make sure that there are no errors
         
-            if ($this->calendarModel->bookTimeslotWithNIC($clinic_timeslot_id)) {
+            if ($this->calendarModel->bookTimeslotWithNIC($calendar_id, $clinic_timeslot_id)) {
                 redirect('calendars/timeslotclinicattendee/' . $timeSlots[0]->calendar_id);
             } else {
-                die('Something went wrong');
+                // die('Sorry, You can only book One time slot per a clinic');
+                redirect('calendars/error' );
             }
         
     } 
     // Pass the $timeSlots variable to the view
     // $data['timeSlots'] = $timeSlots;
 
-    $this->view('calendars/booktimeslot', $data);
+    // $this->view('calendars/booktimeslot', $data);
 }
 
     public function timeslotclinicattendee($calendar_id){
@@ -230,6 +231,18 @@ public function booktimeslot($clinic_timeslot_id)
         
   
     $this->view('calendars/timeslotclinicattendee', $data);
+
+      }
+      public function error(){
+        
+       
+        $data = [
+
+      
+        ];
+        
+  
+    $this->view('calendars/error', $data);
 
       }
   

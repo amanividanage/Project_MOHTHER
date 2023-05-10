@@ -27,7 +27,7 @@
     <td class="timeslotbox"><?php echo $timeSlot->start_time; ?> - <?php echo $timeSlot->end_time; ?></td>
     <td>
         <?php if ($timeSlot->nic == NULL ): ?>
-            <button onclick="openConfirmationPopup(<?php echo $timeSlot->clinic_timeslot_id; ?>)">Book now</button>
+            <button onclick="openConfirmationPopup(<?php echo $data['timeSlots'][0]->calendar_id; ?>, <?php echo $timeSlot->clinic_timeslot_id; ?>)">Book now</button>
 
         <?php else: ?>
             <button disabled  class="green-button">Booked</button>
@@ -36,8 +36,11 @@
 </tr>
 
                     <div id="modal" class="modal">
+                        
         <div class="midwifeupdateinfo">
-        <form id="booking-form" action="<?php echo URLROOT; ?>/calendars/booktimeslot/<?php echo $timeSlot->clinic_timeslot_id; ?>" method="POST">
+        <!-- <form id="booking-form" action="<!?php echo URLROOT; ?>/calendars/booktimeslot/<!?php echo $timeSlot->$calendar_id; ?>/<!?php echo $timeSlot->clinic_timeslot_id; ?>" method="POST"> -->
+        <form id="booking-form" action="<?php echo URLROOT; ?>/calendars/booktimeslot/<?php echo $data['timeSlots'][0]->calendar_id; ?>/<?php echo $timeSlot->clinic_timeslot_id; ?>" method="POST">
+
         
         
     <h1>Are you sure you want to book this time slot?</h1>
@@ -60,10 +63,11 @@
     const bookingForm = document.getElementById('booking-form');
     const submitBtn = document.getElementById('submit-btn');
     const cancelBtn = document.getElementById('cancel-btn');
+    const calendarId = event.target.getAttribute('data-calendar-id');
 
-    function openConfirmationPopup(clinic_timeslot_id) {
+    function openConfirmationPopup(calendarId, clinic_timeslot_id) {
         const form = document.getElementById('booking-form');
-        form.action = "<?php echo URLROOT; ?>/calendars/booktimeslot/" + clinic_timeslot_id;
+        form.action = "<?php echo URLROOT; ?>/calendars/booktimeslot/" + calendarId + "/" + clinic_timeslot_id;
         form.submit();
     }
 
