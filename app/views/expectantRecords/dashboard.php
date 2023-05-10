@@ -50,7 +50,7 @@
                 
                 <div class="card-d">
                     <div class="card-d-content">
-                        <div class="number">1234</div>
+                        <div class="number"><?php echo $data['mother_deaths']; ?></div>
                         <div class="card-d-name">Mother Death</div>
                     </div>
                     <div class="icon-box">
@@ -62,6 +62,7 @@
             <div class="charts-d">
                 <div class="chart-d item1">
                     <h2>Death related to maternal births</h2>
+                    <canvas id="myChartnew"></canvas>
                 </div>
                 <div class="chart-d item2" id="doughnut-chart">
                     <h2>Clinic Attendees</h2>
@@ -169,65 +170,6 @@
                     }
                 }
                 });
-                // var barchartData = <!?php echo json_encode($data['chart2']); ?>;
-                // var xValues2 = barchartData.map(function(obj) { return obj.label; });
-                // var yValues2 = barchartData.map(function(obj) { return obj.value; });
-                // var barColors2 = ["#FF6384'", "#36A2EB","#FFCE56","#4BC0C0"];
-
-                // new Chart("myChart3", {
-                //     type: "bar",
-                //     data: {
-                //         labels: xValues2,
-                //         datasets: [{
-                //             backgroundColor: barColors2,
-                //             data: yValues2
-                //         }]
-                //     },
-                //     options: {
-                //         responsive: true,
-                //         legend: {display: false},
-                //         title: {
-                //             display: true,
-                //         },
-                //         scales: {
-                //             yAxes: [{
-                //                 ticks: {
-                //                     display: false,
-                //                     beginAtZero: true
-                //                 }
-                //             }],
-                //             xAxes: [{
-                //                 ticks: {
-                //                     fontColor: "#FFFFFF"
-                //                 }
-                //             }]
-                //         },
-                //         plugins: {
-                //             datalabels: {
-                //                 color: '#ffffff',
-                //                 display: function(context) {
-                //                     return context.dataset.data[context.dataIndex] > 0;
-                //                 },
-                //                 font: {
-                //                     weight: 'bold'
-                //                 },
-                //                 formatter: function(value, context) {
-                //                     return value;
-                //                 },
-                //                 labels: {
-                //                     title: {
-                //                         font: {
-                //                             weight: 'bold'
-                //                         }
-                //                     }
-                //                 }
-                //             },
-                //             legend: {
-                //                 display: false
-                //             }
-                //         }
-                //     }
-                // });
 
                 /*chart4................................*/ 
                 var barchart2Data = <?php echo json_encode($data['chart3']); ?>;
@@ -253,6 +195,43 @@
                     }
                 }
                 });
+
+                /*Chart1..........................................*/ 
+        
+                var chartData = <?php echo json_encode($data['total_deaths']); ?>;
+
+                var xValuesnew = Array.from(new Set(chartData.map(obj => obj.month))); // get unique months
+
+                var motherDeathCounts = chartData.filter(obj => obj.type === 'mother').map(obj => obj.total_count);
+                var childDeathCounts = chartData.filter(obj => obj.type === 'child').map(obj => obj.total_count);
+
+                new Chart("myChartnew", {
+                    type: "line",
+                    data: {
+                        labels: xValuesnew,
+                        datasets: [{ 
+                            data: motherDeathCounts,
+                            borderColor: "red",
+                            fill: false,
+                            label: 'Mother Deaths'
+                        }, { 
+                            data: childDeathCounts,
+                            borderColor: "green",
+                            fill: false,
+                            label: 'Child Deaths'
+                        }]
+                    },
+                    options: {
+                        legend: {display: true}
+                    }
+                });
+
+
+
+
+
+
+
 
             </script>
                

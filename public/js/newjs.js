@@ -1,7 +1,5 @@
 window.addEventListener('DOMContentLoaded', function () {
 
-    let clinicDates = [];
-
     const cal = document.getElementById("calendar");
 
     const calendar = new FullCalendar.Calendar(cal, {
@@ -17,22 +15,20 @@ window.addEventListener('DOMContentLoaded', function () {
         },
         defaultView: 'month',
         initialView: 'dayGridMonth',
-        //initialView: 'listWeek',
         timeZone: 'local',
         editable: true,
         selectable: true,
-        events: [],
         eventClick: function (info) {
             console.log(info);
             let reason;
-    
+
             Swal.fire({
                 // title: 'appointment No: ' + info.event.title,
                 icon: 'info',
                 html: `<h2 style="color: var(--green)">Clinic type : ${info.event.title}</h2>
                         <h3>Start: ${info.event.extendedProps.start_time}</h3>
                         <h3>End: ${info.event.extendedProps.end_time}</h3>`,
-                        confirmButtonText: 'Go to appointments'
+                confirmButtonText: 'Go to appointments'
             }).then((result) => {
                 if (result.isConfirmed) {
                     const calendarId = info.event.id;
@@ -41,54 +37,15 @@ window.addEventListener('DOMContentLoaded', function () {
                 }
             });
         }
-        
     });
 
-    // let gnd;
-
-    // // ajax
-    // $.ajax({
-    //     //url: `http://localhost/MOHTHER/calendars/calendarEvents/${phm}`,
-    //    url: "http://localhost/MOHTHER/clinicattendees/getGnd",
-    //     type: 'GET',
-    //     dataType: "JSON",
-    //     success: function(res) {
-    //         gnd = res.nic;
-    //         getEvents(gnd);
-    //     }
-    // });
-
-    // getEvents(gnd);
-    // var nic = document.getElementById("nic").value;
-    var nic='7687577Y333V'
     calendar.render();
 
-    $.ajax({
-        
-        // url: "http://localhost/MOHTHER/clinicattendees/getGnd/" + nic,
-        url: `http://localhost/MOHTHER/clinicattendees/getGnd/${nic}`,
-        type: 'GET',
-        dataType: "JSON",
-        success: function(res) {
-            console.log(res);
+    var clinicDates = "<?php echo json_encode($data['clinicDates']); ?>";
+    calendar.addEventSource(JSON.parse(clinicDates));
 
-            res.forEach(function (item) {
-                clinicDates.push(
-                    {
-                        id: item.clinic_id,
-                        title: item.title,
-                        start: item.clinic_date,
-                        end: item.clinic_date,
-                        start_time: item.start_event,
-                        end_time: item.end_event,
-                        // phm: item.phm
-                    }
-                );
-            });
+});
 
-            calendar.addEventSource(clinicDates);
-        }
-    });})
 
     // function getEvents(nic){
     //     $.ajax({
