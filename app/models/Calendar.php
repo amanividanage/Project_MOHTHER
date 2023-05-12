@@ -423,6 +423,16 @@
             return $row;
          
         }
+        public function selectThebookedTimeslotInitial($nic,$calendar_id){
+            $this->db->query('SELECT time_slots.clinic_timeslot_id  FROM time_slots WHERE time_slots.nic= :nic  AND calendar_id = :calendar_id ');
+            $this->db->bindParam(':nic', $nic);
+            
+            $this->db->bindParam(':calendar_id', $calendar_id);
+            $row = $this->db->single();
+    
+            return $row;
+         
+        }
         
 
         

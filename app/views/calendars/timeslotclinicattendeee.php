@@ -20,8 +20,13 @@
             <table>
                 <tr>
                     <th>Details</th>
-                    <th></th>
-                </tr>
+                    <?php if ($data['exactbookedTimeslot']== TRUE): ?>
+           
+       <td ><i class="fa fa-check" aria-hidden="true"></i><a href="<?php echo URLROOT; ?>/pages/contact"><button class="more1999">Complete Registration</button></a></td>
+       <?php else: ?>
+        <td><a href="<?php echo URLROOT; ?>/calendars/timeslotclinicattendeee/<?php echo $data['nic']; ?>/<?php echo $data['timeSlots'][0]->calendar_id; ?>"><button class="more1999">Please select a time slot</button></a></td>
+       <?php endif; ?>
+                 
                 <?php foreach($data['timeSlots'] as $timeSlot): ?>
                     <tr>
     <td class="timeslotbox"><?php echo $timeSlot->start_time; ?> - <?php echo $timeSlot->end_time; ?></td>

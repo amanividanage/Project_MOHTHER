@@ -270,6 +270,7 @@ public function booktimeslotInitial($nic, $calendar_id,$clinic_timeslot_id)
         // Get the time slots for the given date and midwife
         // $getnic = $this->clinicattendeeModel->findRegistrantByNic($nic);
         $timeSlots = $this->calendarModel->displayTimeSlots($calendar_id);
+        $exactbookedTimeslot = $this->calendarModel->selectThebookedTimeslotInitial($nic,$calendar_id);
        
        
         $data = [
@@ -277,6 +278,7 @@ public function booktimeslotInitial($nic, $calendar_id,$clinic_timeslot_id)
         
         'timeSlots' => $timeSlots,
         'nic' => $nic,
+        'exactbookedTimeslot' => $exactbookedTimeslot
         
       
            
