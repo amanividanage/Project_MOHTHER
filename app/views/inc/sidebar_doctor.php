@@ -14,6 +14,11 @@
                     <i class="fa fa-th"></i><span>Dashboard</span>
                 </a>
             </li>
+            <li class="item">
+                <a href="<?php echo URLROOT; ?>/doctorRecords" class="menu-btn">
+                    <i class="fa fa-user-plus"></i><span>New Registrants</span>
+                </a>
+            </li>
 
             <li class="item">
                 <a href="<?php echo URLROOT; ?>/doctorRecords/doctor_profile"" class="menu-btn">

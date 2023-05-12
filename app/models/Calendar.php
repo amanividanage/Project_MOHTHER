@@ -158,6 +158,37 @@
             return $results;
         }
 
+        // public function changeTimeSlot($clinic_timeslot_id){
+        //     $this->db->query("UPDATE time_slots  SET nic= '0' WHERE clinic_timeslot_id = :clinic_timeslot_id AND nic=:nic ");
+    
+        //     $this->db->bindParam(':clinic_timeslot_id', $clinic_timeslot_id);
+        //     $this->db->bindParam(':nic',  $_SESSION['clinicattendee_nic']);
+        //         // $row = $this->db->single();
+        
+        //         // return $row;
+                
+        //          //Execute
+        //          if($this->db->execute()){
+        //             return true;
+        //         } else {
+        //             return false;
+        //         }
+        // }
+        // public function changeTimeSlot($clinic_timeslot_id){
+        //     $nic = $_SESSION['clinicattendee_nic'];
+        //     $this->db->query("UPDATE time_slots SET nic = '0' WHERE clinic_timeslot_id = :clinic_timeslot_id AND nic = :nic");
+            
+        //     $this->db->bindParam(':clinic_timeslot_id', $clinic_timeslot_id);
+        //     $this->db->bindParam(':nic', $nic);
+            
+        //     if ($this->db->execute()) {
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // }
+        
+
         // public function bookTimeslotWithNIC($clinic_timeslot_id){
         //     $this->db->query("UPDATE time_slots  SET nic =:nic  WHERE time_slots.nic = :clinicattendee_nic AND clinic_timeslot_id = :clinic_timeslot_id");
         //     $this->db->bindParam(':clinicattendee_nic',  $_SESSION['clinicattendee_nic']);
@@ -231,13 +262,13 @@
                 }
             }
         }
-        public function bookTimeslotWithNICInitial($nic,$calendar_id,$clinic_timeslot_id) {
+        public function bookTimeslotWithNICInitial($nic,$clinic_timeslot_id) {
             
         
             // Check if the user has already booked a timeslot for the given calendar_id
-            $this->db->query("SELECT COUNT(*) FROM time_slots WHERE nic = :nic AND calendar_id = :calendar_id");
+            $this->db->query("SELECT COUNT(*) FROM time_slots WHERE nic = :nic");
             $this->db->bindParam(':nic', $nic);
-            $this->db->bindParam(':calendar_id', $calendar_id);
+           
             $this->db->execute();
         
             $rowCount = $this->db->fetchColumn();// fetchColumn is defined in the database. this is a new method I added
@@ -311,8 +342,88 @@
             // Execute the query and return the results
             $rows = $this->db->resultSet();
 
-    return $rows;
+            return $rows;
         }
+        public function displayTimeslotdetailss($clinic_timeslot_id) {
+
+            
+            // Prepare the SQL query
+            $this->db->query('SELECT * FROM time_slots WHERE clinic_timeslot_id = :clinic_timeslot_id');
+        
+            // Bind the parameters to the query
+            $this->db->bindParam(':clinic_timeslot_id', $clinic_timeslot_id);
+           
+            // Execute the query and return the results
+            // $rows = $this->db->resultSet();
+
+            // return $rows;
+            $rows = $this->db->resultSet();
+
+            return $rows;
+        }
+
+        
+        // public function onetimeslot($calendar_id,$clinic_timeslot_id) {
+
+            
+        //     $nic = $_SESSION['clinicattendee_nic'];
+        
+        //     // Check if the user has already booked a timeslot for the given calendar_id
+        //     $this->db->query("SELECT COUNT(*) FROM time_slots WHERE nic = :nic AND calendar_id = :calendar_id");
+        //     $this->db->bindParam(':nic', $nic);
+        //     $this->db->bindParam(':calendar_id', $calendar_id);
+        //     $this->db->execute();
+        
+        //     $rowCount = $this->db->fetchColumn();// fetchColumn is defined in the database. this is a new method I added
+        
+        //     if ($rowCount > 0) {
+        //         // User has already booked a timeslot for the given calendar_id
+        //         $this->db->query("UPDATE time_slots SET nic = '0' WHERE clinic_timeslot_id = :clinic_timeslot_id AND nic = :nic");
+
+        //           // Update the timeslot with the user's NIC
+        //           $this->db->bindParam(':nic', $nic);
+        //           $this->db->bindParam(':clinic_timeslot_id', $clinic_timeslot_id);
+          
+        //           if ($this->db->execute()) {
+        //               return true;
+        //           } else {
+        //               return false;
+        //           }
+        //     } else {
+        //          return false;
+        //     }}
+        public function onetimeslot($calendar_id, $clinic_timeslot_id) {
+            $nic = $_SESSION['clinicattendee_nic'];
+            
+            // Update the timeslot with an empty nic value
+            
+            $this->db->query("UPDATE time_slots SET nic = '' WHERE clinic_timeslot_id = :clinic_timeslot_id AND nic = :nic");
+            $this->db->bindParam(':nic', $nic);
+            $this->db->bindParam(':clinic_timeslot_id', $clinic_timeslot_id);
+
+            // Execute the query
+            if ($this->db->execute()) {
+              return true;
+            } else {
+             return false;
+        }
+        }
+
+        // public function selectthebookedTimeslot($calendar_id, $clinic_timeslot_id) {
+         
+        // }
+
+        public function selectThebookedTimeslot($calendar_id){
+            $this->db->query('SELECT time_slots.clinic_timeslot_id  FROM time_slots WHERE time_slots.nic= :nic  AND calendar_id = :calendar_id ');
+            $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+            
+            $this->db->bindParam(':calendar_id', $calendar_id);
+            $row = $this->db->single();
+    
+            return $row;
+         
+        }
+        
 
         
         // public function delete(){

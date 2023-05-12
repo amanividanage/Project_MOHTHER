@@ -32,6 +32,31 @@
             ?>
         </b>
         </div>
+        <div>
+            <table>
+                <tr>
+                    <th>Details of Today's Expectant Mothers</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>NIC</th>
+                    <th>Name</th>
+                    <th>Date of Registration</th>
+                    <th>Expected Date of Delivery</th>
+                    <th></th>
+                </tr>
+                <?php foreach($data['mothersforToday'] as $mothersforToday):?>
+                    <tr>
+                    <th><?php echo $mothersforToday->nic; ?></a> </th>
+                        <td><?php echo $mothersforToday->name; ?></td>
+                        <td><?php echo $mothersforToday->registrationDate; ?></td>     
+                        <td><?php echo $mothersforToday->expectedDateofDelivery; ?></td>              
+                        
+                        <td><a href="<?php echo URLROOT; ?>/doctorRecords/info/<?php echo $mothersforToday->nic; ?>" class="more1999"> More Info </a></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
             
 
 

@@ -189,13 +189,15 @@
 public function booktimeslot($calendar_id,$clinic_timeslot_id)
 {
     $timeSlots = $this->calendarModel->displayTimeslotdetails($clinic_timeslot_id);
+    // $exactbookedTimeslot = $this->calendarModel->selectThebookedTimeslot($calendar_id,$clinic_timeslot_id);
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Sanitize POST array
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
         $data = [
             // 'nic' => $_SESSION['clinicattendee_nic'],
-            'timeslot' => $timeSlots
+            'timeslot' => $timeSlots,
+            // 'exactbookedTimeslot' => $exactbookedTimeslot
         ];
 
         // Make sure that there are no errors
@@ -204,7 +206,8 @@ public function booktimeslot($calendar_id,$clinic_timeslot_id)
                 redirect('calendars/timeslotclinicattendee/' . $timeSlots[0]->calendar_id);
             } else {
                 // die('Sorry, You can only book One time slot per a clinic');
-                redirect('calendars/error' );
+                // redirect('calendars/error/'. $timeSlots[0]->calendar_id."/".$exactbookedTimeslot->clinic_timeslot_id );
+                redirect('calendars/error/'. $timeSlots[0]->calendar_id);
             }
         
     } 
@@ -229,12 +232,12 @@ public function booktimeslotInitial($nic, $calendar_id,$clinic_timeslot_id)
 
         // Make sure that there are no errors
         
-        if ($this->calendarModel->bookTimeslotWithNICInitial($nic,$calendar_id,$clinic_timeslot_id)) {
+        if ($this->calendarModel->bookTimeslotWithNICInitial($nic,$clinic_timeslot_id)) {
             redirect('calendars/timeslotclinicattendeee/'.$nic .'/' . $calendar_id);
             ;
             } else {
                 // die('Sorry, You can only book One time slot per a clinic');
-                redirect('calendars/error' );
+                redirect('calendars/errorforInitialReg/'.$calendar_id );
             }
         
     } 
@@ -247,6 +250,7 @@ public function booktimeslotInitial($nic, $calendar_id,$clinic_timeslot_id)
         // Get the time slots for the given date and midwife
     
         $timeSlots = $this->calendarModel->displayTimeSlots( $calendar_id);
+        
      
        
         $data = [
@@ -284,19 +288,60 @@ public function booktimeslotInitial($nic, $calendar_id,$clinic_timeslot_id)
       }
 
 
-      public function error(){
+      public function error($calendar_id){
+        $timeSlots = $this->calendarModel->displayTimeSlots($calendar_id);
+        $exactbookedTimeslot = $this->calendarModel->selectThebookedTimeslot($calendar_id);
+
+        ///nic should be identified write the query
+        $data = [
+            'timeSlots' => $timeSlots,
+            'exactbookedTimeslot' => $exactbookedTimeslot
+        ];
+      
+        $this->view('calendars/error', $data);
+    }
+    
+    public function bookagain($calendar_id, $clinic_timeslot_id){
+        $timeSlots = $this->calendarModel->displayTimeslotdetailss($clinic_timeslot_id);
+        // $exactbookedTimeslot = $this->calendarModel->selectThebookedTimeslot($calendar_id,$clinic_timeslot_id);
+
+          $data = [
+            'timeSlots' => $timeSlots,
+            // 'exactbookedTimeslot' => $exactbookedTimeslot
+        ];
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Update the timeslot with an empty nic value
+            if ($this->calendarModel->onetimeslot($calendar_id, $clinic_timeslot_id)) {
+                redirect('calendars/timeslotclinicattendee/' . $timeSlots[0]->calendar_id);
+            } else {
+                redirect('');
+            }
+        }
+    }    
+    //   public function bookagain($calendar_id,$clinic_timeslot_id){
         
        
-        $data = [
+    // $timeSlots = $this->calendarModel->displayTimeslotdetails($clinic_timeslot_id);
 
-      
-        ];
+    // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //     // Sanitize POST array
+    //     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    //     $data = [
+    //         // 'nic' => $_SESSION['clinicattendee_nic'],
+    //         'timeslot' => $timeSlots
+    //     ];
+
+    //     // Make sure that there are no errors
         
-  
-    $this->view('calendars/error', $data);
-
-      }
-  
+    //         if ($this->calendarModel->onetimeslot($calendar_id, $clinic_timeslot_id)) {
+    //             redirect('calendars/timeslotclinicattendee/' . $timeSlots[0]->calendar_id);
+    //         } else {
+    //             // die('Sorry, You can only book One time slot per a clinic');
+    //             redirect('' );
+    //         }
+        
+    // } 
+    // }
     
    
 
@@ -395,7 +440,17 @@ public function booktimeslotInitial($nic, $calendar_id,$clinic_timeslot_id)
         $this->view('calendars/createclinic', $data);
     }
 }
-
+public function errorforInitialReg($calendar_id){
+    $timeSlots = $this->calendarModel->displayTimeSlots($calendar_id);
+   
+    ///nic should be identified write the query
+    $data = [
+        'timeSlots' => $timeSlots,
+       
+    ];
+  
+    $this->view('calendars/errorforInitialReg', $data);
+}
 
  
 }
