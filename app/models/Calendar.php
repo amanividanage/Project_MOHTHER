@@ -69,9 +69,7 @@
       
 
         public function getEvents() {
-        //  $this->db->query('SELECT * FROM calendar INNER JOIN clinics ON calendar.gnd=clinics.gnd WHERE clinics.id=:id ');
-          // $this->db->query('SELECT * FROM calendar WHERE midwife_nic = :midwife_nic ');
-        //   $this->db->query('SELECT * FROM calendar INNER JOIN midwife_clinic ON calendar.midwife_nic=midwife_clinic.nic INNER JOIN clinics ON midwife_clinic.clinic= clinics.id WHERE midwife_clinic.nic =:midwife_nic ');
+       
         $this->db->query("SELECT * 
         FROM  calendar r 
         INNER JOIN clinics c  ON r.gnd = c.gnd 
@@ -84,6 +82,20 @@
             return $results;
 
         }
+        public function getEventsforDoctor() {
+       
+            $this->db->query("SELECT * 
+            FROM  calendar r 
+            INNER JOIN clinics c  ON r.gnd = c.gnd 
+            INNER JOIN doctor_clinic m ON m.clinic = c.id
+            WHERE  m.nic = :doctor_nic ");
+           //   $this->db->bindParam(':id', $id); 
+              $this->db->bindParam(':doctor_nic', $_SESSION['doctor_nic']);
+              
+                $results =  $this->db->resultSet();
+                return $results;
+    
+            }
         public function updatethetimeslot($data){
             $this->db->query("UPDATE time_slots  SET is_booked ='1' WHERE clinic_timeslot_id = :clinic_timeslot_id");
     

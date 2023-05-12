@@ -26,10 +26,17 @@
         }
 
         .content h1 {
-            font-size: 24px;
+            font-size: 40px;
             color: #ff4d4d;
-            margin-bottom: 100px;
+            margin-bottom: 50px;
+            padding top: 50px;
         }
+        .error-message {
+      font-size: 36px;
+      font-weight: bold;
+      color: #ff0000;
+      margin-top: 200px;
+    }
 
       
     </style>
@@ -38,7 +45,10 @@
     <?php require APPROOT . '/views/inc/navbar.php'; ?>
     <?php require APPROOT . '/views/inc/sidebar_clinicattendee.php'; ?>
     <div class="content">
-        <h1>Sorry, you can only book one time slot!</h1>
+    <div class="error-message">
+    Sorry, you can only book one time slot!
+  </div>
+
      
 </script>
 

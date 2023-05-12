@@ -89,6 +89,30 @@
 
         $this->view('calendars/maternitycalendar', $data);
     }
+    public function doctorcalendar(){
+    
+        
+        
+
+        $data = [
+         
+            
+            ];
+
+        
+
+        $this->view('calendars/doctorcalendar', $data);
+    }
+    public function calendarEventsforDoctor () {
+        $calendarEvents =  $this->calendarModel->getEventsforDoctor();
+
+
+        $data = [
+            'clinic_dates' => $calendarEvents,
+            ];
+
+        echo json_encode($data['clinic_dates']);
+    }
 
     public function calendarEventsforclinicattendee () {
         $calendarEvents =  $this->clinicattendeeModel->getnextclinicdate();

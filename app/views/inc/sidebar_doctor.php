@@ -57,12 +57,12 @@
                     <a href="<!?php echo URLROOT; ?>/calendars/build_calendar"><i class="fa fa-calendar-check-o"></i><span>Child Clinic</span></a>
                 </div>
             </li> -->
-
             <li class="item">
-                <a href="#" class="menu-btn">
-                    <i class="fa fa-sliders"></i><span>Statistics</span>
+            <a href="<?php echo URLROOT; ?>/calendars/doctorcalendar" class="menu-btn">
+                    <i class="fa fa-calendar-plus-o"></i><span>Calendar</span>
                 </a>
             </li>
+
         </div>
     </div>
     <!--Side bar End-->
