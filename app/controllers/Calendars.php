@@ -148,6 +148,7 @@
         // Get the time slots for the given date and midwife
         $timeSlots = $this->calendarModel->displayTimeSlots($calendar_id);
         
+        
         // $clinicdetails = $this->calendarModel->displayclinicdetails($calendar_id);
     
         $data = [
@@ -235,6 +236,9 @@ public function booktimeslot($calendar_id,$clinic_timeslot_id)
             }
         
     } 
+    $clinicattendee_nic = $_SESSION['clinicattendee_nic'];
+
+    $data['clinicattendee_nic'] = $clinicattendee_nic;
    
 }
 

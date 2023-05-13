@@ -17,6 +17,7 @@
             <!-- <h2 class="content_h1">Time Slots for <!?php echo $data['timeSlots'][0]->clinic_date; ?></h2> -->
         </div>
         <div class="newregdetails">
+            <h2>Your booked time slot will appear in black</h2>
             <table>
                 <tr>
                     <th>Details</th>
@@ -26,13 +27,16 @@
                     <tr>
     <td class="timeslotbox"><?php echo $timeSlot->start_time; ?> - <?php echo $timeSlot->end_time; ?></td>
     <td>
-        <?php if ($timeSlot->nic == NULL ): ?>
-            <button onclick="openConfirmationPopup(<?php echo $data['timeSlots'][0]->calendar_id; ?>, <?php echo $timeSlot->clinic_timeslot_id; ?>)">Book now</button>
-
-        <?php else: ?>
-            <button disabled  class="green-button">Booked</button>
-        <?php endif; ?>
-    </td>
+            <?php if ($timeSlot->nic == NULL): ?>
+                <button onclick="openConfirmationPopup(<?php echo $data['timeSlots'][0]->calendar_id; ?>, <?php echo $timeSlot->clinic_timeslot_id; ?>)">Book now</button>
+            <?php else: ?>
+                <?php if ($timeSlot->nic == $_SESSION['clinicattendee_nic']): ?>
+                    <button disabled class="black-button">Booked</button>
+                <?php else: ?>
+                    <button disabled class="green-button">Booked</button>
+                <?php endif; ?>
+            <?php endif; ?>
+        </td>
 </tr>
 
                     <div id="modal" class="modal">

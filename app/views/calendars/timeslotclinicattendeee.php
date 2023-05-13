@@ -37,7 +37,7 @@
     <td>
         <?php if ($timeSlot->nic == NULL ): ?>
            
-            <button class="book-now-btn" data-calendar-id="<?php echo $timeSlot->calendar_id ?>" nic="<?php echo $data['nic']; ?>" data-clinic-timeslot-id="<?php echo $timeSlot->clinic_timeslot_id ?>">Book now</
+            <button class="book-now-btn" data-calendar-id="<?php echo $timeSlot->calendar_id ?>" nic="<?php echo $data['nic']; ?>" data-clinic-timeslot-id="<?php echo $timeSlot->clinic_timeslot_id ?>">Book now</button>
 
 
         <?php else: ?>

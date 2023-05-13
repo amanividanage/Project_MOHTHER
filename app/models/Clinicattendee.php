@@ -474,7 +474,7 @@ class Clinicattendee{
         $results = array();
     
         // Query 1: Retrieve data from detailrecords_expectant table
-        $this->db->query("SELECT * FROM calendar 
+        $this->db->query("SELECT calendar.calendar_id, calendar.title, calendar.clinic_date, calendar.start_event, calendar.end_event, calendar.duration FROM calendar 
                           INNER JOIN detailrecords_expectant 
                           ON detailrecords_expectant.nextAppointmentDate = calendar.clinic_date 
                           WHERE nic = :nic");
@@ -484,7 +484,7 @@ class Clinicattendee{
         $detailRecordsResults = $this->db->resultSet();
     
         // Query 2: Retrieve data from childrecords and children tables
-        $this->db->query("SELECT calendar.calendar_id, calendar.title, calendar.clinic_date, calendar.start_event, calendar.end_event, calendar.duration 
+        $this->db->query("SELECT calendar.calendar_id, calendar.title, calendar.clinic_date, calendar.start_event, calendar.end_event, calendar.duration, children.name
                           FROM calendar 
                           INNER JOIN childrecords 
                           ON childrecords.nextAppointmentDate = calendar.clinic_date 

@@ -31,7 +31,8 @@ window.addEventListener('DOMContentLoaded', function () {
                 icon: 'info',
                 html: `<h2 style="color: var(--green)">Clinic type : ${info.event.title}</h2>
                         <h3>Start: ${info.event.extendedProps.start_time}</h3>
-                        <h3>End: ${info.event.extendedProps.end_time}</h3>`,
+                        <h3>End: ${info.event.extendedProps.end_time}</h3>
+                        <h3>Name: ${info.event.extendedProps.name}</h3>`,
                         confirmButtonText: 'Go to appointments'
             }).then((result) => {
                 if (result.isConfirmed) {
