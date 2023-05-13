@@ -115,7 +115,7 @@ class Children{
     
     //add report
     public function addReport($data){
-        $this->db->query("INSERT INTO childrecords (child_id, date, skin, eye, temp, umbilicus, weight, other) VALUES (:child_id, :date, :skin, :eye, :temp, :umbilicus, :weight, :other)");
+        $this->db->query("INSERT INTO childrecords (child_id, date, skin, eye, temp, umbilicus, weight, other, nextAppointmentDate) VALUES (:child_id, :date, :skin, :eye, :temp, :umbilicus, :weight, :other,:nextAppointmentDate)");
 
         //bind values
         $this->db->bindParam(':child_id',$data['child_id']);
@@ -127,6 +127,7 @@ class Children{
         $this->db->bindParam(':umbilicus',$data['umbilicus']);
         $this->db->bindParam(':weight',$data['weight']);
         $this->db->bindParam(':other',$data['other']);
+        $this->db->bindParam(':nextAppointmentDate',$data['nextAppointmentDate']);
          
         //execute
         if($this->db->execute()){

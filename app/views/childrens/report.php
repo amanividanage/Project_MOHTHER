@@ -5,7 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style_midwife_children.css">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  <!-- full calendar CDN  -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.0.1/index.global.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title><?php echo SITENAME; ?></title>
 </head>
 <body>
@@ -56,11 +63,27 @@
                         <input type="text" name="other" placeholder="Enter other compications of baby if any...">
                         <span class="form-err"><?php echo $data['other_err']; ?></span>
                     </div>
+                    <div>
+                        <label for="nextAppointmentDate">Next Appointment Date</label>
+                        <input type="Date" name="nextAppointmentDate">
+                        <span class="form-err"><?php echo $data['other_err']; ?></span>
+                    </div>
+                    <tr>
+   
+    
                     
                     <input type="submit" value="Submit">
                     
                 </form>
-                
+                </form>
+    <div class= "calendarcontent_form">
+    
+    <!-- <div class ="calendar-container-form"> -->
+    <div id ="calendar">
+       
+    
+    </div>
+    <script src="<?= URLROOT ?>/js/maternityCalendar.js"></script>
             </div>
             <br>
                 <br>

@@ -38,8 +38,7 @@
         <table>
             <tr>
             <td> <a href="<?php echo URLROOT; ?>/calendars/createclinic/<?php echo $data['clinic']->gnd; ?>"> <button class="add">Create Clinics</button></a></td></tr>
-                       <tr>  <td> <a href="<?php echo URLROOT; ?>/children"><button class="add">Update clinic dates</button></a></td> </tr>
-                       <tr>  <td>     <a href="<?php echo URLROOT; ?>/children"><button class="add">Delete clinic dates</button></a></td> </tr>
+      
 </table>
                     </div>
                     <!-- <script>const id = <!?php echo $id; ?>;</script> -->

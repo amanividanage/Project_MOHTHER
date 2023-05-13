@@ -444,22 +444,65 @@ class Clinicattendee{
     //     return $row;
     // }
 
-    public function getnextclinicdate(){
+    // public function getnextclinicdate(){
         
-        $this->db->query("SELECT * FROM calendar INNER JOIN detailrecords_expectant ON detailrecords_expectant.nextAppointmentDate = calendar.clinic_date WHERE  nic =:nic");
-        // $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+    //     $this->db->query("SELECT * FROM calendar INNER JOIN detailrecords_expectant ON detailrecords_expectant.nextAppointmentDate = calendar.clinic_date WHERE  nic =:nic");
+    //     // $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+    //     $this->db->query("SELECT * FROM calendar INNER JOIN childrecords INNER JOIN  children ON childrecords.child_id = children.child_id AND childrecords.nextAppointmentDate = calendar.clinic_date WHERE  nic =:nic");
+
         
-        // $results = $this->db->resultSet();
+    //     // $results = $this->db->resultSet();
 
-        // return $results;
+    //     // return $results;
 
-        // $this->db->query("SELECT * FROM  calendar WHERE nic =:nic ");
-       //   $this->db->bindParam(':id', $id); 
-          $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+    //     // $this->db->query("SELECT * FROM  calendar WHERE nic =:nic ");
+    //    //   $this->db->bindParam(':id', $id); 
+    //       $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
           
-            $results =  $this->db->resultSet();
-            return $results;
+    //         $results =  $this->db->resultSet();
+    //         return $results;
+    // }
+    // public function getnextclinicdate() {
+    //     $this->db->query("SELECT calendar.calendar_id, calendar.title, calendar.clinic_date, calendar.start_event, calendar.end_event, calendar.duration FROM calendar INNER JOIN childrecords ON childrecords.nextAppointmentDate = calendar.clinic_date INNER JOIN children ON childrecords.child_id = children.child_id WHERE children.parent =:nic");
+    
+    //     $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+    
+    //     $results = $this->db->resultSet();
+    //     return $results;
+    // }
+    public function getnextclinicdate() {
+        $results = array();
+    
+        // Query 1: Retrieve data from detailrecords_expectant table
+        $this->db->query("SELECT * FROM calendar 
+                          INNER JOIN detailrecords_expectant 
+                          ON detailrecords_expectant.nextAppointmentDate = calendar.clinic_date 
+                          WHERE nic = :nic");
+    
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+    
+        $detailRecordsResults = $this->db->resultSet();
+    
+        // Query 2: Retrieve data from childrecords and children tables
+        $this->db->query("SELECT calendar.calendar_id, calendar.title, calendar.clinic_date, calendar.start_event, calendar.end_event, calendar.duration 
+                          FROM calendar 
+                          INNER JOIN childrecords 
+                          ON childrecords.nextAppointmentDate = calendar.clinic_date 
+                          INNER JOIN children 
+                          ON childrecords.child_id = children.child_id 
+                          WHERE children.parent = :nic");
+    
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+    
+        $childRecordsResults = $this->db->resultSet();
+    
+        // Combine the results from both queries
+        $results = array_merge($detailRecordsResults, $childRecordsResults);
+    
+        return $results;
     }
+    
+    
     public function getclinicattendeebyPHM(){
         $this->db->query('SELECT * FROM registration INNER JOIN clinics ON  registration.gnd=clinics.gnd WHERE nic=:nic');
 

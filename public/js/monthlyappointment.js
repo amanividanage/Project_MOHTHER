@@ -65,7 +65,7 @@ window.addEventListener('DOMContentLoaded', function () {
                         end: item.clinic_date,
                         start_time: item.start_event,
                         end_time: item.end_event,
-                        phm: item.phm
+                        name: item.name
                     }
                 );
             });

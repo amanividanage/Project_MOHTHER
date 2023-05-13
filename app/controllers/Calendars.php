@@ -466,6 +466,8 @@ public function booktimeslotInitial($nic, $calendar_id,$clinic_timeslot_id)
         $this->view('calendars/createclinic', $data);
     }
 }
+
+
 public function errorforInitialReg($calendar_id){
     $timeSlots = $this->calendarModel->displayTimeSlots($calendar_id);
    
@@ -476,6 +478,53 @@ public function errorforInitialReg($calendar_id){
     ];
   
     $this->view('calendars/errorforInitialReg', $data);
+}
+
+public function updateclinic(){
+    $clinic =  $this->midwifeModel->getPHMByMidwife();
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+      //Sanitize POST array
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $data = [
+        'clinic'=>$clinic,
+        'title' => trim($_POST['title']),
+        'start_event' => trim($_POST['start_event']),
+        'end_event' => trim($_POST['end_event']),
+        'clinic_date' => trim($_POST['clinic_date']),
+        'duration' => trim($_POST['duration']),
+     
+    ];
+    
+
+      //make sure that there are no errors
+       //add expectant mother's records
+       if($this->midwifeModel->updateclinicinfo($data)){
+        //print_r($_POST);
+       redirect('expectantRecords/midwife_profile');
+    }else{
+   redirect('expectantRecords/midwife_profile');
+    }
+    
+     } else{
+      
+    $midwifeprofileinfo =  $this->midwifeModel->getProfileMidwife(); 
+    $getPHM =  $this->midwifeModel->getPHMByMidwifee();
+
+     
+    $data = [
+
+    'email' => $midwifeprofileinfo->email,
+    'email_err' =>'',
+    'phone' =>$midwifeprofileinfo->phone,
+    'phone_err'=>'',
+    'midwifeprofileinfo' => $midwifeprofileinfo,
+    'phm' => $getPHM
+       
+    ];
+
+$this->view('calendars/updateclinic', $data);
+
+  }
 }
 
  
