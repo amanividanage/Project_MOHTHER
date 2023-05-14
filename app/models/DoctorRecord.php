@@ -13,7 +13,7 @@ class DoctorRecord {
         $this->db->query("SELECT expectant.nic, expectant.name, expectant.registrationDate, expectant.expectedDateofDelivery FROM expectant
                           INNER JOIN phm ON expectant.phm=phm.id
                           INNER JOIN doctor_clinic ON phm.clinic_id=doctor_clinic.clinic
-                          WHERE doctor_clinic.nic = :doctor_nic ");
+                          WHERE doctor_clinic.nic = :doctor_nic AND expectant.active='0' ");
 
         $this->db->bindParam(':doctor_nic', $_SESSION['doctor_nic']);
          

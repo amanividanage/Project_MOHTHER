@@ -242,6 +242,7 @@
                     'midwife' => trim($_POST['midwife']),
                     'midwife_err' => '',
                     'appdate'=> date("Y-m-d"),
+                    'clinics' => $clinic,
 
                     // 'newphm' => trim($_POST['newphm']),
                     // 'newphm_err' => ''
@@ -282,10 +283,13 @@
 
                 $midwifes = $this->midwifeModel->getNotAddedMidwifes();
 
+                $clinic = $this->clinicModel->getClinicByPHM($id);
+
                 $data = [
                     'phm' => $phm,
                     'midwifes' => $midwifes,
-                    'midwife_err' => ''
+                    'midwife_err' => '',
+                    'clinics' => $clinic,
                 ];
             }
 

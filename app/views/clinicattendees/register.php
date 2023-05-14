@@ -76,6 +76,8 @@
                     <span class="form-err"><?php echo $data['memail_err']; ?></span>
                 </div>
 
+                <br><br><br>
+
             </div>
 
 

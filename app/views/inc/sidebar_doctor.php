@@ -16,7 +16,7 @@
             </li>
             <li class="item">
                 <a href="<?php echo URLROOT; ?>/doctorRecords" class="menu-btn">
-                    <i class="fa fa-user-plus"></i><span>New Registrants</span>
+                    <i class="fa fa-user-plus"></i><span>Today's attendees</span>
                 </a>
             </li>
 

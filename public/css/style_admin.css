@@ -332,6 +332,10 @@ input[type=submit]:hover {
     margin-bottom: 10px;
   }
 
+.gallery a {
+    text-decoration: none;
+}
+
 /*Add button*/
 
 .add{
@@ -470,10 +474,11 @@ th {
     float: left;
     width: 50%;
     padding: 20px;
-    border: 2px solid red;
-  border-radius: 5px;
-  /* padding: 5px; */
-  border-left: 20px;
+    border: 2px solid #F0E3FF;
+    background-color: #dca6f7;
+    border-radius: 5px;
+    /* padding: 5px; */
+    border-left: 20px;
 }
 
 .column table{

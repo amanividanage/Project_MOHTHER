@@ -22,7 +22,7 @@
        </div>
        <div class= "newregdetails">
        <div>
-                        <a href="<?php echo URLROOT; ?>/children"><button class="add">Edit Profile Photo</button></a>
+                        <!-- <a href="<!?php echo URLROOT; ?>/children"><button class="add">Edit Profile Photo</button></a> -->
                     </div>
                 </div>
         <table>

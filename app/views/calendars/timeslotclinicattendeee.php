@@ -21,7 +21,7 @@
                 <tr>
                 <?php if ($data['exactbookedTimeslot']== TRUE): ?>
            
-           <td ><i class="fa fa-check" aria-hidden="true"></i><a href="<?php echo URLROOT; ?>/pages/contact"><button class="more1999">Complete Registration</button></a></td>
+           <td ><i class="fa fa-check" aria-hidden="true"></i><a href="<?php echo URLROOT; ?>/pages/contact"><button class="amani">Complete Registration</button></a></td>
            <?php else: ?>
             <td><a href="<?php echo URLROOT; ?>/calendars/timeslotclinicattendeee/<?php echo $data['nic']; ?>/<?php echo $data['timeSlots'][0]->calendar_id; ?>"><button class="more1999">Please select a time slot and then click here to complete registration</button></a>
            <?php endif; ?>

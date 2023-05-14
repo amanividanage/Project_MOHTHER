@@ -27,7 +27,7 @@
                     <th></th>
                 </tr>
                 <tr>
-                    <th>Child Id</th>
+                    <!-- <th>Child Id</th> -->
                     <th>Name</th>
                     <th>Date of Birth</th>
                     <th>Date of registration</th>
@@ -35,7 +35,7 @@
                 </tr>
                 <?php foreach($data['children'] as $children):?>
                     <tr>
-                    <th><?php echo $children->child_id; ?></a> </th>
+                    <!-- <th><!?php echo $children->child_id; ?></a> </th> -->
                         <td><?php echo $children->name; ?></td>
                         <td><?php echo $children->dob; ?></td>     
                         <td><?php echo $children->date; ?></td>              

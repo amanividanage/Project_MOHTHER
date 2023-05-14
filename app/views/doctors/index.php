@@ -38,7 +38,7 @@
                             <th></th>
                         </tr>
                         <tr>
-                            <th>Doctor Id</th>
+                            <!-- <th>Doctor Id</th> -->
                             <th>Name</th>
                             <th>nic No</th>
                             <th>Contact No</th>
@@ -47,7 +47,7 @@
                         </tr>
                         <?php foreach($data['doctors'] as $doctor) : ?>
                             <tr>
-                                <td><?php echo $doctor->doctor_id; ?></td>
+                                <!-- <td><!?php echo $doctor->doctor_id; ?></td> -->
                                 <td><?php echo $doctor->name; ?></td>
                                 <td><?php echo $doctor->nic; ?></td>
                                 <td><?php echo $doctor->phone; ?></td>

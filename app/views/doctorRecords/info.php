@@ -46,10 +46,10 @@
                                 <td>Age</td>
                                 <td><?php echo $data['mother']->mage; ?></td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <td>Gravidity</td>
-                                <td><?php echo $data['mother']->gravidity; ?> </td>
-                            </tr>
+                                <td><!?php echo $data['mother']->gravidity; ?> </td>
+                            </tr> -->
                             <tr>
                                 <td>Level of Education</td>
                                 <td><?php echo $data['mother']->mlevelofeducation; ?></td>

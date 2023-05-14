@@ -17,13 +17,13 @@
             height: 100vh;
         }
 
-        .content {
+        /* .content {
             background-color: #fff;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             text-align: center;
-        }
+        } */
 
         .content h1 {
             font-size: 40px;
@@ -36,18 +36,27 @@
       font-weight: bold;
       color: #ff0000;
       margin-top: 200px;
+      margin-right: 40px;
     }
+
+      .redirect{
+        color: #8946A6
+      }
+    
 
       
     </style>
 </head>
 <body>
     <?php require APPROOT . '/views/inc/navbar.php'; ?>
-    <?php require APPROOT . '/views/inc/sidebar_clinicattendee.php'; ?>
+    <!-- <!?php require APPROOT . '/views/inc/sidebar_clinicattendee.php'; ?>  -->
     <div class="content">
     <div class="error-message">
-    Sorry, you can only book one time slot!
+    <h3>Sorry, you can only book one time slot!</h3>
+
+    
   </div>
+  <a href="<?php echo URLROOT; ?>"><h3 class="redirect">Redirect to the initial page>> </h3></a>
 
      
 </script>

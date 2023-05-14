@@ -25,7 +25,8 @@
     <div class= "Registration">
     <a href="<?php echo URLROOT; ?>/expectantRecords" class="back"><i class="fa-fa-backward"></i>Back</a>
         <form action="<?php echo URLROOT; ?>/users/register/<?php echo $data['newexpectantRecords']->nic; ?>" method= "POST">
-   
+
+
     <table align="center" cellpadding = "10">
         
  <tr><td><b> Basic Info <hr> </td></tr>
@@ -167,7 +168,8 @@
     <td>
     <label for="gravidity">Gravidity </label>
     </td>
-    <td><input type="int" name="gravidity" maxlength="5" class= "form <?php echo (!empty($data['gravidity_err'])) ? 'is-invalid' : ''; ?>" value="<?php if(!empty($data['newexpectantRecords2'])) { echo $data['newexpectantRecords2']->gravidity+1; } else { echo $data['gravidity']; } ?>"
+    <td><input type="int" name="gravidity" maxlength="5" class= "form <?php echo (!empty($data['gravidity_err'])) ? 'is-invalid' : ''; ?>" value="<?php if(!empty($data['newexpectantRecords2'])) { echo $data['newexpectantRecords2']->gravidity+1; } else { echo $data['gravidity']; } ?>" >
+    <!-- <span class="invalid-feedback"><!?php echo $data['gravidity_err']; ?></span></td> -->
     <span class="invalid-feedback"><?php echo $data['gravidity_err']; ?></span></td>
     </tr>
 
@@ -207,7 +209,7 @@
     <label for="expectedDateofDelivery">Expected Date of Delivery </label>
     </td>
     <td><input type="Date" name="expectedDateofDelivery"  class= "form <?php echo (!empty($data['expectedDateofDelivery_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['expectedDateofDelivery']; ?>">
-    <span class="invalid-feedback"><?php echo $data['expectedDateofDelivery_err']; ?></span></td>
+    <span class="invalid-feedback"><?php echo $data['expectedDateofDeliver_err']; ?></span></td>
     </tr>
 
     

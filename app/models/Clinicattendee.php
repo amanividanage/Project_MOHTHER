@@ -473,7 +473,7 @@ class Clinicattendee{
         $results = array();
     
         // Query 1: Retrieve data from detailrecords_expectant table
-        $this->db->query("SELECT calendar.calendar_id, calendar.title, calendar.clinic_date, calendar.start_event, calendar.end_event, calendar.duration FROM calendar 
+        $this->db->query("SELECT * FROM calendar 
                           INNER JOIN detailrecords_expectant 
                           ON detailrecords_expectant.nextAppointmentDate = calendar.clinic_date 
                           WHERE nic = :nic");

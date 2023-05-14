@@ -12,7 +12,8 @@
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
     <?php require APPROOT . '/views/inc/sidebar.php' ; ?>
         <div class="content">
-            <a href="<?php echo URLROOT; ?>/clinics" class="back"><i class="fa fa-backward"></i>  Back</a>
+            <a href="<?php echo URLROOT; ?>/clinics/info/<?php echo $data['clinics']->clinic_id; ?>" class="back"><i class="fa fa-backward"></i>Back</a>
+            <br><br>
             
                 <form action="<?php echo URLROOT; ?>/clinics/phm/<?php echo $data['phm']->id; ?>" method="post">
                     <h2>Add Midwives to PHM Area</h2>

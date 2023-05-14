@@ -261,6 +261,10 @@ class Users extends Controller{
                 }
             }
 
+            if(empty($data['poa'])){
+                $data['poa_err']='*Please enter the poa';
+            }
+
             if(empty($data['height'])){
                 $data['height_err']='*Please enter the height';
             }
@@ -300,6 +304,10 @@ class Users extends Controller{
 
             if(empty($data['expectedDateofDeliver'])){
                 $data['expectedDateofDeliver_err']='Please enter the Expected date of delivery';
+            }
+
+            if(empty($data['password'])){
+                $data['password_err']='Please enter the password to register';
             }
 
             if($this->userModel->findUserByNIC($data['nic'])){

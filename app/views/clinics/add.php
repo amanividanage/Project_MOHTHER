@@ -36,6 +36,10 @@
                             <option value="Kottawa  West">Kottawa  West</option>
                             <option value="Liyanagoda">Liyanagoda</option>
                             <option value="Pragathipura">Pragathipura</option>
+                            <option value="Rukmale East">Rukmale East</option>
+                            <option value="Rukmale West">Rukmale West</option>
+                            <option value="Mirihana North">Mirihana North</option>
+                            <option value="Mirihana South">Mirihana South</option>
                         </select>
                         <span class="form-err"><?php echo $data['gnd_err']; ?></span>
                     </div> 

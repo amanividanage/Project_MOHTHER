@@ -1182,6 +1182,13 @@ input[type=text], input[type=password] {
     background-color: green;
     color: white;
   }
+
+  .more1999{
+    background-color: #d083f1;
+    color: white;
+    cursor: pointer;
+}
+
   /* .more1999 {
     background-color: #7e1e6e;
     border: none;
@@ -1196,7 +1203,7 @@ input[type=text], input[type=password] {
     border-radius: 20px; /* Adjust the value as desired */
 
 
-.more1999 {
+.amani {
     background: #790a953f;
     background-image: -webkit-linear-gradient(top, #bd2064, #6e0b62);
     background-image: -moz-linear-gradient(top, #bd2064, #6e0b62);
@@ -1213,7 +1220,7 @@ input[type=text], input[type=password] {
     text-decoration: none;
   }
   
-  .more1999:hover {
+  .amani:hover {
     background: #119947;
     background-image: -webkit-linear-gradient(top, #119947, #258525);
     background-image: -moz-linear-gradient(top, #119947, #258525);

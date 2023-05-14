@@ -51,8 +51,9 @@
                 <div class="gallery">
                     <a href="<?php echo URLROOT; ?>/clinics/info/<?php echo $clinic->id; ?>">
                         <img src="<?php echo URLROOT;?>/img/clinic.jpg" alt="Cinque Terre" width="600" height="400">
+                        <div class="desc"><?php echo $clinic->clinic_name; ?> <br> <font size="2"><i>GND: <?php echo $clinic->gnd; ?></i></font></div>
                     </a>
-                    <div class="desc"><?php echo $clinic->clinic_name; ?> <br> <?php echo $clinic->gnd; ?></div>
+                    
                     
                 </div>
                 
