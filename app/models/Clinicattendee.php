@@ -483,7 +483,7 @@ class Clinicattendee{
         $detailRecordsResults = $this->db->resultSet();
     
         // Query 2: Retrieve data from childrecords and children tables
-        $this->db->query("SELECT calendar.calendar_id, calendar.title, calendar.clinic_date, calendar.start_event, calendar.end_event, calendar.duration, children.name
+        $this->db->query("SELECT *
                           FROM calendar 
                           INNER JOIN childrecords 
                           ON childrecords.nextAppointmentDate = calendar.clinic_date 
