@@ -54,7 +54,19 @@ class ExpectantRecord {
         return $result;
     }
    
+    public function deleteusers($nic){
+        $this->db->query('DELETE FROM registration WHERE nic = :nic');
 
+        //Bind values
+        $this->db->bindParam(':nic', $nic);
+
+        //Execute
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
  public function getDeliveredList(){
         $this->db->query("SELECT deliveredlist.nic, deliveredlist.date, deliveredlist.miscarriage, deliveredlist.placeofDelivery, expectant.name, deliveredlist.mother_safe

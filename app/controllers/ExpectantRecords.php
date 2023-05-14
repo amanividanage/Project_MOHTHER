@@ -32,6 +32,26 @@
         $this->view('expectantRecords/index', $data);
       }
 
+      public function deleteusers($nic){
+
+        //get records
+        // $expectantRecords =  $this->expectantRecordModel-> getExpectantRecords(); 
+        $newexpectantRecords =  $this->expectantRecordModel-> getNewExpectantRecords(); 
+  
+          $data = [
+            // 'expectantRecords' => $expectantRecords ,
+            'newexpectantRecords'=> $newexpectantRecords
+            ];
+           
+            if($this->expectantRecordModel->deleteusers($nic)){
+              //print_r($_POST);
+             redirect('expectantRecords');
+          }
+          $this->view('expectantRecords', $data);
+         
+        }
+
+     
 
 
       public function expectnatmotherlist(){
