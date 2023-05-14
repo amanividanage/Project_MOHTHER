@@ -21,6 +21,22 @@ class DoctorRecord {
         $results =  $this->db->resultSet();
         return $results;
     }
+
+    public function getExpectantMothersforToday() {
+        $this->db->query("SELECT expectant.nic, expectant.name, expectant.registrationDate, expectant.expectedDateofDelivery 
+                          FROM expectant
+                          INNER JOIN phm ON expectant.phm = phm.id
+                          INNER JOIN doctor_clinic ON phm.clinic_id = doctor_clinic.clinic
+                          INNER JOIN detailrecords_expectant ON expectant.nic = detailrecords_expectant.nic
+                          WHERE doctor_clinic.nic = :doctor_nic
+                          AND DATE(detailrecords_expectant.nextAppointmentDate) = CURDATE()");
+    
+        $this->db->bindParam(':doctor_nic', $_SESSION['doctor_nic']);
+        
+        $results = $this->db->resultSet();
+        return $results;
+    }
+    
     
     public function getExpectantMotherByNic($nic){
 

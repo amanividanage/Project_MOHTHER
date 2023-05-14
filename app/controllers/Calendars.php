@@ -89,6 +89,30 @@
 
         $this->view('calendars/maternitycalendar', $data);
     }
+    public function doctorcalendar(){
+    
+        
+        
+
+        $data = [
+         
+            
+            ];
+
+        
+
+        $this->view('calendars/doctorcalendar', $data);
+    }
+    public function calendarEventsforDoctor () {
+        $calendarEvents =  $this->calendarModel->getEventsforDoctor();
+
+
+        $data = [
+            'clinic_dates' => $calendarEvents,
+            ];
+
+        echo json_encode($data['clinic_dates']);
+    }
 
     public function calendarEventsforclinicattendee () {
         $calendarEvents =  $this->clinicattendeeModel->getnextclinicdate();
@@ -123,6 +147,8 @@
     
         // Get the time slots for the given date and midwife
         $timeSlots = $this->calendarModel->displayTimeSlots($calendar_id);
+        
+        
         // $clinicdetails = $this->calendarModel->displayclinicdetails($calendar_id);
     
         $data = [
@@ -185,46 +211,81 @@
     
 // }
 
-public function booktimeslot($clinic_timeslot_id)
+public function booktimeslot($calendar_id,$clinic_timeslot_id)
 {
     $timeSlots = $this->calendarModel->displayTimeslotdetails($clinic_timeslot_id);
+    // $exactbookedTimeslot = $this->calendarModel->selectThebookedTimeslot($calendar_id,$clinic_timeslot_id);
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Sanitize POST array
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
         $data = [
             // 'nic' => $_SESSION['clinicattendee_nic'],
-            'timeslot' => $timeSlots
+            'timeslot' => $timeSlots,
+            // 'exactbookedTimeslot' => $exactbookedTimeslot
         ];
 
         // Make sure that there are no errors
         
-            if ($this->calendarModel->bookTimeslotWithNIC($clinic_timeslot_id)) {
+            if ($this->calendarModel->bookTimeslotWithNIC($calendar_id, $clinic_timeslot_id)) {
                 redirect('calendars/timeslotclinicattendee/' . $timeSlots[0]->calendar_id);
             } else {
-                die('Something went wrong');
+                // die('Sorry, You can only book One time slot per a clinic');
+                // redirect('calendars/error/'. $timeSlots[0]->calendar_id."/".$exactbookedTimeslot->clinic_timeslot_id );
+                redirect('calendars/error/'. $timeSlots[0]->calendar_id);
             }
         
     } 
-    // Pass the $timeSlots variable to the view
-    // $data['timeSlots'] = $timeSlots;
+    $clinicattendee_nic = $_SESSION['clinicattendee_nic'];
 
-    $this->view('calendars/booktimeslot', $data);
+    $data['clinicattendee_nic'] = $clinicattendee_nic;
+   
 }
+
+public function booktimeslotInitial($nic, $calendar_id,$clinic_timeslot_id)
+{
+    $timeSlots = $this->calendarModel->displayTimeslotdetails($clinic_timeslot_id);
+
+    $getnic = $this->clinicattendeeModel->getNIC($nic);
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Sanitize POST array
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $data = [
+            // 'nic' => $_SESSION['clinicattendee_nic'],
+            'timeslot' => $timeSlots,
+            'getnic' => $getnic,
+
+        ];
+
+        // Make sure that there are no errors
+        
+        if ($this->calendarModel->bookTimeslotWithNICInitial($nic,$clinic_timeslot_id)) {
+            redirect('calendars/timeslotclinicattendeee/'.$nic .'/' . $calendar_id);
+            ;
+            } else {
+                // die('Sorry, You can only book One time slot per a clinic');
+                redirect('calendars/errorforInitialReg/'.$calendar_id );
+            }
+        
+    } 
+   
+}
+
 
     public function timeslotclinicattendee($calendar_id){
         // displayTimeslotdetails
         // Get the time slots for the given date and midwife
     
-        $timeSlots = $this->calendarModel->displayTimeSlots($calendar_id);
-        $getnic = $this->clinicattendeeModel->getProfile_expectant();
+        $timeSlots = $this->calendarModel->displayTimeSlots( $calendar_id);
+        
+     
        
         $data = [
 
-        'nic' =>$getnic->nic,
-        'timeSlots' => $timeSlots,
-        'getnic' => $getnic,
       
+        'timeSlots' => $timeSlots,
+       
            
         ];
         
@@ -232,7 +293,85 @@ public function booktimeslot($clinic_timeslot_id)
     $this->view('calendars/timeslotclinicattendee', $data);
 
       }
+      public function timeslotclinicattendeee($nic,$calendar_id){
+        // displayTimeslotdetails
+        // Get the time slots for the given date and midwife
+        // $getnic = $this->clinicattendeeModel->findRegistrantByNic($nic);
+        $timeSlots = $this->calendarModel->displayTimeSlots($calendar_id);
+        $exactbookedTimeslot = $this->calendarModel->selectThebookedTimeslotInitial($nic,$calendar_id);
+       
+       
+        $data = [
+
+        
+        'timeSlots' => $timeSlots,
+        'nic' => $nic,
+        'exactbookedTimeslot' => $exactbookedTimeslot
+        
+      
+           
+        ];
+        
   
+    $this->view('calendars/timeslotclinicattendeee', $data);
+
+      }
+
+
+      public function error($calendar_id){
+        $timeSlots = $this->calendarModel->displayTimeSlots($calendar_id);
+        $exactbookedTimeslot = $this->calendarModel->selectThebookedTimeslot($calendar_id);
+
+        ///nic should be identified write the query
+        $data = [
+            'timeSlots' => $timeSlots,
+            'exactbookedTimeslot' => $exactbookedTimeslot
+        ];
+      
+        $this->view('calendars/error', $data);
+    }
+    
+    public function bookagain($calendar_id, $clinic_timeslot_id){
+        $timeSlots = $this->calendarModel->displayTimeslotdetailss($clinic_timeslot_id);
+        // $exactbookedTimeslot = $this->calendarModel->selectThebookedTimeslot($calendar_id,$clinic_timeslot_id);
+
+          $data = [
+            'timeSlots' => $timeSlots,
+            // 'exactbookedTimeslot' => $exactbookedTimeslot
+        ];
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Update the timeslot with an empty nic value
+            if ($this->calendarModel->onetimeslot($calendar_id, $clinic_timeslot_id)) {
+                redirect('calendars/timeslotclinicattendee/' . $timeSlots[0]->calendar_id);
+            } else {
+                redirect('');
+            }
+        }
+    }    
+    //   public function bookagain($calendar_id,$clinic_timeslot_id){
+        
+       
+    // $timeSlots = $this->calendarModel->displayTimeslotdetails($clinic_timeslot_id);
+
+    // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //     // Sanitize POST array
+    //     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    //     $data = [
+    //         // 'nic' => $_SESSION['clinicattendee_nic'],
+    //         'timeslot' => $timeSlots
+    //     ];
+
+    //     // Make sure that there are no errors
+        
+    //         if ($this->calendarModel->onetimeslot($calendar_id, $clinic_timeslot_id)) {
+    //             redirect('calendars/timeslotclinicattendee/' . $timeSlots[0]->calendar_id);
+    //         } else {
+    //             // die('Sorry, You can only book One time slot per a clinic');
+    //             redirect('' );
+    //         }
+        
+    // } 
+    // }
     
    
 
@@ -332,6 +471,65 @@ public function booktimeslot($clinic_timeslot_id)
     }
 }
 
+
+public function errorforInitialReg($calendar_id){
+    $timeSlots = $this->calendarModel->displayTimeSlots($calendar_id);
+   
+    ///nic should be identified write the query
+    $data = [
+        'timeSlots' => $timeSlots,
+       
+    ];
+  
+    $this->view('calendars/errorforInitialReg', $data);
+}
+
+public function updateclinic(){
+    $clinic =  $this->midwifeModel->getPHMByMidwife();
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+      //Sanitize POST array
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $data = [
+        'clinic'=>$clinic,
+        'title' => trim($_POST['title']),
+        'start_event' => trim($_POST['start_event']),
+        'end_event' => trim($_POST['end_event']),
+        'clinic_date' => trim($_POST['clinic_date']),
+        'duration' => trim($_POST['duration']),
+     
+    ];
+    
+
+      //make sure that there are no errors
+       //add expectant mother's records
+       if($this->midwifeModel->updateclinicinfo($data)){
+        //print_r($_POST);
+       redirect('expectantRecords/midwife_profile');
+    }else{
+   redirect('expectantRecords/midwife_profile');
+    }
+    
+     } else{
+      
+    $midwifeprofileinfo =  $this->midwifeModel->getProfileMidwife(); 
+    $getPHM =  $this->midwifeModel->getPHMByMidwifee();
+
+     
+    $data = [
+
+    'email' => $midwifeprofileinfo->email,
+    'email_err' =>'',
+    'phone' =>$midwifeprofileinfo->phone,
+    'phone_err'=>'',
+    'midwifeprofileinfo' => $midwifeprofileinfo,
+    'phm' => $getPHM
+       
+    ];
+
+$this->view('calendars/updateclinic', $data);
+
+  }
+}
 
  
 }

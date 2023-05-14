@@ -995,8 +995,9 @@ input[type=text], input[type=password] {
     border-radius: 37px;
     font-family: Arial;
     color: #ffffff;
+  
     font-size: 12px;
-    padding: 14px 20px 18px 20px;
+    padding: 30px 35px 22px 40px;
     text-decoration: none;
     display: inline-block;
 }
@@ -1180,4 +1181,68 @@ input[type=text], input[type=password] {
   .green-button {
     background-color: green;
     color: white;
+  }
+  /* .more1999 {
+    background-color: #7e1e6e;
+    border: none;
+    color: white;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 2px 2px;
+    cursor: pointer;
+    height: fit-content;
+    border-radius: 20px; /* Adjust the value as desired */
+
+
+.more1999 {
+    background: #790a953f;
+    background-image: -webkit-linear-gradient(top, #bd2064, #6e0b62);
+    background-image: -moz-linear-gradient(top, #bd2064, #6e0b62);
+    background-image: -ms-linear-gradient(top, #bd2064, #6e0b62);
+    background-image: -o-linear-gradient(top, #bd2064, #6e0b62);
+    background-image: linear-gradient(to bottom, #bd2064, #6e0b62);
+    border-radius: 0px;
+ 
+    
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+  }
+  
+  .more1999:hover {
+    background: #119947;
+    background-image: -webkit-linear-gradient(top, #119947, #258525);
+    background-image: -moz-linear-gradient(top, #119947, #258525);
+    background-image: -ms-linear-gradient(top, #119947, #258525);
+    background-image: -o-linear-gradient(top, #119947, #258525);
+    background-image: linear-gradient(to bottom, #119947, #258525);
+    text-decoration: none;
+  }
+/******************CALENDAR*****************/
+  .r_calendar {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    
+    z-index: -1;
+    background-image: url('../img/1.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.r_calendar h4 {
+    color: rgb(253, 1, 1);
+    margin-top: 4%;
+    margin-left: 1%;
+   
+}
+.black-button {
+    background-color: rgb(55, 47, 63);
   }

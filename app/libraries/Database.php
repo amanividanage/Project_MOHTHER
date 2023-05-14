@@ -80,6 +80,13 @@
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
         }
 
+
+        public function fetchColumn(){
+
+           return $this->stmt->fetchColumn();
+       }
+
+
         //Get single record as object
         public function single(){
             $this->execute();

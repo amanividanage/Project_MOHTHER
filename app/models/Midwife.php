@@ -157,6 +157,25 @@
                 return false;
             }
         }
+        public function updateclinicinfo($data){
+            $this->db->query("UPDATE calendar  SET title =:title, clinic_date=:clinic_date, start_event=:start_event, end_event=:end_event, duration=:duration WHERE midwife_id = :midwife_id");
+            $this->db->bindParam(':midwife_id',  $_SESSION['midwife_id']);
+            $this->db->bindParam(':title',  $data['title']);
+            $this->db->bindParam(':clinic_date',  $data['clinic_date']);
+            $this->db->bindParam(':start_event',  $data['start_event']);
+            $this->db->bindParam(':end_event',  $data['end_event']);
+            $this->db->bindParam(':duration',  $data['duration']);
+            $row = $this->db->single();
+    
+            return $row;
+            
+             //Execute
+             if($this->db->execute()){
+                return true;
+            } else {
+                return false;
+            }
+        }
 
         
         public function getProfileMidwife(){

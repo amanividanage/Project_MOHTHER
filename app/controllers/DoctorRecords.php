@@ -12,10 +12,10 @@
         }
 
         public function index(){
-            
+            $mothersforToday = $this->doctorRecordModel->getExpectantMothersforToday();
 
             $data = [
-                
+                'mothersforToday' => $mothersforToday
             ];
          
       
@@ -52,9 +52,11 @@
         public function expectantmothers(){
             
             $mothers = $this->doctorRecordModel->getExpectantMothers();
+         
 
             $data = [
-                'mothers' => $mothers
+                'mothers' => $mothers,
+               
             ];
          
       

@@ -14,44 +14,44 @@
     <?php require APPROOT . '/views/inc/sidebar_clinicattendee.php'; ?>
     <div class="content">
         <div class="time-slot-container">
-            <!-- <h2 class="content_h1">Time Slots for <!?php echo $data['timeSlots'][0]->clinic_date; ?></h2> -->
+           
         </div>
         <div class="newregdetails">
-            <h2>Your booked time slot will appear in black</h2>
             <table>
                 <tr>
-                    <th>Details</th>
-                    <th></th>
+                <?php if ($data['exactbookedTimeslot']== TRUE): ?>
+           
+           <td ><i class="fa fa-check" aria-hidden="true"></i><a href="<?php echo URLROOT; ?>/pages/contact"><button class="more1999">Complete Registration</button></a></td>
+           <?php else: ?>
+            <td><a href="<?php echo URLROOT; ?>/calendars/timeslotclinicattendeee/<?php echo $data['nic']; ?>/<?php echo $data['timeSlots'][0]->calendar_id; ?>"><button class="more1999">Please select a time slot and then click here to complete registration</button></a>
+           <?php endif; ?>
+           </td>
                 </tr>
+                <tr>
+                    <th>Details</th>
+                 
+                 
                 <?php foreach($data['timeSlots'] as $timeSlot): ?>
                     <tr>
     <td class="timeslotbox"><?php echo $timeSlot->start_time; ?> - <?php echo $timeSlot->end_time; ?></td>
     <td>
-            <?php if ($timeSlot->nic == NULL): ?>
-                <button onclick="openConfirmationPopup(<?php echo $data['timeSlots'][0]->calendar_id; ?>, <?php echo $timeSlot->clinic_timeslot_id; ?>)">Book now</button>
-            <?php else: ?>
-                <?php if ($timeSlot->nic == $_SESSION['clinicattendee_nic']): ?>
-                    <button disabled class="black-button">Booked</button>
-                <?php else: ?>
-                    <button disabled class="green-button">Booked</button>
-                <?php endif; ?>
-            <?php endif; ?>
-        </td>
+        <?php if ($timeSlot->nic == NULL ): ?>
+           
+            <button class="book-now-btn" data-calendar-id="<?php echo $timeSlot->calendar_id ?>" nic="<?php echo $data['nic']; ?>" data-clinic-timeslot-id="<?php echo $timeSlot->clinic_timeslot_id ?>">Book now</button>
+
+
+        <?php else: ?>
+            <button disabled  class="green-button">Booked</button>
+        <?php endif; ?>
+    </td>
 </tr>
 
                     <div id="modal" class="modal">
                         
         <div class="midwifeupdateinfo">
-        <!-- <form id="booking-form" action="<!?php echo URLROOT; ?>/calendars/booktimeslot/<!?php echo $timeSlot->$calendar_id; ?>/<!?php echo $timeSlot->clinic_timeslot_id; ?>" method="POST"> -->
-        <form id="booking-form" action="<?php echo URLROOT; ?>/calendars/booktimeslot/<?php echo $data['timeSlots'][0]->calendar_id; ?>/<?php echo $timeSlot->clinic_timeslot_id; ?>" method="POST">
+      
+        <form id="booking-form" action="<?php echo URLROOT; ?>/calendars/booktimeslotInitial/<?php echo $data['nic']; ?>/<?php echo $data['timeSlots'][0]->calendar_id; ?>/<?php echo $timeSlot->clinic_timeslot_id; ?>" method="POST">
 
-        
-        
-    <h1>Are you sure you want to book this time slot?</h1>
-    <!-- <label for="nic"><b>Your NIC <!?php echo $data['getnic']->nic; ?></b></label> -->
-    <button id="submit-btn" type="submit">Submit</button>
-    <button id="cancel-btn">No</button>
-</form>
 
         </div>
                         
@@ -62,18 +62,24 @@
         </div>
     </div>
 
+    
     <script>
     const modal = document.getElementById('modal');
     const bookingForm = document.getElementById('booking-form');
     const submitBtn = document.getElementById('submit-btn');
     const cancelBtn = document.getElementById('cancel-btn');
-    const calendarId = event.target.getAttribute('data-calendar-id');
-
-    function openConfirmationPopup(calendarId, clinic_timeslot_id) {
-        const form = document.getElementById('booking-form');
-        form.action = "<?php echo URLROOT; ?>/calendars/booktimeslot/" + calendarId + "/" + clinic_timeslot_id;
-        form.submit();
-    }
+    
+    const bookNowBtns = document.querySelectorAll('.book-now-btn');
+    bookNowBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const calendarId = btn.getAttribute('data-calendar-id');
+            const nic = btn.getAttribute('nic');
+            const clinicTimeslotId = btn.getAttribute('data-clinic-timeslot-id');
+            
+            bookingForm.action = `<?php echo URLROOT; ?>/calendars/booktimeslotInitial/${nic}/${calendarId}/${clinicTimeslotId}`;
+            modal.style.display = "block";
+        });
+    });
 
     submitBtn.addEventListener('click', function() {
         // Handle the submit button click event
@@ -91,7 +97,10 @@
         // Close the confirmation popup
         modal.style.display = "none";
     });
+
+
+
 </script>
 
 
-</body>
+</body

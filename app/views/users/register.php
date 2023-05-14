@@ -69,7 +69,7 @@
     <td>
     <label for="weight">Weight in Kg</label>
     </td>
-    <td><input type="double" name="weight" maxlength="5" class= "form <?php echo (!empty($data['weight_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['weight']; ?>">
+    <td><input type="double" name="weight" maxlength="10" class= "form <?php echo (!empty($data['weight_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['weight']; ?>">
     <span class="invalid-feedback"><?php echo $data['weight_err']; ?></span></td>
     </tr>
 

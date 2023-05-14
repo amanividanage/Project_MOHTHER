@@ -21,7 +21,7 @@
 </head>
 <body>
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
-    <?php require APPROOT . '/views/inc/sidebar_midwife.php' ; ?>
+    <?php require APPROOT . '/views/inc/sidebar_doctor.php' ; ?>
 <div class= "calendarcontent">
 <div class ="calendar-container">
 <div id ="calendar">
@@ -34,15 +34,8 @@
 </div>
 
 <div class= "insertdates">
-       <div>
-        <table>
-            <tr>
-            <td> <a href="<?php echo URLROOT; ?>/calendars/createclinic/<?php echo $data['clinic']->gnd; ?>"> <button class="add">Create Clinics</button></a></td></tr>
       
-</table>
-                    </div>
-                    <!-- <script>const id = <!?php echo $id; ?>;</script> -->
 
                 </div>
-<script src="<?= URLROOT ?>/js/maternityCalendar.js">const id = <?php echo $id; ?>;</script>
+<script src="<?= URLROOT ?>/js/doctor.js">const id = <?php echo $id; ?>;</script>
 

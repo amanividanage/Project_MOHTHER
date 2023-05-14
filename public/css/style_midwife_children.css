@@ -417,7 +417,7 @@ input[type=submit]:hover {
 
 .container_new {
     margin-top: 70px;
-    margin-left: auto;
+    margin-left: 10%;
     margin-right: auto;
     width: 50%;
     border-radius: 5px;
@@ -629,6 +629,37 @@ th {
     padding: 8px 70px;
 }
 
+ .calendarcontent_form {
+    position: absolute;
+    top: 650px;
+    right: 10px;
+    width: 35%;
+    height: 850px;
+    transition: 0.3s;
+    color: #9c349e;
+    z-index: 1;
+}
+.contentt{
+    margin-left: 20%;
+    position: relative;
+    float: left;
+    margin-top: 70px;
+    width: 75%;
+    height: 100vh;
+    transition: 0.3s;
+}
+.adddailyrecords{
+   
+    padding-left: 15%;
+    float: left;
+    margin-right: 20%;
+    margin-left: 10%;
+    margin-top: 5%;
+    padding-right: 10%;
+    
+    background-color: #ffffff;
+    font-size: 1vw;
+}
 
 
 

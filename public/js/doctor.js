@@ -31,13 +31,12 @@ window.addEventListener('DOMContentLoaded', function () {
                 icon: 'info',
                 html: `<h2 style="color: var(--green)">Clinic type : ${info.event.title}</h2>
                         <h3>Start: ${info.event.extendedProps.start_time}</h3>
-                        <h3>End: ${info.event.extendedProps.end_time}</h3>
-                        <h3>Name: ${info.event.extendedProps.name}</h3>`,
-                        confirmButtonText: 'Go to appointments'
+                        <h3>End: ${info.event.extendedProps.end_time}</h3>`,
+                        // confirmButtonText: 'Go to appointments'
             }).then((result) => {
                 if (result.isConfirmed) {
                     const calendarId = info.event.id;
-                    const url = `http://localhost/MOHTHER/calendars/timeslotclinicattendee/${calendarId}`;
+                    const url = `http://localhost/MOHTHER/calendars/doctorcalendar`;
                     window.location.href = url;
                 }
             });
@@ -51,7 +50,7 @@ window.addEventListener('DOMContentLoaded', function () {
     $.ajax({
         //url: `http://localhost/MOHTHER/calendars/calendarEvents/${phm}`,
        //url: `http://localhost/MOHTHER/calendars/calendarEvents/${id}`,
-       url: "http://localhost/MOHTHER/calendars/calendarEventsforclinicattendee",
+       url: "http://localhost/MOHTHER/calendars/calendarEventsforDoctor",
         type: 'GET',
         dataType: "JSON",
         success: function(res) {
@@ -66,7 +65,7 @@ window.addEventListener('DOMContentLoaded', function () {
                         end: item.clinic_date,
                         start_time: item.start_event,
                         end_time: item.end_event,
-                        name: item.name
+                        phm: item.phm
                     }
                 );
             });

@@ -328,6 +328,8 @@
                     'umbilicus'=>trim($_POST['umbilicus']),
                     'weight'=>trim($_POST['weight']),
                     'other'=>trim($_POST['other']),
+                    'nextAppointmentDate'=> trim($_POST['nextAppointmentDate']),
+                 
         
                     // 'date_err'=>'',
                     // 'reportno_err'=>'', 
@@ -401,7 +403,9 @@
                     'temp_err'=>'',
                     'umbilicus_err'=>'',
                     'weight_err'=>'',
-                    'other_err'=>''
+                    'other_err'=>'',
+                    'nextAppointmentDate'=> '',
+                  
                 ];
 
                 // Load view
