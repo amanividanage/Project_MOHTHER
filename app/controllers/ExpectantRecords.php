@@ -9,6 +9,7 @@
           $this->clinicModel = $this->model('Clinic');
           $this->midwifeModel = $this->model('Midwife');
           $this->childrenModel = $this->model('Children');
+          $this->userModel = $this->model('User');
        
        
      
@@ -112,6 +113,8 @@
     }
       
       public function info($nic){
+       $existing = $this->expectantRecordModel->findExpectantPrevious($nic);
+
        $info =  $this->expectantRecordModel->displayExpectantRecords($nic);
        $report = $this->expectantRecordModel->showExpectantMonthlyRecords($nic);
        $expectantRecords =  $this->expectantRecordModel-> getExpectantRecords(); 
@@ -120,22 +123,23 @@
 
        $date = $this->expectantRecordModel-> getMother($nic); 
        $poa =  $this->expectantRecordModel-> calculatePOA($date->poa, $date->registrationDate);
-      //  print_r($bplimit);
+       //  print_r($bplimit);
 
-      $bplimit = array(); // Initialize an empty array to store the blood pressure limits
-      $bmilimit = array(); // Initialize an empty array to store the BMI limits
-      $risky = array(); // Initialize an empty array to store the risk status
+       $bplimit = array(); // Initialize an empty array to store the blood pressure limits
+       $bmilimit = array(); // Initialize an empty array to store the BMI limits
+       $risky = array(); // Initialize an empty array to store the risk status
   
-      // Loop through the $report array and calculate the values for each index
-      foreach ($report as $index => $reportItem) {
+       // Loop through the $report array and calculate the values for each index
+       foreach ($report as $index => $reportItem) {
           $bplimit[$index] = $this->expectantRecordModel->calculateBloodPressure($reportItem->bp);
           $bmilimit[$index] = $this->expectantRecordModel->calculateBMILimit($reportItem->bmi);
           $risky[$index] = $this->expectantRecordModel->calculateRisky($bplimit[$index], $bmilimit[$index]);
-      }
+        }
 
         
 
         $data = [
+            'existing' => $existing,
             'info' => $info,
             'report'=> $report,
             'children' => $children,
@@ -530,6 +534,7 @@
             'relationship'=>'Mother',
             'name'=>trim($_POST['name']),
             'nic'=>trim($_POST['nic']), 
+            'gravidity'=>trim($_POST['gravidity']),
             'age'=>trim($_POST['age']),
             'nochildren'=>trim($_POST['nochildren']),
             'levelofeducation'=>trim($_POST['levelofeducation']),
@@ -548,7 +553,7 @@
             'bp_err'=>'',
             'placeofDelivery'=> trim($_POST['placeofDelivery']),
             'placeofDelivery_err'=>'',
-            'modeofDelivery'=> trim($_POST['weight']),
+            'modeofDelivery'=> trim($_POST['modeofDelivery']),
             'modeofDelivery_err'=>'',
             'postnatalcomplication'=> trim($_POST['postnatalcomplication']),
             'postnatalcomplication_err'=>'',
@@ -698,37 +703,42 @@
       
       public function statics(){
 
-        // $clinicattendees = $this->expectantRecordModel->getTotalClinicAttendees(); 
-        // $children = $this->expectantRecordModel->getTotalChildren(); 
-        // $child_deaths = $this->expectantRecordModel->getTotalChildDeaths(); 
-        // $chart = $this->expectantRecordModel->calculateParentAndExpectantMotherCount();
-        // $chart2 = $this->expectantRecordModel->calculateSpecialChildren();
-        $newRegistrants = $this->expectantRecordModel->getNewRegistrantsMonthWise();
-        $newRegistrantsYear = $this->expectantRecordModel->getNewRegistrantsYearWise();
+            $find = false;
+            if(isset($_POST['date1']) && isset($_POST['date2'])){
+                $date1 = trim($_POST['date1']);
+                $date2 = trim($_POST['date2']);
+                $find = true;
 
-        // $risky = $this->expectantRecordModel->calculateRiskyCount();
-        // $highrisk_list = $this->expectantRecordModel->getHighRiskList();
-        // $moderaterisk_list = $this->expectantRecordModel->getModerateRiskList();
+                if($find){
+                    $date = $this->expectantRecordModel->getRegistrantsByDate($date1, $date2);
+    
+                    $data = [
+                        'date' => $date,
+                        'date1' => $date1,
+                        'date2' => $date2,
+                    ];
+                    
+                    $this->view('expectantRecords/statics', $data);
+                } 
+            } else {
+                //Get doctors
+                $date = $this->expectantRecordModel->getAllRegistrants();
+                $date1 = '1900-01-01';
+                $date2 = '2099-12-31';
 
-        
-  
-          $data = [
-            // 'clinicattendees' => $clinicattendees,
-            // 'children' => $children,
-            // 'child_deaths' => $child_deaths,
-            // 'chart' => $chart,
-            // 'chart2' => $chart2,
-            'newRegistrants' => $newRegistrants,
-            'newRegistrantsYear' => $newRegistrantsYear,
-            // 'risky' => $risky,
-            // 'highrisk_list' => $highrisk_list,
-            // 'moderaterisk_list' => $moderaterisk_list,
-          ];
-           
-        
-          $this->view('expectantRecords/statics', $data);
+                $data = [
+                    'date' => $date,
+                    'date1' => $date1,
+                    'date2' => $date2,
+                ];
+
+                $this->view('expectantRecords/statics', $data);
+            }
       }
     
+      
+
+  
   
 
 
@@ -790,6 +800,8 @@ public function previousPregInfo($nic){
   $expectantRecordsHeight =  $this->expectantRecordModel-> getExpectantHeight($nic); 
   $children = $this->childrenModel->getChildrenByParent($nic);
 
+  $delivaryinfo = $this->expectantRecordModel->getDilivaryInfoByNic($nic,$gravidity);
+
   $date = $this->expectantRecordModel-> getMother($nic); 
   $poa =  $this->expectantRecordModel-> calculatePOA($date->poa, $date->registrationDate);
  //  print_r($bplimit);
@@ -817,11 +829,28 @@ public function previousPregInfo($nic){
        'bmilimit' => $bmilimit,
        'risky' => $risky,
        'previousrecords' => $previousrecords,
+       'grav' => $gravidity,
+
+       'delivaryinfo' => $delivaryinfo,
 
    ];
 
    $this->view('expectantRecords/infoprevious', $data);
  }
+
+ public function mother_charts_prev($nic, $gravidity){
+     
+  $mother = $this->expectantRecordModel-> getMother($nic); 
+  $chart = $this->expectantRecordModel->getPrevChartByMother($nic,$gravidity);
+
+   $data = [
+       
+       'mother'=> $mother,
+       'chart'=> $chart
+   ];
+
+   $this->view('expectantRecords/mother_charts_prev', $data);
+}
 
 
 

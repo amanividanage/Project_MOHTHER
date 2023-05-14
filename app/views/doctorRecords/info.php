@@ -19,6 +19,13 @@
             <div class="report">
                 <h2 class="content_h1">Expectant Mother profile - <?php echo $data['mother']->mname; ?></h2>
                 <!-- <a href="<!?php echo URLROOT; ?>/childrens/add/<!?php echo $data['mother']->nic; ?>"><button class="add">Add Child</button></a>  -->
+                <?php
+                if ($data['existing']) {
+                    echo '<a href="' . URLROOT . '/doctorRecords/previousPregInfo/' . $data['mother']->nic . '"><button class="button2">See Previous pregnancy details</button></a>';
+                } else {
+                    // do something else here
+                }
+            ?>
             </div>
             
 

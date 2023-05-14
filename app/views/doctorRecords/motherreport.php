@@ -30,7 +30,7 @@
             
                     <div>
                         <label for="pallor">Pallor : <sup>*</sup></label>
-                        <input type="text" name="pallor" placeholder="Enter iyou notice having pallor..." value="<?php echo $data['pallor']; ?>">
+                        <input type="text" name="pallor" placeholder="Enter you notice having pallor..." value="<?php echo $data['pallor']; ?>">
                         <span class="form-err"><?php echo $data['pallor_err']; ?></span>
                     </div>
                     <div>
@@ -71,12 +71,11 @@
                     </div>
                     <div>
                         <label for="delivary">Expectant Date of delivary : <sup>*</sup></label>
-                        <input type="text" name="delivary" placeholder="Enter expectant date of delivary" value="<?php echo $data['delivary']; ?>">
+                        <input type="date" name="delivary" value="<?php echo $data['delivary']; ?>">
                         <span class="form-err"><?php echo $data['delivary_err']; ?></span>
                     </div>
                     
-                    
-                    
+                       
                     <input type="submit" value="Submit">
 
                      

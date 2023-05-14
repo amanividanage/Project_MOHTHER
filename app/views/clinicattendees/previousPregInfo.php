@@ -4,18 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style_midwife.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style_clinicattendee_new.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <title><?php echo SITENAME; ?></title>
 </head>
 <body>
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
-    <?php require APPROOT . '/views/inc/sidebar_midwife.php' ; ?>
+    <?php require APPROOT . '/views/inc/sidebar_clinicattendee.php' ; ?>
+
     <div class="content">
-        <a href="<?php echo URLROOT; ?>/expectantRecords/expectnatmotherlist" class="back"><i class="fa fa-backward"></i>Back</a>
+
+    <a href="<?php echo URLROOT; ?>/expectantRecords/expectnatmotherlist" class="back"><i class="fa fa-backward"></i>Back</a>
             <br>
             <div class="report">
-                <h2 class="content_h1">Expectant Mother profile - <?php echo $data['info']->mname; ?></h2>
+                <h2 class="content_h1"><?php echo $data['info']->mname; ?> - Previous Reports</h2>
                 <!-- <a href="<!?php echo URLROOT; ?>/childrens/add/<!?php echo $data['mother']->nic; ?>"><button class="add">Add Child</button></a>  -->
             </div>
             
@@ -79,9 +81,18 @@
     <div class="container">
         <div>
             <h3 class="content_h2">Previous Pregnancy Details</h3>
-            <?php for ($i = 1; $i <= $data['max_gravidity']; $i++) : ?>
-                <a href="<?php echo URLROOT; ?>/expectantRecords/infoprevious/<?php echo $data['info']->nic; ?>/<?php echo $i; ?>"><button class="button2">Pregnancy <?php echo $i; ?></button></a>
-            <?php endfor; ?>
+            <?php
+                if ($data['existing']) {
+                    for ($i = 1; $i < $data['max_gravidity']; $i++) {
+                        echo '<a href="'.URLROOT.'/clinicattendees/infoprevious/'.$i.'"><button class="button2">Pregnancy '.$i.'</button></a>';
+                    }
+                } else {
+                    for ($i = 1; $i <= $data['max_gravidity']; $i++) {
+                        echo '<a href="'.URLROOT.'/clinicattendees/infoprevious/'.$i.'"><button class="button2">Pregnancy '.$i.'</button></a>';
+                    }
+                }
+            ?>
+            
         </div>
     </div>
 </div>
@@ -100,8 +111,8 @@
 
             </div>
  
-                           
+
+        
+
     
-<?php require APPROOT . '/views/inc/footer.php'; ?>
-<!--th><a href="expectant/<!?php echo $report->reportNo; ?>"><!?php echo $report->reportNo; ?></a> </th>
-<td><input type="text" name="nic" maxlength="20" value="<!?php echo $data['info']->nic; ?>">
+        <?php require APPROOT . '/views/inc/footer.php'; ?>

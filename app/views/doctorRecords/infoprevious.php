@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style_midwife.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style_doctor.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <title><?php echo SITENAME; ?></title>
 </head>
 <body>
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
-    <?php require APPROOT . '/views/inc/sidebar_midwife.php' ; ?>
+    <?php require APPROOT . '/views/inc/sidebar_doctor.php' ; ?>
     <div class="content">
-        <a href="<?php echo URLROOT; ?>/expectantRecords/expectnatmotherlist" class="back"><i class="fa fa-backward"></i>Back</a>
+    
+    <a href="<?php echo URLROOT; ?>/expectantRecords/expectnatmotherlist" class="back"><i class="fa fa-backward"></i>Back</a>
             <br>
             <div class="report">
                 <h2 class="content_h1">Expectant Mother profile - <?php echo $data['info']->mname; ?></h2>
@@ -82,7 +84,7 @@
                             
                         <h3 class="content_h2">Vaccination</h3>
                                
-                        <a href="<?php echo URLROOT; ?>/expectantRecords/mother_vaccination/<?php echo $data['info']->nic; ?>"><button class="button2">Vaccination</button></a>
+                        <a href="<?php echo URLROOT; ?>/doctorRecords/mother_vaccination/<?php echo $data['info']->nic; ?>"><button class="button2">Vaccination</button></a>
                                 <!-- <!?php foreach($data['children'] as $children) : ?>
                                     <tr>
                                         <td><!?php echo $children->child_id; ?></td>
@@ -99,7 +101,7 @@
                             <div>
                             <h3 class="content_h2">Weight Age Chart</h3>
                             <!-- <button>See Chart</button> -->
-                            <a href="<?php echo URLROOT; ?>/expectantRecords/mother_charts_prev/<?php echo $data['info']->nic; ?>/<?php echo $data['grav'] ?>"><button class="button2">See Chart</button></a>
+                            <a href="<?php echo URLROOT; ?>/doctorRecords/mother_charts_prev/<?php echo $data['info']->nic; ?>/<?php echo $data['grav'] ?>"><button class="button2">See Chart</button></a>
                             <!-- <a href="<!?php echo URLROOT; ?>/childrens/children_charts/<!?php echo $data['child']->child_id; ?>"><button class="add">Weight Age Chart</button></a> -->
                             </div>
                             
@@ -164,7 +166,7 @@
 
                                         <!-- <td><a href="<!?php echo URLROOT; ?>/expectantRecords/expectant_allrecords/<!?php echo $data['info']->nic; ?>/<!?php echo $previousrecords->date; ?>"><button class="button2">See More</button></a></td> -->
                                         <!-- <td><a href="<!?php echo URLROOT; ?>/expectantRecords/expectant_allrecords/<!?php echo $data['info']->nic; ?>/<!?php echo $report->date; ?>"><button class="button2">See More</button></a></td> -->
-                                        <td><a href="<?php echo URLROOT; ?>/expectantRecords/expectant_allrecords/<?php echo $data['info']->nic; ?>/<?php echo $previousrecords->date; ?>"><button class="button2">See More</button></a></td>
+                                        <td><a href="<?php echo URLROOT; ?>/doctorRecords/expectant_allrecords/<?php echo $data['info']->nic; ?>/<?php echo $previousrecords->date; ?>"><button class="button2">See More</button></a></td>
                                         <td></td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -183,7 +185,12 @@
             </div>
 
                         
-    
+
+
+
+
+
 <?php require APPROOT . '/views/inc/footer.php'; ?>
-<!--th><a href="expectant/<!?php echo $report->reportNo; ?>"><!?php echo $report->reportNo; ?></a> </th>
-<td><input type="text" name="nic" maxlength="20" value="<!?php echo $data['info']->nic; ?>">
+<!--<th><a href="clinics/info/<!?php echo $clinic->id; ?>"><!?php echo $expectantRecords->nic; ?></a> </th>
+
+

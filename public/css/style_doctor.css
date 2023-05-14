@@ -672,3 +672,16 @@ button {
 #Chart3 canvas {
     height: 300px;
   }
+
+  .card2 {
+    box-shadow: 0 4px 8px 0 rgba(214, 4, 211, 0.2);
+    transition: 0.3s;
+    width: 80%;
+    height: 60%;
+    margin-right: 80px;
+    margin-left: 80px;
+    border-radius: 15px;
+    margin-bottom: 23px;
+    border: 1px solid;
+    border-color:rgb(78, 10, 97)
+}

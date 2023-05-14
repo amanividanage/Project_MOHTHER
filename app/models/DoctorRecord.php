@@ -314,7 +314,10 @@ class DoctorRecord {
     }
     
     public function getMidwifeRecordsByMother($nic){
-        $this->db->query("SELECT * FROM detailrecords_expectant WHERE nic = :nic");
+        $this->db->query("SELECT detailrecords_expectant.date, detailrecords_expectant.weight, detailrecords_expectant.bmi, detailrecords_expectant.bp
+                        FROM detailrecords_expectant
+                        INNER JOIN expectant ON expectant.nic=detailrecords_expectant.nic 
+                        WHERE expectant.gravidity=detailrecords_expectant.gravidity AND expectant.nic= :nic");
 
         $this->db->bindParam(':nic', $nic);
          
@@ -387,7 +390,9 @@ class DoctorRecord {
     }
     
     public function getChartByMother($nic){
-        $this->db->query("SELECT * FROM mother_age_weight WHERE nic = :nic");
+        $this->db->query("SELECT * FROM mother_age_weight
+                        INNER JOIN expectant ON mother_age_weight.nic=expectant.nic 
+                        WHERE mother_age_weight.nic = :nic AND mother_age_weight.gravidity=expectant.gravidity");
 
         $this->db->bindParam(':nic', $nic);
 
@@ -517,7 +522,7 @@ class DoctorRecord {
         $this->db->query("SELECT COUNT(*) AS total_count FROM mother_risky
                           INNER JOIN expectant ON mother_risky.nic=expectant.nic
                           INNER JOIN phm ON expectant.phm=phm.id 
-                          INNER JOIN doctor_clinic ON phm.clinic_id=doctor_clinic.clinic WHERE doctor_clinic.nic = :doctor_nic AND mother_risky.risky = 'High Risk' ");
+                          INNER JOIN doctor_clinic ON phm.clinic_id=doctor_clinic.clinic WHERE doctor_clinic.nic = :doctor_nic AND mother_risky.risky = 'High Risk' AND expectant.active='0' ");
 
         $this->db->bindParam(':doctor_nic', $_SESSION['doctor_nic']);
 
@@ -531,7 +536,7 @@ class DoctorRecord {
         $this->db->query("SELECT expectant.nic, expectant.name FROM mother_risky
                           INNER JOIN expectant ON mother_risky.nic=expectant.nic
                           INNER JOIN phm ON expectant.phm=phm.id 
-                          INNER JOIN doctor_clinic ON phm.clinic_id=doctor_clinic.clinic WHERE doctor_clinic.nic = :doctor_nic AND mother_risky.risky = 'High Risk' ");
+                          INNER JOIN doctor_clinic ON phm.clinic_id=doctor_clinic.clinic WHERE doctor_clinic.nic = :doctor_nic AND mother_risky.risky = 'High Risk' AND expectant.active='0' ");
 
         $this->db->bindParam(':doctor_nic', $_SESSION['doctor_nic']);
 
@@ -545,13 +550,54 @@ class DoctorRecord {
         $this->db->query("SELECT expectant.nic, expectant.name FROM mother_risky
                           INNER JOIN expectant ON mother_risky.nic=expectant.nic
                           INNER JOIN phm ON expectant.phm=phm.id 
-                          INNER JOIN doctor_clinic ON phm.clinic_id=doctor_clinic.clinic WHERE doctor_clinic.nic = :doctor_nic AND mother_risky.risky = 'Moderate Risk' ");
+                          INNER JOIN doctor_clinic ON phm.clinic_id=doctor_clinic.clinic WHERE doctor_clinic.nic = :doctor_nic AND mother_risky.risky = 'Moderate Risk' AND expectant.active='0' ");
 
         $this->db->bindParam(':doctor_nic', $_SESSION['doctor_nic']);
 
         $row = $this->db->resultSet();
         
         return $row;
+    }
+
+    public function findExpectantPrevious2($nic){
+
+        $this->db->query("SELECT * FROM deliveredlist
+                          INNER JOIN expectant ON deliveredlist.nic=expectant.nic WHERE expectant.nic = :nic AND expectant.active='0' ");
+
+        $this->db->bindParam(':nic', $nic);
+
+        $row = $this->db->single();
+
+        return $row;
+    }
+
+    
+    public function fetchExpectedDelivaryDate($nic){
+
+        $this->db->query("SELECT expectant.expectedDateofDelivery FROM expectant WHERE nic = :nic");
+
+        $this->db->bindParam(':nic', $nic);
+
+        $row = $this->db->single();
+
+        return $row;
+    }
+    
+    public function updateExpecteddate($data){
+        $this->db->query("UPDATE expectant SET expectedDateofDelivery = :delivary WHERE nic = :nic");
+
+        $this->db->bindParam(':delivary',  $data['delivary']);
+        $this->db->bindParam(':nic',  $data['nic']);
+        // $row = $this->db->single();
+
+        // return $row;
+        
+         //Execute
+         if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
     }
     
     

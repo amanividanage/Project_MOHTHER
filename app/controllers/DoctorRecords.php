@@ -62,6 +62,8 @@
         }
 
         public function info($nic){
+
+            $existing = $this->expectantRecordModel->findExpectantPrevious($nic);
             
             $mother = $this->doctorRecordModel->getExpectantMotherByNic($nic);
             $children = $this->doctorRecordModel->getChildrenByExpectantMother($nic);
@@ -88,6 +90,7 @@
 
 
             $data = [
+                'existing' => $existing,
                 'mother' => $mother,
                 'children' => $children,
 
@@ -571,7 +574,7 @@
                 if(empty($data['pallor_err']) && empty($data['fhs_err']) && empty($data['fm_err']) && empty($data['ankle_err']) && empty($data['delivary_err'])){
                     
                     //register child
-                    if($this->doctorRecordModel->addMotherReport($data)){
+                    if($this->doctorRecordModel->addMotherReport($data) && $this->doctorRecordModel->updateExpecteddate($data)){
                         redirect('doctorRecords/info/'.$nic.'');
                     } else {
                         die('Someting went wrong');
@@ -587,17 +590,19 @@
             } else {
 
                 $mother = $this->doctorRecordModel->getPrgnantMotherByNic($nic);
+                $expected = $this->doctorRecordModel->fetchExpectedDelivaryDate($nic);
                 // $midwiferecords = $this->doctorRecordModel->getMidwifeRecordsByChild($id);
 
                 $data = [
                     'mother' => $mother,
+                    // 'expected' => $expected,
 
                     'pallor' => '',
                     'fhs' => '',
                     'fm' => '',
                     'ankle' => '',
                     'facial' => '',
-                    'delivary' => '',
+                    'delivary' => $expected->expectedDateofDelivery,
 
                     'pallor_err' => '',
                     'fhs_err' => '',
@@ -643,6 +648,130 @@
             ];
        
             $this->view('doctorRecords/mother_charts', $data);
+        }
+
+        public function previousPregInfo($nic){
+            $info =  $this->expectantRecordModel->displayExpectantRecords($nic);
+            $report = $this->expectantRecordModel->showExpectantMonthlyRecords($nic);
+            // $expectantRecords =  $this->expectantRecordModel-> getExpectantRecords(); 
+            $expectantRecordsHeight =  $this->expectantRecordModel-> getExpectantHeight($nic); 
+            $children = $this->childrenModel->getChildrenByParent($nic);
+          
+            $date = $this->expectantRecordModel-> getMother($nic); 
+            $poa =  $this->expectantRecordModel-> calculatePOA($date->poa, $date->registrationDate);
+           //  print_r($bplimit);
+          
+           $bplimit = array(); // Initialize an empty array to store the blood pressure limits
+           $bmilimit = array(); // Initialize an empty array to store the BMI limits
+           $risky = array(); // Initialize an empty array to store the risk status
+          
+          //  $gravidity = $this->expectantRecordModel->showMonthlyRecordsByGravidity($nic);
+           $max_gravidity = $this->expectantRecordModel->showMonthlyRecordsByGravidity($nic);
+          
+           $existing2 = $this->doctorRecordModel->findExpectantPrevious2($nic);
+          
+           // Loop through the $report array and calculate the values for each index
+           foreach ($report as $index => $reportItem) {
+               $bplimit[$index] = $this->expectantRecordModel->calculateBloodPressure($reportItem->bp);
+               $bmilimit[$index] = $this->expectantRecordModel->calculateBMILimit($reportItem->bmi);
+               $risky[$index] = $this->expectantRecordModel->calculateRisky($bplimit[$index], $bmilimit[$index]);
+           }
+          
+             
+          
+             $data = [
+                 'info' => $info,
+                 'report'=> $report,
+                 'children' => $children,
+                 'expectantRecordsHeight' => $expectantRecordsHeight,
+                 'poa' => $poa,
+                 'bplimit' => $bplimit,
+                 'bmilimit' => $bmilimit,
+                 'risky' => $risky,
+                 'existing' => $existing2,
+                 'max_gravidity' => $max_gravidity,
+          
+             ];
+          
+             $this->view('doctorRecords/previousPregInfo', $data);
+        }
+
+        public function infoprevious($nic,$gravidity){
+
+            $previousrecords =  $this->expectantRecordModel->showPreviousReportsInDeliveredlist($nic,$gravidity);
+            $info =  $this->expectantRecordModel->displayExpectantRecords($nic);
+            $report = $this->expectantRecordModel->showExpectantMonthlyRecords($nic);
+            // $expectantRecords =  $this->expectantRecordModel-> getExpectantRecords(); 
+            $expectantRecordsHeight =  $this->expectantRecordModel-> getExpectantHeight($nic); 
+            $children = $this->childrenModel->getChildrenByParent($nic);
+          
+            $delivaryinfo = $this->expectantRecordModel->getDilivaryInfoByNic($nic,$gravidity);
+          
+            $date = $this->expectantRecordModel-> getMother($nic); 
+            $poa =  $this->expectantRecordModel-> calculatePOA($date->poa, $date->registrationDate);
+           //  print_r($bplimit);
+          
+           $bplimit = array(); // Initialize an empty array to store the blood pressure limits
+           $bmilimit = array(); // Initialize an empty array to store the BMI limits
+           $risky = array(); // Initialize an empty array to store the risk status
+          
+           // Loop through the $report array and calculate the values for each index
+           foreach ($report as $index => $reportItem) {
+               $bplimit[$index] = $this->expectantRecordModel->calculateBloodPressure($reportItem->bp);
+               $bmilimit[$index] = $this->expectantRecordModel->calculateBMILimit($reportItem->bmi);
+               $risky[$index] = $this->expectantRecordModel->calculateRisky($bplimit[$index], $bmilimit[$index]);
+           }
+          
+             
+          
+             $data = [
+                 'info' => $info,
+                 'report'=> $report,
+                 'children' => $children,
+                 'expectantRecordsHeight' => $expectantRecordsHeight,
+                 'poa' => $poa,
+                 'bplimit' => $bplimit,
+                 'bmilimit' => $bmilimit,
+                 'risky' => $risky,
+                 'previousrecords' => $previousrecords,
+                 'grav' => $gravidity,
+          
+                 'delivaryinfo' => $delivaryinfo,
+          
+             ];
+          
+             $this->view('doctorRecords/infoprevious', $data);
+        }
+
+        public function mother_charts_prev($nic, $gravidity){
+     
+            $mother = $this->expectantRecordModel-> getMother($nic); 
+            $chart = $this->expectantRecordModel->getPrevChartByMother($nic,$gravidity);
+          
+             $data = [
+                 
+                 'mother'=> $mother,
+                 'chart'=> $chart
+             ];
+          
+             $this->view('doctorRecords/mother_charts_prev', $data);
+        }
+
+        public function expectant_allrecords($nic, $date){
+        
+            $mother = $this->expectantRecordModel-> getMother($nic); 
+            $midwife_records = $this->expectantRecordModel-> getMidwifeRecordsByMotherAndDate($nic, $date); 
+            $doctor_records = $this->expectantRecordModel->getDoctorRecordsByMotherAndDate($nic, $date);
+            // $chart = $this->expectantRecordModel->getChartByMother($nic);
+      
+            $data = [
+                
+                'mother'=> $mother,
+                'midwife_records'=> $midwife_records,
+                'doctor_records'=> $doctor_records,
+            ];
+      
+            $this->view('doctorRecords/expectant_allrecords', $data);
         }
 
         

@@ -69,6 +69,8 @@
             $chart2 = $this->adminModel->calculateSpecialChildren();
             $chart3 = $this->adminModel->calculateStaff();
             $child_deaths = $this->adminModel->calculateChildDeaths();
+            $mother_deaths = $this->adminModel->calculateMotherDeaths();
+            $total_deaths = $this->adminModel->calculateTotalDeaths();
 
             $data = [
                'total_clinicattendees' => $total_clinicattendees,
@@ -76,6 +78,8 @@
                'chart' => $chart,
                'chart2' => $chart2,
                'child_deaths' => $child_deaths,
+               'mother_deaths' => $mother_deaths,
+               'total_deaths' => $total_deaths,
                'chart3' => $chart3,
             ];
 
@@ -223,19 +227,147 @@
         
         public function statistics(){
 
-            $newRegistrants = $this->adminModel->getNewRegistrantsMonthWise();
-            $newRegistrantsYear = $this->adminModel->getNewRegistrantsYearWise();
-            $newRegistrantsClinic = $this->adminModel->getNewRegistrantsClinicWise();
+            $find = false;
+            if(isset($_POST['vaccine'])){
+                $vaccine = trim($_POST['vaccine']);
+                $find = true;
 
-            $data = [
-                'newRegistrants' => $newRegistrants,
-                'newRegistrantsYear' => $newRegistrantsYear,
-                'newRegistrantsClinic' => $newRegistrantsClinic,
-            ];
+                $newRegistrants = $this->adminModel->getNewRegistrantsMonthWise();
+                $newRegistrantsYear = $this->adminModel->getNewRegistrantsYearWise();
+                $newRegistrantsClinic = $this->adminModel->getNewRegistrantsClinicWise();
+                // $vaccine = $this->adminModel->getTotalChildVaccination();
 
-            $this->view('admins/Statistics', $data);
+                if($find){
+                    $vaccine = $this->adminModel->getChildVaccinatedByVaccine($vaccine);
+    
+                    $data = [
+                        'vaccine' => $vaccine,
+                        'newRegistrants' => $newRegistrants,
+                        'newRegistrantsYear' => $newRegistrantsYear,
+                        'newRegistrantsClinic' => $newRegistrantsClinic,
+                    ];
+                    
+                    $this->view('admins/Statistics', $data);
+                } 
+            } else {
+                //Get doctors
+                $newRegistrants = $this->adminModel->getNewRegistrantsMonthWise();
+                $newRegistrantsYear = $this->adminModel->getNewRegistrantsYearWise();
+                $newRegistrantsClinic = $this->adminModel->getNewRegistrantsClinicWise();
+                $vaccine = $this->adminModel->getTotalChildVaccination();
+
+                $data = [
+                    'newRegistrants' => $newRegistrants,
+                    'newRegistrantsYear' => $newRegistrantsYear,
+                    'newRegistrantsClinic' => $newRegistrantsClinic,
+                    'vaccine' => $vaccine,
+                ];
+
+                $this->view('admins/Statistics', $data);
+            }
+            
+                
+        
+                
+        
+                
+            
         }
 
+        public function vaccination_stats() {
+            
+    
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Sanitize POST array
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    
+                $vaccine = trim($_POST['vaccine']);
+    
+                if ($vaccine == '') {
+                    // No vaccine selected, show all child vaccination data
+                    $childVaccinations = $adminModel->getChildVaccinatedByVaccine('');
+                } else {
+                    // Show child vaccination data for selected vaccine
+                    $childVaccinations = $adminModel->getChildVaccinatedByVaccine($vaccine);
+                }
+    
+                $data = [
+                    'childVaccinations' => $childVaccinations
+                ];
+    
+                $this->view('admins/Statistics', $data);
+            } else {
+                $this->view('admins/Statistics');
+            }
+        }
+
+        // public function statistics(){
+        //     if($_SERVER["REQUEST_METHOD"] == 'POST'){
+        //         //Sanitize POST array
+        //         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        
+        //         $vaccine = trim($_POST['vaccine']);
+        
+        //         if (!isset($vaccine) || $vaccine === ''){
+        //             // No vaccine selected, show all data
+        //             $totalchildvaccinated = $this->adminModel->getTotalChildVaccination();
+        
+        //             if(!empty($totalchildvaccinated)){
+        //                 $data = [
+        //                     'totalchildvaccinated' => $totalchildvaccinated
+        //                 ];
+        //                 redirect('admins/statistics');
+        //             }
+        //         } else {
+        //             // A vaccine is selected, show filtered data
+        //             $totalchildvaccinated = $this->adminModel->getChildVaccinatedByVaccine($vaccine);
+        
+        //             if(!empty($totalchildvaccinated)){
+        //                 $data = [
+        //                     'totalchildvaccinated' => $totalchildvaccinated
+        //                 ];
+
+        //                 redirect('admins/statistics');
+        //             } 
+        //         }
+        
+                
+        //     } else {
+        //         $newRegistrants = $this->adminModel->getNewRegistrantsMonthWise();
+        //         $newRegistrantsYear = $this->adminModel->getNewRegistrantsYearWise();
+        //         $newRegistrantsClinic = $this->adminModel->getNewRegistrantsClinicWise();
+        //         // $totalchildvaccinated = $this->adminModel->getTotalChildVaccination();
+        
+        //         $data = [
+        //             'newRegistrants' => $newRegistrants,
+        //             'newRegistrantsYear' => $newRegistrantsYear,
+        //             'newRegistrantsClinic' => $newRegistrantsClinic,
+        //             // 'totalchildvaccinated' => $totalchildvaccinated,
+        //         ];
+        
+        //         $this->view('admins/Statistics', $data);
+        //     }
+        // }
+        
+        
+        public function new_statistics($request){
+
+            $filteredvaccination = $this->adminModel->getFilteredChildVaccination($request);
+            // $newRegistrants = $this->adminModel->getNewRegistrantsMonthWise();
+            // $newRegistrantsYear = $this->adminModel->getNewRegistrantsYearWise();
+            // $newRegistrantsClinic = $this->adminModel->getNewRegistrantsClinicWise();
+            // $totalchildvaccinated = $this->adminModel->getTotalChildVaccination();
+
+            // $data = [
+            //     'newRegistrants' => $newRegistrants,
+            //     'newRegistrantsYear' => $newRegistrantsYear,
+            //     'newRegistrantsClinic' => $newRegistrantsClinic,
+            //     'totalchildvaccinated' => $totalchildvaccinated,
+            // ];
+
+            // $this->view('admins/Statistics', $data);
+        }
+        
 
         public function add(){
             //Check for POST

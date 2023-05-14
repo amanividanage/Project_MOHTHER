@@ -71,7 +71,7 @@
                 
                 <div class="card-d">
                     <div class="card-d-content">
-                        <div class="number">1234</div>
+                        <div class="number"><?php echo $data['mother_deaths']; ?></div>
                         <div class="card-d-name">Mother Death</div>
                     </div>
                     <div class="icon-box">
@@ -83,6 +83,7 @@
             <div class="charts-d">
                 <div class="chart-d">
                     <h2>Death related to maternal births</h2>
+                    <canvas id="myChartnew"></canvas>
                 </div>
                 <div class="chart-d" id="doughnut-chart">
                     <h2>Clinic Attendees</h2>
@@ -174,6 +175,36 @@
                     text: "World Wide Wine Production 2018"
                     }
                 }
+                });
+
+                /*Chart1..........................................*/ 
+        
+                var chartData = <?php echo json_encode($data['total_deaths']); ?>;
+
+                var xValuesnew = Array.from(new Set(chartData.map(obj => obj.month))); // get unique months
+
+                var motherDeathCounts = chartData.filter(obj => obj.type === 'mother').map(obj => obj.total_count);
+                var childDeathCounts = chartData.filter(obj => obj.type === 'child').map(obj => obj.total_count);
+
+                new Chart("myChartnew", {
+                    type: "line",
+                    data: {
+                        labels: xValuesnew,
+                        datasets: [{ 
+                            data: motherDeathCounts,
+                            borderColor: "red",
+                            fill: false,
+                            label: 'Mother Deaths'
+                        }, { 
+                            data: childDeathCounts,
+                            borderColor: "green",
+                            fill: false,
+                            label: 'Child Deaths'
+                        }]
+                    },
+                    options: {
+                        legend: {display: true}
+                    }
                 });
 
             </script>

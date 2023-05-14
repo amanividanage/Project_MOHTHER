@@ -31,22 +31,26 @@
                 </tr>
                 <tr>
                     <th>NIC</th>
-                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Mother Safe/Not</th>
                     <th>Miscarriage/Not</th>
-                    <th>Place of Delivery</th>
+                    <!-- <th>Place of Delivery</th> -->
                     <th></th>
                 </tr>
                 <?php foreach($data['deliveredlistinfo'] as $deliveredlistinfo):?>
                     <tr>
                     <th><?php echo $deliveredlistinfo->nic; ?></a> </th>
-                        <td><?php echo $deliveredlistinfo->date; ?></td>
+                        <td><?php echo $deliveredlistinfo->name; ?></a></td>
+                        <td><?php echo $deliveredlistinfo->mother_safe; ?></a></td>
+                        <!-- <td><!?php echo $deliveredlistinfo->date; ?></td> -->
                         <td><?php echo $deliveredlistinfo->miscarriage; ?></td>     
-                        <td><?php echo $deliveredlistinfo->placeofDelivery; ?></td>              
+                        <!-- <td><!?php echo $deliveredlistinfo->placeofDelivery; ?></td>               -->
                         <td><a href="<?php echo URLROOT; ?>/expectantRecords/previousPregInfo/<?php echo $deliveredlistinfo->nic; ?>" class= "updateDeliveredbutton" > More Info</a></td>
                        
                     </tr>
                 <?php endforeach; ?>
             </table>
+            <br><br><br>
         </div>
     </div>
     </div>

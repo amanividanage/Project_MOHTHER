@@ -193,6 +193,7 @@ class Users extends Controller{
         //PROCESS FORM
         //die('Submitted');
         //sanitizing the POST data
+        date_default_timezone_set('Asia/Colombo');
         $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
         $newexpectantRecords =  $this->expectantRecordModel-> getNewExpectantRecordsByNic($nic); 
@@ -218,7 +219,7 @@ class Users extends Controller{
             'noofChildren' =>  trim($_POST['noofChildren']),
             'ageofYoungest'=> trim($_POST['ageofYoungest']),
             'lastMenstrualDate' => trim($_POST['lastMenstrualDate']),
-            'registrationDate' =>  trim($_POST['registrationDate']),
+            'registrationDate' => date("Y-m-d"),
             'expectedDateofDelivery' =>  trim($_POST['expectedDateofDelivery']),
             'password' => trim($_POST['password']),
 
@@ -301,82 +302,94 @@ class Users extends Controller{
                 $data['expectedDateofDeliver_err']='Please enter the Expected date of delivery';
             }
 
-            //validate the date of registration and expected date of delivery
-            //if($data['registrationDate'] == $data['expectedDateofDeliver'] ){
-                //$data['expectedDateofDelivery_err'] ='Expecetd date cannot be the registration date';
-            //}
+            if($this->userModel->findUserByNIC($data['nic'])){
 
-            //make sure all the necessary data are filled by midwife
-            if(empty($data['nic_err']) && empty($data['height_err'])&& empty($data['weight_err']) && empty($data['bloodPressure_err']) && empty($data['allergies_err']) && empty($data['subfertility_err']) && empty($data['gravidity_err']) && empty($data['noofChildren_err']))
-            {
-                //validated
-                //die('Successfull');
-
-                $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-
-                //register user
-                if($this->userModel->addUser($data) && $this->userModel->register($data) && $this->userModel->updateactive($data) ){  
-                    redirect('expectantRecords');
+                if(empty($data['height_err'])&& empty($data['weight_err']) && empty($data['bloodPressure_err']) && empty($data['allergies_err']) && empty($data['subfertility_err']) && empty($data['gravidity_err']))
+                {
+                    
+                    //register user
+                    if($this->userModel->updateregister($data) && $this->userModel->updateactive($data) ){  
+                        redirect('expectantRecords');
+                    }
+                    
+                } else {
+                    //load view with errors
+                    $this->view('users/register', $data);
                 }
-                // else
-                // {
-                //     die('Something went wrong');
-                // }
-
 
             } else {
-                //load view with errors
-                $this->view('users/register', $data);
+
+                //make sure all the necessary data are filled by midwife
+                if(empty($data['nic_err']) && empty($data['height_err'])&& empty($data['weight_err']) && empty($data['bloodPressure_err']) && empty($data['allergies_err']) && empty($data['subfertility_err']) && empty($data['gravidity_err']))
+                {
+                    //validated
+                    //die('Successfull');
+
+                    $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+
+                    //register user
+                    if($this->userModel->addUser($data) && $this->userModel->register($data) && $this->userModel->updateactive($data) ){  
+                        redirect('expectantRecords');
+                    }
+                    
+                } else {
+                    //load view with errors
+                    $this->view('users/register', $data);
+                }
             }
+
+            
 
     }else{
         $newexpectantRecords =  $this->expectantRecordModel-> getNewExpectantRecordsByNic($nic); 
+        $newexpectantRecords2 =  $this->userModel-> getUserByNIC($nic); 
         //init data
         $data =[
-        'newexpectantRecords'=> $newexpectantRecords,
-        'nic' => '',
-        'name' => '',
-        'poa' => '',
-        'height' => '',
-        'weight' => '',
-        'bloodPressure' => '',
-        'allergies' => '',
-        'consanguinity' =>'',
-        'rubellaImmunization' => '',
-        'prePregnancyScreening' => '',
-        'preconceptionalFolicAcid'=>'',
-        'subfertility' => '',
-        'gravidity' => '',
-        'noofChildren' => '',
-        'ageofYoungest'=>'',
-        'lastMenstrualDate' => '',
-        'registrationDate' => '',
-        'expectedDateofDelivery' => '',
-        'password' => '',
-        
-        'nic_err' => '',
-        'name_err' => '',
-        'poa_err' => '',
-        'height_err' => '',
-        'weight_err' => '',
-        'bloodPressure_err' => '',
-        'allergies_err' => '',
-        'consanguinity_err'=>'',
-        'rubellaImmunization_err'=>'',
-        'prePregnancyScreening_err'=>'',
-        'preconceptionalFolicAcid_err'=>'',
-        'subfertility_err' => '',
-        'gravidity_err' => '',
-        'noofChildren_err' => '',
-        'ageofYoungest_err'=>'',
-        'lastMenstrualDate_err' => '',
-        'registrationDate_err' => '',
-        'expectedDateofDelivery_err' => '',
-        'password_err' => '',
-        'date'=>'',
-        'calculatedBMI'=> '',
-        'year' => '',
-        'active'=>'',
+            'newexpectantRecords'=> $newexpectantRecords,
+            'newexpectantRecords2'=> $newexpectantRecords2,
+            'nic' => '',
+            'name' => '',
+            'poa' => '',
+            'height' => '',
+            'weight' => '',
+            'bloodPressure' => '',
+            'allergies' => '',
+            'consanguinity' =>'',
+            'rubellaImmunization' => '',
+            'prePregnancyScreening' => '',
+            'preconceptionalFolicAcid'=>'',
+            'subfertility' => '',
+            'gravidity' => '',
+            'noofChildren' => '',
+            'ageofYoungest'=>'',
+            'lastMenstrualDate' => '',
+            'registrationDate' => '',
+            'expectedDateofDelivery' => '',
+            'password' => '',
+            
+            'nic_err' => '',
+            'name_err' => '',
+            'poa_err' => '',
+            'height_err' => '',
+            'weight_err' => '',
+            'bloodPressure_err' => '',
+            'allergies_err' => '',
+            'consanguinity_err'=>'',
+            'rubellaImmunization_err'=>'',
+            'prePregnancyScreening_err'=>'',
+            'preconceptionalFolicAcid_err'=>'',
+            'subfertility_err' => '',
+            'gravidity_err' => '',
+            'noofChildren_err' => '',
+            'ageofYoungest_err'=>'',
+            'lastMenstrualDate_err' => '',
+            'registrationDate_err' => '',
+            'expectedDateofDelivery_err' => '',
+            'password_err' => '',
+            'date'=>'',
+            'calculatedBMI'=> '',
+            'year' => '',
+            'active'=>'',
         
         
         ];

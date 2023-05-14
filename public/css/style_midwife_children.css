@@ -610,6 +610,25 @@ th {
     grid-row: 1;
 }
 
+.item12 {
+    grid-column: 1 / span 2 ;
+    grid-row: 1;
+}
+
+.reportgen {
+    display: flex;
+    flex-direction: row;
+}
+
+.reportgen input[type="date"], input[type="submit"] {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.reportgen input[type="submit"] {
+    padding: 8px 70px;
+}
+
 
 
 

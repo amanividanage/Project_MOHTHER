@@ -55,10 +55,10 @@ class User{
 
     public function updateactive($data){
        
-    $this->db->query("UPDATE registration  SET active ='0' WHERE nic = :nic");
+        $this->db->query("UPDATE registration SET active ='0' WHERE nic = :nic");
 
-    $this->db->bindParam(':nic', $data['nic']);
-        // $row = $this->db->single();
+        $this->db->bindParam(':nic', $data['nic']);
+            // $row = $this->db->single();
 
         // return $row;
         
@@ -95,6 +95,42 @@ class User{
         $this->db->bindParam(':registrationDate', $data['registrationDate']);
         $this->db->bindParam(':expectedDateofDelivery', $data['expectedDateofDelivery']);
         $this->db->bindParam(':password', $data['password']);
+        $this->db->bindParam(':active', $data['active']);
+       // $this->db->bind(':bmi', $data['bmi']);
+       // $this->db->bind(':output', $data['output']);
+
+        //execute for update/delete
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function updateregister($data){
+        $this->db->query('UPDATE expectant SET poa=:poa, height=:height, weight=:weight, bloodPressure=:bloodPressure, allergies=:allergies, consanguinity=:consanguinity, rubellaImmunization=:rubellaImmunization, prePregnancyScreening=:prePregnancyScreening, preconceptionalFolicAcid=:preconceptionalFolicAcid, subfertility=:subfertility, gravidity=:gravidity, noofChildren=:noofChildren, ageofYoungest=:ageofYoungest, lastMenstrualDate=:lastMenstrualDate, registrationDate=:registrationDate, expectedDateofDelivery=:expectedDateofDelivery, active=:active WHERE nic=:nic');
+         
+        //bind values
+        // $this->db->bindParam(':phm', $data['phm']);
+        $this->db->bindParam(':nic', $data['nic']);
+        // $this->db->bindParam(':name', $data['name']);
+        $this->db->bindParam(':poa', $data['poa']);
+        $this->db->bindParam(':height', $data['height']);
+        $this->db->bindParam(':weight', $data['weight']);
+        $this->db->bindParam(':bloodPressure', $data['bloodPressure']);
+        $this->db->bindParam(':allergies', $data['allergies']);
+        $this->db->bindParam(':consanguinity', $data['consanguinity']);
+        $this->db->bindParam(':rubellaImmunization', $data['rubellaImmunization']);
+        $this->db->bindParam(':prePregnancyScreening', $data['prePregnancyScreening']);
+        $this->db->bindParam(':preconceptionalFolicAcid', $data['preconceptionalFolicAcid']);
+        $this->db->bindParam(':subfertility', $data['subfertility']);
+        $this->db->bindParam(':gravidity', $data['gravidity']);
+        $this->db->bindParam(':noofChildren', $data['noofChildren']);
+        $this->db->bindParam(':ageofYoungest', $data['ageofYoungest']);
+        $this->db->bindParam(':lastMenstrualDate', $data['lastMenstrualDate']);
+        $this->db->bindParam(':registrationDate', $data['registrationDate']);
+        $this->db->bindParam(':expectedDateofDelivery', $data['expectedDateofDelivery']);
+        // $this->db->bindParam(':password', $data['password']);
         $this->db->bindParam(':active', $data['active']);
        // $this->db->bind(':bmi', $data['bmi']);
        // $this->db->bind(':output', $data['output']);

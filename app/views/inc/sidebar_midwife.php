@@ -7,10 +7,16 @@
                 <img src="<?php echo URLROOT;?>/img/3.png" class="profile_image" alt="">
                 <h4><?php echo $_SESSION['midwife_name']; ?></h4>
             </center>
-    
+
             <li class="item">
                 <a href="<?php echo URLROOT; ?>/expectantRecords/dashboard" class="menu-btn">
                     <i class="fa fa-th"></i><span>Dashboard</span>
+                </a>
+            </li>
+
+            <li class="item">
+                <a href="<?php echo URLROOT; ?>/expectantRecords" class="menu-btn">
+                    <i class="fa fa-user-plus"></i><span>New Registrants</span>
                 </a>
             </li>
 

@@ -8,7 +8,7 @@ class Clinicattendee{
 
     
     public function clarifyMotherOrParent(){
-        $this->db->query("SELECT * FROM parent WHERE nic = :nic");
+        $this->db->query("SELECT * FROM expectant WHERE nic = :nic AND expectant.active='0' ");
         $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
         $row = $this->db->single();
 
@@ -152,11 +152,10 @@ class Clinicattendee{
     }
 
     public function update_registration($data){
-        $this->db->query("UPDATE registration SET mname=:mname, mage=:mage, gravidity=:gravidity, moccupation=:moccupation, mcontactno=:mcontactno, memail=:memail, hname=:hname, hage=:hage, hoccupation=:hoccupation, hcontactno=:hcontactno, hemail=:hemail, active=:active WHERE nic = :nic");
+        $this->db->query("UPDATE registration SET mname=:mname, mage=:mage, moccupation=:moccupation, mcontactno=:mcontactno, memail=:memail, hname=:hname, hage=:hage, hoccupation=:hoccupation, hcontactno=:hcontactno, hemail=:hemail, active=:active WHERE nic = :nic");
         $this->db->bindParam(':nic',  $_SESSION['clinicattendee_nic']);
         $this->db->bindParam(':mname',  $data['mname']);
         $this->db->bindParam(':mage',  $data['mage']);
-        $this->db->bindParam(':gravidity',  $data['gravidity']);
         $this->db->bindParam(':moccupation',  $data['moccupation']);
         $this->db->bindParam(':mcontactno',  $data['mcontactno']);
         $this->db->bindParam(':memail',  $data['memail']);
@@ -206,14 +205,14 @@ class Clinicattendee{
 
     //register user
     public function register($data){
-        $this->db->query("INSERT INTO registration (date, mname, nic, mage, gravidity, mlevelofeducation, moccupation, mcontactno, address, memail, hname, hage, hlevelofeducation, hoccupation, hcontactno, hemail, gnd, active) VALUES (:date, :mname, :nic, :mage, :gravidity, :mlevelofeducation, :moccupation, :mcontactno, :address, :memail, :hname, :hage, :hlevelofeducation, :hoccupation, :hcontactno, :hemail, :gnd, :active)");
+        $this->db->query("INSERT INTO registration (date, mname, nic, mage, mlevelofeducation, moccupation, mcontactno, address, memail, hname, hage, hlevelofeducation, hoccupation, hcontactno, hemail, gnd, active) VALUES (:date, :mname, :nic, :mage, :mlevelofeducation, :moccupation, :mcontactno, :address, :memail, :hname, :hage, :hlevelofeducation, :hoccupation, :hcontactno, :hemail, :gnd, :active)");
 
          //bind values
          $this->db->bindParam(':date',$data['date']);
          $this->db->bindParam(':mname',$data['mname']);
          $this->db->bindParam(':nic',$data['nic']);
          $this->db->bindParam(':mage',$data['mage']);
-         $this->db->bindParam(':gravidity',$data['gravidity']);
+        //  $this->db->bindParam(':gravidity',$data['gravidity']);
          $this->db->bindParam(':mlevelofeducation',$data['mlevelofeducation']);
          $this->db->bindParam(':moccupation',$data['moccupation']);
          $this->db->bindParam(':mcontactno',$data['mcontactno']);
@@ -458,7 +457,10 @@ class Clinicattendee{
     }
 
     public function getReport(){
-        $this->db->query("SELECT * FROM detailrecords_expectant WHERE nic = :nic");
+        $this->db->query("SELECT detailrecords_expectant.date, detailrecords_expectant.weight, detailrecords_expectant.bmi, detailrecords_expectant.bp
+                        FROM detailrecords_expectant
+                        INNER JOIN expectant ON expectant.nic=detailrecords_expectant.nic 
+                        WHERE expectant.gravidity=detailrecords_expectant.gravidity AND expectant.nic= :nic");
         $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
 
         $row = $this->db->resultSet();
@@ -546,7 +548,9 @@ class Clinicattendee{
     }
 
     public function getChartByMother(){
-        $this->db->query("SELECT * FROM mother_age_weight WHERE nic = :nic");
+        $this->db->query("SELECT * FROM mother_age_weight
+                        INNER JOIN expectant ON mother_age_weight.nic=expectant.nic 
+                        WHERE mother_age_weight.nic = :nic AND mother_age_weight.gravidity=expectant.gravidity");
 
         $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
 
@@ -594,5 +598,84 @@ class Clinicattendee{
         return $row;
     }
 
+    public function findExpectantPrevious(){
+
+        $this->db->query("SELECT * FROM deliveredlist WHERE nic = :nic ");
+
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+
+        $row = $this->db->single();
+
+        return $row;
+    }
+    
+    public function findExpectantPrevious2(){
+
+        $this->db->query("SELECT * FROM deliveredlist
+                          INNER JOIN expectant ON deliveredlist.nic=expectant.nic WHERE expectant.nic = :nic AND expectant.active='0' ");
+
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+
+        $row = $this->db->single();
+
+        return $row;
+    }
+
+    public function displayExpectantRecords(){
+        $this->db->query("SELECT *
+                         FROM registration
+                         WHERE nic= :nic"
+                         );
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']); 
+        $results =  $this->db->single();
+        return $results;
+    }
+
+    public function getChildrenByParent(){
+        $this->db->query('SELECT * FROM children WHERE parent = :parent');
+        $this->db->bindParam(':parent', $_SESSION['clinicattendee_nic']);
+
+        $row = $this->db->resultSet();
+
+        return $row;
+    }
+
+    public function showMonthlyRecordsByGravidity(){
+        $this->db->query('SELECT MAX(gravidity) as max_gravidity FROM detailrecords_Expectant WHERE nic= :nic');
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']); 
+        $result = $this->db->single();
+        return $result->max_gravidity;
+    }
+
+    public function getDilivaryInfoByNic($gravidity){
+
+        $this->db->query("SELECT * FROM deliveredlist WHERE nic = :nic AND gravidity=:gravidity ");
+
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+        $this->db->bindParam(':gravidity', $gravidity);
+
+        $row = $this->db->single();
+
+        return $row;
+    }
+
+    public function getPrevChartByMother($gravidity){
+        $this->db->query("SELECT * FROM mother_age_weight WHERE nic = :nic AND gravidity = :gravidity");
+
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+        $this->db->bindParam(':gravidity', $gravidity);
+
+        $results = $this->db->resultSet();
+
+        return $results;
+    }
+
+    public function showPreviousReportsInDeliveredlist($gravidity){
+        $this->db->query('SELECT * FROM detailrecords_Expectant WHERE nic= :nic AND gravidity = :gravidity');
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']); 
+        $this->db->bindParam(':gravidity', $gravidity);
+        $result = $this->db->resultSet();
+        return $result;
+    }
     
 }

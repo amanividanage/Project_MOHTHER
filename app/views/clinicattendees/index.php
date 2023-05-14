@@ -14,16 +14,27 @@
 
     <div class="content">
 
-        <h1 class="content_h1">Welcome, <?php if(isset($_SESSION['clinicattendee_nic'])){
-            echo explode(" ", $_SESSION['clinicattendee_name'])[0];
-            } else {
-                echo 'Guest';
-            }
-        ?>
-        </h1>
+        <div class="report">
+            <h1 class="content_h1">Welcome, <?php if(isset($_SESSION['clinicattendee_nic'])){
+                echo explode(" ", $_SESSION['clinicattendee_name'])[0];
+                } else {
+                    echo 'Guest';
+                }
+            ?>
+            </h1>
+
+            <?php
+                if ($data['existing']) {
+                    echo '<a href="' . URLROOT . '/clinicattendees/previousPregInfo"><button class="button2">See Previous pregnancy details</button></a>';
+                } else {
+                    // do something else here
+                }
+            ?>
+        </div>
+        
 
     <?php 
-        if (empty($data['mother_or_parent'])) {
+        if (!empty($data['mother_or_parent'])) {
     ?>
 
         <div class="mine">

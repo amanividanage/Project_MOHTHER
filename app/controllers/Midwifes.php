@@ -3,6 +3,7 @@
         public function __construct(){
             $this->clinicModel = $this->model('Clinic');
             $this->midwifeModel = $this->model('Midwife');
+            $this->expectantRecordModel = $this->model('ExpectantRecord');
         }
 
         public function index(){
@@ -108,7 +109,7 @@
                 //Make sure no errors
                 if(empty($data['name_err']) && empty($data['nic_err']) && empty($data['phone_err']) && empty($data['email_err']) && empty($data['password_err'])){
                     //validated
-
+                    sendmail($data);
                     //Hash password
                     $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
@@ -353,6 +354,18 @@
 
             $this->view('midwifes/midwife_transfer', $data);
         }
+        
+        public function downloadreport($date1, $date2){
+
+            $getreport = $this->expectantRecordModel-> getRegistrantsByDate($date1, $date2); 
+       
+             $data = [
+                 
+                 'getreport'=> $getreport,
+             ];
+       
+             $this->view('midwifes/downloadreport', $data);
+            }
 
 
 

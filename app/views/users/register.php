@@ -59,9 +59,9 @@
 
     <tr>
     <td>
-    <label for="height">Height in inches </label>
+    <label for="height">Height (cm) </label>
     </td>
-    <td><input type="double" name="height" maxlength="5" class= "form <?php echo (!empty($data['height_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['height']; ?>">
+    <td><input type="double" name="height" maxlength="5" class= "form <?php echo (!empty($data['height_err'])) ? 'is-invalid' : ''; ?>" value="<?php if(!empty($data['newexpectantRecords2'])) { echo $data['newexpectantRecords2']->height+1; } else { echo $data['height']; } ?>">
     <span class="invalid-feedback"><?php echo $data['height_err']; ?></span></td>
     </tr>
 
@@ -80,16 +80,16 @@
     <td>
     <label for="bloodPressure">Blood Pressure in mmHg </label>
     </td>
-    <td><input type="double" name="bloodPressure" maxlength="5" class= "form <?php echo (!empty($data['bloodPressure_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['bloodPressure']; ?>">
+    <td><input type="double" name="bloodPressure" maxlength="8" class= "form <?php echo (!empty($data['bloodPressure_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['bloodPressure']; ?>">
     <span class="invalid-feedback"><?php echo $data['bloodPressure_err']; ?></span></td>
     </tr>
 
     
     <tr>
     <td>
-    <label for="allergies">Allergies </label>
+    <label for="allergies">Allergies (If there you can specify here)</label>
     </td>
-    <td><input type="text" name="allergies" maxlength="50" class= "form <?php echo (!empty($data['allergies_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['allergies']; ?>">
+    <td><input type="text" name="allergies" maxlength="50" class= "form <?php echo (!empty($data['allergies_err'])) ? 'is-invalid' : ''; ?>" value="<?php if(!empty($data['newexpectantRecords2'])) { echo $data['newexpectantRecords2']->allergies; } else { echo $data['allergies']; } ?>">
     <span class="invalid-feedback"><?php echo $data['allergies_err']; ?></span></td>
     </tr>
 
@@ -144,8 +144,8 @@
     <td>
     <label for="preconceptionalFolicAcid">Preconceptional Folic Acid </label>
     </td>
-    <td><input type="text" name="preconceptionalFolicAcid" maxlength="3" class= "form <?php echo (!empty($data['preconceptionalFolicAcid_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['preconceptionalFolicAcid']; ?>">
-    <span class="invalid-feedback"><?php echo $data['preconceptionalFolicAcid_err']; ?></span></td>
+    <td><input type="text" name="preconceptionalFolicAcid" maxlength="3" class= "form <!?php echo (!empty($data['preconceptionalFolicAcid_err'])) ? 'is-invalid' : ''; ?>" value="<!?php echo $data['preconceptionalFolicAcid']; ?>">
+    <span class="invalid-feedback"><!?php echo $data['preconceptionalFolicAcid_err']; ?></span></td>
     </tr-->
 
 
@@ -154,7 +154,7 @@
     <td>
     <label for="subfertility">History of Subfertility </label>
     </td>
-    <td><input type="text" name="subfertility" maxlength="50" class= "form <?php echo (!empty($data['subfertility_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['subfertility']; ?>">
+    <td><input type="text" name="subfertility" maxlength="50" class= "form <?php echo (!empty($data['subfertility_err'])) ? 'is-invalid' : ''; ?>" value="<?php if(!empty($data['newexpectantRecords2'])) { echo $data['newexpectantRecords2']->subfertility; } else { echo $data['subfertility']; } ?>">
     <span class="invalid-feedback"><?php echo $data['subfertility_err']; ?></span></td>
     </tr>
 
@@ -167,7 +167,7 @@
     <td>
     <label for="gravidity">Gravidity </label>
     </td>
-    <td><input type="int" name="gravidity" maxlength="5" class= "form <?php echo (!empty($data['gravidity_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['gravidity']; ?>">
+    <td><input type="int" name="gravidity" maxlength="5" class= "form <?php echo (!empty($data['gravidity_err'])) ? 'is-invalid' : ''; ?>" value="<?php if(!empty($data['newexpectantRecords2'])) { echo $data['newexpectantRecords2']->gravidity+1; } else { echo $data['gravidity']; } ?>"
     <span class="invalid-feedback"><?php echo $data['gravidity_err']; ?></span></td>
     </tr>
 
@@ -176,13 +176,13 @@
     <td>
     <label for="noofChildren">No of Children </label>
     </td>
-    <td><input type="int" name="noofChildren" maxlength="2" class= "form <?php echo (!empty($data['noofChildren_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['noofChildren']; ?>">
+    <td><input type="text" name="noofChildren" maxlength="2" class= "form <?php echo (!empty($data['noofChildren_err'])) ? 'is-invalid' : ''; ?>" value="<?php if(!empty($data['newexpectantRecords2'])) { echo $data['newexpectantRecords2']->noofChildren; } else { echo $data['noofChildren']; } ?>">
     <span class="invalid-feedback"><?php echo $data['noofChildren_err']; ?></span></td>
     </tr>
     
     <tr>
     <td>Age of the youngest child</td>
-    <td><input type="int" name="ageofYoungest" maxlength="2" id="12"/>
+    <td><input type="text" name="ageofYoungest" maxlength="2" id="12"/>
     </td>
     </tr>
 
@@ -194,13 +194,13 @@
     <span class="invalid-feedback"><?php echo $data['lastMenstrualDate_err']; ?></span></td>
     </tr>
     
-    <tr>
+    <!-- <tr>
     <td>
     <label for="registrationDate">Date of Registration</label>
     </td>
-    <td><input type="Date" name="registrationDate" class= "form <?php echo (!empty($data['registrationDate_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['registrationDate']; ?>">
-    <span class="invalid-feedback"><?php echo $data['registrationDate_err']; ?></span></td>
-    </tr>
+    <td><input type="Date" name="registrationDate" class= "form <!?php echo (!empty($data['registrationDate_err'])) ? 'is-invalid' : ''; ?>" value="<!?php echo $data['registrationDate']; ?>">
+    <span class="invalid-feedback"><!?php echo $data['registrationDate_err']; ?></span></td>
+    </tr> -->
     
     <tr>
     <td>
@@ -210,17 +210,36 @@
     <span class="invalid-feedback"><?php echo $data['expectedDateofDelivery_err']; ?></span></td>
     </tr>
 
-    <tr>
+    
+<?php
+    if (!empty($data['newexpectantRecords2'])) {
+        echo '';
+    } else {
+        echo '<tr>
+                <td>
+                    <label for="password">Password</label>
+                </td>
+                <td>
+                    <input type="text" name="password" class="' . (!empty($data['password_err']) ? 'is-invalid' : '') . '" value="' . $data['password'] . '">
+                    <span class="invalid-feedback">' . $data['password_err'] . '</span>
+                </td>
+            </tr>';
+    }
+?>
+
+
+    <!-- <tr>
     <td>
     <label for="password">Password </label>
     </td>
-    <td><input type="text" name="password" class= "<?php echo (!empty($data['weight_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['password']; ?>">
-    <span class="invalid-feedback"><?php echo $data['password_err']; ?></span></td>
+    <td><input type="text" name="password" class= "<!?php echo (!empty($data['weight_err'])) ? 'is-invalid' : ''; ?>" value="<!?php echo $data['password']; ?>">
+    <span class="invalid-feedback"><!?php echo $data['password_err']; ?></span></td>-->
     </tr>
-    <tr><td> <input type="submit" name="Submit" class="myButton"></input></td></tr>
-
+    <tr><td> <input type="submit" name="Submit" class="myButton"></input></td></tr> 
+    <br><br><br>
     </form>
    
+    <br><br>
 
     <script src="script.js"></script>
 </body>

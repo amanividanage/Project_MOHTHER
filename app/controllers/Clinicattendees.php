@@ -10,6 +10,8 @@
         }
 
         public function index(){
+
+            $existing = $this->clinicattendeeModel->findExpectantPrevious();
             //Get clinic attendee
            //$clinicattendee = $this->clinicattendeeModel->getClinicAttendeeByNic($nic);
             $mother_or_parent = $this->clinicattendeeModel->clarifyMotherOrParent();
@@ -24,6 +26,7 @@
             // $poa = $this->clinicattendeeModel-> calculatePOA($mother->poa, $mother->registrationDate);
 
             $data = [
+                'existing'  => $existing,
               // 'clinicattendee' => $clinicattendee
               'mother_or_parent' => $mother_or_parent,
               'children' => $children,
@@ -321,7 +324,7 @@
                     'mname'=>trim($_POST['mname']),
                     'nic'=>trim($_POST['nic']), 
                     'mage'=>trim($_POST['mage']),
-                    'gravidity'=>trim($_POST['gravidity']),
+                    // 'gravidity'=>trim($_POST['gravidity']),
                     'mlevelofeducation'=>trim($_POST['mlevelofeducation']),
                     'moccupation'=>trim($_POST['moccupation']),
                     'mcontactno'=>trim($_POST['mcontactno']),
@@ -341,7 +344,7 @@
                     'mname_err'=>'',
                     'nic_err'=>'', 
                     'mage_err'=>'',
-                    'gravidity_err'=>'',
+                    // 'gravidity_err'=>'',
                     'mlevelofeducation_err'=>'',
                     'moccupation_err'=>'',
                     'mcontactno_err'=>'',
@@ -465,7 +468,7 @@
                     'mname'=>'',
                     'nic'=>'', 
                     'mage'=>'',
-                    'gravidity'=>'',
+                    // 'gravidity'=>'',
                     'mlevelofeducation'=>'',
                     'moccupation'=>'',
                     'mcontactno'=>'',
@@ -483,7 +486,7 @@
                     'mname_err'=>'',
                     'nic_err'=>'', 
                     'mage_err'=>'',
-                    'gravidity_err'=>'',
+                    // 'gravidity_err'=>'',
                     'mlevelofeducation_err'=>'',
                     'moccupation_err'=>'',
                     'mcontactno_err'=>'',
@@ -813,7 +816,7 @@
                 $data = [
                     'mname' => trim($_POST['mname']),
                     'mage' => trim($_POST['mage']),
-                    'gravidity' => trim($_POST['gravidity']),
+                    // 'gravidity' => trim($_POST['gravidity']),
                     'moccupation' => trim($_POST['moccupation']),
                     'mcontactno' => trim($_POST['mcontactno']),
                     'memail' => trim($_POST['memail']),
@@ -826,7 +829,7 @@
                     
                     'mname_err' => '',
                     'mage_err' => '',
-                    'gravidity_err' => '',
+                    // 'gravidity_err' => '',
                     'mcontactno_err' => '',
                     'moccupation_err' => '',
                     'memail_err' => '',
@@ -876,7 +879,7 @@
                     'req_expectant' => $req_expectant,
                     'mname_err' => '',
                     'mage_err' => '',
-                    'gravidity_err' => '',
+                    // 'gravidity_err' => '',
                     'mcontactno_err' => '',
                     'moccupation_err' => '',
                     'memail_err' => '',
@@ -917,6 +920,20 @@
         $this->view('clinicattendees/mother_vaccination', $data);
   
     }
+
+    public function mother_charts_prev($gravidity){
+     
+        $mother = $this->clinicattendeeModel->getMother(); 
+        $chart = $this->clinicattendeeModel->getPrevChartByMother($gravidity);
+      
+         $data = [
+             
+             'mother'=> $mother,
+             'chart'=> $chart,
+         ];
+      
+         $this->view('clinicattendees/mother_charts_prev', $data);
+      }
     
 
     public function mother_charts(){
@@ -949,6 +966,99 @@
   
         $this->view('clinicattendees/expectant_allrecords', $data);
     }
+    
+    public function previousPregInfo(){
+            $info =  $this->clinicattendeeModel->displayExpectantRecords();
+            $existing2 = $this->clinicattendeeModel->findExpectantPrevious2();
+                // $report = $this->expectantRecordModel->showExpectantMonthlyRecords($nic);
+                // $expectantRecords =  $this->expectantRecordModel-> getExpectantRecords(); 
+                // $expectantRecordsHeight =  $this->expectantRecordModel-> getExpectantHeight($nic); 
+                $children = $this->clinicattendeeModel->getChildrenByParent();
+            
+                // $date = $this->expectantRecordModel-> getMother($nic); 
+                // $poa =  $this->expectantRecordModel-> calculatePOA($date->poa, $date->registrationDate);
+       //  print_r($bplimit);
+      
+                //    $bplimit = array(); // Initialize an empty array to store the blood pressure limits
+                //    $bmilimit = array(); // Initialize an empty array to store the BMI limits
+                //    $risky = array(); // Initialize an empty array to store the risk status
+      
+      //  $gravidity = $this->expectantRecordModel->showMonthlyRecordsByGravidity($nic);
+                   $max_gravidity = $this->clinicattendeeModel->showMonthlyRecordsByGravidity();
+      
+      
+                // // Loop through the $report array and calculate the values for each index
+                // foreach ($report as $index => $reportItem) {
+                //     $bplimit[$index] = $this->expectantRecordModel->calculateBloodPressure($reportItem->bp);
+                //     $bmilimit[$index] = $this->expectantRecordModel->calculateBMILimit($reportItem->bmi);
+                //     $risky[$index] = $this->expectantRecordModel->calculateRisky($bplimit[$index], $bmilimit[$index]);
+                // }
+      
+         
+      
+         $data = [
+             'info' => $info,
+             'existing' => $existing2,
+            //  'report'=> $report,
+             'children' => $children,
+            //  'expectantRecordsHeight' => $expectantRecordsHeight,
+            //  'poa' => $poa,
+            //  'bplimit' => $bplimit,
+            //  'bmilimit' => $bmilimit,
+            //  'risky' => $risky,
+             'max_gravidity' => $max_gravidity,
+      
+         ];
+      
+         $this->view('clinicattendees/previousPregInfo', $data);
+       }
+
+       public function infoprevious($gravidity){
+
+        $previousrecords =  $this->clinicattendeeModel->showPreviousReportsInDeliveredlist($gravidity);
+        $info =  $this->clinicattendeeModel->displayExpectantRecords();
+        // $report = $this->expectantRecordModel->showExpectantMonthlyRecords($nic);
+        // $expectantRecords =  $this->expectantRecordModel-> getExpectantRecords(); 
+        // $expectantRecordsHeight =  $this->expectantRecordModel-> getExpectantHeight($nic); 
+        $children = $this->clinicattendeeModel->getChildrenByParent();
+      
+        $delivaryinfo = $this->clinicattendeeModel->getDilivaryInfoByNic($gravidity);
+      
+        // $date = $this->expectantRecordModel-> getMother($nic); 
+        // $poa =  $this->expectantRecordModel-> calculatePOA($date->poa, $date->registrationDate);
+       //  print_r($bplimit);
+      
+       $bplimit = array(); // Initialize an empty array to store the blood pressure limits
+       $bmilimit = array(); // Initialize an empty array to store the BMI limits
+       $risky = array(); // Initialize an empty array to store the risk status
+      
+       // Loop through the $report array and calculate the values for each index
+    //    foreach ($report as $index => $reportItem) {
+    //        $bplimit[$index] = $this->expectantRecordModel->calculateBloodPressure($reportItem->bp);
+    //        $bmilimit[$index] = $this->expectantRecordModel->calculateBMILimit($reportItem->bmi);
+    //        $risky[$index] = $this->expectantRecordModel->calculateRisky($bplimit[$index], $bmilimit[$index]);
+    //    }
+      
+         
+      
+         $data = [
+             'info' => $info,
+            //  'report'=> $report,
+             'children' => $children,
+            //  'expectantRecordsHeight' => $expectantRecordsHeight,
+            //  'poa' => $poa,
+             'bplimit' => $bplimit,
+             'bmilimit' => $bmilimit,
+             'risky' => $risky,
+             'previousrecords' => $previousrecords,
+             'grav' => $gravidity,
+      
+             'delivaryinfo' => $delivaryinfo,
+      
+         ];
+      
+         $this->view('clinicattendees/infoprevious', $data);
+       }
 
     
 

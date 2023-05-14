@@ -110,6 +110,25 @@
     </tr>
 
     <tr>
+    <td>
+    <label for="gravidity">gravidity</label>
+    </td>
+    <td><input type="text" name="gravidity" maxlength="20" class= " <?php echo (!empty($data['gravidity_err'])) ? 'is-invalid' : ''; ?>" value=" <?php echo $data['info']->gravidity; ?>">
+</td>
+
+<td>
+    <label for="miscarriage">Miscarriage </label>
+    </td>
+    <td>
+    <label for="opt"><select  name="miscarriage" >
+    <option value="No">No</option> 
+    <option value="Yes">Yes</option>
+   
+     </select></label>
+    </td>
+    </tr>
+
+    <tr>
         <td>
             <label for="mother_safe"><b><i>Is the mother safe?</i></b></label>
         </td>
@@ -147,14 +166,14 @@ if(isset($_POST['mother_safe']) && $_POST['mother_safe'] == 'yes') {
     </td>
     <td><input type="text" name="weekscompleted" maxlength="20" class= " <?php echo (!empty($data['weekscompleted_err'])) ? 'is-invalid' : ''; ?>" value=" <?php echo $data['weekscompleted']; ?>">
     <span class="invalid-feedback"><?php echo $data['weekscompleted_err']; ?></span></td>
+
     <td>
-    <label for="miscarriage">Miscarriage </label>
+    <label for="diabetes">Diabetes Present after delivery?</label>
     </td>
     <td>
-    <label for="opt"><select  name="miscarriage" >
-    <option value="No">No</option> 
+    <label for="opt"><select  name="diabetes" >
     <option value="Yes">Yes</option>
-   
+    <option value="No">No</option> 
      </select></label>
     </td>
     </tr>
@@ -187,11 +206,11 @@ if(isset($_POST['mother_safe']) && $_POST['mother_safe'] == 'yes') {
     <td>
     <label for="opt"><select  name="modeofDelivery"  placeholder='Please specify the type of delivery' >
       
-    <option value="Yes">Please specify the type of delivery</option>
-    <option value="Yes">Vaginal Delivery</option>
-    <option value="No">Ceasarean Birth</option>
-    <option value="No">VBAC</option> 
-    <option value="No">Assisted Vaginal Delivery</option>
+    <option>Please specify the type of delivery</option>
+    <option value="Vaginal Delivery">Vaginal Delivery</option>
+    <option value="Ceasarean Birth">Ceasarean Birth</option>
+    <option value="VBAC">VBAC</option> 
+    <option value="Assisted Vaginal Delivery">Assisted Vaginal Delivery</option>
      </select></label>
     </td>
     </tr>
@@ -212,18 +231,6 @@ if(isset($_POST['mother_safe']) && $_POST['mother_safe'] == 'yes') {
     </tr>
 
 
-    <tr>
-    <td>
-    <label for="diabetes">Diabetes Present after delivery?</label>
-    </td>
-    <td>
-    <label for="opt"><select  name="diabetes" >
-    <option value="Yes">Yes</option>
-    <option value="No">No</option> 
-     </select></label>
-    </td></tr>
-
-    </tr>
     </table>
 </div>
 
@@ -236,7 +243,7 @@ if(isset($_POST['mother_safe']) && $_POST['mother_safe'] == 'yes') {
     <tr><td> <input type="submit" name="Submit" class="myButton"></input></td></tr>
    
    
-
+<br><br><br><br>
 </div>
 </div>
 </form>

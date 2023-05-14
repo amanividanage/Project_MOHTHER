@@ -35,7 +35,7 @@
                         <div class="modal-content">
                             <span class="close">&times;</span>
                             <h4>Is mother/parent already registered?</h4> 
-                            <a href="<?php echo URLROOT; ?>/expectantRecords/expectnatmotherlist"><button class="curve_btn">Yes</button></a>
+                            <a href="<?php echo URLROOT; ?>/childrens/parentlist"><button class="curve_btn">Yes</button></a>
                             <a href="<?php echo URLROOT; ?>/childrens/parent"><button class="curve_btn">No</button></a>
                         </div>
 

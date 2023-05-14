@@ -45,11 +45,6 @@
                     <span class="form-err"><?php echo $data['mage_err']; ?></span>
                 </div>
                 <div class="input-box">
-                    <label for="gravidity">Gravidity: <sup>*</sup></label>
-                    <input type="text" maxlength="2"  name="gravidity" class= "form <?php echo (!empty($data['gravidity_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['gravidity']; ?>" placeholder="Enter your no of pregnancies here...">
-                    <span class="form-err"><?php echo $data['gravidity_err']; ?></span>
-                </div>
-                <div class="input-box">
                     <label for="mlevelofeducation">Level of Education: <sup>*</sup></label>
                     <select name="mlevelofeducation" id="mlevelofeducation">
                         <option value="">Select Your level of Education</option>

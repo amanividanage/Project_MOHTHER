@@ -39,9 +39,9 @@
                             <input type="text" name="mage" value='<?php echo $data['req_expectant']->mage; ?>' required>
                             <span class="form-err"><?php echo $data['mage_err']; ?></span>
 
-                            <label for="gravidity"><b> Gravidity</b></label>
-                            <input type="text" name="gravidity" value='<?php echo $data['req_expectant']->gravidity; ?>' required>
-                            <span class="form-err"><?php echo $data['gravidity_err']; ?></span>
+                            <!-- <label for="gravidity"><b> Gravidity</b></label>
+                            <input type="text" name="gravidity" value='<!?php echo $data['req_expectant']->gravidity; ?>' required>
+                            <span class="form-err"><!?php echo $data['gravidity_err']; ?></span> -->
 
                             <label for="moccupation"><b>Occupation</b></label>
                             <input type="text" name="moccupation" value='<?php echo $data['req_expectant']->moccupation; ?>' required>
@@ -54,6 +54,7 @@
                             <label for="memail"><b>E-mail</b></label>
                             <input type="text" name="memail" value='<?php echo $data['req_expectant']->memail; ?>' required>
                             <span class="form-err"><?php echo $data['memail_err']; ?></span>
+                            <br><br><br><br><br>
 
                         </div>
 

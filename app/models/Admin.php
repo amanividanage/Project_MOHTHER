@@ -257,6 +257,39 @@
             return $row->total_count;
         }
 
+        public function calculateMotherDeaths(){
+
+            $this->db->query("SELECT COUNT(*) AS total_count FROM deliveredlist WHERE mother_safe='no'");
+
+            $row = $this->db->single();
+
+            return $row->total_count;
+        }
+
+        public function calculateTotalDeaths(){
+
+            $this->db->query("SELECT COUNT(*) AS total_count, MONTH(deliveredlist.date) AS month, 'child' AS type 
+                            FROM deliveredlist WHERE miscarriage='Yes'
+                            GROUP BY MONTH(deliveredlist.date)
+                            UNION ALL
+                            SELECT COUNT(*) AS total_count, MONTH(deliveredlist.date) AS month, 'mother' AS type 
+                            FROM deliveredlist WHERE mother_safe='no'
+                            GROUP BY MONTH(deliveredlist.date)");
+
+            $rows = $this->db->resultSet();
+
+            $data = array();
+            foreach($rows as $row){
+                $data[] = array(
+                    'month' => date('F', mktime(0, 0, 0, $row->month, 1)),
+                    'type' => $row->type,
+                    'total_count' => $row->total_count
+                );
+            }
+
+            return $data;
+        }
+
         public function getNewRegistrantsMonthWise(){
             $this->db->query("SELECT MONTH(date) AS month, COUNT(*) AS value 
                                 FROM registration
@@ -310,5 +343,26 @@
                 );
             }
             return $data;
+        }
+
+        
+        public function getTotalChildVaccination(){
+            $this->db->query("SELECT * FROM children INNER JOIN children_vaccination ON children.child_id=children_vaccination.child_id ");
+
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
+        
+        public function getChildVaccinatedByVaccine($vaccine){
+            $this->db->query("SELECT children.name, children.parent, children.dob, children.date, children.weight 
+                              FROM children 
+                              INNER JOIN children_vaccination ON children.child_id=children_vaccination.child_id 
+                              INNER JOIN vaccination ON vaccination.id=children_vaccination.vaccination_id 
+                              WHERE vaccination.vaccine=:vaccine");
+            $this->db->bindParam(':vaccine', $vaccine);
+            $results = $this->db->resultSet();
+
+            return $results;
         }
     }

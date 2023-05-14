@@ -9,25 +9,18 @@
     <title><?php echo SITENAME; ?></title>
 </head>
 <body>
-    <?php require APPROOT . '/views/inc/navbar.php' ; ?>
-    <?php require APPROOT . '/views/inc/sidebar_midwife.php' ; ?>
-    <div class="content">
-        
-        <h1 class="content_h1"> Statistics</h1>
 
-        <div class="charts-d">
-                
-                <div class="chart-d item12" id="Chart3">
+    <div class="chart-d item12" id="Chart3">
                     <h2>New Registrants</h2>
-                    <form action="" method="POST" class="reportgen">
+                    <!-- <form action="" method="POST" class="reportgen">
                         
                         <input type="date" name="date1" id="date1">
                         
                         <input type="date" name="date2" id="date2">
 
-                        <input type="submit">
+                        <input type="submit"> -->
 
-                        <a href="<?php echo URLROOT; ?>/midwifes/downloadreport/<?php echo $data['date1'] ?>/<?php echo $data['date2'] ?>" target="_blank">Generate Report</a>
+                        <!-- <a href="<!?php echo URLROOT; ?>/midwifes/downloadreport">Generate Report</a> -->
                         <!-- <input type="submit" value="Submit"> -->
                     </form>  
                     
@@ -45,7 +38,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach($data['date'] as $date) : ?>
+                            <?php foreach($data['getreport'] as $date) : ?>
                                 <tr>
                                     <td><?php echo $date->date; ?></td>
                                     <td><?php echo $date->mname; ?></td>
@@ -59,32 +52,33 @@
                             <?php endforeach; ?>
                         </tbody>
                     </table>
-
-
                 </div>
                 
-                
+                <!-- <div class="chart-d item4">
+                    <h2>New Registrants</h2>
+                    <canvas id="myChart4"></canvas>
+                </div>
+                <div class="chart-d item5">
+                    <h2>New Registrants</h2>
+                </div>
+                <div class="chart-d item6">
+                    <h2>Risky expectants</h2>
+                    
+                </div> --> 
                 
             </div>
+
+        
+        
 
             
 </div>
 
-
-
-<!-- <script>
+<script>
     window.addEventListener('load', function() {
         window.print();
         setTimeout(function() {
             window.close();
         }, 750);
     });
-</script> -->
-
-<!-- <script>
-function printReport() {
-  window.addEventListener('load', function() {
-    window.print();
-  });
-}
-</script> -->
+</script>

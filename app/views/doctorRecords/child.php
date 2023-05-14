@@ -138,6 +138,7 @@
                             <th>Other Complications</th>
                             <th></th>
                         </tr>
+                    <?php if(!empty($data['midwiferecords'])) : ?>
                         <?php foreach($data['midwiferecords'] as $midwiferecords) : ?>
                             <tr>
                                 <td><?php echo $midwiferecords->date; ?></td>
@@ -176,7 +177,11 @@
                                 </td>
                             </tr>
                         <?php endforeach; ?>
+                    <?php else: ?>
+                            <tr><td>No Reports added yet</td></tr>
+                        <?php endif; ?>
                     </table>
+                    <br><br><br><br>
                 </div>
                              
                         </div>

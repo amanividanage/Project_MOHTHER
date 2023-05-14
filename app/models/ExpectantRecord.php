@@ -24,14 +24,20 @@ class ExpectantRecord {
     }
 
     public function showExpectantMonthlyRecords($nic){
-        $this->db->query('SELECT * FROM detailrecords_Expectant WHERE nic= :nic'
-              
-                         
-                         );
-                         $this->db->bindParam(':nic', $nic); 
+        $this->db->query('SELECT detailrecords_expectant.date, detailrecords_expectant.weight, detailrecords_expectant.bmi, detailrecords_expectant.bp
+                          FROM detailrecords_expectant
+                          INNER JOIN expectant ON expectant.nic=detailrecords_expectant.nic 
+                          WHERE expectant.gravidity=detailrecords_expectant.gravidity AND expectant.nic= :nic' 
+                        );
+
+        $this->db->bindParam(':nic', $nic); 
         $results =  $this->db->resultSet();
         return $results;
     }
+
+    // SELECT detailrecords_expectant.date, detailrecords_expectant.weight, detailrecords_expectant.bmi, detailrecords_expectant. FROM detailrecords_expectant
+    //                       INNER JOIN expectant ON expectant.nic=detailrecords_expectant.nic
+    //                       WHERE detailrecords_Expectant.nic= :nic AND expectant.gravidity=detailrecords_expectant.gravidity
 
     public function showMonthlyRecordsByGravidity($nic){
         $this->db->query('SELECT MAX(gravidity) as max_gravidity FROM detailrecords_Expectant WHERE nic= :nic');
@@ -51,9 +57,11 @@ class ExpectantRecord {
 
 
  public function getDeliveredList(){
-        $this->db->query("SELECT deliveredlist.nic, deliveredlist.date, deliveredlist.miscarriage , deliveredlist.placeofDelivery 
-                          FROM deliveredlist, midwife_clinic 
-                          WHERE midwife_clinic.phm = deliveredlist.phm AND midwife_clinic.nic = :midwife_nic ");
+        $this->db->query("SELECT deliveredlist.nic, deliveredlist.date, deliveredlist.miscarriage, deliveredlist.placeofDelivery, expectant.name, deliveredlist.mother_safe
+                          FROM deliveredlist
+                          INNER JOIN expectant ON deliveredlist.nic = expectant.nic 
+                          INNER JOIN midwife_clinic ON midwife_clinic.phm = deliveredlist.phm
+                          WHERE midwife_clinic.nic = :midwife_nic AND expectant.gravidity=deliveredlist.gravidity");
 
         $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
          
@@ -147,16 +155,7 @@ class ExpectantRecord {
         return $results;
     }
 
-    // public function showExpectantMonthlyRecords($nic){
-    //     $this->db->query('SELECT * FROM detailrecords_Expectant WHERE nic= :nic'
-              
-                         
-    //                      );
-    //                      $this->db->bindParam(':nic', $nic); 
-    //     $results =  $this->db->resultSet();
-    //     return $results;
-    // }
-
+    
     public function displayExpectantReports($nic, $reportNo){
         $this->db->query('SELECT *
                         FROM detailrecords_Expectant
@@ -212,14 +211,15 @@ class ExpectantRecord {
     }
 
     public function movingToDeliveredList($data){
-        $this->db->query('INSERT INTO deliveredlist (nic,date, phm, mother_safe, miscarriage, weekscompleted, weight,bmi, bp, placeofDelivery, modeofDelivery, postnatalcomplication, symptoms, diabetes) 
-                          SELECT :nic, :date, :phm, :mother_safe, :miscarriage,:weekscompleted, :weight, (:weight / POW((:height / 100), 2)) AS bmi, :bp, :placeofDelivery, :modeofDelivery, :postnatalcomplication, :symptoms, :diabetes');
+        $this->db->query('INSERT INTO deliveredlist (nic,date, phm, gravidity, mother_safe, miscarriage, weekscompleted, weight,bmi, bp, placeofDelivery, modeofDelivery, postnatalcomplication, symptoms, diabetes) 
+                          SELECT :nic, :date, :phm, :gravidity, :mother_safe, :miscarriage,:weekscompleted, :weight, (:weight / POW((:height / 100), 2)) AS bmi, :bp, :placeofDelivery, :modeofDelivery, :postnatalcomplication, :symptoms, :diabetes');
         
         
         //bind values
         $this->db->bindParam(':nic', $data['nic']);
         $this->db->bindParam(':date', $data['date']);
         $this->db->bindParam(':phm', $data['phm']);
+        $this->db->bindParam(':gravidity', $data['gravidity']);
         $this->db->bindParam(':mother_safe', $data['mother_safe']);
         $this->db->bindParam(':miscarriage', $data['miscarriage']);
         $this->db->bindParam(':weekscompleted', $data['weekscompleted']);
@@ -305,11 +305,12 @@ class ExpectantRecord {
     public function addMother_age_weight($data){
 
 
-        $this->db->query("INSERT INTO mother_age_weight (nic, poa, weight, weightgain) 
-                  SELECT :nic, :poa, :weight, (:weight - :weightbefore) AS weightgain");
+        $this->db->query("INSERT INTO mother_age_weight (nic, gravidity, poa, weight, weightgain) 
+                  SELECT :nic, :gravidity, :poa, :weight, (:weight - :weightbefore) AS weightgain");
 
         //bind values
         $this->db->bindParam(':nic', $data['nic']);
+        $this->db->bindParam(':gravidity', $data['gravidity']);
         $this->db->bindParam(':poa', $data['poa']);
         $this->db->bindParam(':weight', $data['weight']);
         $this->db->bindParam(':weightbefore', $data['mother']->weight);
@@ -391,9 +392,22 @@ class ExpectantRecord {
     }
     
     public function getChartByMother($nic){
-        $this->db->query("SELECT * FROM mother_age_weight WHERE nic = :nic");
+        $this->db->query("SELECT * FROM mother_age_weight
+                          INNER JOIN expectant ON mother_age_weight.nic=expectant.nic 
+                          WHERE mother_age_weight.nic = :nic AND mother_age_weight.gravidity=expectant.gravidity");
 
         $this->db->bindParam(':nic', $nic);
+
+        $results = $this->db->resultSet();
+
+        return $results;
+    }
+    
+    public function getPrevChartByMother($nic, $gravidity){
+        $this->db->query("SELECT * FROM mother_age_weight WHERE nic = :nic AND gravidity = :gravidity");
+
+        $this->db->bindParam(':nic', $nic);
+        $this->db->bindParam(':gravidity', $gravidity);
 
         $results = $this->db->resultSet();
 
@@ -761,7 +775,7 @@ public function getTotalDeathsMonth(){
 
         $this->db->query("SELECT COUNT(*) AS total_count FROM mother_risky
                           INNER JOIN expectant ON mother_risky.nic=expectant.nic
-                          INNER JOIN midwife_clinic ON expectant.phm=midwife_clinic.phm WHERE midwife_clinic.nic = :midwife_nic AND mother_risky.risky = 'High Risk' ");
+                          INNER JOIN midwife_clinic ON expectant.phm=midwife_clinic.phm WHERE midwife_clinic.nic = :midwife_nic AND mother_risky.risky = 'High Risk' AND expectant.active='0' ");
 
         $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
 
@@ -774,7 +788,7 @@ public function getTotalDeathsMonth(){
         
         $this->db->query("SELECT expectant.nic, expectant.name FROM mother_risky
                           INNER JOIN expectant ON mother_risky.nic=expectant.nic
-                          INNER JOIN midwife_clinic ON expectant.phm=midwife_clinic.phm WHERE midwife_clinic.nic = :midwife_nic AND mother_risky.risky = 'High Risk' ");
+                          INNER JOIN midwife_clinic ON expectant.phm=midwife_clinic.phm WHERE midwife_clinic.nic = :midwife_nic AND mother_risky.risky = 'High Risk' AND expectant.active='0' ");
 
         $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
 
@@ -787,9 +801,59 @@ public function getTotalDeathsMonth(){
         
         $this->db->query("SELECT expectant.nic, expectant.name FROM mother_risky
                           INNER JOIN expectant ON mother_risky.nic=expectant.nic
-                          INNER JOIN midwife_clinic ON expectant.phm=midwife_clinic.phm WHERE midwife_clinic.nic = :midwife_nic AND mother_risky.risky = 'Moderate Risk' ");
+                          INNER JOIN midwife_clinic ON expectant.phm=midwife_clinic.phm WHERE midwife_clinic.nic = :midwife_nic AND mother_risky.risky = 'Moderate Risk' AND expectant.active='0' ");
 
         $this->db->bindParam(':midwife_nic', $_SESSION['midwife_nic']);
+
+        $row = $this->db->resultSet();
+        
+        return $row;
+    }
+    
+    public function findExpectantPrevious($nic){
+
+        $this->db->query("SELECT * FROM deliveredlist WHERE nic = :nic ");
+
+        $this->db->bindParam(':nic', $nic);
+
+        $row = $this->db->single();
+
+        return $row;
+    }
+
+    
+    public function getDilivaryInfoByNic($nic,$gravidity){
+
+        $this->db->query("SELECT * FROM deliveredlist WHERE nic = :nic AND gravidity=:gravidity ");
+
+        $this->db->bindParam(':nic', $nic);
+        $this->db->bindParam(':gravidity', $gravidity);
+
+        $row = $this->db->single();
+
+        return $row;
+    }
+    
+    /*need to re-check*/
+    public function getRegistrantsByDate($date1, $date2){
+        
+        $this->db->query("SELECT * FROM registration WHERE date BETWEEN :date1 AND :date2 ");
+
+        $this->db->bindParam(':date1', $date1);
+        $this->db->bindParam(':date2', $date2);
+
+        $row = $this->db->resultSet();
+        
+        return $row;
+    }
+    
+    /*need to re-check*/
+    public function getAllRegistrants(){
+        
+        $this->db->query("SELECT * FROM registration ");
+
+        // $this->db->bindParam(':date1', $date1);
+        // $this->db->bindParam(':date2', $date2);
 
         $row = $this->db->resultSet();
         

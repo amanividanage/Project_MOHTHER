@@ -17,6 +17,14 @@
             <div class="report">
                 <h2 class="content_h1">Expectant Mother profile - <?php echo $data['info']->mname; ?></h2>
                 <!-- <a href="<!?php echo URLROOT; ?>/childrens/add/<!?php echo $data['mother']->nic; ?>"><button class="add">Add Child</button></a>  -->
+            
+            <?php
+                if ($data['existing']) {
+                    echo '<a href="' . URLROOT . '/expectantRecords/previousPregInfo/' . $data['info']->nic . '"><button class="button2">See Previous pregnancy details</button></a>';
+                } else {
+                    // do something else here
+                }
+            ?>
             </div>
             
 
@@ -37,10 +45,10 @@
                                 <td>Age</td>
                                 <td><?php echo $data['info']->mage; ?></td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <td>Gravidity</td>
-                                <td><?php echo $data['info']->gravidity; ?> </td>
-                            </tr>
+                                <td><!?php echo $data['info']->gravidity; ?> </td>
+                            </tr> -->
                             <tr>
                                 <td>Level of Education</td>
                                 <td><?php echo $data['info']->mlevelofeducation; ?></td>
@@ -54,8 +62,8 @@
                                 <td><?php echo $data['info']->mcontactno; ?></td>
                             </tr>
                             <tr>
-                                    <th>Children </th>
-                                    <th colspan=2><a href="<?php echo URLROOT; ?>/childrens_expectant/add/<?php echo $data['info']->nic; ?>"><button class="button1">Add Child</button></a></th>
+                                    <th colspan=3>Children </th>
+                                    <!-- <th colspan=2><a href="<!?php echo URLROOT; ?>/childrens_expectant/add/<!?php echo $data['info']->nic; ?>"><button class="button1">Add Child</button></a></th> -->
                                 </tr>
                                 <?php foreach($data['children'] as $children) : ?>
                                     <tr>
