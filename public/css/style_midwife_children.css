@@ -425,6 +425,16 @@ input[type=submit]:hover {
     padding: 20px;
 }
 
+.container_new_new {
+    margin-top: 70px;
+    margin-left: 25%;
+    margin-right: auto;
+    width: 50%;
+    border-radius: 5px;
+    background-color: #F0E3FF;
+    padding: 20px;
+}
+
 .form_font{
     color: #3E206D;
     font-weight: bold;

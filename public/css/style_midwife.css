@@ -833,7 +833,7 @@ input[type=text], input[type=password] {
     transition: 0.3s;
 }
 .calendarcontent{
-    margin-left: 40%;
+    margin-left: 25%;
     position: relative;
     float: left;
     margin-top: 70px;
@@ -868,7 +868,7 @@ input[type=text], input[type=password] {
 .insertdates{
     font-size: 0.5vw;
     float: right;
-    margin-right: -40%;
+    margin-right: -50%;
     margin-top: -70%;
     position: relative;
     

@@ -12,7 +12,7 @@
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
     <?php require APPROOT . '/views/inc/sidebar_midwife.php' ; ?>
     <div class="content">
-        <a href="<?php echo URLROOT; ?>/expectantRecords/expectnatmotherlist" class="back"><i class="fa fa-backward"></i>Back</a>
+        <a href="<?php echo URLROOT; ?>/expectantRecords/previousPregInfo/<?php echo $data['info']->nic; ?>" class="back"><i class="fa fa-backward"></i>Back</a>
             <br>
             <div class="report">
                 <h2 class="content_h1">Expectant Mother profile - <?php echo $data['info']->mname; ?></h2>

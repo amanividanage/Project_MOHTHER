@@ -14,7 +14,7 @@
     <?php require APPROOT . '/views/inc/sidebar_doctor.php' ; ?>
     <div class="content">
     
-    <a href="<?php echo URLROOT; ?>/childrens" class="back"><i class="fa fa-backward"></i>Back</a>
+    <a href="<?php echo URLROOT; ?>/doctorRecords/child/<?php echo $data['child']->child_id; ?>" class="back"><i class="fa fa-backward"></i>Back</a>
         <div class="align">
             <div>
                 <h2 class="content_h1">Child Charts - <?php echo $data['child']->name; ?></h2>

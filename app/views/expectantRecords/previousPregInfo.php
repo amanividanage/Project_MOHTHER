@@ -12,7 +12,7 @@
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
     <?php require APPROOT . '/views/inc/sidebar_midwife.php' ; ?>
     <div class="content">
-        <a href="<?php echo URLROOT; ?>/expectantRecords/expectnatmotherlist" class="back"><i class="fa fa-backward"></i>Back</a>
+        <a href="<?php echo URLROOT; ?>/expectantRecords/deliveredList" class="back"><i class="fa fa-backward"></i>Back</a>
             <br>
             <div class="report">
                 <h2 class="content_h1">Expectant Mother profile - <?php echo $data['info']->mname; ?></h2>
@@ -79,9 +79,20 @@
     <div class="container">
         <div>
             <h3 class="content_h2">Previous Pregnancy Details</h3>
-            <?php for ($i = 1; $i <= $data['max_gravidity']; $i++) : ?>
-                <a href="<?php echo URLROOT; ?>/expectantRecords/infoprevious/<?php echo $data['info']->nic; ?>/<?php echo $i; ?>"><button class="button2">Pregnancy <?php echo $i; ?></button></a>
-            <?php endfor; ?>
+            <?php
+                if ($data['existing']) {
+                    for ($i = 1; $i < $data['max_gravidity']; $i++) {
+                        echo '<a href="'.URLROOT.'/expectantRecords/infoprevious/'.$data['info']->nic.'/'.$i.'"><button class="button2">Pregnancy '.$i.'</button></a>';
+                    }
+                } else {
+                    for ($i = 1; $i <= $data['max_gravidity']; $i++) {
+                        echo '<a href="'.URLROOT.'/expectantRecords/infoprevious/'.$data['info']->nic.'/'.$i.'"><button class="button2">Pregnancy '.$i.'</button></a>';
+                    }
+                }
+            ?>
+            <!-- <!?php for ($i = 1; $i <= $data['max_gravidity']; $i++) : ?>
+                <a href="<!?php echo URLROOT; ?>/expectantRecords/infoprevious/<!?php echo $data['info']->nic; ?>/<!?php echo $i; ?>"><button class="button2">Pregnancy <!?php echo $i; ?></button></a>
+            <!?php endfor; ?> -->
         </div>
     </div>
 </div>

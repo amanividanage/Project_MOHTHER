@@ -242,7 +242,7 @@ class Users extends Controller{
             'ageofYoungest_err'=>'',
             'lastMenstrualDate_err' => '',
             'registrationDate_err' => '',
-            'expectedDateofDelivery_err' => '',
+            'expectedDateofDeliver_err' => '',
             'password_err' => '',            
             'bmi_err'=>'',
             'output_err'=>'',
@@ -302,7 +302,7 @@ class Users extends Controller{
                 $data['registrationDate_err']='*Please enter the Registration Date';
             }
 
-            if(empty($data['expectedDateofDeliver'])){
+            if(empty($data['expectedDateofDelivery'])){
                 $data['expectedDateofDeliver_err']='Please enter the Expected date of delivery';
             }
 
@@ -392,7 +392,7 @@ class Users extends Controller{
             'ageofYoungest_err'=>'',
             'lastMenstrualDate_err' => '',
             'registrationDate_err' => '',
-            'expectedDateofDelivery_err' => '',
+            'expectedDateofDeliver_err' => '',
             'password_err' => '',
             'date'=>'',
             'calculatedBMI'=> '',

@@ -20,6 +20,7 @@
     <?php require APPROOT . '/views/inc/sidebar_midwife.php' ; ?>
 
     <div class="content">
+    <a href="<?php echo URLROOT; ?>/expectantRecords/info/<?php echo $data['info']->nic; ?>" class="back"><i class="fa fa-backward"></i>Back</a>
 
     <div class= "adddailyrecords">
         <form action="<?php echo URLROOT; ?>/expectantRecords/add/<?php echo  $data['info']->nic; ?>" method= "POST">

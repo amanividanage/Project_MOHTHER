@@ -37,7 +37,14 @@
        <div>
         <table>
             <tr>
-            <td> <a href="<?php echo URLROOT; ?>/calendars/createclinic/<?php echo $data['clinic']->gnd; ?>"> <button class="add">Create Clinics</button></a></td></tr>
+            <td> <a href="<?php echo URLROOT; ?>/calendars/createclinic/<?php echo $data['clinic']->gnd; ?>"> <button class="add">Create Clinics</button></a></td>
+            </tr>
+
+            <tr>
+            <td><h1>Maternity Clinic Date - <?php echo $data['dates']->maternity_clinic_date; ?></h1><br>
+                <h1>Child Clinic Date - <?php echo $data['dates']->child_clinic_date; ?></h1>
+            </td>
+            </tr>
       
 </table>
                     </div>

@@ -76,14 +76,17 @@
     
 
     public function maternitycalendar(){
+
         $clinic =  $this->midwifeModel->getPHMByMidwife();
+        $dates =  $this->midwifeModel->getClinicsDate();
         //$calendarEvents =  $this->calendarModel->getEvents();
 
 
         $data = [
             'clinic' => $clinic,
+            'dates' => $dates,
             //'calendarEvents'=>$calendarEvents
-            ];
+        ];
 
         
 

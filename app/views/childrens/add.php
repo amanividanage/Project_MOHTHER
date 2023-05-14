@@ -13,7 +13,8 @@
     <?php require APPROOT . '/views/inc/sidebar_midwife.php' ; ?>
         <div class="content">
             
-        <div class="container_new">
+        <div class="container_new_new">
+        <a href="<?php echo URLROOT; ?>/childrens/parentprofile/<?php echo $data['parents']->nic; ?>" class="back"><i class="fa fa-backward"></i>Back</a>
                 <h2>Add Child</h2>
                 <p>Please enter child's information to add child</p>
 

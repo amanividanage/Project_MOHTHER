@@ -13,7 +13,7 @@
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
     <?php require APPROOT . '/views/inc/sidebar_doctor.php' ; ?>
     <div class="content">
-        <a href="<?php echo URLROOT; ?>/expectantRecords" class="back"><i class="fa fa-backward"></i>Back</a>
+        <!-- <a href="<!?php echo URLROOT; ?>/expectantRecords" class="back"><i class="fa fa-backward"></i>Back</a> -->
     
     <div class="expectant">
         <div>
