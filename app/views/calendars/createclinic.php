@@ -25,7 +25,7 @@
  
  <tr>
     <td>
-    <label for="gnd"> Clinic No </label>
+    <label for="gnd"> Clinic </label>
     </td>
     <td><input type="text" name="gnd" maxlength="20" class= " <?php echo (!empty($data['id_err'])) ? 'is-invalid' : ''; ?>" value=" <?php echo $data['clinic']->gnd; ?>">
     <span class="invalid-feedback"><?php echo $data['gnd_err']; ?></span></td>
