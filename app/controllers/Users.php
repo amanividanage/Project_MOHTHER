@@ -392,7 +392,7 @@ class Users extends Controller{
             'ageofYoungest_err'=>'',
             'lastMenstrualDate_err' => '',
             'registrationDate_err' => '',
-            'expectedDateofDelivery_err' => '',
+            'expectedDateofDeliver_err' => '',
             'password_err' => '',
             'date'=>'',
             'calculatedBMI'=> '',

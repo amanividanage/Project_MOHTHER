@@ -39,6 +39,13 @@
     <td><input type="text" name="nic" maxlength="20" class= "form <?php echo (!empty($data['nic_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['newexpectantRecords']->nic; ?>">
     <span class="invalid-feedback"><?php echo $data['nic_err']; ?></span></td>
     </tr>
+    <tr>
+    <td>
+    <label for="date">Date of Registration </label>
+    </td>
+    <td><input type="text" name="date" maxlength="20" value="<?php echo $data['newexpectantRecords']->date; ?>">
+    
+    </tr>
 
     <tr>
     <td>

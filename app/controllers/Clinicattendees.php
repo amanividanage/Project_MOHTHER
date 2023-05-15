@@ -689,6 +689,7 @@
     public function req_parent(){
         // Check for POST
         $req_parent = $this->clinicattendeeModel->getreq_parent(); 
+       
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             //Process form
             // Sanitize POST data
@@ -717,7 +718,7 @@
                 'hemail'=>trim($_POST['hemail']),
                 'gnd'=> $findgnd->gnd,
                 'active'=>'1',
-               
+             
                 'name_err'=>'',
                 'age_err'=>'',
                 'nochildren_err'=>'',
@@ -763,11 +764,11 @@
             
 
             //Make sure no errors
-            if(empty($data['hname_err']) && empty($data['hage_err']) &&empty($data['hlevelofeducation_err']) && empty($data['hoccupation_err']) && empty($data['hcontactno_err']) && empty($data['hemail_err'])){
+            if(empty($data['name_err'])){
                 
                 //reuestq clinic attendee
                 if($this->clinicattendeeModel->request($data) && $this->clinicattendeeModel->prarent_update($data)){
-                    redirect('clinicattendees/profile');
+                    redirect('clinicattendees/calendar/'.$data['nic']);
                 } else {
                     die('Someting went wrong');
                 }
@@ -796,7 +797,8 @@
                 'hlevelofeducation_err'=>'',
                 'hoccupation_err'=>'',
                 'hcontactno_err'=>'',
-                'hemail_err'=>''
+                'hemail_err'=>'',
+               
               
             ];
 
@@ -807,7 +809,10 @@
     }
 
     public function req_expectant(){
-
+    
+        // $nic = $this->clinicattendeeModel->getclinicattendeebyPHM();
+        $nicObject = $this->clinicattendeeModel->getclinicattendeebyPHM();
+        $nic = $nicObject->nic;
         // $req_expectant =  $this->clinicattendeeModel->getreq_expectant();
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
               // Sanitize profile array
@@ -829,6 +834,9 @@
                     
                     'mname_err' => '',
                     'mage_err' => '',
+                    // 'nic' => $nic,
+                    'nic' => $nic,
+                    'nic' => '',
                     // 'gravidity_err' => '',
                     'mcontactno_err' => '',
                     'moccupation_err' => '',
@@ -857,11 +865,11 @@
 
       
                 // Make sure no errors
-                if(empty($data['mcontactno_err']) && empty($data['hcontactno_err'])){
+                if(empty($data['name_err'])){
                     // Validated
                     
                     if($this->clinicattendeeModel->update_registration($data)){
-                        redirect('clinicattendees/profile');
+                        redirect('clinicattendees/calendar/'.$nic);
                     }else{
                         die('Something went wrong');
                     }
@@ -875,9 +883,13 @@
                 
                 $req_expectant = $this->clinicattendeeModel->getreq_expectant(); 
       
-                $data = [        
+                $data = [   
+                    'nic' => $nic,     
                     'req_expectant' => $req_expectant,
                     'mname_err' => '',
+                    // 'nic' => '',
+                 
+
                     'mage_err' => '',
                     // 'gravidity_err' => '',
                     'mcontactno_err' => '',
