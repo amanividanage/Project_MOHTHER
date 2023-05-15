@@ -215,7 +215,7 @@
     <td>
     <label for="expectedDateofDelivery">Expected Date of Delivery </label>
     </td>
-    <td><input type="Date" name="expectedDateofDelivery"  class= "form <?php echo (!empty($data['expectedDateofDelivery_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['expectedDateofDelivery']; ?>">
+    <td><input type="Date" name="expectedDateofDelivery"  class= "form <?php echo (!empty($data['expectedDateofDelivery_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['expectedDateofDelivery']; ?>" min="<?php echo date('Y-m-d'); ?>">
     <span class="invalid-feedback"><?php echo $data['expectedDateofDeliver_err']; ?></span></td>
     </tr>
 

@@ -129,7 +129,7 @@
     <td>
     <label for="nextAppointmentDate">Next Appointment Date </label>
     </td>
-    <td><input type="Date" name="nextAppointmentDate"  class= "form <?php echo (!empty($data['nextAppointmentDate_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['nextAppointmentDate']; ?>">
+    <td><input type="Date" name="nextAppointmentDate"  class= "form <?php echo (!empty($data['nextAppointmentDate_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['nextAppointmentDate']; ?>" min="<?php echo date('Y-m-d'); ?>">
     <span class="invalid-feedback"><?php echo $data['nextAppointmentDate_err']; ?></span></td>
     </tr>
 
