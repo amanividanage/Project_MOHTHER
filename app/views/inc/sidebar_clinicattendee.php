@@ -2,7 +2,7 @@
 <?php if(isset($_SESSION['clinicattendee_nic'])) : ?>
     <div class="sidebar">
         <center>
-                <img src="1.png" class="profile_image" alt="">
+                <img src="<?php echo URLROOT;?>/img/attendee2.jpg" class="profile_image" alt="">
                 <h4><?php echo $_SESSION['clinicattendee_name']; ?></h4>
         </center>
             <a href="<?php echo URLROOT; ?>/clinicattendees"><i class="fa fa-th" aria-hidden="true"></i><span>Dashboard</span></a>

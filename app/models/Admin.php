@@ -366,6 +366,17 @@
             return $results;
         }
 
+        // public function getChildVaccinatedByVaccine($vaccine){
+        //     $this->db->query("SELECT children.name, children.parent, children.dob, children.date, children.weight 
+        //                       FROM children 
+        //                       INNER JOIN children_vaccination ON children.child_id=children_vaccination.child_id
+        //                       WHERE children_vaccination.vaccination_id=:vaccine");
+        //     $this->db->bindParam(':vaccine', $vaccine);
+        //     $results = $this->db->resultSet();
+
+        //     return $results;
+        // }
+
         // public function getVaccinatedReport($vaccine){
         
         //     $this->db->query("SELECT * FROM registration WHERE date BETWEEN :date1 AND :date2 ");

@@ -63,7 +63,7 @@
                                     <tr>
                                         <td><?php echo $children->child_id; ?></td>
                                         <td><?php echo $children->name; ?></td>
-                                        <td><a href="<?php echo URLROOT; ?>/childrens/childprofile/<?php echo $children->child_id; ?>"><button class="more1999">More</button></a></td>
+                                        <td><a href="<?php echo URLROOT; ?>/doctorRecords/child/<?php echo $children->child_id; ?>"><button class="more1999">More</button></a></td>
                                     </tr>
                                 <?php endforeach; ?>
                                 

@@ -199,7 +199,7 @@
     <td>
     <label for="lastMenstrualDate"> Last Menstrual Date </label>
     </td>
-    <td><input type="Date" name="lastMenstrualDate"  class= "form <?php echo (!empty($data['lastMenstrualDate_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['lastMenstrualDate']; ?>">
+    <td><input type="Date" name="lastMenstrualDate"  class= "form <?php echo (!empty($data['lastMenstrualDate_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['lastMenstrualDate']; ?>" max="2023-05-15">
     <span class="invalid-feedback"><?php echo $data['lastMenstrualDate_err']; ?></span></td>
     </tr>
     
@@ -215,7 +215,7 @@
     <td>
     <label for="expectedDateofDelivery">Expected Date of Delivery </label>
     </td>
-    <td><input type="Date" name="expectedDateofDelivery"  class= "form <?php echo (!empty($data['expectedDateofDelivery_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['expectedDateofDelivery']; ?>">
+    <td><input type="Date" name="expectedDateofDelivery"  class= "form <?php echo (!empty($data['expectedDateofDelivery_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['expectedDateofDelivery']; ?>" min="2023-05-15">
     <span class="invalid-feedback"><?php echo $data['expectedDateofDeliver_err']; ?></span></td>
     </tr>
 
