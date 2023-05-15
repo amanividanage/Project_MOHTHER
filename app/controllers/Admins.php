@@ -229,7 +229,7 @@
 
             $find = false;
             if(isset($_POST['vaccine'])){
-                $vaccine = trim($_POST['vaccine']);
+                $vaccines = trim($_POST['vaccine']);
                 $find = true;
 
                 $newRegistrants = $this->adminModel->getNewRegistrantsMonthWise();
@@ -238,10 +238,10 @@
                 // $vaccine = $this->adminModel->getTotalChildVaccination();
 
                 if($find){
-                    $vaccine = $this->adminModel->getChildVaccinatedByVaccine($vaccine);
+                    $vaccine = $this->adminModel->getChildVaccinatedByVaccine($vaccines);
     
                     $data = [
-                        // 'vacc' => $vaccines,
+                        'vacc' => $vaccines,
                         'vaccine' => $vaccine,
                         'newRegistrants' => $newRegistrants,
                         'newRegistrantsYear' => $newRegistrantsYear,
@@ -269,7 +269,7 @@
             }       
         }
         
-        public function downloadreport($vaccine = ''){
+        public function downloadreport($vaccine){
 
             if(!empty($vaccine)){
                 $getreport = $this->adminModel->getChildVaccinatedByVaccine($vaccine); 

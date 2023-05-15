@@ -66,7 +66,7 @@
                     <div>
                         <label for="nextAppointmentDate">Next Appointment Date</label>
                         <input type="Date" name="nextAppointmentDate" min="<?php echo date('Y-m-d'); ?>">
-                        <span class="form-err"><?php echo $data['other_err']; ?></span>
+                       <span class="form-err"><?php echo $data['other_err']; ?></span>
                     </div>
                     <tr>
    

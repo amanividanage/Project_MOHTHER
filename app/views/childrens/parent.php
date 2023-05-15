@@ -14,7 +14,7 @@
         <div class="content">
         <a href="<?php echo URLROOT; ?>/childrens" class="back"><i class="fa fa-backward"></i>Back</a>
 
-            <div class="container_new">
+            <div class="container_new_new">
                 <h2>Add Mother/Parent/Guardian to Add Child</h2>
                 <p>Please enter mother/parent/guardian's information to add child</p>
             
@@ -103,7 +103,7 @@
                     </div> -->
                     <div>
                         <label for="password">Password: <sup>*</sup></label>
-                        <input type="text" name="password" placeholder="Enter password here...">
+                        <input type="password" name="password" placeholder="Enter password here...">
                         <span class="form-err"><?php echo $data['password_err']; ?></span>
                     </div>
                     <div>

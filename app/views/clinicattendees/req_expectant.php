@@ -64,23 +64,23 @@
                         <div class="card_req_expectant">
                             <br>
                             <label for="hname"><b>Husbund's name</b></label>
-                            <input type="text" name="hname" value='<?php echo $data['req_expectant']->hname; ?>' required>
+                            <input type="text" name="hname" value='<?php echo $data['req_expectant']->hname; ?>'>
                             <span class="form-err"><?php echo $data['hname_err']; ?></span>
 
                             <label for="hage"><b>Husbund's age</b></label>
-                            <input type="text" name="hage" value='<?php echo $data['req_expectant']->hage; ?>' required>
+                            <input type="text" name="hage" value='<?php echo $data['req_expectant']->hage; ?>'>
                             <span class="form-err"><?php echo $data['hage_err']; ?></span>
 
                             <label for="hoccupation"><b>Husbund's occupation</b></label>
-                            <input type="text" name="hoccupation" value='<?php echo $data['req_expectant']->hoccupation; ?>' required>
+                            <input type="text" name="hoccupation" value='<?php echo $data['req_expectant']->hoccupation; ?>'>
                             <span class="form-err"><?php echo $data['hoccupation_err']; ?></span>
 
                             <label for="hcontactno"><b>Husbund's Contact No</b></label>
-                            <input type="text" name="hcontactno" value='<?php echo $data['req_expectant']->hcontactno; ?>' required>
+                            <input type="text" name="hcontactno" value='<?php echo $data['req_expectant']->hcontactno; ?>'>
                             <span class="form-err"><?php echo $data['hcontactno_err']; ?></span>
 
                             <label for="hemail"><b>Husbund's E-mail</b></label>
-                            <input type="text" name="hemail" value='<?php echo $data['req_expectant']->hemail; ?>' required>
+                            <input type="text" name="hemail" value="<?php echo $data['req_expectant']->hemail; ?>">
                             <span class="form-err"><?php echo $data['hemail_err']; ?></span>
 
                             <br><br>

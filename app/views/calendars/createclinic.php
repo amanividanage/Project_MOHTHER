@@ -44,6 +44,7 @@
     <label for="clinic_date"> Clinic Date </label>
     </td>
     <td><input type="date" name="clinic_date" maxlength="20" class= " <?php echo (!empty($data['clinic_date_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['clinic_date']; ?>" min="<?php echo date('Y-m-d'); ?>">
+
     <span class="invalid-feedback"><?php echo $data['clinic_date_err']; ?></span></td>
     </tr>
     
