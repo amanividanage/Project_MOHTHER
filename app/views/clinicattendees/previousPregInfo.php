@@ -14,7 +14,7 @@
 
     <div class="content">
 
-    <a href="<?php echo URLROOT; ?>/expectantRecords/expectnatmotherlist" class="back"><i class="fa fa-backward"></i>Back</a>
+    <a href="<?php echo URLROOT; ?>/clinicattendees" class="back"><i class="fa fa-backward"></i>Back</a>
             <br>
             <div class="report">
                 <h2 class="content_h1"><?php echo $data['info']->mname; ?> - Previous Reports</h2>
@@ -63,7 +63,7 @@
                                     <tr>
                                         <td><?php echo $children->child_id; ?></td>
                                         <td><?php echo $children->name; ?></td>
-                                        <td><a href="<?php echo URLROOT; ?>/childrens/childprofile/<?php echo $children->child_id; ?>"><button class="more1999">More</button></a></td>
+                                        <td><a href="<?php echo URLROOT; ?>/clinicattendees/child/<?php echo $children->child_id; ?>"><button class="more1999">More</button></a></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </table> 

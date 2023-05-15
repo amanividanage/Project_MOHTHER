@@ -468,4 +468,16 @@
                 return false;
             }
         }
+
+        
+        public function getClinicsDate(){
+            $this->db->query('SELECT clinics.child_clinic_date, clinics.maternity_clinic_date FROM clinics 
+                              INNER JOIN midwife_clinic ON clinics.id=midwife_clinic.clinic
+                              WHERE nic = :nic' );
+            $this->db->bindParam(':nic', $_SESSION['midwife_nic']);
+    
+            $row = $this->db->single();
+    
+            return $row;
+        }
     }

@@ -13,11 +13,11 @@
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
     <?php require APPROOT . '/views/inc/sidebar_midwife.php' ; ?>
     <div class="content">
-        <a href="<?php echo URLROOT; ?>/expectantRecords/expectnatmotherlist" class="back"><i class="fa fa-backward"></i>Back</a>
+        <a href="<?php echo URLROOT; ?>/expectantRecords/info/<?php echo $data['mother']->nic; ?>" class="back"><i class="fa fa-backward"></i>Back</a>
 
         <div class="align">
             <div>
-                <h2 class="content_h1">Child Charts - <?php echo $data['mother']->name; ?></h2>
+                <h2 class="content_h1">Mother Charts - <?php echo $data['mother']->name; ?></h2>
                 
                 <!-- <h2 class="content_h1">Child Charts - <!?php echo json_encode($data['chart']); ?></h2> -->
             </div>

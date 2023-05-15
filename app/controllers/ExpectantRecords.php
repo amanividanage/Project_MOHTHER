@@ -10,6 +10,7 @@
           $this->midwifeModel = $this->model('Midwife');
           $this->childrenModel = $this->model('Children');
           $this->userModel = $this->model('User');
+          $this->doctorRecordModel = $this->model('DoctorRecord');
        
        
      
@@ -784,6 +785,8 @@ public function previousPregInfo($nic){
 //  $gravidity = $this->expectantRecordModel->showMonthlyRecordsByGravidity($nic);
  $max_gravidity = $this->expectantRecordModel->showMonthlyRecordsByGravidity($nic);
 
+ $existing2 = $this->doctorRecordModel->findExpectantPrevious2($nic);
+
 
  // Loop through the $report array and calculate the values for each index
  foreach ($report as $index => $reportItem) {
@@ -805,6 +808,7 @@ public function previousPregInfo($nic){
        'risky' => $risky,
       //  'gravidity' => $gravidity,
        'max_gravidity' => $max_gravidity,
+       'existing' =>  $existing2,
 
    ];
 

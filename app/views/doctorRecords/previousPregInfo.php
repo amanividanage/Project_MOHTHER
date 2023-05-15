@@ -14,7 +14,7 @@
     <?php require APPROOT . '/views/inc/sidebar_doctor.php' ; ?>
     <div class="content">
     
-    <a href="<?php echo URLROOT; ?>/expectantRecords/expectnatmotherlist" class="back"><i class="fa fa-backward"></i>Back</a>
+    <a href="<?php echo URLROOT; ?>/doctorRecords/info/<?php echo $data['info']->nic; ?>" class="back"><i class="fa fa-backward"></i>Back</a>
             <br>
             <div class="report">
                 <h2 class="content_h1">Expectant Mother profile - <?php echo $data['info']->mname; ?></h2>

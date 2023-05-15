@@ -23,8 +23,8 @@ use PHPMailer\PHPMailer\Exception;
         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication 
                                                 //Send using SMTP
         $mail->Host       = 'smtp-relay.sendinblue.com';                     //Set the SMTP server to send through
-        $mail->Username   = 'usermohther@gmail.com';                     //SMTP username
-        $mail->Password   = 'fmICpxL51dKkhYaH';                               //SMTP password
+        $mail->Username   = 'kavindi.tharushika98@gmail.com';                     //SMTP username
+        $mail->Password   = 'bUCxJZ3W7ALh1FM8';                               //SMTP password
 
         $mail->SMTPSecure = 'tls';           //Enable implicit TLS encryption
         $mail->Port       = 587;   

@@ -12,7 +12,7 @@
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
     <?php require APPROOT . '/views/inc/sidebar_midwife.php' ; ?>
     <div class="content">
-        <a href="<?php echo URLROOT; ?>/expectantRecords/expectnatmotherlist" class="back"><i class="fa fa-backward"></i>Back</a>
+    <a href="<?php echo URLROOT; ?>/expectantRecords/info/<?php echo $data['mother']->nic; ?>" class="back"><i class="fa fa-backward"></i>Back</a>
             
         <h2 class="content_h1">Monthly Records - <?php echo $data['mother']->name; ?>  ->  Date - <?php echo $data['midwife_records']->date; ?></h2><br>
 
@@ -74,27 +74,27 @@
                         if (!empty($data['doctor_records'])) {
                             ?>
                             <tr>
-                                <td>Eye size difference:</td>
+                                <td>Pallor:</td>
                                 <td><?php echo $data['doctor_records']->pallor; ?></td>
                             </tr>
                             <tr>
-                                <td>Cataract: </td>
+                                <td>Foetal Heart Surveillance: </td>
                                 <td><?php echo $data['doctor_records']->fhs; ?></td>
                             </tr>
                             <tr>
-                                <td>Corneal opacity:</td>
+                                <td>Fetal Movement:</td>
                                 <td><?php echo $data['doctor_records']->fm; ?> </td>
                             </tr>
                             <tr>
-                                <td>Eye movement disorders:</td>
+                                <td>Ankle Oedema :</td>
                                 <td><?php echo $data['doctor_records']->ankle; ?></td>
                             </tr>
                             <tr>
-                                <td>Hearing Disorders: </td>
+                                <td>Facial Oedema: </td>
                                 <td><?php echo $data['doctor_records']->facial; ?></td>
                             </tr>
                             <tr>
-                                <td>Right ear:</td>
+                                <td>Expected Delivary Date:</td>
                                 <td><?php echo $data['doctor_records']->delivary; ?></td>
                             </tr>
                             <?php 
