@@ -15,7 +15,7 @@
 
     <div class="content">
 
-    <a href="<?php echo URLROOT; ?>/expectantRecords/expectnatmotherlist" class="back"><i class="fa fa-backward"></i>Back</a>
+    <!-- <a href="<!?php echo URLROOT; ?>/clinicattendees/infoprevious/" class="back"><i class="fa fa-backward"></i>Back</a> -->
 
 <div class="align">
     <div>

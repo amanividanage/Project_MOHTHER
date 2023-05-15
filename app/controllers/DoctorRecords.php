@@ -11,6 +11,17 @@
             $this->childrenModel = $this->model('Children');
         }
 
+        // public function index(){
+            
+
+        //     $data = [
+                
+        //     ];
+         
+      
+        //     $this->view('doctorRecords/index', $data);
+        // }
+
         public function index(){
             $mothersforToday = $this->doctorRecordModel->getExpectantMothersforToday();
 
@@ -52,11 +63,9 @@
         public function expectantmothers(){
             
             $mothers = $this->doctorRecordModel->getExpectantMothers();
-         
 
             $data = [
-                'mothers' => $mothers,
-               
+                'mothers' => $mothers
             ];
          
       

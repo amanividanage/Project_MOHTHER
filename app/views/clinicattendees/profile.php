@@ -62,9 +62,20 @@
                     if (!empty($data['profile_expectant'])) {
                 ?>
                     <a href="<?php echo URLROOT; ?>/clinicattendees/req_expectant">
+                    <?php 
+                        if (!empty($data['existing'])) {
+                    ?>  
+                        
+                        <?php 
+                    } else {
+                        ?>
                         <button class="req_btn" id="myBtn_1">
                             <b>Request for Re-registration for Maternity Clinics</b>
                         </button>
+                    <?php 
+                    } 
+                    ?>
+                    
                     </a>
                     <br><br>
                 <div class="mine">
@@ -88,10 +99,10 @@
                         <td>Age:</td>
                         <td><?php echo $data['profile_expectant']->mage; ?> </td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td>Gravidity:</td>
-                        <td><?php echo $data['profile_expectant']->gravidity; ?></td>
-                    </tr>
+                        <td><!?php echo $data['profile_expectant']->gravidity; ?></td>
+                    </tr> -->
                     <tr>
                         <td>Level of Education: </td>
                         <td><?php echo $data['profile_expectant']->mlevelofeducation; ?></td>

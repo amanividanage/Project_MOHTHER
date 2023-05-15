@@ -74,27 +74,27 @@
                         if (!empty($data['doctor_records'])) {
                             ?>
                             <tr>
-                                <td>Eye size difference:</td>
+                                <td>Pallor:</td>
                                 <td><?php echo $data['doctor_records']->pallor; ?></td>
                             </tr>
                             <tr>
-                                <td>Cataract: </td>
+                                <td>Foetal Heart Surveillance: </td>
                                 <td><?php echo $data['doctor_records']->fhs; ?></td>
                             </tr>
                             <tr>
-                                <td>Corneal opacity:</td>
+                                <td>Fetal Movement:</td>
                                 <td><?php echo $data['doctor_records']->fm; ?> </td>
                             </tr>
                             <tr>
-                                <td>Eye movement disorders:</td>
+                                <td>Ankle Oedema :</td>
                                 <td><?php echo $data['doctor_records']->ankle; ?></td>
                             </tr>
                             <tr>
-                                <td>Hearing Disorders: </td>
+                                <td>Facial Oedema: </td>
                                 <td><?php echo $data['doctor_records']->facial; ?></td>
                             </tr>
                             <tr>
-                                <td>Right ear:</td>
+                                <td>Expected Delivary Date:</td>
                                 <td><?php echo $data['doctor_records']->delivary; ?></td>
                             </tr>
                             <?php 

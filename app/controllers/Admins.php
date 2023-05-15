@@ -241,6 +241,7 @@
                     $vaccine = $this->adminModel->getChildVaccinatedByVaccine($vaccine);
     
                     $data = [
+                        // 'vacc' => $vaccines,
                         'vaccine' => $vaccine,
                         'newRegistrants' => $newRegistrants,
                         'newRegistrantsYear' => $newRegistrantsYear,
@@ -257,6 +258,7 @@
                 $vaccine = $this->adminModel->getTotalChildVaccination();
 
                 $data = [
+                    'vacc' => '',
                     'newRegistrants' => $newRegistrants,
                     'newRegistrantsYear' => $newRegistrantsYear,
                     'newRegistrantsClinic' => $newRegistrantsClinic,
@@ -264,14 +266,26 @@
                 ];
 
                 $this->view('admins/Statistics', $data);
+            }       
+        }
+        
+        public function downloadreport($vaccine = ''){
+
+            if(!empty($vaccine)){
+                $getreport = $this->adminModel->getChildVaccinatedByVaccine($vaccine); 
+            } else {
+                $getreport = $this->adminModel->getTotalChildVaccination();
             }
-            
-                
-        
-                
-        
-                
-            
+
+            // $getreport = $this->adminModel-> getChildVaccinatedByVaccine($vaccine); 
+       
+             $data = [
+                 
+                 'getreport'=> $getreport,
+                 'vacc' => $vaccine,
+             ];
+       
+             $this->view('admins/downloadreport', $data);
         }
 
         public function vaccination_stats() {

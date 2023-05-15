@@ -734,4 +734,14 @@ class Clinicattendee{
         return $result;
     }
     
+    public function existingInExpectant(){
+
+        $this->db->query("SELECT * FROM expectant WHERE nic = :nic AND active='0' ");
+
+        $this->db->bindParam(':nic', $_SESSION['clinicattendee_nic']);
+
+        $row = $this->db->single();
+
+        return $row;
+    }
 }

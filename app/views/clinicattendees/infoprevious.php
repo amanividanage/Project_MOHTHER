@@ -14,7 +14,7 @@
 
     <div class="content">
 
-    <a href="<?php echo URLROOT; ?>/expectantRecords/expectnatmotherlist" class="back"><i class="fa fa-backward"></i>Back</a>
+    <a href="<?php echo URLROOT; ?>/clinicattendees/previousPregInfo" class="back"><i class="fa fa-backward"></i>Back</a>
             <br>
             <div class="report">
                 <h2 class="content_h1">Previous Records - <?php echo $data['info']->mname; ?></h2>
@@ -63,7 +63,7 @@
                                     <tr>
                                         <td><?php echo $children->child_id; ?></td>
                                         <td><?php echo $children->name; ?></td>
-                                        <td><a href="<?php echo URLROOT; ?>/childrens/childprofile/<?php echo $children->child_id; ?>"><button class="more1999">More</button></a></td>
+                                        <td><a href="<?php echo URLROOT; ?>/clinicattendees/child/<?php echo $children->child_id; ?>"><button class="more1999">More</button></a></td>
                                     </tr>
                                 <?php endforeach; ?>
                                 
@@ -166,7 +166,7 @@
 
                                         <!-- <td><a href="<!?php echo URLROOT; ?>/expectantRecords/expectant_allrecords/<!?php echo $data['info']->nic; ?>/<!?php echo $previousrecords->date; ?>"><button class="button2">See More</button></a></td> -->
                                         <!-- <td><a href="<!?php echo URLROOT; ?>/expectantRecords/expectant_allrecords/<!?php echo $data['info']->nic; ?>/<!?php echo $report->date; ?>"><button class="button2">See More</button></a></td> -->
-                                        <td><a href="<?php echo URLROOT; ?>/expectantRecords/expectant_allrecords/<?php echo $data['info']->nic; ?>/<?php echo $previousrecords->date; ?>"><button class="button2">See More</button></a></td>
+                                        <td><a href="<?php echo URLROOT; ?>/clinicattendees/expectant_allrecords/<?php echo $previousrecords->date; ?>"><button class="button2">See More</button></a></td>
                                         <td></td>
                                     </tr>
                                 <?php endforeach; ?>

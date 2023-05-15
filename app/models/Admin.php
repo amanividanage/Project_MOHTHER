@@ -365,4 +365,16 @@
 
             return $results;
         }
+
+        // public function getVaccinatedReport($vaccine){
+        
+        //     $this->db->query("SELECT * FROM registration WHERE date BETWEEN :date1 AND :date2 ");
+    
+        //     $this->db->bindParam(':date1', $date1);
+        //     $this->db->bindParam(':date2', $date2);
+    
+        //     $row = $this->db->resultSet();
+            
+        //     return $row;
+        // }
     }

@@ -15,7 +15,7 @@
     <?php require APPROOT . '/views/inc/sidebar_clinicattendee.php' ; ?>
 
     <div class="content">
-        <a class="back_btn" href="<?php echo URLROOT; ?>/clinicattendees/child"><i class="fa fa-chevron-left"></i></a>
+        <a class="back_btn" href="<?php echo URLROOT; ?>/clinicattendees/child/<?php echo $data['child']->child_id; ?>"><i class="fa fa-chevron-left"></i></a>
 
         <br>
             

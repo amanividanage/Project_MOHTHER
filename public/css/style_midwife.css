@@ -833,6 +833,20 @@ input[type=text], input[type=password] {
     transition: 0.3s;
 }
 .calendarcontent{
+    margin-left: 37%;
+    position: relative;
+    float: left;
+    margin-top: 70px;
+    margin-bottom: 50%;
+    width: 40%;
+    height:10vh;
+    transition: 0.3s;
+    color: #9c349e;
+    
+    
+}
+
+.calendarcontent_maternity{
     margin-left: 25%;
     position: relative;
     float: left;

@@ -26,7 +26,7 @@
             // $poa = $this->clinicattendeeModel-> calculatePOA($mother->poa, $mother->registrationDate);
 
             $data = [
-                'existing'  => $existing,
+              'existing'  => $existing,
               // 'clinicattendee' => $clinicattendee
               'mother_or_parent' => $mother_or_parent,
               'children' => $children,
@@ -142,6 +142,7 @@
                 
                 $profile_expectant = $this->clinicattendeeModel->getProfile_expectant();
                 $profile_parent = $this->clinicattendeeModel->getProfile_parent();
+                $existing = $this->clinicattendeeModel->existingInExpectant();
       
                 $data = [
                     'profile_expectant' => $profile_expectant,
@@ -152,6 +153,7 @@
                     'edit-hcontact_err' => '',
                     'edit-contact' => '',
                     'edit-contact_err' => '',
+                    'existing' => $existing
                 ];
         
                 $this->view('clinicattendees/profile', $data);
@@ -763,7 +765,7 @@
             
 
             //Make sure no errors
-            if(empty($data['hname_err']) && empty($data['hage_err']) &&empty($data['hlevelofeducation_err']) && empty($data['hoccupation_err']) && empty($data['hcontactno_err']) && empty($data['hemail_err'])){
+            if(empty($data['name_err'])){
                 
                 //reuestq clinic attendee
                 if($this->clinicattendeeModel->request($data) && $this->clinicattendeeModel->prarent_update($data)){

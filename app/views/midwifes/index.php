@@ -39,7 +39,7 @@
                             <th></th>
                         </tr>
                         <tr>
-                            <th>Midwife Id</th>
+                            <!-- <th>Midwife Id</th> -->
                             <th>Name</th>
                             <th>nic No</th>
                             <th>Contact No</th>
@@ -48,7 +48,7 @@
                         </tr>
                         <?php foreach($data['midwifes'] as $midwife) : ?>
                             <tr>
-                                <td><?php echo $midwife->midwife_id; ?></td>
+                                <!-- <td><!?php echo $midwife->midwife_id; ?></td> -->
                                 <td><?php echo $midwife->name; ?></td>
                                 <td><?php echo $midwife->nic; ?></td>
                                 <td><?php echo $midwife->phone; ?></td>

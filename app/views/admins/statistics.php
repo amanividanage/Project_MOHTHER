@@ -105,6 +105,8 @@
                             <!-- <input type="submit" value="Submit"> -->
                         </form>
 
+                        <a href="<?php echo URLROOT; ?>/admins/downloadreport/<?php echo $data['vacc'] ?>" target="_blank">Generate Report</a>
+
                         <!-- Display the child vaccination data for the selected vaccine -->
                         <!-- <!?php if (!empty($data['childVaccinations'])) : ?> -->
                             <table>

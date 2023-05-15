@@ -22,7 +22,7 @@
 <body>
     <?php require APPROOT . '/views/inc/navbar.php' ; ?>
     <?php require APPROOT . '/views/inc/sidebar_midwife.php' ; ?>
-<div class= "calendarcontent">
+<div class= "calendarcontent_maternity">
 <div class ="calendar-container">
 <div id ="calendar">
    
