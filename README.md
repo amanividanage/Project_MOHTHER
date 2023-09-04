@@ -83,3 +83,9 @@ Dewni Gamage
 In conclusion, our efforts extend beyond automating the existing maternal and child clinic system; we have re-engineered the processes to better align with the genuine needs of system users. This reengineered system represents a comprehensive solution to address the challenges within the existing system effectively.
 
 ![logoimage](https://user-images.githubusercontent.com/90959983/201163432-9c4f0d3e-8e68-4c4d-ade9-1b52753a5f52.png)
+<img width="960" alt="image" src="https://github.com/amanividanage/Project_MOHTHER/assets/90959983/f2a59e91-6e8b-457a-bb60-f0f9487df58e">
+<img width="960" alt="image" src="https://github.com/amanividanage/Project_MOHTHER/assets/90959983/2783c824-20fa-4490-b893-cad158f00070">
+<img width="956" alt="image" src="https://github.com/amanividanage/Project_MOHTHER/assets/90959983/46b39921-632f-4d6b-994b-2b5a728c83ee">
+
+
+
