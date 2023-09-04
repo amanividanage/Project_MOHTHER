@@ -65,11 +65,15 @@ CSS
 Git for version control
 
 Supervisor: Mr Tharindu Wijethilake
+
+
 Co-Supervisor: Ms.Chathurya Bombuwala
 
 Team Members: 
 Poornima Jayathilake
+
 Kavindi Tharushika
+
 Dewni Gamage
 
 
