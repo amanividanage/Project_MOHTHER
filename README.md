@@ -1,3 +1,4 @@
+Overview
 This is our second-year group project, MOHTHER-  A web based application that streamlines the Maternal and child clinic System in Sri Lanka. 
 
 Healthcare is of great importance for a nation's growth and development. In the specific context of Sri Lanka, the government serves as the primary provider of healthcare services to the public. 
@@ -64,12 +65,14 @@ HTML
 CSS
 Git for version control
 
+Supervision & Guidance
 Supervisor: Mr Tharindu Wijethilake
 
 
 Co-Supervisor: Ms.Chathurya Bombuwala
 
 Team Members: 
+
 Poornima Jayathilake
 
 Kavindi Tharushika
