@@ -7,7 +7,7 @@ An in-depth examination of the current clinic system revealed several pressing i
 
 
 
-Challenges Addressed by MOHTHER:
+**Challenges Addressed by MOHTHER:**
 
 1. Long Queues and Waiting Times: MOHTHER streamlines the appointment process, reducing wait times.
 
