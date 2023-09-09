@@ -75,7 +75,7 @@ An in-depth examination of the current clinic system revealed several pressing i
   
      + E-Mail: mail: tnb@ucsc.cmb.ac.lk
         
-     + linkedin: linkedin.com/in/tharinduwijethilake
+     + linkedin: 
 
 + Co-Supervisor: Ms.Chathurya Bombuwala
   
@@ -90,7 +90,7 @@ An in-depth examination of the current clinic system revealed several pressing i
 
    + E-Mail: amanividanage@gmail.com
 
-   + linkedin: linkedin.com/in/amani-vidanage
+   + linkedin: 
    
 + Poornima Jayathilake:
 
