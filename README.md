@@ -79,7 +79,7 @@ An in-depth examination of the current clinic system revealed several pressing i
 
 + Co-Supervisor: Ms.Chathurya Bombuwala
   
-     + E-Mail: 
+     + E-Mail: cpb@ucsc.cmb.ac.lk
       
      + linkedin: 
 
@@ -106,7 +106,7 @@ An in-depth examination of the current clinic system revealed several pressing i
 
 + Dewni Gamage:
 
-   + E-Mail: 
+   + E-Mail: dewnisgamage@gmail.com
 
    + linkedin: 
 
