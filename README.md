@@ -81,7 +81,7 @@ An in-depth examination of the current clinic system revealed several pressing i
   
      + E-Mail: cpb@ucsc.cmb.ac.lk
       
-     + linkedin: 
+    
 
 ## Team Members of the Project: 
 
