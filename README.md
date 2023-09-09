@@ -1,13 +1,14 @@
-Overview
-This is our second-year group project, MOHTHER-  A web based application that streamlines the Maternal and child clinic System in Sri Lanka. 
+# Overview
+
+This is our second-year group project, **"MOHTHER- A web based application that streamlines the Maternal and child clinic System in Sri Lanka"**. 
 
 Healthcare is of great importance for a nation's growth and development. In the specific context of Sri Lanka, the government serves as the primary provider of healthcare services to the public. 
 
 An in-depth examination of the current clinic system revealed several pressing issues and to address these issues, we have introduced "MOHTHER," a web-based application that has transformed our vision into reality. 
+<br><br><br>
 
+## Challenges Addressed by MOHTHER:
 
-
-**Challenges Addressed by MOHTHER:**
 
 1. Long Queues and Waiting Times: MOHTHER streamlines the appointment process, reducing wait times.
 
@@ -19,9 +20,9 @@ An in-depth examination of the current clinic system revealed several pressing i
 
 5. Manual Charting: MOHTHER automates the charting process for increased accuracy and efficiency.
 
+<br>
 
-
-What MOHTHER Offers:
+## What MOHTHER Offers:
 
 - Unified Data Access
 
@@ -34,10 +35,10 @@ What MOHTHER Offers:
 - Clinic Date Scheduling
 
 - Automations including BMI calculations, risky-non risky clinic attendee identification, vaccination status identification and weight gain charting.
+<br><br>
 
 
-
-Key Subsystems of the Application:
+## Key Subsystems of the Application:
 
 1. Online Appointment System
 
@@ -45,9 +46,10 @@ Key Subsystems of the Application:
 
 3. SMS Notification System
 
+<br><br>
 
+## Four Stakeholder Types in the System:
 
-Four Stakeholder Types in the System:
 
 1.MOH Admin: Responsible for clinic staff management.
 
@@ -57,30 +59,65 @@ Four Stakeholder Types in the System:
 
 4.Clinic Attendee: Can reserve appointments, view monthly records, and access vaccination records.
 
+ <br><br>
+ 
+## Technologies Utilized:
+
+- MVC Framework with PHP and MySQL
+- HTML
+- CSS
+- Git for version control
+
+## Supervision & Guidance
 
 
-Technologies Utilized:
-MVC Framework with PHP and MySQL
-HTML
-CSS
-Git for version control
++ Supervisor: Mr Tharindu Wijethilake
+  
+     + E-Mail: mail: tnb@ucsc.cmb.ac.lk
+        
+     + linkedin: 
 
-Supervision & Guidance
-Supervisor: Mr Tharindu Wijethilake
++ Co-Supervisor: Ms.Chathurya Bombuwala
+  
+     + E-Mail: 
+      
+     + linkedin: 
 
-
-Co-Supervisor: Ms.Chathurya Bombuwala
-
-Team Members: 
-
-Poornima Jayathilake
-
-Kavindi Tharushika
-
-Dewni Gamage
+## Team Members of the Project: 
 
 
-In conclusion, our efforts extend beyond automating the existing maternal and child clinic system; we have re-engineered the processes to better align with the genuine needs of system users. This reengineered system represents a comprehensive solution to address the challenges within the existing system effectively.
++ Amani Vidanage:
+
+   + E-Mail: amanividanage@gmail.com
+
+   + linkedin:
+   
++ Poornima Jayathilake:
+
+   + E-Mail: poornimajayathilake1999@gmail.com 
+
+   + linkedin: https://www.linkedin.com/in/poornima-jayathilake-692b61242/
+
++ Kavindi Tharushika:
+
+   + E-Mail: kavindi.tharushika98@gmail.com
+
+  + linkedin: www.linkedin.com/in/kavindi-tharushika
+
++ Dewni Gamage:
+
+   + E-Mail: 
+
+   + linkedin: 
+
+
+In conclusion,
+
+our efforts extend beyond automating the existing maternal and child clinic system; we have re-engineered the processes to better align with the genuine needs of system users. This reengineered system represents a comprehensive solution to address the challenges within the existing system effectively.
+
+
+
+## Screen Captures
 
 <img width="960" alt="image" src="https://github.com/amanividanage/Project_MOHTHER/assets/90959983/f2a59e91-6e8b-457a-bb60-f0f9487df58e">
 <img width="960" alt="image" src="https://github.com/amanividanage/Project_MOHTHER/assets/90959983/2783c824-20fa-4490-b893-cad158f00070">
